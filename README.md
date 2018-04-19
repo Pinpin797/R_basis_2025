@@ -38,4 +38,11 @@ Conversion of a fasta file into a GTF file
 - list as hashing table
 - regexp
 
+## session n+1
+Converting a nucleotide sequence into a protein sequence
+- load condon to AA table
+- build conversion function between codon and AA
+- build conversion function for a sequence function 
+- use list as hashing table
+
 
