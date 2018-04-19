@@ -11,3 +11,16 @@ In this session we play-back the steps of the creation of an Exel table
 - data.frame : dim, ncol, nrow
 - matrix
 - list
+
+## session 2
+In this session we extract the list of differentillay expressed genes from a
+DESeq2 .csv output. We then extract only the up-regulated and down-regulated
+genes.
+
+- load a table: read.table, read.csv
+- columns selection : boolean vector
+- lines selection : boolean vector
+- write a .csv and .Rdata file
+- path, working-directory, and .Rhistory file
+
+
