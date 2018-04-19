@@ -33,3 +33,9 @@ In this session we counts the nucleotides in a sequences
 - code wrapping within function
 - script
 
+## session n
+Conversion of a fasta file into a GTF file
+- list as hashing table
+- regexp
+
+
