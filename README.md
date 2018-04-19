@@ -23,4 +23,13 @@ genes.
 - write a .csv and .Rdata file
 - path, working-directory, and .Rhistory file
 
+## session 3
+In this session we counts the nucleotides in a sequences
+
+- load .Rdata object with the sequence
+- transformation between vector and string : split
+- loop
+- simple conditional testing : if else
+- code wrapping within function
+- script
 
