@@ -1,11 +1,22 @@
 # R formation
 
-## session 1
+## Session 1
+Introduction to R and RStudio
+- R introduction
+- RStudio interface
+- numerical operation
+- data structure
+- functions
+- R packages
+- Examples
+
+## Session 2
+Introduction to tidyverse
 In this session we play-back the steps of the creation of an Exel table 
 
 - numerical variable creation
-- numerical opperations
-- string creatation
+- numerical operations
+- string creation
 - variable concatenation and variable type: paste0, typeof
 - vector : lenght, head, summary
 - data.frame : dim, ncol, nrow
@@ -13,7 +24,7 @@ In this session we play-back the steps of the creation of an Exel table
 - list
 
 ## session 2
-In this session we extract the list of differentillay expressed genes from a
+In this session we extract the list of differentially expressed genes from a
 DESeq2 .csv output. We then extract only the up-regulated and down-regulated
 genes.
 
@@ -40,7 +51,7 @@ Conversion of a fasta file into a GTF file
 
 ## session n+1
 Converting a nucleotide sequence into a protein sequence
-- load condon to AA table
+- load codon to AA table
 - build conversion function between codon and AA
 - build conversion function for a sequence function 
 - use list as hashing table
