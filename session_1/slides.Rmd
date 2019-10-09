@@ -11,7 +11,7 @@ output:
     highlight: tango
     latex_engine: xelatex
 ---
-
+## R#1: Introduction to R and RStudio
 The goal of this practical is to familiarize yourself with R and the RStudio
 environment.
 
@@ -24,12 +24,13 @@ The objectives of this session will be to:
 - Call functions
 - Manage packages
 
----
+## Acknowledgments
 
 \begin{columns}
   \begin{column}{0.5\textwidth}
     \includegraphics[width=\textwidth]{img/software_carpentry_logo}
     {\bf https://software-carpentry.org/}
+    http://swcarpentry.github.io/r-novice-gapminder/
   \end{column}
   \begin{column}{0.5\textwidth}
     \includegraphics[width=\textwidth]{img/r_for_data_science.png}
@@ -42,8 +43,7 @@ The objectives of this session will be to:
 is a programming language and free software environment for statistical
 computing and graphics supported by the *R Foundation for Statistical Computing*.
 
----
-
+# Some R background
 
 \includegraphics[width=40pt]{img/Rlogo.png}
 
@@ -52,8 +52,7 @@ computing and graphics supported by the *R Foundation for Statistical Computing*
 - free and open source implementation the S programming language
 - currently developed by the **R Development Core Team**.
 
----
-
+# Some R background
 
 Reasons to use \includegraphics[width=40pt]{img/Rlogo.png}
 
@@ -61,11 +60,11 @@ Reasons to use \includegraphics[width=40pt]{img/Rlogo.png}
 - it has a large (and growing) user base among scientists
 - it has a large library of external packages available for performing diverse tasks. 
 
-- 15,068 available packages on https://cran.r-project.org/
-- 3,087available packages on http://www.bioconductor.org
-- 122,720 available repository on https://github.com/
+- **15,068** available packages on https://cran.r-project.org/
+- **3,087** available packages on http://www.bioconductor.org
+- **122,720** available repository on https://github.com/
 
----
+# Some R background
 
 \includegraphics[width=\textwidth]{img/R_terminal.png}
 
@@ -87,6 +86,173 @@ software development
 
 \includegraphics[width=\textwidth]{img/RStudio_console.png}
 
+# R as a calculator
+
+- Add: `+`
+- Divide: `/`
+- Multiply: `*`
+- Subtract: `-`
+- Exponents: `^` or `**`
+- Parentheses: `(`, `)`
+
+# R as a calculator
+
+```R
+1 + 100
+1 +
+```
+
+\pause
+
+```R
+3 + 5 * 2
+```
+
+```R
+(3 + 5) * 2
+```
+
+\pause
+
+```R
+(3 + (5 * (2 ^ 2))) # hard to read
+3 + 5 * 2 ^ 2       # clear, if you remember the rules
+3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
+```
+
+\pause
+
+```R
+2/10000
+```
+
+\pause
+
+`2e-4` is shorthand for `2 * 10^(-4)`
+
+```R
+5e3
+```
+
+## Mathematical functions
+
+```R
+log(1)  # natural logarithm
+```
+
+\pause
+
+```R
+log10(10) # base-10 logarithm
+```
+
+\pause
+
+```R
+exp(0.5)
+```
+
+\pause
+
+```R
+factorial(9)
+```
+
+## Comparing things
+
+equality (note two equals signs, read as "is equal to")
+```R
+1 == 1
+```
+\pause
+
+inequality (read as "is not equal to")
+```R
+1 != 2 
+```
+\pause
+
+less than
+```R
+1 < 2
+```
+\pause
+
+less than or equal to
+```R
+1 <= 1
+```
+\pause
+
+greater than
+```R
+1 > 0
+```
+
+## Variables and assignment
+
+`<-` is the assignment operator in R. (read as left member take right member value)
+
+```R
+x <- 1/40
+```
+
+```R
+x
+```
+
+## The environment
+
+\includegraphics[width=\textwidth]{img/RStudio_environment.png}
+
+## Variables and assignment
+
+```R
+log(x)
+x <- 100
+log(x)
+```
+\pause
+
+```R
+x <- x + 1
+y <- x * 2
+```
+
+## Variables and assignment
+
+Variable names can contain letters, numbers, underscores and periods.
+
+They cannot start with a number nor contain spaces at all.
+
+Different people use different conventions for long variable names, these include
+
+```R
+periods.between.words
+underscores_between_words
+camelCaseToSeparateWords
+```
+
+What you use is up to you, but be consistent.
+
+\pause
+It is also possible to use the `=` operator for assignment but don't do it !
+
+## Variables and assignment
+
+Which of the following are valid R variable names?
+
+```
+min_height
+max.height
+_age
+.mass
+MaxLength
+min-length
+2widths
+celsius2kelvin
+```
+
 ## A code editor
 
 \includegraphics[width=\textwidth]{img/RStudio_editor.png}
@@ -101,9 +267,6 @@ RStudio offers you great flexibility in running code from within the editor wind
 
 If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Re-run the previous region. This will run the previous code block including the modifications you have made.
 
-## The environment
-
-\includegraphics[width=\textwidth]{img/RStudio_environment.png}
 
 ## Various outpus
 
