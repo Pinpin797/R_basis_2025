@@ -1,0 +1,6 @@
+base_test <- function(x, base){
+  log_result <- logarithm(x, base=base)
+  exp_result <- base^log_result
+  test_result <- x == exp_result
+  return(test_result)
+}

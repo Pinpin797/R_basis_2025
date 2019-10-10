@@ -1,0 +1,10 @@
+base_test <- function(x, base){
+  print(x)
+  log_result <- logarithm(x, base=base)
+  print(log_result)
+  exp_result <- base^log_result
+  print(exp_result)
+  print(x)
+  test_result <- isTRUE(all.equal(x, exp_result))
+  return(test_result)
+}

@@ -1,0 +1,3 @@
+base_test <- function(x, base){
+  return(isTRUE(all.equal(x, base^logarithm(x, base=base))))
+}
