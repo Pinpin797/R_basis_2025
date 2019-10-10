@@ -47,16 +47,16 @@ computing and graphics supported by the *R Foundation for Statistical Computing*
 
 \includegraphics[width=40pt]{img/Rlogo.png}
 
-- created by **Ross Ihaka** and **Robert Gentleman**
+- Created by **Ross Ihaka** and **Robert Gentleman**
 - initial version released in 1995
-- free and open source implementation the S programming language
+- free and open-source implementation the S programming language
 - currently developed by the **R Development Core Team**.
 
 # Some R background
 
 Reasons to use \includegraphics[width=40pt]{img/Rlogo.png}
 
-- it’s free, well-documented, and runs almost everywhere
+- It’s free, well documented, and runs almost everywhere
 - it has a large (and growing) user base among scientists
 - it has a large library of external packages available for performing diverse tasks. 
 
@@ -164,7 +164,7 @@ factorial(9)
 
 ## Comparing things
 
-equality (note two equals signs, read as "is equal to")
+equality (note two equal signs read as "is equal to")
 ```R
 1 == 1
 ```
@@ -247,7 +247,7 @@ camelCaseToSeparateWords
 What you use is up to you, but be consistent.
 
 \pause
-It is also possible to use the `=` operator for assignment but **don't do it !**
+It is also possible to use the `=` operator for assignment but **don’t do it !**
 
 ## Variables and assignment
 
@@ -280,14 +280,13 @@ A R function can have different arguments
 function (x, base = exp(1))
 ```
 
-- `base` is a named argument
-- argument are read from left to right
+- `base` is a named argument  are read from left to right
 - named arguments breaks the reading order
 - named arguments make your code more readable
 
 \pause
 
-To know more about the `log` function we can read it's manual
+To know more about the `log` function we can read its manual.
 
 ```R
 help(log)
@@ -299,7 +298,7 @@ help(log)
 ?log
 ```
 
-## Various outpus
+## Various output
 
 \includegraphics[width=\textwidth]{img/RStudio_outputs.png}
 
@@ -401,7 +400,7 @@ RStudio offers you great flexibility in running code from within the editor wind
 - select “Run Lines” from the “Code” menu, or
 - hit Ctrl+Return in Windows or Linux or Cmd+Return on OS X. To run a block of code, select it and then Run. 
 
-If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Re-run the previous region. This will run the previous code block including the modifications you have made.
+If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
 
 ## A code editor
 
