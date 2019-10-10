@@ -154,6 +154,10 @@ exp(0.5)
 
 \pause
 
+Compute the factorial of `9`
+
+\pause
+
 ```R
 factorial(9)
 ```
@@ -219,6 +223,13 @@ x <- x + 1
 y <- x * 2
 ```
 
+\pause
+
+```R
+z <- "x"
+x + z
+```
+
 ## Variables and assignment
 
 Variable names can contain letters, numbers, underscores and periods.
@@ -236,7 +247,7 @@ camelCaseToSeparateWords
 What you use is up to you, but be consistent.
 
 \pause
-It is also possible to use the `=` operator for assignment but don't do it !
+It is also possible to use the `=` operator for assignment but **don't do it !**
 
 ## Variables and assignment
 
@@ -253,22 +264,290 @@ min-length
 celsius2kelvin
 ```
 
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_a**
+
+## Functions are also variables
+
+```R
+logarithm <- log
+```
+
+\pause
+
+A R function can have different arguments
+
+```R
+function (x, base = exp(1))
+```
+
+- `base` is a named argument
+- argument are read from left to right
+- named arguments breaks the reading order
+- named arguments make your code more readable
+
+\pause
+
+To know more about the `log` function we can read it's manual
+
+```R
+help(log)
+```
+
+\pause
+
+```R
+?log
+```
+
+## Various outpus
+
+\includegraphics[width=\textwidth]{img/RStudio_outputs.png}
+
+## Functions are also variables
+
+Test that your `logarithm` function can work in base 10
+
+\pause
+
+```R
+10^logarithm(12, base = 10)
+```
+
+## Functions are also variables
+
+We can also define our own function with
+```R
+function_name <- function(a, b){
+  result_1 <- operation1(a, b)
+  result_2 <- operation2(result_1, b)
+  return(result_2)
+}
+```
+
+\pause
+
+write a function to test the base of the logarithm function
+
+\pause
+
+```R
+base_test <- function(x, base){
+  log_result <- logarithm(x, base=base)
+  exp_result <- base^log_result
+  test_result <- x == exp_result
+  return(test_result)
+}
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_b**
+
+## Functions are also variables
+
+```R
+base_test <- function(x, base){
+  print(x)
+  log_result <- logarithm(x, base=base)
+  print(log_result)
+  exp_result <- base^log_result
+  print(exp_result)
+  print(x)
+  test_result <- x == exp_result
+  return(test_result)
+}
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_c**
+
+## Functions are also variables
+
+```R
+base_test <- function(x, base){
+  print(x)
+  log_result <- logarithm(x, base=base)
+  print(log_result)
+  exp_result <- base^log_result
+  print(exp_result)
+  print(x)
+  test_result <- isTRUE(all.equal(x, exp_result))
+  return(test_result)
+}
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_d**
+
+## Functions are also variables
+
+```R
+base_test <- function(x, base){
+  return(isTRUE(all.equal(x, base^logarithm(x, base=base))))
+}
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_e**
+
+## The environment
+
+\includegraphics[width=\textwidth]{img/RStudio_environment.png}
+
 ## A code editor
 
 \includegraphics[width=\textwidth]{img/RStudio_editor.png}
 
----
+## A code editor
 
 RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
 
 - click on the Run button above the editor panel, or
 - select “Run Lines” from the “Code” menu, or
-- hit Ctrl+Return in Windows or Linux or ⌘+Return on OS X. To run a block of code, select it and then Run. 
+- hit Ctrl+Return in Windows or Linux or Cmd+Return on OS X. To run a block of code, select it and then Run. 
 
 If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Re-run the previous region. This will run the previous code block including the modifications you have made.
 
+## A code editor
 
-## Various outpus
+Copy your `logarithm` and `base_test` into a `tp_1.R` file
+
+\pause
+
+We can now clean your environment
+
+```R
+rm(x)
+```
+
+\pause
+
+```R
+?rm
+```
+
+\pause
+
+```R
+ls()
+```
+
+\pause
+
+```R
+rm(list = ls())
+```
+
+## Installing packages
+
+```R
+install.packages("tidyverse")
+```
+
+```R
+install.packages("ggplot2")
+```
+
+## Installing packages
 
 \includegraphics[width=\textwidth]{img/RStudio_outputs.png}
+
+## Loading packages
+
+```R
+sessionInfo()
+```
+
+\pause
+
+```R
+library(tidyverse)
+```
+
+\pause
+
+```R
+sessionInfo()
+```
+
+\pause
+
+```R
+unloadNamespace("tidyverse")
+```
+
+\pause
+
+```R
+sessionInfo()
+```
+
+# Complex variable type
+
+## Vector (aka list)
+
+```R
+c(1, 2, 3, 4, 5)
+```
+
+\pause
+
+```R
+1:5
+```
+
+\pause
+
+```R
+2^(1:5)
+```
+
+\pause
+
+```R
+x <- 1:5
+2^x
+```
+
+\pause
+
+```R
+log(x)
+logarithm(x)
+base_test(x, base = 10)
+```
+
+## Vector (aka list)
+
+```R
+typeof(x)
+```
+
+\pause
+
+```R
+typeof(x + 0.5)
+```
+
+\pause
+
+```R
+is.vector(x)
+```
+
+\pause
+
+```R
+y <- c(a = 1, b = 2, c = 3, d = 4, e = 5)
+typeof(y)
+is.vector(y)
+```
+
+\pause
+
+```R
+x == y
+```
+
+\pause
+
+```R
+all.equal(x, y)
+```
+
 
