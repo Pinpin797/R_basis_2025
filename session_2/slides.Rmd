@@ -1,0 +1,251 @@
+---
+title: "R#2: introduction to Tidyverse"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "24 Oct 2019"
+output:
+  beamer_presentation:
+    theme: metropolis
+    slide_level: 3
+    fig_caption: no
+    df_print: tibble
+    highlight: tango
+    latex_engine: xelatex
+  slidy_presentation:
+    highlight: tango
+---
+
+```{r setup, include=FALSE, cache=TRUE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+tmp <- tempfile(fileext = ".zip")
+download.file("http://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip",
+              tmp,
+              quiet = TRUE)
+unzip(tmp, exdir = "data-raw")
+read_csv("data-raw/vehicles.csv") %>%
+  select(
+    "id",
+    "make",
+    "model",
+    "year",
+    "VClass",
+    "trany",
+    "drive",
+    "cylinders",
+    "displ",
+    "fuelType",
+    "highway08",
+    "city08"
+  ) %>% 
+  rename(
+    "class" = "VClass",
+    "trans" = "trany",
+    "drive" = "drive",
+    "cyl" = "cylinders",
+    "displ" = "displ",
+    "fuel" = "fuelType",
+    "hwy" = "highway08",
+    "cty" = "city08"
+  ) %>%
+  filter(drive != "") %>%
+  drop_na() %>% 
+  arrange(make, model, year) %>%
+  write_csv("2_data.csv")
+```
+
+## Tidyverse
+
+The tidyverse is a collection of R packages designed for data science.
+
+All packages share an underlying design philosophy, grammar, and data structures.
+
+```{r install_tidyverse, cache = TRUE, eval = FALSE}
+install.packages("tidyverse")
+```
+
+```{r load_tidyverse, cache = TRUE}
+library("tidyverse")
+```
+
+
+## Toy data set `mpg`
+
+This dataset contains a subset of the fuel economy data that the EPA makes available on **http://fueleconomy.gov**. It contains only models which had a new release every year between 1999 and 2008.
+
+
+```{r mpg_inspect, cache = TRUE, eval=FALSE}
+?mpg
+mpg
+dim(mpg)
+View(mpg)
+```
+
+## Updated version of the data
+
+`mpg` is loaded with tidyverse, we want to be able to read our own data from
+**http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv**
+
+```{r mpg_download, cache=TRUE, message=FALSE}
+new_mpg <- read_csv(
+  "http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv"
+  )
+```
+
+## First plot with `ggplot2`
+
+Relationship between engine size `displ` and fuel efficiency `hwy`.
+```{r new_mpg_plot_a, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = new_mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+## Composition of plot with `ggplot2`
+
+Composition of plot with `ggplot2`
+
+```R
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+- you begin a plot with the function `ggplot()`
+- you complete your graph by adding one or more layers
+- `geom_point()` adds a layer with a scatterplot
+- each geom function in `ggplot2` takes a `mapping` argument
+- the `mapping` argument is always paired with `aes()`
+
+
+## First challenge
+
+- Run `ggplot(data = new_mpg)`. What do you see?
+- How many rows are in `new_mpg`? How many columns?
+- What does the `cty` variable describe? Read the help for `?mpg` to find out.
+- Make a scatterplot of `hwy` vs `cyl`.
+- What happens if you make a scatterplot of `class` vs `drive`? Why is the plot not useful?
+
+### Run `ggplot(data = mpg)`. What do you see?
+
+```{r empty_plot, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = new_mpg)
+```
+
+### How many rows are in `new_mpg`? How many columns?
+
+```{r size_of_mpg, cache = TRUE, fig.width=8, fig.height=4.5}
+new_mpg
+```
+
+### Make a scatterplot of `hwy` vs `cyl`.
+
+```{r new_mpg_plot_b, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = new_mpg) + 
+  geom_point(mapping = aes(x = hwy, y = cyl))
+```
+
+### What happens if you make a scatterplot of `class` vs `drive`?
+Why is the plot not useful?
+
+```{r new_mpg_plot_c, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = new_mpg) + 
+  geom_point(mapping = aes(x = class, y = drive))
+```
+
+## Aesthetic mappings
+
+
+```{r new_mpg_plot_b, cache = TRUE, fig.width=8, fig.height=4.5}
+new_mpg %>% pull(class) %>% as.factor() %>% levels()
+c(
+  "Compact Cars",
+  "Large Cars",
+  "Midsize Cars",
+  "Midsize Station Wagons",
+  "Midsize-Large Station Wagons",
+  "Minicompact Cars",
+  "Minivan - 2WD",
+  "Minivan - 4WD",
+  "Small Pickup Trucks",
+  "Small Pickup Trucks 2WD",
+  "Small Pickup Trucks 4WD",
+  "Small Sport Utility Vehicle 2WD",
+  "Small Sport Utility Vehicle 4WD",
+  "Small Station Wagons",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle 2WD",
+  "Special Purpose Vehicle 4WD",
+  "Special Purpose Vehicles",
+  "Special Purpose Vehicles/2wd",
+  "Special Purpose Vehicles/4wd",
+  "Sport Utility Vehicle - 2WD",
+  "Sport Utility Vehicle - 4WD",
+  "Standard Pickup Trucks",
+  "Standard Pickup Trucks 2WD",
+  "Standard Pickup Trucks 4WD",
+  "Standard Pickup Trucks/2wd",
+  "Standard Sport Utility Vehicle 2WD",
+  "Standard Sport Utility Vehicle 4WD",
+  "Subcompact Cars",
+  "Two Seaters",
+  "Vans",
+  "Vans Passenger",
+  "Vans, Cargo Type",
+  "Vans, Passenger Type"
+)
+new_class_level <- c(
+  "Compact Cars",
+  "Large Cars",
+  "Midsize Cars",
+  "Midsize Cars",
+  "Midsize Cars",
+  "Compact Cars",
+  "Minivan",
+  "Minivan",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Sport Utility Vehicle",
+  "Sport Utility Vehicle",
+  "Compact Cars",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Sport Utility Vehicle",
+  "Sport Utility Vehicle",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Sport Utility Vehicle",
+  "Sport Utility Vehicle",
+  "Compact Cars",
+  "Two Seaters",
+  "Vans",
+  "Vans",
+  "Vans",
+  "Vans"
+)
+new_mpg %>% pull(fuel) %>% as.factor() %>% levels()
+new_fuel_level <- c(
+  "gas",
+  "Diesel",
+  "Regular",
+  "gas",
+  "gas",
+  "Regular",
+  "Regular",
+  "Hybrid",
+  "Hybrid",
+  "Regular",
+  "Regular",
+  "Hybrid",
+  "Hybrid"
+)
+new_mpg %>%
+  mutate(class = factor(as.factor(class), labels = new_class_level)) %>%
+  mutate(fuel = factor(as.factor(fuel), labels = new_fuel_level)) %>%
+ggplot() + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
