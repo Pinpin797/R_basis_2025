@@ -185,8 +185,8 @@ ggplot(data = <DATA>) +
 - Run `ggplot(data = new_mpg)`. What do you see?
 - How many rows are in `new_mpg`? How many columns?
 - What does the `cty` variable describe? Read the help for `?mpg` to find out.
-- Make a scatterplot of `hwy` vs `cyl`.
-- What happens if you make a scatterplot of `class` vs `drive`? Why is the plot not useful?
+- Make a scatterplot of `hwy` vs. `cyl`.
+- What happens if you make a scatterplot of `class` vs. `drive`? Why is the plot not useful?
 
 ### Run `ggplot(data = mpg)`. What do you see?
 
@@ -200,14 +200,14 @@ ggplot(data = new_mpg)
 new_mpg
 ```
 
-### Make a scatterplot of `hwy` vs `cyl`.
+### Make a scatterplot of `hwy` vs. `cyl`.
 
 ```{r new_mpg_plot_b, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = new_mpg) + 
   geom_point(mapping = aes(x = hwy, y = cyl))
 ```
 
-### What happens if you make a scatterplot of `class` vs `drive`?
+### What happens if you make a scatterplot of `class` vs. `drive`?
 Why is the plot not useful?
 
 ```{r new_mpg_plot_c, cache = TRUE, fig.width=8, fig.height=4.5}
@@ -226,7 +226,7 @@ ggplot(data = mpg) +
              mapping = aes(x = displ, y = hwy), color = "red")
 ```
 
-###  Aesthetic mappings `color`
+###  Aesthetic mapping `color`
 
 ```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg) + 
@@ -244,21 +244,21 @@ Try the following aesthetic:
 - `alpha`
 - `shape`
 
-###  Aesthetic mappings `size`
+###  Aesthetic mapping `size`
 
 ```{r new_mpg_plot_f, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, size = class))
 ```
 
-###  Aesthetic mappings `alpha`
+###  Aesthetic mapping `alpha`
 
 ```{r new_mpg_plot_g, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
 ```
 
-###  Aesthetic mappings `shape`
+###  Aesthetic mapping `shape`
 
 ```{r new_mpg_plot_h, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg) + 
@@ -385,7 +385,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 - What does `show.legend = FALSE` do?
 - What does the `se` argument to `geom_smooth()` do?
 
-## Fird challenge
+## Third challenge
 
 - Recreate the R code necessary to generate the following graph
 
@@ -395,7 +395,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
   geom_smooth(mapping = aes(linetype = drv))
 ```
 
-## Fird challenge
+## Third challenge
 
 ```{r new_mpg_plot_v, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 

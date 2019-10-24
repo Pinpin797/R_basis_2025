@@ -114,7 +114,7 @@ base_test <- function(x, base){
 
 RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
 
-- click on the Run button above the editor panel, or
+- Click on the Run button above the editor panel, or
 - select “Run Lines” from the “Code” menu, or
 - hit Ctrl+Return in Windows or Linux or Cmd+Return on OS X. To run a block of code, select it and then Run. 
 
@@ -281,7 +281,7 @@ all.equal(x, y)
 ## Vector challenge
 
 - use the `seq()` function to create a vector of even numbers
-- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integer with a vector of the first 5 letter of the alphabet.
+- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integers with a vector of the first 5 letters of the alphabet.
 - Check the default vectors `letters` and `LETTERS`, rewrite your previous command using them.
 - Create a vector giving you the correspondence between small case letters and upper case letters.
 
@@ -291,7 +291,7 @@ all.equal(x, y)
 ```R
 seq(from=2, to=10, by=2)
 ```
-- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integer with a vector of the first 5 letter of the alphabet. What is the type of this vector.
+- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.
 - Check the default vectors `letters` and `LETTERS`, rewrite your previous command using them.
 - Create a vector giving you the correspondence between small case letters and upper case letters.
 
@@ -301,14 +301,14 @@ seq(from=2, to=10, by=2)
 ```R
 seq(from=2, to=10, by=2)
 ```
-- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integer with a vector of the first 5 letter of the alphabet. What is the type of this vector.
+- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.
 - Check the default vectors `letters` and `LETTERS`, rewrite your previous command using them.
 - Create a vector giving you the correspondence between small case letters and upper case letters.
 
 ### Vector challenge
 
 - use the `seq()` function to create a vector of even numbers
-- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integer with a vector of the first 5 letter of the alphabet. What is the type of this vector.
+- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.
 ```R
 c(1:5, "a", "b", "c")
 typeof(c(1:5, "a", "b", "c"))
@@ -319,7 +319,7 @@ typeof(c(1:5, "a", "b", "c"))
 ### Vector challenge
 
 - use the `seq()` function to create a vector of even numbers
-- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integer with a vector of the first 5 letter of the alphabet. What is the type of this vector.
+- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.
 - Check the default vectors `letters` and `LETTERS`, rewrite your previous command using them.
 ```R
 c(1:5, letters[1:3])
@@ -329,7 +329,7 @@ c(1:5, letters[1:3])
 ### Vector challenge
 
 - use the `seq()` function to create a vector of even numbers
-- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integer with a vector of the first 5 letter of the alphabet. What is the type of this vector.
+- You can concatenate vector with `c(<VECTOR_1>, <VECTOR_2>)`, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.
 - Check the default vectors `letters` and `LETTERS`, rewrite your previous command using them.
 - Create a vector giving you the correspondence between small case letters and upper case letters.
 ```R
