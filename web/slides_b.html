@@ -444,198 +444,271 @@ Laurent Modolo <a href="mailto:laurent.modolo@ens-lyon.fr">laurent.modolo@ens-ly
 <li>Call functions</li>
 <li>Manage packages</li>
 </ul>
+<p><strong><a href="http://perso.ens-lyon.fr/laurent.modolo/R/session_1_a" class="uri">http://perso.ens-lyon.fr/laurent.modolo/R/session_1_a</a></strong></p>
+<p>Press <strong>[alt] + [shift] + k</strong></p>
 </div>
-<div id="acknowledgments" class="slide section level2">
-<h1>Acknowledgments</h1>
+<div id="functions-are-also-variables" class="slide section level2">
+<h1>Functions are also variables</h1>
+<p>We can also define our own function with</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">&lt;</span>FUNCTION_NAME<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="cf">function</span>(a, b){</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="op">&lt;</span>RESULT_<span class="dv">1</span><span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="er">&lt;</span>OPERATION_<span class="dv">1</span><span class="op">&gt;</span>(a, b)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="op">&lt;</span>RESULT_<span class="dv">2</span><span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="er">&lt;</span>OPERATION_<span class="dv">2</span><span class="op">&gt;</span>(<span class="op">&lt;</span>RESULT_<span class="dv">1</span><span class="op">&gt;</span>, b)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="kw">return</span>(<span class="op">&lt;</span>RESULT_<span class="dv">2</span><span class="op">&gt;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>}</span></code></pre></div>
 
+<p>write a function to test the base of the logarithm function</p>
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>base_test &lt;-<span class="st"> </span><span class="cf">function</span>(x, base){</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  log_result &lt;-<span class="st"> </span><span class="kw">logarithm</span>(x, <span class="dt">base=</span>base)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  exp_result &lt;-<span class="st"> </span>base<span class="op">^</span>log_result</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  test_result &lt;-<span class="st"> </span>x <span class="op">==</span><span class="st"> </span>exp_result</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="kw">return</span>(test_result)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>}</span></code></pre></div>
+<p><strong><a href="http://perso.ens-lyon.fr/laurent.modolo/R/1_b" class="uri">http://perso.ens-lyon.fr/laurent.modolo/R/1_b</a></strong></p>
 </div>
-<div id="some-r-background" class="slide section level2">
-<h1>Some R background</h1>
-<p> is a programming language and free software environment for statistical computing and graphics supported by the <em>R Foundation for Statistical Computing</em>.</p>
+<div id="functions-are-also-variables-1" class="slide section level2">
+<h1>Functions are also variables</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>base_test &lt;-<span class="st"> </span><span class="cf">function</span>(x, base){</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  log_result &lt;-<span class="st"> </span><span class="kw">logarithm</span>(x, <span class="dt">base=</span>base)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="kw">print</span>(log_result)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  exp_result &lt;-<span class="st"> </span>base<span class="op">^</span>log_result</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="kw">print</span>(exp_result)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  test_result &lt;-<span class="st"> </span>x <span class="op">==</span><span class="st"> </span>exp_result</span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="kw">return</span>(test_result)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>}</span></code></pre></div>
+<p><strong><a href="http://perso.ens-lyon.fr/laurent.modolo/R/1_c" class="uri">http://perso.ens-lyon.fr/laurent.modolo/R/1_c</a></strong></p>
 </div>
-<div id="some-r-background-1" class="slide section level2">
-<h1>Some R background</h1>
-<p></p>
-<ul>
-<li>Created by <strong>Ross Ihaka</strong> and <strong>Robert Gentleman</strong></li>
-<li>initial version released in 1995</li>
-<li>free and open-source implementation the S programming language</li>
-<li>currently developed by the <strong>R Development Core Team</strong>.</li>
-</ul>
+<div id="functions-are-also-variables-2" class="slide section level2">
+<h1>Functions are also variables</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>base_test &lt;-<span class="st"> </span><span class="cf">function</span>(x, base){</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  log_result &lt;-<span class="st"> </span><span class="kw">logarithm</span>(x, <span class="dt">base=</span>base)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="kw">print</span>(log_result)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>  exp_result &lt;-<span class="st"> </span>base<span class="op">^</span>log_result</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="kw">print</span>(exp_result)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>  test_result &lt;-<span class="st"> </span><span class="kw">isTRUE</span>(<span class="kw">all.equal</span>(x, exp_result))</span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="kw">return</span>(test_result)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>}</span></code></pre></div>
+<p><strong><a href="http://perso.ens-lyon.fr/laurent.modolo/R/1_d" class="uri">http://perso.ens-lyon.fr/laurent.modolo/R/1_d</a></strong></p>
 </div>
-<div id="some-r-background-2" class="slide section level2">
-<h1>Some R background</h1>
-<p>Reasons to use </p>
-<ul>
-<li><p>It’s free, well documented, and runs almost everywhere</p></li>
-<li><p>it has a large (and growing) user base among scientists</p></li>
-<li><p>it has a large library of external packages available for performing diverse tasks.</p></li>
-<li><p><strong>15,068</strong> available packages on <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a></p></li>
-<li><p><strong>3,087</strong> available packages on <a href="http://www.bioconductor.org" class="uri">http://www.bioconductor.org</a></p></li>
-<li><p><strong>122,720</strong> available repository on <a href="https://github.com/" class="uri">https://github.com/</a></p></li>
-</ul>
-</div>
-<div id="some-r-background-3" class="slide section level2">
-<h1>Some R background</h1>
-<p></p>
-</div>
-<div id="rstudio-the-r-ide" class="slide section level2">
-<h1>RStudio, the R IDE</h1>
-
-<ul>
-<li>free</li>
-<li>open source</li>
-</ul>
-</div>
-<div id="an-interface" class="slide section level2">
-<h1>An interface</h1>
-<p></p>
-</div>
-<div id="the-same-console-as-before" class="slide section level2">
-<h1>The same console as before</h1>
-<p></p>
-</div>
-<div id="r-as-a-calculator" class="slide section level2">
-<h1>R as a calculator</h1>
-<ul>
-<li>Add: <code>+</code></li>
-<li>Divide: <code>/</code></li>
-<li>Multiply: <code>*</code></li>
-<li>Subtract: <code>-</code></li>
-<li>Exponents: <code>^</code> or <code>**</code></li>
-<li>Parentheses: <code>(</code>, <code>)</code></li>
-</ul>
-</div>
-<div id="r-as-a-calculator-1" class="slide section level2">
-<h1>R as a calculator</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">100</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="dv">1</span> <span class="op">+</span></span></code></pre></div>
-
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>(<span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>) <span class="op">*</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
-
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>(<span class="dv">3</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span>))) <span class="co"># hard to read</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span>       <span class="co"># clear, if you remember the rules</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span>)     <span class="co"># if you forget some rules, this might help</span></span></code></pre></div>
-
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="dv">2</span><span class="op">/</span><span class="dv">10000</span></span></code></pre></div>
-
-<p><code>2e-4</code> is shorthand for <code>2 * 10^(-4)</code></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fl">5e3</span></span></code></pre></div>
-</div>
-<div id="mathematical-functions" class="slide section level2">
-<h1>Mathematical functions</h1>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">log</span>(<span class="dv">1</span>)  <span class="co"># natural logarithm</span></span></code></pre></div>
-
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">log10</span>(<span class="dv">10</span>) <span class="co"># base-10 logarithm</span></span></code></pre></div>
-
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">exp</span>(<span class="fl">0.5</span>)</span></code></pre></div>
-
-<p>Compute the factorial of <code>9</code></p>
-
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">factorial</span>(<span class="dv">9</span>)</span></code></pre></div>
-</div>
-<div id="comparing-things" class="slide section level2">
-<h1>Comparing things</h1>
-<p>equality (note two equal signs read as “is equal to”)</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="dv">1</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span></code></pre></div>
-
-<p>inequality (read as “is not equal to”)</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="dv">1</span> <span class="op">!=</span><span class="st"> </span><span class="dv">2</span> </span></code></pre></div>
-
-<p>less than</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="dv">1</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
-
-<p>less than or equal to</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="dv">1</span> <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span></span></code></pre></div>
-
-<p>greater than</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="dv">1</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span></span></code></pre></div>
-</div>
-<div id="variables-and-assignment" class="slide section level2">
-<h1>Variables and assignment</h1>
-<p><code>&lt;-</code> is the assignment operator in R. (read as left member take right member value)</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">40</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>x</span></code></pre></div>
+<div id="functions-are-also-variables-3" class="slide section level2">
+<h1>Functions are also variables</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>base_test &lt;-<span class="st"> </span><span class="cf">function</span>(x, base){</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="kw">return</span>(<span class="kw">isTRUE</span>(<span class="kw">all.equal</span>(x, base<span class="op">^</span><span class="kw">logarithm</span>(x, <span class="dt">base=</span>base))))</span>
+<span id="cb5-3"><a href="#cb5-3"></a>}</span></code></pre></div>
+<p><strong><a href="http://perso.ens-lyon.fr/laurent.modolo/R/1_e" class="uri">http://perso.ens-lyon.fr/laurent.modolo/R/1_e</a></strong></p>
 </div>
 <div id="the-environment" class="slide section level2">
 <h1>The environment</h1>
 <p></p>
 </div>
-<div id="variables-and-assignment-1" class="slide section level2">
-<h1>Variables and assignment</h1>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">log</span>(x)</span>
-<span id="cb18-2"><a href="#cb18-2"></a>x &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="kw">log</span>(x)</span></code></pre></div>
-
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>y &lt;-<span class="st"> </span>x <span class="op">*</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
-
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>z &lt;-<span class="st"> &quot;x&quot;</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>x <span class="op">+</span><span class="st"> </span>z</span></code></pre></div>
-</div>
-<div id="variables-and-assignment-2" class="slide section level2">
-<h1>Variables and assignment</h1>
-<p>Variable names can contain letters, numbers, underscores and periods.</p>
-<p>They cannot start with a number nor contain spaces at all.</p>
-<p>Different people use different conventions for long variable names, these include</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>periods.between.words</span>
-<span id="cb21-2"><a href="#cb21-2"></a>underscores_between_words</span>
-<span id="cb21-3"><a href="#cb21-3"></a>camelCaseToSeparateWords</span></code></pre></div>
-<p>What you use is up to you, but be consistent.</p>
-
-<p>It is also possible to use the <code>=</code> operator for assignment but <strong>don’t do it !</strong></p>
-</div>
-<div id="variables-and-assignment-3" class="slide section level2">
-<h1>Variables and assignment</h1>
-<p>Which of the following are valid R variable names?</p>
-<pre><code>min_height
-max.height
-_age
-.mass
-MaxLength
-min-length
-2widths
-celsius2kelvin</code></pre>
-<p><strong><a href="http://perso.ens-lyon.fr/laurent.modolo/R/1_a" class="uri">http://perso.ens-lyon.fr/laurent.modolo/R/1_a</a></strong></p>
-</div>
-<div id="functions-are-also-variables" class="slide section level2">
-<h1>Functions are also variables</h1>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>logarithm &lt;-<span class="st"> </span>log</span></code></pre></div>
-
-<p>A R function can have different arguments</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="cf">function</span> (x, <span class="dt">base =</span> <span class="kw">exp</span>(<span class="dv">1</span>))</span></code></pre></div>
-<ul>
-<li><code>base</code> is a named argument are read from left to right</li>
-<li>named arguments breaks the reading order</li>
-<li>named arguments make your code more readable</li>
-</ul>
-
-<p>To know more about the <code>log</code> function we can read its manual.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">help</span>(log)</span></code></pre></div>
-
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>?log</span></code></pre></div>
-</div>
-<div id="various-output" class="slide section level2">
-<h1>Various output</h1>
+<div id="a-code-editor" class="slide section level2">
+<h1>A code editor</h1>
 <p></p>
 </div>
-<div id="functions-are-also-variables-1" class="slide section level2">
-<h1>Functions are also variables</h1>
-<p>Test that your <code>logarithm</code> function can work in base 10</p>
-
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="dv">10</span><span class="op">^</span><span class="kw">logarithm</span>(<span class="dv">12</span>, <span class="dt">base =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div id="a-code-editor-1" class="slide section level2">
+<h1>A code editor</h1>
+<p>RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can</p>
+<ul>
+<li>Click on the Run button above the editor panel, or</li>
+<li>select “Run Lines” from the “Code” menu, or</li>
+<li>hit Ctrl+Return in Windows or Linux or Cmd+Return on OS X. To run a block of code, select it and then Run.</li>
+</ul>
+<p>If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.</p>
 </div>
-<div id="functions-are-also-variables-2" class="slide section level2">
-<h1>Functions are also variables</h1>
-<p>We can also define our own function with</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="op">&lt;</span>FUNCTION_NAME<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="cf">function</span>(a, b){</span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="op">&lt;</span>RESULT_<span class="dv">1</span><span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="er">&lt;</span>OPERATION_<span class="dv">1</span><span class="op">&gt;</span>(a, b)</span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="op">&lt;</span>RESULT_<span class="dv">2</span><span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="er">&lt;</span>OPERATION_<span class="dv">2</span><span class="op">&gt;</span>(<span class="op">&lt;</span>RESULT_<span class="dv">1</span><span class="op">&gt;</span>, b)</span>
-<span id="cb28-4"><a href="#cb28-4"></a>  <span class="kw">return</span>(<span class="op">&lt;</span>RESULT_<span class="dv">2</span><span class="op">&gt;</span>)</span>
-<span id="cb28-5"><a href="#cb28-5"></a>}</span></code></pre></div>
+<div id="a-code-editor-2" class="slide section level2">
+<h1>A code editor</h1>
+<p>Copy your <code>logarithm</code> and <code>base_test</code> into a <code>tp_1.R</code> file</p>
 
-<p>write a function to test the base of the logarithm function</p>
+<p>We can now clean your environment</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">rm</span>(x)</span></code></pre></div>
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>?rm</span></code></pre></div>
+
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">ls</span>()</span></code></pre></div>
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
+</div>
+<div id="installing-packages" class="slide section level2">
+<h1>Installing packages</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+</div>
+<div id="installing-packages-1" class="slide section level2">
+<h1>Installing packages</h1>
+<p></p>
+</div>
+<div id="loading-packages" class="slide section level2">
+<h1>Loading packages</h1>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">unloadNamespace</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+</div>
+<div id="complex-variable-type" class="slide section level2">
+<h1>Complex variable type</h1>
+</div>
+<div id="vector-aka-list" class="slide section level2">
+<h1>Vector (aka list)</h1>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span></code></pre></div>
+
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="dv">2</span><span class="op">^</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="dv">2</span><span class="op">^</span>x</span></code></pre></div>
+
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">log</span>(x)</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="kw">logarithm</span>(x)</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="kw">base_test</span>(x, <span class="dt">base =</span> <span class="dv">10</span>)</span></code></pre></div>
+</div>
+<div id="vector-aka-list-1" class="slide section level2">
+<h1>Vector (aka list)</h1>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">typeof</span>(x)</span></code></pre></div>
+
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">typeof</span>(x <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">is.vector</span>(x)</span></code></pre></div>
+
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">length</span>(x)</span></code></pre></div>
+
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>x[<span class="dv">5</span>]</span></code></pre></div>
+
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>, <span class="dt">d =</span> <span class="dv">4</span>, <span class="dt">e =</span> <span class="dv">5</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="kw">typeof</span>(y)</span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="kw">is.vector</span>(y)</span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="kw">names</span>(y)</span>
+<span id="cb27-5"><a href="#cb27-5"></a>y[<span class="dv">1</span>]</span>
+<span id="cb27-6"><a href="#cb27-6"></a>y[<span class="st">&quot;a&quot;</span>]</span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="kw">names</span>(y) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>x <span class="op">==</span><span class="st"> </span>y</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="kw">all.equal</span>(x, y)</span></code></pre></div>
+</div>
+<div id="vector-challenge" class="slide section level2">
+<h1>Vector challenge</h1>
+<ul>
+<li>use the <code>seq()</code> function to create a vector of even numbers</li>
+<li>You can concatenate vector with <code>c(&lt;VECTOR_1&gt;, &lt;VECTOR_2&gt;)</code>, concatenate a vector of integers with a vector of the first 5 letters of the alphabet.</li>
+<li>Check the default vectors <code>letters</code> and <code>LETTERS</code>, rewrite your previous command using them.</li>
+<li>Create a vector giving you the correspondence between small case letters and upper case letters.</li>
+</ul>
+</div>
+<div id="vector-challenge-1" class="slide section level2">
+<h1>Vector challenge</h1>
+<ul>
+<li>use the <code>seq()</code> function to create a vector of even numbers</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">2</span>, <span class="dt">to=</span><span class="dv">10</span>, <span class="dt">by=</span><span class="dv">2</span>)</span></code></pre></div>
+<ul>
+<li>You can concatenate vector with <code>c(&lt;VECTOR_1&gt;, &lt;VECTOR_2&gt;)</code>, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.</li>
+<li>Check the default vectors <code>letters</code> and <code>LETTERS</code>, rewrite your previous command using them.</li>
+<li>Create a vector giving you the correspondence between small case letters and upper case letters.</li>
+</ul>
+</div>
+<div id="vector-challenge-2" class="slide section level2">
+<h1>Vector challenge</h1>
+<ul>
+<li>use the <code>seq()</code> function to create a vector of even numbers</li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">2</span>, <span class="dt">to=</span><span class="dv">10</span>, <span class="dt">by=</span><span class="dv">2</span>)</span></code></pre></div>
+<ul>
+<li>You can concatenate vector with <code>c(&lt;VECTOR_1&gt;, &lt;VECTOR_2&gt;)</code>, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.</li>
+<li>Check the default vectors <code>letters</code> and <code>LETTERS</code>, rewrite your previous command using them.</li>
+<li>Create a vector giving you the correspondence between small case letters and upper case letters.</li>
+</ul>
+</div>
+<div id="vector-challenge-3" class="slide section level2">
+<h1>Vector challenge</h1>
+<ul>
+<li>use the <code>seq()</code> function to create a vector of even numbers</li>
+<li>You can concatenate vector with <code>c(&lt;VECTOR_1&gt;, &lt;VECTOR_2&gt;)</code>, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</span></code></pre></div>
+<ul>
+<li>Check the default vectors <code>letters</code> and <code>LETTERS</code>, rewrite your previous command using them.</li>
+<li>Create a vector giving you the correspondence between small case letters and upper case letters.</li>
+</ul>
+</div>
+<div id="vector-challenge-4" class="slide section level2">
+<h1>Vector challenge</h1>
+<ul>
+<li>use the <code>seq()</code> function to create a vector of even numbers</li>
+<li>You can concatenate vector with <code>c(&lt;VECTOR_1&gt;, &lt;VECTOR_2&gt;)</code>, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.</li>
+<li>Check the default vectors <code>letters</code> and <code>LETTERS</code>, rewrite your previous command using them.</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</span></code></pre></div>
+<ul>
+<li>Create a vector giving you the correspondence between small case letters and upper case letters.</li>
+</ul>
+</div>
+<div id="vector-challenge-5" class="slide section level2">
+<h1>Vector challenge</h1>
+<ul>
+<li>use the <code>seq()</code> function to create a vector of even numbers</li>
+<li>You can concatenate vector with <code>c(&lt;VECTOR_1&gt;, &lt;VECTOR_2&gt;)</code>, concatenate a vector of integers with a vector of the first 5 letters of the alphabet. What is the type of this vector.</li>
+<li>Check the default vectors <code>letters</code> and <code>LETTERS</code>, rewrite your previous command using them.</li>
+<li>Create a vector giving you the correspondence between small case letters and upper case letters.</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>rosette &lt;-<span class="st"> </span>LETTERS</span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="kw">names</span>(rosette) &lt;-<span class="st"> </span>letters</span>
+<span id="cb33-3"><a href="#cb33-3"></a>rosette[<span class="st">&quot;b&quot;</span>]</span>
+<span id="cb33-4"><a href="#cb33-4"></a>rosette[<span class="dv">13</span>]</span></code></pre></div>
+</div>
+<div id="matrix" class="slide section level2">
+<h1>Matrix</h1>
+<p>In R matrix are two dimensional vectors</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>matrix_example &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span>(<span class="dv">6</span><span class="op">*</span><span class="dv">3</span>), <span class="dt">ncol=</span><span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">3</span>)</span>
+<span id="cb34-2"><a href="#cb34-2"></a>matrix_example</span></code></pre></div>
+
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">class</span>(matrix_example)</span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="kw">nrow</span>(matrix_example)</span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="kw">ncol</span>(matrix_example)</span></code></pre></div>
+
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>matrix_example[<span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
+</div>
+<div id="dataframe" class="slide section level2">
+<h1>DataFrame</h1>
+<p>In R <code>data.frame</code> are table type with mixed type</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>data_frame_example &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">numbers=</span><span class="dv">1</span><span class="op">:</span><span class="dv">26</span>, <span class="dt">letters=</span>letters, <span class="dt">LETTERS=</span>LETTERS)</span>
+<span id="cb37-2"><a href="#cb37-2"></a>data_frame_example</span></code></pre></div>
+
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">class</span>(data_frame_example)</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="kw">nrow</span>(data_frame_example)</span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="kw">ncol</span>(data_frame_example)</span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="kw">names</span>(data_frame_example)</span></code></pre></div>
+
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>data_frame_example[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb39-2"><a href="#cb39-2"></a>data_frame_example[<span class="st">&quot;numbers&quot;</span>]</span></code></pre></div>
+</div>
+<div id="list" class="slide section level2">
+<h1>List</h1>
+<p>In R <code>list</code> are multitypes object</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">list</span>(<span class="dt">a =</span> <span class="st">&quot;test&quot;</span>, <span class="dt">b =</span> <span class="dv">1</span>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">list</span>(<span class="dt">a =</span> <span class="st">&quot;test&quot;</span>, <span class="dt">b =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>z &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="dt">a =</span> <span class="st">&quot;test&quot;</span>,</span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="dt">b =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
+<span id="cb42-4"><a href="#cb42-4"></a>  <span class="dt">c =</span> <span class="kw">data.frame</span>(<span class="dt">numbers=</span><span class="dv">1</span><span class="op">:</span><span class="dv">26</span>, <span class="dt">letters=</span>letters, <span class="dt">LETTERS=</span>LETTERS)</span>
+<span id="cb42-5"><a href="#cb42-5"></a>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">list</span>(</span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="dt">a =</span> <span class="st">&quot;test&quot;</span>,</span>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="dt">b =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
+<span id="cb43-4"><a href="#cb43-4"></a>  <span class="dt">c =</span> z</span>
+<span id="cb43-5"><a href="#cb43-5"></a>)</span></code></pre></div>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

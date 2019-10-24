@@ -3,6 +3,8 @@ title: 'R#1: Introduction to R and RStudio'
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "10 Oct 2019"
 output:
+  slidy_presentation:
+    highlight: tango
   beamer_presentation:
     theme: metropolis
     slide_level: 3
@@ -10,8 +12,6 @@ output:
     df_print: tibble
     highlight: tango
     latex_engine: xelatex
-  slidy_presentation:
-    highlight: tango
 ---
 ## R#1: Introduction to R and RStudio
 The goal of this practical is to familiarize yourself with R and the RStudio
@@ -39,13 +39,13 @@ The objectives of this session will be to:
   \end{column}
 \end{columns}
 
-# Some R background
+## Some R background
 
 \includegraphics[width=40pt]{img/Rlogo.png}
 is a programming language and free software environment for statistical
 computing and graphics supported by the *R Foundation for Statistical Computing*.
 
-# Some R background
+## Some R background
 
 \includegraphics[width=40pt]{img/Rlogo.png}
 
@@ -54,7 +54,7 @@ computing and graphics supported by the *R Foundation for Statistical Computing*
 - free and open-source implementation the S programming language
 - currently developed by the **R Development Core Team**.
 
-# Some R background
+## Some R background
 
 Reasons to use \includegraphics[width=40pt]{img/Rlogo.png}
 
@@ -66,11 +66,11 @@ Reasons to use \includegraphics[width=40pt]{img/Rlogo.png}
 - **3,087** available packages on http://www.bioconductor.org
 - **122,720** available repository on https://github.com/
 
-# Some R background
+## Some R background
 
 \includegraphics[width=\textwidth]{img/R_terminal.png}
 
-# RStudio, the R IDE
+## RStudio, the R IDE
 
 \begin{block}{IDR: Integrated development environment}
 application that provides {\bf comprehensive facilities} to computer programmers for
@@ -88,7 +88,7 @@ software development
 
 \includegraphics[width=\textwidth]{img/RStudio_console.png}
 
-# R as a calculator
+## R as a calculator
 
 - Add: `+`
 - Divide: `/`
@@ -97,7 +97,7 @@ software development
 - Exponents: `^` or `**`
 - Parentheses: `(`, `)`
 
-# R as a calculator
+## R as a calculator
 
 ```R
 1 + 100

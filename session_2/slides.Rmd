@@ -3,6 +3,8 @@ title: "R#2: introduction to Tidyverse"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "24 Oct 2019"
 output:
+  slidy_presentation:
+    highlight: tango
   beamer_presentation:
     theme: metropolis
     slide_level: 3
@@ -10,8 +12,6 @@ output:
     df_print: tibble
     highlight: tango
     latex_engine: xelatex
-  slidy_presentation:
-    highlight: tango
 ---
 
 ```{r setup, include=FALSE, cache=TRUE}
@@ -188,26 +188,26 @@ ggplot(data = <DATA>) +
 - Make a scatterplot of `hwy` vs. `cyl`.
 - What happens if you make a scatterplot of `class` vs. `drive`? Why is the plot not useful?
 
-### Run `ggplot(data = mpg)`. What do you see?
+## Run `ggplot(data = mpg)`. What do you see?
 
 ```{r empty_plot, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = new_mpg)
 ```
 
-### How many rows are in `new_mpg`? How many columns?
+## How many rows are in `new_mpg`? How many columns?
 
 ```{r size_of_mpg, cache = TRUE, fig.width=8, fig.height=4.5}
 new_mpg
 ```
 
-### Make a scatterplot of `hwy` vs. `cyl`.
+## Make a scatterplot of `hwy` vs. `cyl`.
 
 ```{r new_mpg_plot_b, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = new_mpg) + 
   geom_point(mapping = aes(x = hwy, y = cyl))
 ```
 
-### What happens if you make a scatterplot of `class` vs. `drive`?
+## What happens if you make a scatterplot of `class` vs. `drive`?
 Why is the plot not useful?
 
 ```{r new_mpg_plot_c, cache = TRUE, fig.width=8, fig.height=4.5}
@@ -226,15 +226,14 @@ ggplot(data = mpg) +
              mapping = aes(x = displ, y = hwy), color = "red")
 ```
 
-###  Aesthetic mapping `color`
+##  Aesthetic mapping `color`
 
 ```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-
-###  Aesthetic mappings
+##  Aesthetic mappings
 
 `ggplot2` will automatically assign a unique level of the aesthetic (here a unique color) to each unique value of the variable, a process known as scaling. `ggplot2` will also add a legend that explains which levels correspond to which values.
 
@@ -244,28 +243,28 @@ Try the following aesthetic:
 - `alpha`
 - `shape`
 
-###  Aesthetic mapping `size`
+##  Aesthetic mapping `size`
 
 ```{r new_mpg_plot_f, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, size = class))
 ```
 
-###  Aesthetic mapping `alpha`
+##  Aesthetic mapping `alpha`
 
 ```{r new_mpg_plot_g, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
 ```
 
-###  Aesthetic mapping `shape`
+##  Aesthetic mapping `shape`
 
 ```{r new_mpg_plot_h, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, shape = class))
 ```
 
-###  Aesthetic
+##  Aesthetic
 
 You can also set the aesthetic properties of your geom manually. For example, we can make all of the points in our plot blue:
 
@@ -295,6 +294,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy)) + 
   facet_wrap(~class)
 ```
+
 ## Facets
 
 ```{r new_mpg_plot_k, cache = TRUE, fig.width=8, fig.height=4.5}
