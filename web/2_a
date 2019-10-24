@@ -1,0 +1,3 @@
+new_mpg <- read_csv(
+  "http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv"
+)
