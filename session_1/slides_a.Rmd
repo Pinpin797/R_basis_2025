@@ -3,8 +3,6 @@ title: 'R#1: Introduction to R and RStudio'
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "10 Oct 2019"
 output:
-  slidy_presentation:
-    highlight: tango
   beamer_presentation:
     theme: metropolis
     slide_level: 3
@@ -12,6 +10,8 @@ output:
     df_print: tibble
     highlight: tango
     latex_engine: xelatex
+  slidy_presentation:
+    highlight: tango
 ---
 ## R#1: Introduction to R and RStudio
 The goal of this practical is to familiarize yourself with R and the RStudio
@@ -318,10 +318,10 @@ Test that your `logarithm` function can work in base 10
 
 We can also define our own function with
 ```R
-function_name <- function(a, b){
-  result_1 <- operation1(a, b)
-  result_2 <- operation2(result_1, b)
-  return(result_2)
+<FUNCTION_NAME> <- function(a, b){
+  <RESULT_1> <- <OPERATION_1>(a, b)
+  <RESULT_2> <- <OPERATION_2>(<RESULT_1>, b)
+  return(<RESULT_2>)
 }
 ```
 
