@@ -1,0 +1,98 @@
+---
+title: "R#3: stats with ggplot2"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "08 Nov 2019"
+output:
+  beamer_presentation:
+    theme: metropolis
+    slide_level: 3
+    fig_caption: no
+    df_print: tibble
+    highlight: tango
+    latex_engine: xelatex
+  slidy_presentation:
+    highlight: tango
+---
+
+```{r setup, include=FALSE, cache=TRUE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+## R#3: stats with ggplot2
+The goal of this practical is to practices advanced features of `ggplot2`.
+
+The objectives of this session will be to:
+- learn about statistical transformations
+- practices position adjustments
+- change the coordinate systems
+
+## `ggplot2` statistical transformations
+
+We are going to use the `diamonds` data set included in `tidyverse`.
+
+- Use the `help` and `View` command to explore this data set.
+- Try the `str` command, which information are displayed ?
+
+## `ggplot2` statistical transformations
+
+```{r diamonds_barplot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+```
+
+More diamonds are available with high quality cuts.
+
+## `ggplot2` statistical transformations
+
+On the x-axis, the chart displays cut, a variable from diamonds. On the y-axis, it displays count, but count is not a variable in diamonds!
+
+The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation. The figure below describes how this process works with `geom_bar()`.
+
+\includegraphics[width=\textwidth]{img/visualization-stat-bar.png}
+
+## `ggplot2` statistical transformations
+
+You can generally use geoms and stats interchangeably. For example, you can recreate the previous plot using `stat_count()` instead of `geom_bar()`:
+
+```{r diamonds_stat_count, eval=FALSE, message=FALSE}
+ggplot(data = diamonds) + 
+  stat_count(mapping = aes(x = cut))
+```
+
+## `ggplot2` statistical transformations
+
+Every geom has a default stat; and every stat has a default geom. This means that you can typically use geoms without worrying about the underlying statistical transformation. There are three reasons you might need to use a stat explicitly:
+
+- You might want to override the default stat. **3_a**
+- You might want to override the default mapping from transformed variables to aesthetics. **3_b**
+- You might want to draw greater attention to the statistical transformation in your code. **3_c**
+
+## Statistical transformation challenge
+
+- What does `geom_col()` do? How is it different to `geom_bar()`?
+- What variables does `stat_smooth()` compute? What parameters control its behaviour?
+- In our proportion bar chart, we need to set `group = 1`. Why? In other words what is the problem with these two graphs?
+
+```{r diamonds_stats_challenge, eval=FALSE, message=FALSE}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop..))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
+```
+
+## Position adjustments
+You can colour a bar chart using either the `colour` aesthetic, or, more usefully, `fill`:
+
+```{r diamonds_barplot_color, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, colour = cut))
+```
+
+## Position adjustments
+You can colour a bar chart using either the `colour` aesthetic, or, more usefully, `fill`:
+
+```{r diamonds_barplot_fill, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut))
+```

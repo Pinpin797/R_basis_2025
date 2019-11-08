@@ -1,0 +1,4 @@
+# you might want to display a bar chart of proportion, rather than count:
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
