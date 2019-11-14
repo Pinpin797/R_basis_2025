@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+session_*/*.html
+session_*/*.pdf
+session_*/*.log
+session_*/slides_cache
+session_*/slides_files
+*.Rproj
+

@@ -1,0 +1,552 @@
+---
+title: "R#1: Introduction to R and RStudio"
+author: Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)
+date: 10 Oct 2019
+output:
+  beamer_presentation:
+    theme: "metropolis"
+    slide_level: 3
+    fig_caption: false
+    df_print: tibble
+    highlight: tango
+    latex_engine: xelatex
+---
+## R#1: Introduction to R and RStudio
+The goal of this practical is to familiarize yourself with R and the RStudio
+environment.
+
+The objectives of this session will be to:
+
+- Understand the purpose of each pane in RStudio
+- Do basic computation with R
+- Define variables and assign data to variables
+- Manage a workspace in R
+- Call functions
+- Manage packages
+
+## Acknowledgments
+
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{img/software_carpentry_logo}
+    {\bf https://software-carpentry.org/}
+    http://swcarpentry.github.io/r-novice-gapminder/
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{img/r_for_data_science.png}
+  \end{column}
+\end{columns}
+
+# Some R background
+
+\includegraphics[width=40pt]{img/Rlogo.png}
+is a programming language and free software environment for statistical
+computing and graphics supported by the *R Foundation for Statistical Computing*.
+
+# Some R background
+
+\includegraphics[width=40pt]{img/Rlogo.png}
+
+- Created by **Ross Ihaka** and **Robert Gentleman**
+- initial version released in 1995
+- free and open-source implementation the S programming language
+- currently developed by the **R Development Core Team**.
+
+# Some R background
+
+Reasons to use \includegraphics[width=40pt]{img/Rlogo.png}
+
+- It’s free, well documented, and runs almost everywhere
+- it has a large (and growing) user base among scientists
+- it has a large library of external packages available for performing diverse tasks. 
+
+- **15,068** available packages on https://cran.r-project.org/
+- **3,087** available packages on http://www.bioconductor.org
+- **122,720** available repository on https://github.com/
+
+# Some R background
+
+\includegraphics[width=\textwidth]{img/R_terminal.png}
+
+# RStudio, the R IDE
+
+\begin{block}{IDR: Integrated development environment}
+application that provides {\bf comprehensive facilities} to computer programmers for
+software development
+\end{block}
+
+- free
+- open source
+
+## An interface
+
+\includegraphics[width=\textwidth]{img/RStudio.png}
+
+## The same console as before
+
+\includegraphics[width=\textwidth]{img/RStudio_console.png}
+
+# R as a calculator
+
+- Add: `+`
+- Divide: `/`
+- Multiply: `*`
+- Subtract: `-`
+- Exponents: `^` or `**`
+- Parentheses: `(`, `)`
+
+# R as a calculator
+
+```R
+1 + 100
+1 +
+```
+
+\pause
+
+```R
+3 + 5 * 2
+```
+
+```R
+(3 + 5) * 2
+```
+
+\pause
+
+```R
+(3 + (5 * (2 ^ 2))) # hard to read
+3 + 5 * 2 ^ 2       # clear, if you remember the rules
+3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
+```
+
+\pause
+
+```R
+2/10000
+```
+
+\pause
+
+`2e-4` is shorthand for `2 * 10^(-4)`
+
+```R
+5e3
+```
+
+## Mathematical functions
+
+```R
+log(1)  # natural logarithm
+```
+
+\pause
+
+```R
+log10(10) # base-10 logarithm
+```
+
+\pause
+
+```R
+exp(0.5)
+```
+
+\pause
+
+Compute the factorial of `9`
+
+\pause
+
+```R
+factorial(9)
+```
+
+## Comparing things
+
+equality (note two equal signs read as "is equal to")
+```R
+1 == 1
+```
+\pause
+
+inequality (read as "is not equal to")
+```R
+1 != 2 
+```
+\pause
+
+less than
+```R
+1 < 2
+```
+\pause
+
+less than or equal to
+```R
+1 <= 1
+```
+\pause
+
+greater than
+```R
+1 > 0
+```
+
+## Variables and assignment
+
+`<-` is the assignment operator in R. (read as left member take right member value)
+
+```R
+x <- 1/40
+```
+
+```R
+x
+```
+
+## The environment
+
+\includegraphics[width=\textwidth]{img/RStudio_environment.png}
+
+## Variables and assignment
+
+```R
+log(x)
+x <- 100
+log(x)
+```
+\pause
+
+```R
+x <- x + 1
+y <- x * 2
+```
+
+\pause
+
+```R
+z <- "x"
+x + z
+```
+
+## Variables and assignment
+
+Variable names can contain letters, numbers, underscores and periods.
+
+They cannot start with a number nor contain spaces at all.
+
+Different people use different conventions for long variable names, these include
+
+```R
+periods.between.words
+underscores_between_words
+camelCaseToSeparateWords
+```
+
+What you use is up to you, but be consistent.
+
+\pause
+It is also possible to use the `=` operator for assignment but **don’t do it !**
+
+## Variables and assignment
+
+Which of the following are valid R variable names?
+
+```
+min_height
+max.height
+_age
+.mass
+MaxLength
+min-length
+2widths
+celsius2kelvin
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_a**
+
+## Functions are also variables
+
+```R
+logarithm <- log
+```
+
+\pause
+
+A R function can have different arguments
+
+```R
+function (x, base = exp(1))
+```
+
+- `base` is a named argument  are read from left to right
+- named arguments breaks the reading order
+- named arguments make your code more readable
+
+\pause
+
+To know more about the `log` function we can read its manual.
+
+```R
+help(log)
+```
+
+\pause
+
+```R
+?log
+```
+
+## Various output
+
+\includegraphics[width=\textwidth]{img/RStudio_outputs.png}
+
+## Functions are also variables
+
+Test that your `logarithm` function can work in base 10
+
+\pause
+
+```R
+10^logarithm(12, base = 10)
+```
+
+## Functions are also variables
+
+We can also define our own function with
+```R
+function_name <- function(a, b){
+  result_1 <- operation1(a, b)
+  result_2 <- operation2(result_1, b)
+  return(result_2)
+}
+```
+
+\pause
+
+write a function to test the base of the logarithm function
+
+\pause
+
+```R
+base_test <- function(x, base){
+  log_result <- logarithm(x, base=base)
+  exp_result <- base^log_result
+  test_result <- x == exp_result
+  return(test_result)
+}
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_b**
+
+## Functions are also variables
+
+```R
+base_test <- function(x, base){
+  print(x)
+  log_result <- logarithm(x, base=base)
+  print(log_result)
+  exp_result <- base^log_result
+  print(exp_result)
+  print(x)
+  test_result <- x == exp_result
+  return(test_result)
+}
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_c**
+
+## Functions are also variables
+
+```R
+base_test <- function(x, base){
+  print(x)
+  log_result <- logarithm(x, base=base)
+  print(log_result)
+  exp_result <- base^log_result
+  print(exp_result)
+  print(x)
+  test_result <- isTRUE(all.equal(x, exp_result))
+  return(test_result)
+}
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_d**
+
+## Functions are also variables
+
+```R
+base_test <- function(x, base){
+  return(isTRUE(all.equal(x, base^logarithm(x, base=base))))
+}
+```
+
+**http://perso.ens-lyon.fr/laurent.modolo/R/1_e**
+
+## The environment
+
+\includegraphics[width=\textwidth]{img/RStudio_environment.png}
+
+## A code editor
+
+\includegraphics[width=\textwidth]{img/RStudio_editor.png}
+
+## A code editor
+
+RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
+
+- click on the Run button above the editor panel, or
+- select “Run Lines” from the “Code” menu, or
+- hit Ctrl+Return in Windows or Linux or Cmd+Return on OS X. To run a block of code, select it and then Run. 
+
+If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
+
+## A code editor
+
+Copy your `logarithm` and `base_test` into a `tp_1.R` file
+
+\pause
+
+We can now clean your environment
+
+```R
+rm(x)
+```
+
+\pause
+
+```R
+?rm
+```
+
+\pause
+
+```R
+ls()
+```
+
+\pause
+
+```R
+rm(list = ls())
+```
+
+## Installing packages
+
+```R
+install.packages("tidyverse")
+```
+
+```R
+install.packages("ggplot2")
+```
+
+## Installing packages
+
+\includegraphics[width=\textwidth]{img/RStudio_outputs.png}
+
+## Loading packages
+
+```R
+sessionInfo()
+```
+
+\pause
+
+```R
+library(tidyverse)
+```
+
+\pause
+
+```R
+sessionInfo()
+```
+
+\pause
+
+```R
+unloadNamespace("tidyverse")
+```
+
+\pause
+
+```R
+sessionInfo()
+```
+
+# Complex variable type
+
+## Vector (aka list)
+
+```R
+c(1, 2, 3, 4, 5)
+```
+
+\pause
+
+```R
+1:5
+```
+
+\pause
+
+```R
+2^(1:5)
+```
+
+\pause
+
+```R
+x <- 1:5
+2^x
+```
+
+\pause
+
+```R
+log(x)
+logarithm(x)
+base_test(x, base = 10)
+```
+
+## Vector (aka list)
+
+```R
+typeof(x)
+```
+
+\pause
+
+```R
+typeof(x + 0.5)
+```
+
+\pause
+
+```R
+is.vector(x)
+```
+
+\pause
+
+```R
+y <- c(a = 1, b = 2, c = 3, d = 4, e = 5)
+typeof(y)
+is.vector(y)
+```
+
+\pause
+
+```R
+x == y
+```
+
+\pause
+
+```R
+all.equal(x, y)
+```
+
+

@@ -1,0 +1,15 @@
+demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
+
+# (Don’t worry that you haven’t seen <- or tribble() before. You might be able
+# to guess at their meaning from the context, and you’ll learn exactly what
+# they do soon!)
