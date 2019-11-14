@@ -222,14 +222,23 @@ ggplot(data = mpg) +
 
 ## Coordinate systems
 
-```{r mpg_jitter_quickmap, cache = TRUE, fig.width=4.5, fig.height=3.5, message=FALSE}
+```{r mpg_jitter_quickmap, cache = TRUE, fig.width=3.5, fig.height=3.5, message=FALSE}
 ggplot(data = mpg) + 
   geom_jitter(mapping = aes(x = cty, y = hwy)) +
   coord_quickmap()
 ```
 
 ## Coordinate systems
-```{r diamonds_bar_polar, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+
+```{r mpg_jitter_log, cache = TRUE, fig.width=8.5, fig.height=3.5, message=FALSE}
+ggplot(data = mpg) + 
+  geom_jitter(mapping = aes(x = cty, y = hwy)) +
+  scale_y_log10() +
+  scale_x_log10()
+```
+
+## Coordinate systems
+```{r diamonds_bar_polar, cache = TRUE, fig.width=5, fig.height=3.5, message=FALSE}
 bar + coord_polar()
 ```
 
