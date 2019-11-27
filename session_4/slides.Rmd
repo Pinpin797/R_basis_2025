@@ -3,8 +3,6 @@ title: "R#4: data transformation"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "08 Nov 2019"
 output:
-  slidy_presentation:
-    highlight: tango
   beamer_presentation:
     theme: metropolis
     slide_level: 3
@@ -12,6 +10,8 @@ output:
     df_print: tibble
     highlight: tango
     latex_engine: xelatex
+  slidy_presentation:
+    highlight: tango
 ---
 ```{r setup, include=FALSE, cache=TRUE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -277,7 +277,7 @@ filter(flights_md, most_delay < 10)
 
 ## Combining multiple operations with the pipe
 
-We don't want to create useless intermediate variables so we can use the pipe opperator: `%>%`
+We don't want to create useless intermediate variables so we can use the pipe operator: `%>%`
 (`ctrl + shift + M`).
 
 ```{r pipe_example_a, eval=F, message=F, cache=T}
@@ -289,7 +289,7 @@ flights_md <- arrange(flights_md, most_delay)
 
 ## Combining multiple operations with the pipe
 
-We don't want to create useless intermediate variables so we can use the pipe opperator: `%>%`
+We don't want to create useless intermediate variables so we can use the pipe operator: `%>%`
 (`ctrl + shift + M`).
 
 ```{r pipe_example_b, eval=F, message=F, cache=T}
@@ -303,7 +303,7 @@ flights %>%
 
 Behind the scenes, `x %>% f(y)` turns into `f(x, y)`, and `x %>% f(y) %>% g(z)` turns into `g(f(x, y), z)` and so on. You can use the pipe to rewrite multiple operations in a way that you can read left-to-right, top-to-bottom. 
 
-You can access the transmited variables with `.`
+You can access the transmitted variables with `.`
 
 ```{r pipe_example_c, eval=F, message=F, cache=T}
 flights %>%
