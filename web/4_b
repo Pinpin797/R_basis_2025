@@ -1,0 +1,7 @@
+mutate(
+  flights,
+  dep_time = (dep_time %/% 100) * 60 +
+    dep_time %% 100,
+  sched_dep_time = (sched_dep_time %/% 100) * 60 +
+    sched_dep_time %% 100
+)

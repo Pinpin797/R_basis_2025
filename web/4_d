@@ -1,0 +1,2 @@
+flights_md <- mutate(flights, most_delay = min_rank(desc(dep_delay)))
+filter(flights_md, most_delay < 10)
