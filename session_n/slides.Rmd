@@ -1,0 +1,290 @@
+---
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "08 Nov 2019"
+output:
+  beamer_presentation:
+    theme: metropolis
+    slide_level: 2
+    fig_caption: no
+    df_print: tibble
+    highlight: tango
+    latex_engine: xelatex
+  slidy_presentation:
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R Markdown
+
+R Markdown provides an unified authoring framework for data science, combining your code, its results, and your prose commentary. R Markdown documents are fully reproducible and support dozens of output formats, like PDFs, Word files, slideshows, and more.
+
+You need the `rmarkdown` package, but you don’t need to explicitly install it or load it, as RStudio automatically does both when needed.
+
+
+```{r logical_operator, echo=FALSE, out.width='100%'}
+knitr::include_graphics('img/rmarkdownflow.png')
+```
+
+## R Markdown
+
+R Markdown files are designed to be used in three ways:
+
+- For communicating to decision makers, who want to focus on the conclusions, not the code behind the analysis.
+- For collaborating with other data scientists (including future you!), who are interested in both your conclusions, and how you reached them ( i.e. the code).
+- As an environment in which to do data science, as a modern day lab notebook where you can capture not only what you did, but also what you were thinking.
+
+## Markdown language
+Text formatting
+
+`*italic*`  or `_italic_`
+
+- *italic*  or _italic_
+
+`**bold**`   `__bold__`
+
+- **bold**   __bold__
+
+`` `code` ``
+
+- `code`
+
+`superscript^2^` and `subscript~2~`
+
+- superscript^2^ and subscript~2~
+
+## Markdown language
+
+Headings
+```
+# 1st Level Header
+
+## 2nd Level Header
+
+### 3rd Level Header
+```
+
+## Markdown language
+Lists
+
+```
+*   Bulleted list item 1
+*   Item 2
+    * Item 2a
+    * Item 2b
+
+1.  Numbered list item 1
+1.  Item 2. The numbers are incremented automatically in the
+    output.
+```
+
+## Markdown language
+Links and images
+
+```
+<http://example.com>
+
+[linked phrase](http://example.com)
+
+![optional caption text](path/to/img.png)
+```
+
+## Markdown language
+Tables 
+
+```
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+```
+
+## Rmarkdown: markdown meet R
+
+**R code will be evaluated and printed**
+
+```` ```{r} ````
+```{r}`r ''`
+summary(cars$dist)
+```
+```` ``` ````
+
+
+```{r}
+summary(cars$dist)
+```
+
+## Rmarkdown: markdown meet R
+
+**Inline R Code**
+
+There were `` `r ``  `nrow(cars)` `` ` `` cars studied
+
+There were `r nrow(cars)` cars studied
+
+When inserting numbers into text use `format()`
+
+## Chunk options
+
+Chunk output can be customised with options, arguments supplied to chunk header. Knitr provides almost 60 options that you can use to customize your code chunks.
+
+Option             | Run code | Show code | Output | Plots | Messages | Warnings 
+-------------------|----------|-----------|--------|-------|----------|---------
+`eval = FALSE`     | -        |           | -      | -     | -        | -
+`include = FALSE`  |          | -         | -      | -     | -        | -
+`echo = FALSE`     |          | -         |        |       |          |
+`results = "hide"` |          |           | -      |       |          | 
+`fig.show = "hide"`|          |           |        | -     |          |
+`message = FALSE`  |          |           |        |       | -        |
+`warning = FALSE`  |          |           |        |       |          | -
+
+## Rmarkdown: `kable`
+
+The tables syntax is tedious to use...
+
+```
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+```
+
+\pause
+
+do it in R !
+
+```` ```{r kable} ````
+```{r}`r ''`
+knitr::kable(
+  mtcars[1:5, 1:5], 
+  caption = "A knitr kable."
+)
+```
+```` ``` ````
+
+## Rmarkdown: `kable`
+
+do it in R !
+
+```{r kable}
+knitr::kable(
+  mtcars[1:5, 1:5], 
+  caption = "A knitr kable."
+)
+```
+
+## Caching
+
+Each knit of a document starts from a completely clean slate.
+
+- This is great for reproducibility
+- ensures that you’ve captured every important computation in code.
+- can be painful if you have some computations that take a long time
+
+The solution is `cache = TRUE`
+
+## Caching
+
+```` ```{r raw_data} ````
+```{r}`r ''`
+rawdata <- readr::read_csv("a_very_large_file.csv")
+```
+```` ``` ````
+
+```` ```{r processed_data, cache = TRUE, dependson = "raw_data"} ````
+```{r}`r ''`
+processed_data <- rawdata %>% 
+  filter(!is.na(import_var)) %>% 
+  mutate(new_variable = complicated_transformation(x, y, z))
+```
+```` ``` ````
+
+## YAML Header
+
+You can control many “whole document” settings by tweaking the parameters of the YAML header
+
+```
+---
+author: "Laurent Modolo"
+date: "28 Nov 2019"
+output:
+  beamer_presentation:
+    theme: metropolis
+    highlight: tango
+    latex_engine: xelatex
+  slidy_presentation:
+    highlight: tango
+---
+```
+
+## Bibliographies and Citations
+
+Pandoc can automatically generate citations and a bibliography in a number of styles.
+
+```
+bibliography: rmarkdown.bib
+```
+
+You can change the style of your citations and bibliography by referencing a CSL (citation style language) file in the csl field:
+
+```
+bibliography: rmarkdown.bib
+csl: apa.csl
+```
+
+## Bibliographies and Citations
+
+User the bibtex key:
+```
+Blah blah [@smith04].
+```
+
+Separate multiple citations with a `;`:
+```
+Blah blah [@smith04; @doe99].
+```
+
+You can add arbitrary comments inside the square brackets: 
+```
+Blah blah [see @doe99, pp. 33-35; also @smith04, ch. 1].
+```
+
+Remove the square brackets to create an in-text citation:
+```
+says blah, or @smith04 [p. 33] says blah.
+```
+
+Add a `-` before the citation to suppress the author's name: 
+```
+Smith says blah [-@smith04].
+```
+
+## Rmarkdown is not just for R
+
+
+```` ```{bash} ````
+```
+ls -l
+```
+```` ``` ````
+
+```{bash}
+ls -l
+```
+
+## Rmarkdown is not just for R
+
+```` ```{python} ````
+```
+x = 1 ** 4
+print(x)
+```
+```` ``` ````
+
+```{python}
+x = 10 ** 4
+print(x)
+```
+
