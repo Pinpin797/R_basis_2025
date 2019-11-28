@@ -1,0 +1,306 @@
+---
+title: "R#5: data transformation"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "28 Nov 2019"
+output:
+  beamer_presentation:
+    theme: metropolis
+    slide_level: 3
+    fig_caption: no
+    df_print: tibble
+    highlight: tango
+    latex_engine: xelatex
+  slidy_presentation:
+    highlight: tango
+---
+
+```{r setup, include=FALSE, cache=TRUE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+## Grouped summaries with `summarise()`
+
+`summarise()` collapses a data frame to a single row:
+
+```{r load_data, eval=T, message=FALSE, cache=T}
+library(nycflights13)
+library(tidyverse)
+flights %>% 
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+```
+
+## The power of `summarise()` with `group_by()`
+
+This changes the unit of analysis from the complete dataset to individual groups. Then, when you use the `dplyr` verbs on a grouped data frame they’ll be automatically applied “by group”.
+
+
+```{r summarise_group_by, eval=T, message=FALSE, cache=T}
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+```
+
+**5_a**
+
+## Challenge with `summarise()` and `group_by()`
+
+Imagine that we want to explore the relationship between the distance and average delay for each location. 
+here are three steps to prepare this data: 
+
+- Group flights by destination.
+- Summarise to compute distance, average delay, and number of flights.
+- Filter to remove noisy points and Honolulu airport, which is almost twice as far away as the next closest airport.
+
+```{r summarise_group_by_ggplot_a, eval = F}
+flights %>% 
+  group_by(dest)
+```
+
+## Challenge with `summarise()` and `group_by()`
+
+Imagine that we want to explore the relationship between the distance and average delay for each location. 
+
+- Filter to remove noisy points and Honolulu airport, which is almost twice as far away as the next closest airport.
+
+```{r summarise_group_by_ggplot_b, eval = F}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  )
+```
+
+## Missing values
+
+You may have wondered about the na.rm argument we used above. What happens if we don’t set it?
+
+```{r summarise_group_by_NA, cache = TRUE, fig.width=8, fig.height=4.5, message = FALSE}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    dist = mean(distance),
+    delay = mean(arr_delay)
+  )
+```
+
+Aggregation functions obey the usual rule of missing values: if there’s any missing value in the input, the output will be a missing value.
+
+## Counts
+
+Whenever you do any aggregation, it’s always a good idea to include either a count (`n()`). That way you can check that you’re not drawing conclusions based on very small amounts of data.
+
+```{r summarise_group_by_count, cache = TRUE, fig.width=8, fig.height=4.5, message = FALSE}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  )
+```
+
+## Challenge with `summarise()` and `group_by()`
+
+Imagine that we want to explore the relationship between the distance and average delay for each location. 
+
+- Summarise to compute distance, average delay, and number of flights.
+- Filter to remove noisy points and Honolulu airport, which is almost twice as far away as the next closest airport.
+
+```{r summarise_group_by_ggplot_c, eval = F}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(count > 20, dest != "HNL")
+```
+
+## Challenge with `summarise()` and `group_by()`
+
+Imagine that we want to explore the relationship between the distance and average delay for each location. 
+
+```{r summarise_group_by_ggplot_d, eval = F}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(count > 20, dest != "HNL") %>% 
+  ggplot(mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+
+**5_b**
+
+## Challenge with `summarise()` and `group_by()`
+
+```{r summarise_group_by_ggplot, echo = FALSE, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(count > 20, dest != "HNL") %>% 
+  ggplot(mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+
+## Ungrouping
+
+
+If you need to remove grouping, and return to operations on ungrouped data, use `ungroup()`.
+
+```{r ungroup, eval=T, message=FALSE, cache=T}
+flights %>% 
+  group_by(year, month, day) %>% 
+  ungroup() %>%
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+```
+
+## Grouping challenges
+
+- Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay? (`strftime(x,'%A')` give you the name of the day from a POSIXct date)
+- Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarise(n())`)
+
+
+## Grouping challenges
+
+- Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay? (`strftime(x,'%A')` give you the name of the day from a POSIXct date)
+
+```{r grouping_challenges_a, eval=F, message=FALSE, cache=T}
+flights %>% 
+  mutate(
+    canceled = is.na(dep_time) | is.na(arr_time)
+  ) %>% 
+  mutate(wday = strftime(time_hour,'%A')) %>% 
+  group_by(wday) %>% 
+  summarise(
+    cancel_day = n()
+  ) %>%
+  ggplot(mapping = aes(x = wday, y = cancel_day)) +
+  geom_col()
+```
+
+**5_b**
+
+## Grouping challenges
+
+- Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay? (`strftime(x,'%A')` give you the name of the day from a POSIXct date)
+
+```{r grouping_challenges_b, eval=T, echo = F, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
+flights %>% 
+  mutate(
+    canceled = is.na(dep_time) | is.na(arr_time)
+  ) %>% 
+  mutate(wday = strftime(time_hour,'%A')) %>% 
+  group_by(wday) %>% 
+  summarise(
+    cancel_day = n()
+  ) %>%
+  ggplot(mapping = aes(x = wday, y = cancel_day)) +
+  geom_col()
+```
+
+## Grouping challenges
+
+- Which carrier has the worst delays?
+
+```{r grouping_challenges_c, eval=F, echo = T, message=FALSE, cache=T}
+flights %>% 
+  group_by(carrier) %>% 
+  summarise(
+    carrier_delay = mean(arr_delay, na.rm = T)
+  ) %>%
+  mutate(carrier = fct_reorder(carrier, carrier_delay)) %>%
+  ggplot(mapping = aes(x = carrier, y = carrier_delay)) +
+  geom_col(alpha = 0.5)
+```
+
+**5_c**
+
+## Grouping challenges
+
+- Which carrier has the worst delays?
+
+```{r grouping_challenges_d, eval=T, echo = F, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
+flights %>% 
+  group_by(carrier) %>% 
+  summarise(
+    carrier_delay = mean(arr_delay, na.rm = T)
+  ) %>%
+  mutate(carrier = fct_reorder(carrier, carrier_delay)) %>%
+  ggplot(mapping = aes(x = carrier, y = carrier_delay)) +
+  geom_col(alpha = 0.5)
+```
+
+## Grouped mutates (and filters)
+
+Grouping is also useful in conjunction with `mutate()` and `filter()`
+
+- Find all groups bigger than a threshold:
+- Standardise to compute per group metrics:
+
+```{r group_filter, eval=F}
+flights %>% 
+  group_by(dest, year) %>% 
+  filter(n() > 10000) %>% 
+  filter(arr_delay > 0) %>% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %>% 
+  select(year:day, dest, arr_delay, prop_delay)
+```
+
+## Goup by challenges
+
+- What time of day should you fly if you want to avoid delays as much as possible?
+
+```{r group_filter_a, eval=F}
+flights %>% 
+  group_by(hour) %>% 
+  summarise(
+    mean_delay = mean(arr_delay, na.rm = T),
+    sd_delay = sd(arr_delay, na.rm = T),
+  ) %>% 
+  ggplot() +
+  geom_errorbar(mapping = aes(
+    x = hour,
+    ymax = mean_delay + sd_delay,
+    ymin = mean_delay - sd_delay)) +
+  geom_point(mapping = aes(
+    x = hour,
+    y = mean_delay,
+  ))
+```
+**5_d**
+
+## Goup by challenges
+
+- What time of day should you fly if you want to avoid delays as much as possible?
+
+```{r group_filter_b, eval=T, echo = F, warning=F, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
+flights %>% 
+  group_by(hour) %>% 
+  summarise(
+    mean_delay = mean(arr_delay, na.rm = T),
+    sd_delay = sd(arr_delay, na.rm = T),
+  ) %>% 
+  ggplot() +
+  geom_errorbar(mapping = aes(
+    x = hour,
+    ymax = mean_delay + sd_delay,
+    ymin = mean_delay - sd_delay)) +
+  geom_point(mapping = aes(
+    x = hour,
+    y = mean_delay,
+  ))
+```

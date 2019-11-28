@@ -1,0 +1,15 @@
+flights %>% 
+  group_by(hour) %>% 
+  summarise(
+    mean_delay = mean(arr_delay, na.rm = T),
+    sd_delay = sd(arr_delay, na.rm = T),
+  ) %>% 
+  ggplot() +
+  geom_errorbar(mapping = aes(
+    x = hour,
+    ymax = mean_delay + sd_delay,
+    ymin = mean_delay - sd_delay)) +
+  geom_point(mapping = aes(
+    x = hour,
+    y = mean_delay,
+  ))

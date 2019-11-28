@@ -1,0 +1,8 @@
+flights %>% 
+  group_by(carrier) %>% 
+  summarise(
+    carrier_delay = mean(arr_delay, na.rm = T)
+  ) %>%
+  mutate(carrier = fct_reorder(carrier, carrier_delay)) %>%
+  ggplot(mapping = aes(x = carrier, y = carrier_delay)) +
+  geom_col(alpha = 0.5)
