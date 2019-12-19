@@ -1,0 +1,177 @@
+---
+title: "R#6: tidydata"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "19 Dec 2019"
+output:
+  slidy_presentation:
+    highlight: tango
+  beamer_presentation:
+    theme: metropolis
+    slide_level: 3
+    fig_caption: no
+    df_print: tibble
+    highlight: tango
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE, echo = F}
+library(tidyverse)
+library(nycflights13)
+flights2 <- flights %>% 
+  select(year:day, hour, origin, dest, tailnum, carrier)
+```
+
+## Tidydata
+
+There are three interrelated rules which make a dataset tidy:
+
+- Each variable must have its own column.
+- Each observation must have its own row.
+- Each value must have its own cell.
+
+```{r load_data, eval=T, message=T}
+library(tidyverse)
+```
+
+## pivot longer
+
+```{r table4a, eval=T, message=T}
+table4a # number of TB cases
+```
+
+## pivot longer
+
+```{r pivot_longer, eval=T, message=T}
+table4a %>% 
+  pivot_longer(-country,
+               names_to = "year",
+               values_to = "case")
+```
+
+## pivot wider 
+
+```{r table2, eval=T, message=T} 
+table2
+```
+
+## pivot wider 
+
+```{r pivot_wider, eval=T, message=T}
+table2 %>% 
+  pivot_wider(names_from = type,
+              values_from = count)
+```
+
+## Relational data
+
+Sometime the information can be split between different table
+
+```{r airlines, eval=F, echo = T}
+library(nycflights13)
+flights
+airlines
+airports
+weather
+flights2 <- flights %>% 
+  select(year:day, hour, origin, dest, tailnum, carrier)
+```
+
+## Relational data
+
+```{r airlines_dag, echo=FALSE, out.width='100%'}
+knitr::include_graphics('img/relational-nycflights.png')
+```
+
+## joints
+
+```{r joints, echo=FALSE, out.width='100%'}
+knitr::include_graphics('img/join-venn.png')
+```
+
+## `inner_joint()`
+
+Matches pairs of observations whenever their keys are equal
+
+```{r inner_joint, eval=T}
+flights2 %>%
+  inner_join(airlines)
+```
+## `left_joint()`
+
+keeps all observations in `x`
+
+```{r left_joint, eval=T}
+flights2 %>%
+  left_join(airlines)
+```
+
+## `right_joint()`
+
+keeps all observations in `y`
+
+```{r right_joint, eval=T}
+flights2 %>%
+  right_join(airlines)
+```
+
+## `full_joint()`
+
+keeps all observations in `x` and `y`
+
+```{r full_joint, eval=T}
+flights2 %>%
+  full_join(airlines)
+```
+
+## Defining the key columns
+
+The default, `by = NULL`, uses all variables that appear in both tables, the so called natural join.
+
+```{r left_join_weather, eval=T}
+flights2 %>% 
+  left_join(weather)
+```
+
+## Defining the key columns
+
+The default, `by = NULL`, uses all variables that appear in both tables, the so called natural join.
+
+```{r left_join_tailnum, eval=T, echo = T}
+flights2 %>% 
+  left_join(planes, by = "tailnum")
+```
+
+## Defining the key columns
+
+A named character vector: `by = c("a" = "b")`. This will match variable `a` in table `x` to variable `b` in table `y`.
+
+```{r left_join_airport, eval=T, echo = T}
+flights2 %>% 
+  left_join(airports, c("dest" = "faa"))
+```
+
+## Filtering joins
+
+Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables. There are two types:
+
+- `semi_join(x, y)` keeps all observations in `x` that have a match in `y`.
+- `anti_join(x, y)` drops all observations in `x` that have a match in `y`.
+
+
+## Filtering joins
+
+```{r top_dest, eval=T, echo = T}
+top_dest <- flights %>%
+  count(dest, sort = TRUE) %>%
+  head(10)
+flights %>% 
+  semi_join(top_dest)
+```
+
+## Set operations
+
+These expect the x and y inputs to have the same variables, and treat the observations like sets:
+
+- `intersect(x, y)`: return only observations in both `x` and `y`.
+- `union(x, y)`: return unique observations in `x` and `y`.
+- `setdiff(x, y)`: return observations in `x`, but not in `y`.
