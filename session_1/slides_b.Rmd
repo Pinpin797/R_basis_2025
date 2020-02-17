@@ -345,7 +345,7 @@ rosette[13]
 
 ## Matrix
 
-In R matrix are two dimensional vectors
+In R matrices are two dimensional vectors
 
 ```R
 matrix_example <- matrix(1:(6*3), ncol=6, nrow=3)
@@ -368,10 +368,12 @@ matrix_example[2, 3]
 
 ## DataFrame
 
-In R `data.frame` are table type with mixed type
+In R `data.frame` are a table type with mixed type
 
 ```R
-data_frame_example <- data.frame(numbers=1:26, letters=letters, LETTERS=LETTERS)
+data_frame_example <- data.frame(numbers=1:26, 
+                                 letters=letters, 
+                                 LETTERS=LETTERS)
 data_frame_example
 ```
 
