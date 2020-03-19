@@ -50,36 +50,34 @@ The objectives of this session will be to:
 ### Acknowledgments
 
 <div id='pencadre'>
-  <img src="./img/software_carpentry_logo.svg" alt="" width="300"/>
+
+  ![](./img/software_carpentry_logo.svg){width=300px}
+  
   
   https://software-carpentry.org/
 </div> 
 
  
 <div id='pencadre'>
-  <img src="./img/r_for_data_science.png" alt="" width="100"/>
-  
+  ![](./img/r_for_data_science.png){width=100px}
+ 
   http://swcarpentry.github.io/r-novice-gapminder/
 </div> 
 
+
 # Some R background
 
-\includegraphics[width=40pt]{img/Rlogo.png}
+![](./img/Rlogo.png){width=40px}
 is a programming language and free software environment for statistical
 computing and graphics supported by the *R Foundation for Statistical Computing*.
-
-# Some R background
-
-\includegraphics[width=40pt]{img/Rlogo.png}
 
 - Created by **Ross Ihaka** and **Robert Gentleman**
 - initial version released in 1995
 - free and open-source implementation the S programming language
 - currently developed by the **R Development Core Team**.
 
-# Some R background
 
-Reasons to use \includegraphics[width=40pt]{img/Rlogo.png}
+Reasons to use it:
 
 - It’s free, well documented, and runs almost everywhere
 - it has a large (and growing) user base among scientists
@@ -89,27 +87,25 @@ Reasons to use \includegraphics[width=40pt]{img/Rlogo.png}
 - **3,087** available packages on http://www.bioconductor.org
 - **122,720** available repository on https://github.com/
 
-# Some R background
+![](./img/R_terminal.png)
 
-\includegraphics[width=\textwidth]{img/R_terminal.png}
 
-# RStudio, the R IDE
+# RStudio, the R Integrated development environment (IDE)
 
-\begin{block}{IDR: Integrated development environment}
-application that provides {\bf comprehensive facilities} to computer programmers for
+IDR application that provides **comprehensive facilities** to computer programmers for
 software development
-\end{block}
+
 
 - free
 - open source
 
-## An interface
+### An interface
 
-\includegraphics[width=\textwidth]{img/RStudio.png}
+![](./img/RStudio.png)
 
-## The same console as before
+### The same console as before
 
-\includegraphics[width=\textwidth]{img/RStudio_console.png}
+![](./img/RStudio_console.png)
 
 # R as a calculator
 
@@ -120,34 +116,57 @@ software development
 - Exponents: `^` or `**`
 - Parentheses: `(`, `)`
 
-# R as a calculator
+<div id='pencadre'>
+**Write the commands in the grey box in the terminal.**
 
-```R
+**The expected results will always be printed in a white box here.**
+
+**You can "copy-paste" but I advise you to practice writing directly in the terminal. To validate the line at the end of your command: press 'Enter'.**
+</div> 
+
+
+### First commands
+
+```{r calculatorstep1, include=TRUE}
 1 + 100
-1 +
 ```
 
-\pause
+ \ 
+```R
+1 +
+```
+The console displays '+'.  
+It is waiting for the next command. Write juste '100' :
 
 ```R
+100
+```
+```{r calculatorstep2, echo=FALSE}
+1 + 100
+```
+
+
+### R keeps to the mathematical order
+```{r calculatorstep3, include=TRUE}
 3 + 5 * 2
 ```
 
-```R
+```{r calculatorstep4, include=TRUE}
 (3 + 5) * 2
 ```
 
-\pause
+ \ 
 
-```R
+```{r calculatorstep5, include=TRUE}
 (3 + (5 * (2 ^ 2))) # hard to read
 3 + 5 * 2 ^ 2       # clear, if you remember the rules
 3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
 ```
+ \ 
+ **Note :** The text following a '#' is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means. 
 
-\pause
-
-```R
+### Scientific notation
+```{r calculatorstep6, include=TRUE}
 2/10000
 ```
 
@@ -155,70 +174,73 @@ software development
 
 `2e-4` is shorthand for `2 * 10^(-4)`
 
-```R
+```{r calculatorstep7, include=TRUE}
 5e3
 ```
 
-## Mathematical functions
+### Mathematical functions
 
-```R
+```{r calculatorstep8, include=TRUE}
 log(1)  # natural logarithm
 ```
 
-\pause
-
-```R
+```{r calculatorstep9, include=TRUE}
 log10(10) # base-10 logarithm
 ```
 
-\pause
-
-```R
+```{r calculatorstep10, include=TRUE}
 exp(0.5)
 ```
 
-\pause
+\ 
 
-Compute the factorial of `9`
+Compute the factorial of `9` (9!)
 
-\pause
+```{r calculatorstep11, include=TRUE}
+9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1
+```
 
-```R
+ \ 
+**or**
+```{r calculatorstep12, include=TRUE}
 factorial(9)
 ```
 
-## Comparing things
+### Comparing things
+
+Comparisons can be made with R. The result will return a TRUE or FALSE value.
+
 
 equality (note two equal signs read as "is equal to")
-```R
+```{r calculatorstep13, include=TRUE}
 1 == 1
 ```
-\pause
+
 
 inequality (read as "is not equal to")
-```R
+```{r calculatorstep14, include=TRUE}
 1 != 2 
 ```
-\pause
+
 
 less than
-```R
+```{r calculatorstep15, include=TRUE}
 1 < 2
 ```
-\pause
+
 
 less than or equal to
-```R
+```{r calculatorstep16, include=TRUE}
 1 <= 1
 ```
-\pause
+
 
 greater than
-```R
+```{r calculatorstep17, include=TRUE}
 1 > 0
 ```
 
-## Variables and assignment
+# Variables and assignment
 
 `<-` is the assignment operator in R. (read as left member take right member value)
 
@@ -234,7 +256,7 @@ x
 
 \includegraphics[width=\textwidth]{img/RStudio_environment.png}
 
-## Variables and assignment
+### Variables and assignment
 
 ```R
 log(x)
