@@ -8,10 +8,13 @@ output:
 ---
 <style type="text/css">
 h3 { /* Header 3 */
+position: relative ;
 color: #729FCF ;
+left: 5%;
 }
-h4 { /* Header 4 */
+h1 { /* Header 1 */
 color: #034b6f ;
+
 } 
 #pencadre{
   border:1px; 
@@ -19,6 +22,7 @@ color: #034b6f ;
   border-color: #034b6f; 
   background-color: #EEF3F9; 
   padding: 1em;
+  text-align: center ;
 }
 img[toto] { 
 width: 200px; 
@@ -26,12 +30,11 @@ width: 200px;
 </style>
 
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R#1: Introduction to R and RStudio
+
 The goal of this practical is to familiarize yourself with R and the RStudio
 environment.
 
@@ -44,20 +47,20 @@ The objectives of this session will be to:
 - Call functions
 - Manage packages
 
-## Acknowledgments
+### Acknowledgments
 
-<img src="./img/software_carpentry_logo.svg" alt="" width="400"/>
-
+<div id='pencadre'>
+  <img src="./img/software_carpentry_logo.svg" alt="" width="300"/>
+  
   https://software-carpentry.org/
+</div> 
+
+ 
+<div id='pencadre'>
+  <img src="./img/r_for_data_science.png" alt="" width="100"/>
   
-<img src="./img/r_for_data_science.png" alt="" width="200"/>
   http://swcarpentry.github.io/r-novice-gapminder/
-
-<div>
-  
-  
-</div>
-
+</div> 
 
 # Some R background
 

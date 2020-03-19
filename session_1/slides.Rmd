@@ -1,15 +1,19 @@
 ---
-title: "R#1: Introduction to R and RStudio"
-author: Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)
-date: 10 Oct 2019
+title: 'R#1: Introduction to R and RStudio'
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "10 Oct 2019"
 output:
   beamer_presentation:
-    theme: "metropolis"
-    slide_level: 3
-    fig_caption: false
     df_print: tibble
+    fig_caption: no
     highlight: tango
     latex_engine: xelatex
+    slide_level: 3
+    theme: metropolis
+  ioslides_presentation:
+    highlight: tango
+  slidy_presentation:
+    highlight: tango
 ---
 ## R#1: Introduction to R and RStudio
 The goal of this practical is to familiarize yourself with R and the RStudio
