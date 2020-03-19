@@ -14,7 +14,6 @@ left: 5%;
 }
 h1 { /* Header 1 */
 color: #034b6f ;
-
 } 
 #pencadre{
   border:1px; 
@@ -24,8 +23,9 @@ color: #034b6f ;
   padding: 1em;
   text-align: center ;
 }
-img[toto] { 
-width: 200px; 
+legend{
+  color: #034b6f ;
+}
 }
 </style>
 
@@ -87,23 +87,22 @@ Reasons to use it:
 - **3,087** available packages on http://www.bioconductor.org
 - **122,720** available repository on https://github.com/
 
+R is usually used in a terminal:
+
 ![](./img/R_terminal.png)
 
 
-# RStudio, the R Integrated development environment (IDE)
+# RStudio, the R Integrated development environment (*IDE*)
 
-IDR application that provides **comprehensive facilities** to computer programmers for
-software development
+IDE application that provides **comprehensive facilities** to computer programmers for
+software development. Rstudio is **free** and **open-source**.
 
-
-- free
-- open source
 
 ### An interface
 
 ![](./img/RStudio.png)
 
-### The same console as before
+### The same console as before (in Red box)
 
 ![](./img/RStudio_console.png)
 
@@ -117,11 +116,13 @@ software development
 - Parentheses: `(`, `)`
 
 <div id='pencadre'>
+**Now Open RStudio.**
+
 **Write the commands in the grey box in the terminal.**
 
 **The expected results will always be printed in a white box here.**
 
-**You can "copy-paste" but I advise you to practice writing directly in the terminal. To validate the line at the end of your command: press 'Enter'.**
+**You can `copy-paste` but I advise you to practice writing directly in the terminal. To validate the line at the end of your command: press `Enter`.**
 </div> 
 
 
@@ -135,8 +136,8 @@ software development
 ```R
 1 +
 ```
-The console displays '+'.  
-It is waiting for the next command. Write juste '100' :
+The console displays `+`.  
+It is waiting for the next command. Write just `100` :
 
 ```R
 100
@@ -163,14 +164,13 @@ It is waiting for the next command. Write juste '100' :
 3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
 ```
  \ 
- **Note :** The text following a '#' is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means. 
+ **Note :** The text following a `#` is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means. 
 
 ### Scientific notation
 ```{r calculatorstep6, include=TRUE}
 2/10000
 ```
 
-\pause
 
 `2e-4` is shorthand for `2 * 10^(-4)`
 
@@ -194,7 +194,7 @@ exp(0.5)
 
 \ 
 
-Compute the factorial of `9` (9!)
+Compute the factorial of 9 (`9!`)
 
 ```{r calculatorstep11, include=TRUE}
 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1
@@ -208,7 +208,7 @@ factorial(9)
 
 ### Comparing things
 
-Comparisons can be made with R. The result will return a TRUE or FALSE value.
+Comparisons can be made with R. The result will return a `TRUE` or `FALSE` value.
 
 
 equality (note two equal signs read as "is equal to")
@@ -240,44 +240,82 @@ greater than
 1 > 0
 ```
 
+ \ \
+ 
+<fieldset id='pencadre' style='text-align: left'>
+  <legend>Summary box</legend>
+  <li> R is a programming language and free software environment for statistical
+computing and graphics (free & opensource) with a large library of external packages available for performing diverse tasks.</li>
+  <li> RStudio is an IDR application that provides comprehensive facilities to computer programmers for
+software development.</li>
+  <li>R as a calculator </li>
+  <li>R allows comparisons to be made </li>
+  
+</fieldset>
+ 
+ \ \ 
+ \ \ 
+
 # Variables and assignment
 
-`<-` is the assignment operator in R. (read as left member take right member value)
+`<-` is the assignment operator in R. (read as left member take right member value) 
 
-```R
+` = ` also exists but is **not recommended!** It will be used preferentially in other cases.  (*We will see them later*)
+
+```{r VandAstep1, include=TRUE}
 x <- 1/40
 ```
 
-```R
+```{r VandAstep2, include=TRUE}
 x
 ```
 
-## The environment
+### The environment
 
-\includegraphics[width=\textwidth]{img/RStudio_environment.png}
+You now see the `x` value in the environment box (*in red*).
 
-### Variables and assignment
+![](./img/RStudio_environment.png)
 
-```R
+ \ 
+
+This **variable** is present in your work environment. You can use it to perform different mathematical applications.
+
+
+```{r VandAstep3, include=TRUE}
 log(x)
+```
+
+You can assign another value to `x`.
+```{r VandAstep4, include=TRUE}
 x <- 100
 log(x)
 ```
-\pause
 
-```R
-x <- x + 1
+\ 
+```{r VandAstep5, include=TRUE}
+x <- x + 1  # x become 101 (100 + 1)
 y <- x * 2
+y
 ```
 
-\pause
+ \ 
 
+A variable can be assigned a `numeric` value as well as a `character` value.
+
+Just put our character (or string) between double quote `"`" when you assign this value.
+```{r VandAstep6, include=TRUE}
+z <- "x"  # One character
+z
+a <- "Hello world"  # Multiple characters == String
+a
+```
+
+ \ 
 ```R
-z <- "x"
 x + z
 ```
 
-## Variables and assignment
+
 
 Variable names can contain letters, numbers, underscores and periods.
 
