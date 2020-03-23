@@ -1,19 +1,19 @@
 ---
 title: 'R#1: Introduction to R and RStudio'
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
-date: "23 Mar 2020"
+date: "Mars 2020"
 output:
   html_document: default
   pdf_document: default
 ---
 <style type="text/css">
 h3 { /* Header 3 */
-position: relative ;
-color: #729FCF ;
-left: 5%;
+  position: relative ;
+  color: #729FCF ;
+  left: 5%;
 }
 h1 { /* Header 1 */
-color: #034b6f ;
+  color: #034b6f ;
 } 
 #pencadre{
   border:1px; 
@@ -22,9 +22,15 @@ color: #034b6f ;
   background-color: #EEF3F9; 
   padding: 1em;
   text-align: center ;
+  border-radius : 5px 4px 3px 2px;
 }
 legend{
   color: #034b6f ;
+}
+#pquestion {
+  color: darkgreen;
+  font-weight: bold;
+  
 }
 }
 </style>
@@ -122,7 +128,7 @@ software development. Rstudio is **free** and **open-source**.
 
 **The expected results will always be printed in a white box here.**
 
-**You can `copy-paste` but I advise you to practice writing directly in the terminal. To validate the line at the end of your command: press `Enter`.**
+**You can `copy-paste` but I advise you to practice writing directly in the terminal. To validate the line at the end of your command: press `Return`.**
 </div> 
 
 
@@ -243,7 +249,7 @@ greater than
  \ \
  
 <fieldset id='pencadre' style='text-align: left'>
-  <legend>Summary box</legend>
+  <legend style='border: 0px;'>Summary box</legend>
   <li> R is a programming language and free software environment for statistical
 computing and graphics (free & opensource) with a large library of external packages available for performing diverse tasks.</li>
   <li> RStudio is an IDR application that provides comprehensive facilities to computer programmers for
@@ -302,7 +308,7 @@ y
 
 A variable can be assigned a `numeric` value as well as a `character` value.
 
-Just put our character (or string) between double quote `"`" when you assign this value.
+Just put our character (or string) between double quote `"` when you assign this value.
 ```{r VandAstep6, include=TRUE}
 z <- "x"  # One character
 z
@@ -315,15 +321,15 @@ a
 x + z
 ```
 
-
+### Variables names
 
 Variable names can contain letters, numbers, underscores and periods.
 
 They cannot start with a number nor contain spaces at all.
 
-Different people use different conventions for long variable names, these include
+Different people use different conventions for long variable names, these include:
 
-```R
+```
 periods.between.words
 underscores_between_words
 camelCaseToSeparateWords
@@ -331,12 +337,9 @@ camelCaseToSeparateWords
 
 What you use is up to you, but be consistent.
 
-\pause
-It is also possible to use the `=` operator for assignment but **don’t do it !**
+ \ 
 
-## Variables and assignment
-
-Which of the following are valid R variable names?
+<div id="pquestion">   Which of the following are valid R variable names?</div>
 
 ```
 min_height
@@ -348,59 +351,58 @@ min-length
 2widths
 celsius2kelvin
 ```
+ \ 
 
-**http://perso.ens-lyon.fr/laurent.modolo/R/1_a**
+### Functions are also variables
 
-## Functions are also variables
-
-```R
+```{r VandAstep7, include=TRUE}
 logarithm <- log
 ```
 
-\pause
 
 A R function can have different arguments
 
-```R
+```
 function (x, base = exp(1))
 ```
 
-- `base` is a named argument  are read from left to right
+- `base` is a named argument are read from left to right
 - named arguments breaks the reading order
 - named arguments make your code more readable
 
-\pause
-
+ \ 
+ 
 To know more about the `log` function we can read its manual.
 
-```R
+```{r VandAstep8, include=TRUE}
 help(log)
 ```
 
-\pause
+or
 
-```R
+```{r VandAstep9, include=TRUE}
 ?log
 ```
 
-## Various output
+ \ 
+This block allows you to view the different outputs (?help, graphs, etc.).
 
-\includegraphics[width=\textwidth]{img/RStudio_outputs.png}
+![](./img/formationR_VandAstep8_encadre.png)
 
-## Functions are also variables
+
+
+### Functions are also variables
 
 Test that your `logarithm` function can work in base 10
 
-\pause
 
-```R
+```{r VandAstep10, include=TRUE}
 10^logarithm(12, base = 10)
 ```
 
-## Functions are also variables
 
 We can also define our own function with
-```R
+```
 function_name <- function(a, b){
   result_1 <- operation1(a, b)
   result_2 <- operation2(result_1, b)
@@ -408,26 +410,28 @@ function_name <- function(a, b){
 }
 ```
 
-\pause
+ \ 
+<div id="pquestion">Write a function to test the base of the logarithm function</div>
 
-write a function to test the base of the logarithm function
-
-\pause
-
-```R
+ \ 
+ 
+ 
+ A function can write in several forms : 
+ 
+```{r VandAstep11, include=TRUE}
 base_test <- function(x, base){
   log_result <- logarithm(x, base=base)
   exp_result <- base^log_result
   test_result <- x == exp_result
   return(test_result)
 }
+
+base_test(12, 2)
 ```
 
-**http://perso.ens-lyon.fr/laurent.modolo/R/1_b**
+ or
 
-## Functions are also variables
-
-```R
+```{r VandAstep12, include=TRUE}
 base_test <- function(x, base){
   print(x)
   log_result <- logarithm(x, base=base)
@@ -438,13 +442,13 @@ base_test <- function(x, base){
   test_result <- x == exp_result
   return(test_result)
 }
+
+base_test(12, 2)
 ```
 
-**http://perso.ens-lyon.fr/laurent.modolo/R/1_c**
+or
 
-## Functions are also variables
-
-```R
+```{r VandAstep13, include=TRUE}
 base_test <- function(x, base){
   print(x)
   log_result <- logarithm(x, base=base)
@@ -455,68 +459,66 @@ base_test <- function(x, base){
   test_result <- isTRUE(all.equal(x, exp_result))
   return(test_result)
 }
+
+base_test(12, 2)
 ```
 
-**http://perso.ens-lyon.fr/laurent.modolo/R/1_d**
+or
 
-## Functions are also variables
-
-```R
+```{r VandAstep14, include=TRUE}
 base_test <- function(x, base){
   return(isTRUE(all.equal(x, base^logarithm(x, base=base))))
 }
+
+base_test(12, 2)
 ```
 
-**http://perso.ens-lyon.fr/laurent.modolo/R/1_e**
+ \ 
 
-## The environment
+### A code editor
 
-\includegraphics[width=\textwidth]{img/RStudio_environment.png}
+![](./img/RStudio_editor.png)
 
-## A code editor
-
-\includegraphics[width=\textwidth]{img/RStudio_editor.png}
-
-## A code editor
-
+ \ 
+ 
 RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
 
-- click on the Run button above the editor panel, or
+- click on the `Run button` above the editor panel, or
 - select “Run Lines” from the “Code” menu, or
-- hit Ctrl+Return in Windows or Linux or Cmd+Return on OS X. To run a block of code, select it and then Run. 
+- hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run. 
 
 If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
 
-## A code editor
 
 Copy your `logarithm` and `base_test` into a `tp_1.R` file
 
-\pause
 
 We can now clean your environment
 
-```R
+```{r VandAstep15, include=TRUE}
 rm(x)
 ```
 
-\pause
 
-```R
+```{r VandAstep16, include=TRUE}
 ?rm
 ```
 
-\pause
-
-```R
+```{r VandAstep17, include=TRUE}
 ls()
 ```
 
-\pause
-
-```R
+```{r VandAstep18, include=TRUE}
 rm(list = ls())
 ```
 
+```{r VandAstep19, include=TRUE}
+ls()
+```
+
+ \ 
+
+# Packages  
 ## Installing packages
 
 ```R
@@ -527,40 +529,34 @@ install.packages("tidyverse")
 install.packages("ggplot2")
 ```
 
-## Installing packages
-
-\includegraphics[width=\textwidth]{img/RStudio_outputs.png}
-
 ## Loading packages
 
-```R
+```{r packagesstep1, include=TRUE}
 sessionInfo()
 ```
 
-\pause
+ \ 
 
-```R
+```{r packagesstep2, include=TRUE}
 library(tidyverse)
 ```
 
-\pause
 
 ```R
 sessionInfo()
 ```
+ \ 
 
-\pause
-
-```R
+```{r packagesstep4, include=TRUE}
 unloadNamespace("tidyverse")
 ```
 
-\pause
 
 ```R
 sessionInfo()
 ```
-
+ \ 
+ 
 # Complex variable type
 
 ## Vector (aka list)
