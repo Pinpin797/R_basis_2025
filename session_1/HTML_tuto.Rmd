@@ -12,6 +12,10 @@ h3 { /* Header 3 */
   color: #729FCF ;
   left: 5%;
 }
+h2 { /* Header 2 */
+  color: darkblue ;
+  left: 10%;
+} 
 h1 { /* Header 1 */
   color: #034b6f ;
 } 
@@ -207,7 +211,7 @@ Compute the factorial of 9 (`9!`)
 ```
 
  \ 
-**or**
+or
 ```{r calculatorstep12, include=TRUE}
 factorial(9)
 ```
@@ -390,9 +394,8 @@ This block allows you to view the different outputs (?help, graphs, etc.).
 ![](./img/formationR_VandAstep8_encadre.png)
 
 
-
-### Functions are also variables
-
+ \ 
+ 
 Test that your `logarithm` function can work in base 10
 
 
@@ -518,18 +521,132 @@ ls()
 
  \ 
 
+<fieldset id='pencadre' style='text-align: left'>
+  <legend style='border: 0px;'>Summary box</legend>
+  <li> Assigning a variable is done with ` <- `.</li>
+  <li> The assigned variables are listed in the environment box.</li>
+  <li> Variable names can contain letters, numbers, underscores and periods. </li>
+  <li> Functions are also variable and can write in several forms</li>
+  <li> An editing box is available on Rstudio.</li>
+
+</fieldset>
+
+ \ 
+ 
+ \ 
+ 
+# Complex variable type 
+
+### Vector (aka list)
+
+```{r Vecstep1, include=TRUE}
+c(1, 2, 3, 4, 5)
+```
+
+or
+
+```{r Vecstep2, include=TRUE}
+c(1:5)
+```
+
+ \ 
+ 
+ \ 
+A mathematical calculation can be performed on the elements of the vector:
+
+```{r Vecstep3, include=TRUE}
+2^(1:5)
+```
+
+
+```{r Vecstep4, include=TRUE}
+x <- 1:5
+2^x
+```
+
+ \ 
+ 
+ \ 
+To determine the type of the elements of a vector:
+
+```{r Vecstep5, include=TRUE}
+typeof(x)
+```
+
+
+```{r Vecstep6, include=TRUE}
+typeof(x + 0.5)
+x + 0.5
+```
+
+
+```{r Vecstep7, include=TRUE}
+is.vector(x)
+```
+
+ \ 
+ 
+ \ 
+
+```{r Vecstep8, include=TRUE}
+y <- c(a = 1, b = 2, c = 3, d = 4, e = 5)
+typeof(y)
+is.vector(y)
+```
+
+ \ 
+ 
+ \ 
+We can compare the elements of two vectors:
+
+```{r Vecstep9, include=TRUE}
+x
+y
+x == y
+```
+
+ \ 
+ 
+ \ 
+ 
+If you use `all.equal` :
+
+```{r Vecstep10, include=TRUE}
+all.equal(x, y)
+isTRUE(all.equal(x, y))
+isTRUE(all.equal(x, y, check.attributes = FALSE))
+```
+ \ 
+
+<fieldset id='pencadre' style='text-align: left'>
+  <legend style='border: 0px;'>Summary box</legend>
+  <li> A variable can be of different types : `numeric`, `character`, `vector`, etc.</li>
+  <li> Calculations and comparisons apply to vectors.</li>
+  <li> Do not hesitate to use the help box to understand functions!  </li>
+</fieldset>
+
+ \ 
+ 
+ \ 
+
 # Packages  
-## Installing packages
+### Installing packages
 
 ```R
 install.packages("tidyverse")
 ```
 
+or click on `Tools` and `Install Packages...`
+
+![](./img/formationR_installTidyverse.png)
+
+ \ 
+
 ```R
 install.packages("ggplot2")
 ```
 
-## Loading packages
+### Loading packages
 
 ```{r packagesstep1, include=TRUE}
 sessionInfo()
@@ -545,7 +662,7 @@ library(tidyverse)
 ```R
 sessionInfo()
 ```
- \ 
+### Unloading packages
 
 ```{r packagesstep4, include=TRUE}
 unloadNamespace("tidyverse")
@@ -555,79 +672,7 @@ unloadNamespace("tidyverse")
 ```R
 sessionInfo()
 ```
+
  \ 
  
-# Complex variable type
-
-## Vector (aka list)
-
-```R
-c(1, 2, 3, 4, 5)
-```
-
-\pause
-
-```R
-1:5
-```
-
-\pause
-
-```R
-2^(1:5)
-```
-
-\pause
-
-```R
-x <- 1:5
-2^x
-```
-
-\pause
-
-```R
-log(x)
-logarithm(x)
-base_test(x, base = 10)
-```
-
-## Vector (aka list)
-
-```R
-typeof(x)
-```
-
-\pause
-
-```R
-typeof(x + 0.5)
-```
-
-\pause
-
-```R
-is.vector(x)
-```
-
-\pause
-
-```R
-y <- c(a = 1, b = 2, c = 3, d = 4, e = 5)
-typeof(y)
-is.vector(y)
-```
-
-\pause
-
-```R
-x == y
-```
-
-\pause
-
-```R
-all.equal(x, y)
-```
-
-
+##See you to Session#2 : "Introduction to Tidyverse"
