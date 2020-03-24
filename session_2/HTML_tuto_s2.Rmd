@@ -172,7 +172,8 @@ install.packages("tidyverse")
 library("tidyverse")
 ```
 
-
+ \ 
+ 
 ### Toy data set `mpg`
 
 This dataset contains a subset of the fuel economy data that the EPA makes available on http://fueleconomy.gov . It contains only models which had a new release every year between 1999 and 2008.
@@ -196,19 +197,19 @@ View(mpg)
 
  \ 
 
-### Updated version of the data
+<!-- ### Updated version of the data -->
 
-`mpg` is loaded with tidyverse, we want to be able to read our own data from
+<!-- `mpg` is loaded with tidyverse, we want to be able to read our own data from -->
 
- \ 
-http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv
+<!--  \  -->
+<!-- http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv -->
 
-```{r mpg_download, cache=TRUE, message=FALSE}
-new_mpg <- read_csv(
-  "http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv"
-  )
+<!-- ```{r mpg_download, cache=TRUE, message=FALSE} -->
+<!-- new_mpg <- read_csv( -->
+<!--   "http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv" -->
+<!--   ) -->
 
-```
+<!-- ``` -->
 
  \ 
  
@@ -218,7 +219,7 @@ new_mpg <- read_csv(
 
 Relationship between engine size `displ` and fuel efficiency `hwy`.
 ```{r new_mpg_plot_a, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg) + 
+ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
@@ -240,11 +241,7 @@ ggplot(data = <DATA>) +
  
 # First challenge!
 
-- Run `ggplot(data = new_mpg)`. What do you see?
-- How many rows are in `new_mpg`? How many columns?
-- What does the `cty` variable describe? Read the help for `?mpg` to find out.
-- Make a scatterplot of `hwy` vs. `cyl`.
-- What happens if you make a scatterplot of `class` vs. `drive`? Why is the plot not useful?
+<div id="pquestion"> - Make a scatterplot of `hwy` ( fuel efficiency ) vs. `cyl` ( number of cylinders ). </div>
 
  \ 
  
@@ -263,60 +260,20 @@ ggplot(data = <DATA>) +
  \ 
  
  
-<div id="pquestion">- `ggplot(data = mpg)`. What do you see? </div>
 
-```{r empty_plot, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg)
-```
-
- \ 
- 
-<div id="pquestion">- How many rows are in `new_mpg`? How many columns? </div>
-
-```{r size_of_mpg, cache = TRUE, fig.width=8, fig.height=4.5}
-new_mpg
-```
-
- \ 
- 
-<div id="pquestion">- Make a scatterplot of `hwy` vs. `cyl`. </div>
 
 ```{r new_mpg_plot_b, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg) + 
+ggplot(data = mpg) + 
   geom_point(mapping = aes(x = hwy, y = cyl))
 ```
 
  \ 
  
-<div id="pquestion">- What happens if you make a scatterplot of `class` vs. `drive`? </div>
-<div id="pquestion">- Why is the plot not useful? </div>
-
-```{r new_mpg_plot_c, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg) + 
-  geom_point(mapping = aes(x = class, y = drive))
-```
 
  \ 
  
-### Aesthetic mappings
+# Aesthetic mappings
 
-<div id="pquestion">- How can you explain these cars?</div>
-
-```{r new_mpg_plot_d, echo = FALSE, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-  geom_point(data = mpg %>% filter(class == "2seater"),
-             mapping = aes(x = displ, y = hwy), color = "red")
-```
-
-
-
-```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class))
-```
-
-### Aesthetic mappings : `color`
 
 `ggplot2` will automatically assign a unique level of the aesthetic (here a unique color) to each unique value of the variable, a process known as scaling. `ggplot2` will also add a legend that explains which levels correspond to which values.
 
@@ -325,6 +282,14 @@ Try the following aesthetic:
 - `size`
 - `alpha`
 - `shape`
+
+### Aesthetic mappings : `color`
+
+```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+
 
 ### Aesthetic mappings : `size`
 
@@ -347,38 +312,72 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, shape = class))
 ```
 
-###  Aesthetic
+ 
+ \ 
 
-You can also set the aesthetic properties of your geom manually. For example, we can make all of the points in our plot blue:
+You can also set the aesthetic properties of your geom manually. For example, we can make all of the points in our plot blue and squares:
 
 ```{r new_mpg_plot_i, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue", shape=0)
 ```
 
-## Second challenge!
 
-- What’s gone wrong with this code? Why are the points not blue?
+ \ 
+<center>
+![](./img/shapes.png){width=300px}
+
+ \ 
+ 
+![](./img/colors.png){width=100px} 
+</center>
+
+<div id="pquestion">- What’s gone wrong with this code? Why are the points not blue?</div>
 
 ```R
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
 ```
+ \ 
+ 
+ \ 
+ 
+ \ 
+ 
+ \ 
+ 
+ \ 
+ 
+ \ 
+ 
+ \ 
 
-- Which variables in `mpg` are **categorical**? Which variables are **continuous**? (Hint: type `mpg`)
-- Map a **continuous** variable to color, size, and shape.
-- What does the `stroke` aesthetic do? What shapes does it work with? (Hint: use ?geom_point)
-- What happens if you map an aesthetic to something other than a variable name, like `color = displ < 5`?
-
-## Facets
-
-```{r new_mpg_plot_j, cache = TRUE, fig.width=8, fig.height=4.5}
+```{r res2, cache = TRUE, echo=FALSE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(~class)
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
 ```
 
-## Facets
+ \ 
+ 
+- Map a **continuous** variable to color.
+
+```{r continu, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = cyl))
+```
+
+<div id="pquestion">- What happens if you map an aesthetic to something other than a variable name, like `color = displ < 5`?</div>
+```{r condiColor, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ < 5))
+```
+
+ \ 
+ 
+ \ 
+ 
+# Facets
+
 
 ```{r new_mpg_plot_k, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg) + 
@@ -386,7 +385,7 @@ ggplot(data = mpg) +
   facet_wrap(~class, nrow = 2)
 ```
 
-## Facets
+ \ 
 
 ```{r new_mpg_plot_l, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg) + 
@@ -394,7 +393,7 @@ ggplot(data = mpg) +
   facet_wrap(~ fl + class, nrow = 2)
 ```
 
-## Composition
+# Composition
 
 There are different ways to represent the information
 
@@ -403,7 +402,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-## Composition
+
 
 There are different ways to represent the information
 
@@ -413,7 +412,7 @@ ggplot(data = mpg) +
 ```
 
 
-## Composition
+
 
 We can add as many layers as we want
 
@@ -424,7 +423,7 @@ ggplot(data = mpg) +
 ```
 
 
-## Composition
+
 
 We can avoid code duplication
 
@@ -435,7 +434,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ```
 
 
-## Composition
+
 
 We can make `mapping` layer specific
 
@@ -445,7 +444,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth()
 ```
 
-## Composition
+
 
 We can use different `data` for different layer (You will lean more on `filter()` later)
 
