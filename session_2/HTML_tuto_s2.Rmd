@@ -218,9 +218,11 @@ View(mpg)
 # First plot with `ggplot2`
 
 Relationship between engine size `displ` and fuel efficiency `hwy`.
+
 ```{r new_mpg_plot_a, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point()
+
 ```
 
 ### Composition of plot with `ggplot2`
@@ -239,7 +241,6 @@ ggplot(data = <DATA>) +
 
  \ 
  
-# First challenge!
 
 <div id="pquestion"> - Make a scatterplot of `hwy` ( fuel efficiency ) vs. `cyl` ( number of cylinders ). </div>
 
@@ -263,8 +264,8 @@ ggplot(data = <DATA>) +
 
 
 ```{r new_mpg_plot_b, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = hwy, y = cyl))
+ggplot(data = mpg, mapping = aes(x = hwy, y = cyl)) + 
+  geom_point()
 ```
 
  \ 
@@ -286,30 +287,30 @@ Try the following aesthetic:
 ### Aesthetic mappings : `color`
 
 ```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+  geom_point()
 ```
 
 
 ### Aesthetic mappings : `size`
 
 ```{r new_mpg_plot_f, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, size = class)) + 
+  geom_point()
 ```
 
 ###  Aesthetic mapping : `alpha`
 
 ```{r new_mpg_plot_g, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, alpha = class)) + 
+  geom_point()
 ```
 
 ###  Aesthetic mapping : `shape`
 
 ```{r new_mpg_plot_h, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, shape = class)) + 
+  geom_point()
 ```
 
  
@@ -318,8 +319,8 @@ ggplot(data = mpg) +
 You can also set the aesthetic properties of your geom manually. For example, we can make all of the points in our plot blue and squares:
 
 ```{r new_mpg_plot_i, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue", shape=0)
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(color = "blue", shape=0)
 ```
 
 
@@ -335,8 +336,8 @@ ggplot(data = mpg) +
 <div id="pquestion">- What’s gone wrong with this code? Why are the points not blue?</div>
 
 ```R
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = "blue")) + 
+  geom_point()
 ```
  \ 
  
@@ -353,8 +354,8 @@ ggplot(data = mpg) +
  \ 
 
 ```{r res2, cache = TRUE, echo=FALSE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = "blue")) + 
+  geom_point()
 ```
 
  \ 
@@ -362,14 +363,14 @@ ggplot(data = mpg) +
 - Map a **continuous** variable to color.
 
 ```{r continu, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = cyl))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = cyl)) + 
+  geom_point()
 ```
 
 <div id="pquestion">- What happens if you map an aesthetic to something other than a variable name, like `color = displ < 5`?</div>
 ```{r condiColor, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = displ < 5))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = displ < 5)) + 
+  geom_point()
 ```
 
  \ 
@@ -380,61 +381,46 @@ ggplot(data = mpg) +
 
 
 ```{r new_mpg_plot_k, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
   facet_wrap(~class, nrow = 2)
 ```
 
  \ 
 
 ```{r new_mpg_plot_l, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
   facet_wrap(~ fl + class, nrow = 2)
 ```
 
 # Composition
 
-There are different ways to represent the information
+There are different ways to represent the information :
 
 ```{r new_mpg_plot_o, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point()
 ```
 
-
-
-There are different ways to represent the information
+ \ 
 
 ```{r new_mpg_plot_p, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth()
 ```
 
-
-
+ \ 
 
 We can add as many layers as we want
 
 ```{r new_mpg_plot_q, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-  geom_smooth(mapping = aes(x = displ, y = hwy))
-```
-
-
-
-
-We can avoid code duplication
-
-```{r new_mpg_plot_r, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point() +
   geom_smooth()
 ```
 
-
-
+ \
 
 We can make `mapping` layer specific
 
@@ -444,7 +430,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth()
 ```
 
-
+ \ 
 
 We can use different `data` for different layer (You will lean more on `filter()` later)
 
@@ -454,9 +440,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(data = filter(mpg, class == "subcompact"))
 ```
 
-## Fird challenge
+# Challenge  !
 
-- Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+<div id="pquestion">- Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</div>
 ```R
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
   geom_point() + 
