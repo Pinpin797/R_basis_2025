@@ -56,6 +56,11 @@ The objectives of this session will be to:
 - Manage a workspace in R
 - Call functions
 - Manage packages
+- Be ready to write graphics !
+
+<center>
+![](./img/intro_img.png){width=400px}
+</center>
 
 ### Acknowledgments
 
@@ -73,6 +78,10 @@ The objectives of this session will be to:
  
   http://swcarpentry.github.io/r-novice-gapminder/
 </div> 
+
+ \ 
+ 
+- **Margot** and **Alexandre** for assistance!
 
 
 # Some R background
@@ -170,7 +179,6 @@ It is waiting for the next command. Write just `100` :
 
 ```{r calculatorstep5, include=TRUE}
 (3 + (5 * (2 ^ 2))) # hard to read
-3 + 5 * 2 ^ 2       # clear, if you remember the rules
 3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
 ```
  \ 
@@ -218,7 +226,7 @@ factorial(9)
 
 ### Comparing things
 
-Comparisons can be made with R. The result will return a `TRUE` or `FALSE` value.
+Comparisons can be made with R. The result will return a `TRUE` or `FALSE` value (`boolean` type).
 
 
 equality (note two equal signs read as "is equal to")
@@ -324,6 +332,17 @@ a
 ```R
 x + z
 ```
+ \ 
+ 
+How to test the type of the variable?
+```{r VandAstep20, include=TRUE}
+
+is.character(z)
+
+b <- 1/40
+b
+typeof(b)
+```
 
 ### Variables names
 
@@ -348,11 +367,11 @@ What you use is up to you, but be consistent.
 ```
 min_height
 max.height
-_age
+_age            # no
 .mass
 MaxLength
-min-length
-2widths
+min-length      # no
+2widths         # no
 celsius2kelvin
 ```
  \ 
@@ -396,87 +415,6 @@ This block allows you to view the different outputs (?help, graphs, etc.).
 
  \ 
  
-Test that your `logarithm` function can work in base 10
-
-
-```{r VandAstep10, include=TRUE}
-10^logarithm(12, base = 10)
-```
-
-
-We can also define our own function with
-```
-function_name <- function(a, b){
-  result_1 <- operation1(a, b)
-  result_2 <- operation2(result_1, b)
-  return(result_2)
-}
-```
-
- \ 
-<div id="pquestion">Write a function to test the base of the logarithm function</div>
-
- \ 
- 
- 
- A function can write in several forms : 
- 
-```{r VandAstep11, include=TRUE}
-base_test <- function(x, base){
-  log_result <- logarithm(x, base=base)
-  exp_result <- base^log_result
-  test_result <- x == exp_result
-  return(test_result)
-}
-
-base_test(12, 2)
-```
-
- or
-
-```{r VandAstep12, include=TRUE}
-base_test <- function(x, base){
-  print(x)
-  log_result <- logarithm(x, base=base)
-  print(log_result)
-  exp_result <- base^log_result
-  print(exp_result)
-  print(x)
-  test_result <- x == exp_result
-  return(test_result)
-}
-
-base_test(12, 2)
-```
-
-or
-
-```{r VandAstep13, include=TRUE}
-base_test <- function(x, base){
-  print(x)
-  log_result <- logarithm(x, base=base)
-  print(log_result)
-  exp_result <- base^log_result
-  print(exp_result)
-  print(x)
-  test_result <- isTRUE(all.equal(x, exp_result))
-  return(test_result)
-}
-
-base_test(12, 2)
-```
-
-or
-
-```{r VandAstep14, include=TRUE}
-base_test <- function(x, base){
-  return(isTRUE(all.equal(x, base^logarithm(x, base=base))))
-}
-
-base_test(12, 2)
-```
-
- \ 
 
 ### A code editor
 
@@ -493,10 +431,66 @@ RStudio offers you great flexibility in running code from within the editor wind
 If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
 
 
-Copy your `logarithm` and `base_test` into a `tp_1.R` file
+Copy your `function` into a `tp_1.R` file
+
+ \ 
+
+We can  define our own function with :
+
+- function name,
+- declaration of function type,
+- arguments,
+- `{` and `}` top open and close function,
+
+```
+function_name <- function(a, b){
 
 
-We can now clean your environment
+}
+```
+- a series of operations,
+
+```
+function_name <- function(a, b){
+  result_1 <- operation1(a, b)
+  result_2 <- operation2(result_1, b)
+
+}
+```
+
+- `return` operation
+
+```
+function_name <- function(a, b){
+  result_1 <- operation1(a, b)
+  result_2 <- operation2(result_1, b)
+  return(result_2)
+}
+```
+
+ \ 
+<div id="pquestion">How to write a function to test if a number is even?</div>
+
+ \ 
+ 
+ 
+```{r VandAstep11, include=TRUE}
+even_test <- function(x){
+  modulo_result <- x %% 2         # %% is modulo operator
+  is_even <- modulo_result == 0
+  return(is_even)
+}
+
+even_test(4)
+
+even_test(3)
+```
+
+ **Note :** A function can write in several forms.
+
+ \ 
+
+No We can now clean your environment
 
 ```{r VandAstep15, include=TRUE}
 rm(x)
@@ -555,12 +549,12 @@ c(1:5)
 A mathematical calculation can be performed on the elements of the vector:
 
 ```{r Vecstep3, include=TRUE}
-2^(1:5)
+2^c(1:5)
 ```
 
 
 ```{r Vecstep4, include=TRUE}
-x <- 1:5
+x <- c(1:5)
 2^x
 ```
 
@@ -590,12 +584,8 @@ is.vector(x)
 
 ```{r Vecstep8, include=TRUE}
 y <- c(a = 1, b = 2, c = 3, d = 4, e = 5)
-typeof(y)
-is.vector(y)
 ```
 
- \ 
- 
  \ 
 We can compare the elements of two vectors:
 
@@ -606,21 +596,12 @@ x == y
 ```
 
  \ 
- 
- \ 
- 
-If you use `all.equal` :
 
-```{r Vecstep10, include=TRUE}
-all.equal(x, y)
-isTRUE(all.equal(x, y))
-isTRUE(all.equal(x, y, check.attributes = FALSE))
-```
  \ 
 
 <fieldset id='pencadre' style='text-align: left'>
   <legend style='border: 0px;'>Summary box</legend>
-  <li> A variable can be of different types : `numeric`, `character`, `vector`, etc.</li>
+  <li> A variable can be of different types : `numeric`, `character`, `vector`, `function`, etc.</li>
   <li> Calculations and comparisons apply to vectors.</li>
   <li> Do not hesitate to use the help box to understand functions!  </li>
 </fieldset>
