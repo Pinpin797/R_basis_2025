@@ -1,5 +1,5 @@
 ---
-title: "R#3: Transformations with ggplot2"
+title: 'R#3: Transformations with ggplot2'
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "Mars 2020"
 output:
@@ -295,4 +295,4 @@ bar + coord_polar()
 ```
 
 
-##See you to Session#4 : ""
+##See you to Session#4 : "data transformation"

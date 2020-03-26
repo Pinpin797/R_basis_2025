@@ -1,0 +1,139 @@
+---
+title: "Challenge time!"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+date: "Mars 2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+  <style type="text/css">
+  h3 { /* Header 3 */
+      position: relative ;
+    color: #729FCF ;
+      left: 5%;
+  }
+h2 { /* Header 2 */
+    color: darkblue ;
+  left: 10%;
+} 
+h1 { /* Header 1 */
+    color: #034b6f ;
+} 
+#pencadre{
+border:1px; 
+border-style:solid; 
+border-color: #034b6f; 
+  background-color: #EEF3F9; 
+  padding: 1em;
+text-align: center ;
+border-radius : 5px 4px 3px 2px;
+}
+legend{
+  color: #034b6f ;
+}
+#pquestion {
+color: darkgreen;
+font-weight: bold;
+}
+</style>
+  
+  ```{r setup, include=FALSE, cache=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Filter challenges :
+
+Find all flights that:
+  
+  - Had an arrival delay of two or more hours
+- Were operated by United, American, or Delta
+- Departed between midnight and 6am (inclusive)
+
+Another useful dplyr filtering helper is `between()`. What does it do? Can you use it to simplify the code needed to answer the previous challenges?
+
+How many flights have a missing `dep_time`? What other variables are missing? What might these rows represent?
+
+Why is `NA ^ 0` not `NA`? Why is `NA | TRUE` not `NA`? Why is `FALSE & NA` not `NA`? Can you figure out the general rule? (`NA * 0` is a tricky counter-example!)
+
+### Arrange challenges :
+
+- Sort flights to find the most delayed flights. Find the flights that left earliest.
+- Sort flights to find the fastest flights.
+- Which flights traveled the longest? Which traveled the shortest?
+
+### Select challenges :
+
+- Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`.
+- What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
+```{r select_one_of, eval=F, message=F, cache=T}
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+```
+- Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
+```{r select_contains, eval=F, message=F, cache=T}
+select(flights, contains("TIME"))
+```
+
+
+### Mutate challenges :
+
+- Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
+
+
+```{r mutate_challenges_a, eval=F, message=F, cache=T}
+mutate(
+  flights,
+  dep_time = (dep_time %/% 100) * 60 +
+    dep_time %% 100,
+  sched_dep_time = (sched_dep_time %/% 100) * 60 +
+    sched_dep_time %% 100
+)
+```
+
+\ 
+
+- Compare `dep_time`, `sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related?
+
+```{r mutate_challenge_b, eval=F, message=F, cache=T}
+mutate(
+  flights,
+  dep_time = (dep_time %/% 100) * 60 + 
+    dep_time %% 100,
+  sched_dep_time = (sched_dep_time %/% 100) * 60 +
+    sched_dep_time %% 100
+)
+```
+
+\ 
+
+### Challenge with `summarise()` and `group_by()`
+
+Imagine that we want to explore the relationship between the distance and average delay for each location. 
+here are three steps to prepare this data: 
+
+- Group flights by destination.
+- Summarise to compute distance, average delay, and number of flights.
+- Filter to remove noisy points and Honolulu airport, which is almost twice as far away as the next closest airport.
+
+```{r summarise_group_by_ggplot_a, eval = F}
+flights %>% 
+  group_by(dest)
+```
+
+ \ 
+
+Imagine that we want to explore the relationship between the distance and average delay for each location. 
+
+- Filter to remove noisy points and Honolulu airport, which is almost twice as far away as the next closest airport.
+
+```{r summarise_group_by_ggplot_b, eval = F}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  )
+```
+
+
