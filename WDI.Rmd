@@ -1,0 +1,53 @@
+---
+title: "World data bank indicator"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## World Bank datasets
+
+The World Bank makes available a ton of great data from the World Development Indicators through its web API. The WDI package for R makes it easy to search and download data series from the WDI.
+
+```{r library}
+library(tidyverse)
+install.packages("WDI")
+library(WDI)
+```
+
+## Creating a dataset
+
+You can also embed plots, for example:
+
+```{r dataset}
+data <- WDI(
+  indicator = c(
+    "NY.GDP.MKTP.CD", 
+    "NY.GDP.MKTP.KD.ZG", 
+    "SI.POV.GINI",
+    "SP.POP.TOTL",
+    "EN.ATM.CO2E.PC",
+    "SP.DYN.LE00.IN"
+  ),
+  country = c('AL', 'AD', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'CH', 'CY', 'CZ', 'DE',
+        'DK', 'EE', 'ES', 'FO', 'FI', 'FR', 'GB', 'GE', 'GI', 'GR', 'HU', 'HR',
+        'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MC', 'MK', 'MT', 'NO', 'NL', 'PL',
+        'PT', 'RO', 'RS', 'RU', 'SE', 'SI', 'SK', 'SM', 'TR', 'UA', 'VA'),
+  start = 1960,
+  end = 2021)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r plot}
+ggplot(
+  data=data,
+  mapping=aes(
+    x = year,
+    y = NY.GDP.MKTP.CD/SP.POP.TOTL,
+    color = country
+  )) +
+  geom_line()
+```
