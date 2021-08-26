@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400bbbh;600&display=swap');
+
+h3 { /* Header 3 */
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  color: #729FCF ;
+}
+
+h2 { /* Header 2 */
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  color: darkblue ;
+}
+
+h1 { /* Header 1 */
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  color: #034b6f ;
+}
+
+#pencadre{
+  border:1px; 
+  border-style:solid; 
+  border-color: #034b6f; 
+  background-color: #EEF3F9; 
+  padding: 1em;
+  text-align: center ;
+  border-radius : 5px 4px 3px 2px;
+}
+
+legend{
+  color: #034b6f ;
+}
+
+#pquestion {
+  color: darkgreen;
+  font-weight: bold;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
+
+pre.r {
+  background-color: #c4c4c4;
+}
+
+pre:not([class]) {
+    background-color: #1a1a1a;
+    color: white;
+}
