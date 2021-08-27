@@ -1,13 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400bbbh;600&display=swap');
+html, body {
+  font-size: 20px;
+}
+
+.pencadre{
+  border:4px; 
+  border-style:solid; 
+  border-color: #034b6f; 
+  background-color: #EEF3F9; 
+  padding: 1em;
+  text-align: left ;
+  border-radius : 5px 4px 3px 2px;
+  font-weight: 300;
+  font-size: 22px;
+}
+
+@font-face {
+    font-family: 'Yanone Kaffeesatz';
+    src:url("../src/YanoneKaffeesatz-Bold.ttf");
+}
+@font-face {
+    font-family: 'Raleway';
+    src:url("../src/Raleway-Regular.ttf");
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 h3 { /* Header 3 */
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  color: #729FCF ;
+  color: #034b6f ;
 }
 
 h2 { /* Header 2 */
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  color: darkblue ;
+  color: #034b6f ;
 }
 
 h1 { /* Header 1 */
@@ -15,21 +41,15 @@ h1 { /* Header 1 */
   color: #034b6f ;
 }
 
-#pencadre{
-  border:1px; 
-  border-style:solid; 
-  border-color: #034b6f; 
-  background-color: #EEF3F9; 
-  padding: 1em;
-  text-align: center ;
-  border-radius : 5px 4px 3px 2px;
+.toggle {
+  display: none;
 }
 
 legend{
   color: #034b6f ;
 }
 
-#pquestion {
+.pquestion {
   color: darkgreen;
   font-weight: bold;
 }
@@ -39,11 +59,22 @@ legend{
   justify-content: center;
 }
 
-pre.r {
-  background-color: #c4c4c4;
+details summary {
+  padding: 1em;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 26px;
+  color: #034b6f ;
+  text-align: center;
 }
-
-pre:not([class]) {
-    background-color: #1a1a1a;
-    color: white;
+details summary::before {
+  content: "▶";
+}
+details summary:hover::before {
+  content: "▷";
+}
+details summary:active::before {
+  content: "▼";
+}
+details summary:focus::before {
+  content: "▼";
 }
