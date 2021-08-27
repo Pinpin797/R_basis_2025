@@ -51,3 +51,8 @@ ggplot(
   )) +
   geom_line()
 ```
+
+
+# Plot of fertility rate and life expetency by country through time
+
+# Plot of GPD and child survival by country through time

@@ -1,6 +1,5 @@
 # Objectifs
 
-- Planifier des sessions d'1h30
-- Apprendre à programmer en même temps que l'apprentissage du langage R
-- Bien définir le résultat biologique que l'on veut obtenir à la fin de la séance
-- Commencer à réfléchir de manière fonctionnelle et linéaire à partir de la 3e séance
+- Write the session_1/bioconductor.Rmd training (and add link in session_1.Rmd)
+- Write the session_1/github.Rmd training (and add link in session_1.Rmd)
+- Write the WDI.Rmd training which will be for a later session
