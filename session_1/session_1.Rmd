@@ -1,10 +1,10 @@
 ---
-title: 'R#1: Introduction to R and RStudio'
+title: 'R.1: Introduction to R and RStudio'
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "2021"
 output:
   rmdformats::downcute:
-    self_contained: true
+    self_contain: false
     use_bookdown: true
     default_style: "dark"
     lightbox: true
@@ -12,6 +12,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -23,6 +24,7 @@ klippy::klippy(
   tooltip_success = 'Copied !')
 ```
 
+# Introduction
 
 The goal of this practical is to familiarize yourself with R and the RStudio
 environment.
@@ -41,21 +43,17 @@ The objectives of this session will be to:
 ![](./img/intro_img.png){width=400px}
 </center>
 
-### Acknowledgments
+## Acknowledgments
 
 ![](./img/software_carpentry_logo.svg){width=300px}
 
-https://software-carpentry.org/
+![](./img/ModernDive.png){width=300px}![](./img/r_for_data_science.png){width=300px}
 
-![](./img/ModernDive.png)
-
-https://moderndive.com
-  
-![](./img/r_for_data_science.png){width=100px}
-
-http://swcarpentry.github.io/r-novice-gapminder/
+- [software-carpentry.org](https://software-carpentry.org/)
+- [moderndive.com](https://moderndive.com)
+- [swcarpentry.github.io](http://swcarpentry.github.io/r-novice-gapminder/)
  
-# Some R background
+## Some R background
 
 ![](./img/Rlogo.png){width=40px}
 is a programming language and free software environment for statistical
@@ -64,14 +62,15 @@ computing and graphics supported by the *R Foundation for Statistical Computing*
 - Created by **Ross Ihaka** and **Robert Gentleman**
 - initial version released in 1995
 - free and open-source implementation the S programming language
-- currently developed by the **R Development Core Team**.
+- Currently developed by the **R Development Core Team**.
 
 
 Reasons to use it:
 
+- It's open source, which means that we have access to every bit of underlying computer code to prove that our results are correct (which is always a good point in science).
 - It’s free, well documented, and runs almost everywhere
-- it has a large (and growing) user base among scientists
-- it has a large library of external packages available for performing diverse tasks. 
+- It has a large (and growing) user base among scientists
+- It has a large library of external packages available for performing diverse tasks. 
 
 ```{r echo=F}
 cran_packages <- nrow(available.packages(repos = "http://cran.us.r-project.org"))
@@ -95,7 +94,7 @@ R is usually used in a terminal in which you can type or paste your R code:
 
 ![](./img/R_terminal.png)
 
-But navigating between your terminal, your code and your plots can be tedious, this is why in `r format(Sys.time(), "%Y")` there is a better way to do use R !
+But navigating between your terminal, your code and your plots can be tedious, this is why in `r format(Sys.time(), "%Y")` there is a better way to use R !
 
 ## RStudio, the R Integrated development environment (*IDE*)
 
@@ -114,20 +113,20 @@ Otherwise you can use the link and the login details provided to you by email. T
 
 ![](./img/RStudio_console.png)
 
-# Errors, warnings, and messages
+## Errors, warnings, and messages
 
-The R console is a textual interface, which means that you will enter code, but it also means that R is is going to write informations back to you and that you will have to pay attention at what is written.
+The R console is a textual interface, which means that you will enter code, but it also means that R is going to write information back to you and that you will have to pay attention at what is written.
 
 There are 3 categories of messages that R can send you: **Errors** prefaced with `Error in…`, **Warnings** prefaced with `Warning:` and **Messages** which don’t start with either `Error` or `Warning`.
 
-- **Errors**, you must consider them as red light. You must figure out what is caussing it. Usually you can find usefull clue in the errors message about how to solve it.
+- **Errors**, you must consider them as red light. You must figure out what is causing it. Usually you can find useful clues in the errors message about how to solve it.
 - **Warning**, warnings are yellow light. The code is running but you have to pay attention. It's almost always a good idea to try to fix warnings.
-- **Message** are just frindly messages from R telling you how things are running.
+- **Message** are just friendly messages from R telling you how things are running.
 
 
-# R as a calculator
+# R as a Calculator
 
-Now that we know what we should do and what to expect, we are going to try some basic R instructions.
+Now that we know what we should do and what to expect, we are going to try some basic R instructions. A computer can perform all the operations that a calculator can do, so let's start with that:
 
 - Add: `+`
 - Divide: `/`
@@ -136,24 +135,42 @@ Now that we know what we should do and what to expect, we are going to try some 
 - Exponents: `^` or `**`
 - Parentheses: `(`, `)`
 
-> Now Open RStudio.
-> Write the commands in the grey box in the terminal.
-> The expected results will always be printed in a white box here.
-> You can `copy-paste` but I advise you to practice writing directly in the terminal. To validate the line at the end of your command: press `Return`.
+<div class="pencadre">
+Now Open RStudio.
+Write the commands in colors in a blue box in the terminal.
+The expected results will always be printed in white in a blue box.
+
+You can `copy paste`  but I advise you to practice writing directly in the terminal.
+Like all the languages, you will become more familiar with R by using it.
+
+To validate the line at the end of your command: press `Return`.
+</div>
 
 
 ## First commands
 
-```{r calculatorstep1, include=TRUE}
+You should see a `>` character before a blinking cursor. The `>` is called a prompt. The prompt is shown when you can enter a new line of R code. 
+```{r calculatorstep1, include=T, eval=F}
 1 + 100
 ```
+
+For classical output R will write the results with a `[N]` with `N` the row number.
+Here you have a one-line results `[1]`
+
+```{r calculatorstep1res, echo=F, eval=T}
+1 + 100
+```
+
+Do the same things but press `⏎` (return) after typing `+`.
 
 ```R
 1 +
 ```
 
 The console displays `+`.  
-It is waiting for the next command. Write just `100` :
+The `>` can become a `+` in case of multi-lines code.
+As there are two sides to the `+` operator, R know that you still need to enter the right side of your formula.
+It is waiting for the next command. Write just `100` and press `⏎`:
 
 ```R
 100
@@ -165,13 +182,20 @@ It is waiting for the next command. Write just `100` :
 
 
 ## R keeps to the mathematical order
+
+The order of operation is the natural mathematical order in R:
+
 ```{r calculatorstep3, include=TRUE}
 3 + 5 * 2
 ```
 
+You can use parenthesis `(` `)` to change this order.
+
 ```{r calculatorstep4, include=TRUE}
 (3 + 5) * 2
 ```
+
+But to much parenthesis can be hard to read
 
 ```{r calculatorstep5, include=TRUE}
 (3 + (5 * (2 ^ 2))) # hard to read
@@ -180,18 +204,27 @@ It is waiting for the next command. Write just `100` :
 
 **Note :** The text following a `#` is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means. 
 
-### Scientific notation
+## Scientific notation
+
+For small of large numbers, R will automatically switch to scientific notation.
+
 ```{r calculatorstep6, include=TRUE}
 2/10000
 ```
 
 `2e-4` is shorthand for `2 * 10^(-4)`
+You can use `e` to write your own scientific notation.
 
 ```{r calculatorstep7, include=TRUE}
 5e3
 ```
 
-### Mathematical functions
+## Mathematical functions
+
+R is distributed with a large number of existing functions.
+To call mathematical function you must with `function_name(<number>)`.
+
+For example, for the natural logarithm:
 
 ```{r calculatorstep8, include=TRUE}
 log(1)  # natural logarithm
@@ -217,62 +250,82 @@ or
 factorial(9)
 ```
 
-### Comparing things
+## Comparing things
 
-Comparisons can be made with R. The result will return a `TRUE` or `FALSE` value (`boolean` type).
+We have seen some examples that R can do all the things that a calculator can do.
+But when we are speaking of programming language, we are thinking of writing [computer programs](https://en.wikipedia.org/wiki/Computer_program).
+Programs are collections of instructions that perform specific tasks.
+If we want our future programs to be able to perform automatic choices, we need them to be able to perform comparisons.
 
-equality (note two equal signs read as "is equal to")
+Comparisons can be made with R. The result will return a `TRUE` or `FALSE` value (which is not a number as before but a `boolean` type).
+
+<div class="pencadre">
+Try the following operator to get a `TRUE` then change your command to get a `FALSE`.
+
+You can use the `↑` (upper arrow) key to edit the last command and go through your history of commands
+</div>
+
+- equality (note two equal signs read as "is equal to")
 
 ```{r calculatorstep13, include=TRUE}
 1 == 1
 ```
 
-inequality (read as "is not equal to")
+- inequality (read as "is not equal to")
 ```{r calculatorstep14, include=TRUE}
 1 != 2 
 ```
 
-less than
+- less than
 ```{r calculatorstep15, include=TRUE}
 1 < 2
 ```
 
-less than or equal to
+- less than or equal to
 ```{r calculatorstep16, include=TRUE}
 1 <= 1
 ```
 
-greater than
+- greater than
 ```{r calculatorstep17, include=TRUE}
 1 > 0
 ```
 
-<fieldset id='pencadre' style='text-align: left'>
-  <legend style='border: 0px;'>Summary box</legend>
-  <li> R is a programming language and free software environment for statistical
-computing and graphics (free & opensource) with a large library of external packages available for performing diverse tasks.</li>
-  <li> RStudio is an IDR application that provides comprehensive facilities to computer programmers for
-software development.</li>
-  <li>R as a calculator </li>
-  <li>R allows comparisons to be made </li>
+<div class="pencadre">
+  **Summary so far**
   
-</fieldset>
+  - R is a programming language and free software environment for statistical
+computing and graphics (free & opensource) with a large library of external packages available for performing diverse tasks.
+  - RStudio is an IDR application that provides comprehensive facilities to computer programmers for software development.
+  - R can be used as a calculator
+  - R can perform comparisons
+  
+</div>
  
 # Variables and assignment
 
-`<-` is the assignment operator in R. (read as left member take right member value) 
+In addition to being able to perform a huge number of computations very fast, computers can also store information to memory.
+This is a mandatory function to load your data and store intermediate states in your analysis.
 
-` = ` also exists but is **not recommended!** It will be used preferentially in other cases.  (*We will see them later*)
+In R `<-` is the assignment operator (read as left members take right member value).
+
+` = ` Also exists but is **not recommended!** It will be used preferentially in other cases.  (*We will see them later*).
+If you really don't want to press two consecutive keys for assignment, you can press `alt` + `-` to write `<-`.
+Rstudio provides lots of such shortcuts (you can display them by pressing `alt` + `shift` + `k`).
+
+We assign a value to `x`, `x` is called a variable.
 
 ```{r VandAstep1, include=TRUE}
 x <- 1/40
+
 ```
 
+We can then ask R to display the value of `x`.
 ```{r VandAstep2, include=TRUE}
 x
 ```
 
-### The environment
+## The environment
 
 You now see the `x` value in the environment box (*in red*).
 
@@ -306,25 +359,29 @@ a <- "Hello world"  # Multiple characters == String
 a
 ```
 
+You cannot mix different types of variable together:
+
 ```R
 x + z
 ```
  
 How to test the type of the variable?
 ```{r VandAstep20, include=TRUE}
-
 is.character(z)
-
 b <- 1/40
 b
 typeof(b)
 ```
 
-### Variables names
+You can type `is.` and press `tabulation`.
+Rstudio will show you a list of function whose names start with `is.`.
+This is called autocompletion, don't hesitate to spam your `tabulation` key as you write R code.
 
-Variable names can contain letters, numbers, underscores and periods.
+## Variables names
 
-They cannot start with a number nor contain spaces at all.
+Variable names can contain **letters**, **numbers**, **underscores** and **periods**.
+
+They **cannot start with a number** nor contain spaces at all.
 
 Different people use different conventions for long variable names, these include:
 
@@ -336,7 +393,7 @@ camelCaseToSeparateWords
 
 What you use is up to you, but be consistent.
 
-<div id="pquestion">   Which of the following are valid R variable names?</div>
+<div class="pencadre">   Which of the following are valid R variable names?</div>
 
 ```{r eval=F, }
 min_height
@@ -361,11 +418,13 @@ celsius2kelvin
 </p>
 </details>
 
-### Functions are also variables
+## Functions are also variables
 
 ```{r VandAstep7, include=TRUE}
 logarithm <- log
 ```
+
+Try to use the `logarithm` variable.
 
 
 A R function can have different arguments
@@ -393,26 +452,38 @@ or
 This block allows you to view the different outputs (?help, graphs, etc.).
 
 ![](./img/formationR_VandAstep8_encadre.png)
-### A code editor
+
+<div class="pencadre">
+Test that your `logarithm` function can work in base 10
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```R
+10^logarithm(12, base = 10)
+```
+</p>
+</details>
+
+## A code editor
+
+We are now going to write our first function.
+We could do it directly in the R console, with multi-line commands but this process is tedious.
+
+Instead we are going to use the Rstudio code editor panel, to write our code.
+You can go to **File > New File > R script** to open your editor panel.
 
 ![](./img/RStudio_editor.png)
-RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
-
-- click on the `Run button` above the editor panel, or
-- select “Run Lines” from the “Code” menu, or
-- hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run. 
-
-If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
-
-Copy your `function` into a `tp_1.R` file
+## Writing function
 
 We can  define our own function with :
 
 - function name,
-- declaration of function type,
-- arguments,
-- `{` and `}` top open and close function,
+- declaration of function type: `function`,
+- arguments: between `(` `)`,
+- `{` and `}` to open and close function body,
 
+Here is an example of function declaration with two arguments `a` and `b`.
 ```R
 function_name <- function(a, b){
 
@@ -420,6 +491,9 @@ function_name <- function(a, b){
 }
 ```
 - a series of operations,
+
+The argument `a` and `b` are accessible from within the function body as the variable
+`a` and `b`.
 
 ```R
 function_name <- function(a, b){
@@ -431,6 +505,8 @@ function_name <- function(a, b){
 
 - `return` operation
 
+At the end of a function we want to return a result, so function calls will be equal to this result.
+
 ```R
 function_name <- function(a, b){
   result_1 <- operation1(a, b)
@@ -439,21 +515,53 @@ function_name <- function(a, b){
 }
 ```
 
-<div id="pquestion">How to write a function to test if a number is even?</div>
+**Note: ** if you don't use `return` by default the evaluation of the last line of your function body is returned
+
+<div class="pencadre">
+Try a function to test if a number is even?
+You can use the `%%` modulo operators
+
+Name this function `even_test` and use the `==` comparison to test if the results
+of the modulo is equal to `0`.
+</div>
  
+<details><summary>Solution</summary>
+<p>
 ```{r VandAstep11, include=TRUE}
 even_test <- function(x){
-  modulo_result <- x %% 2         # %% is modulo operator
+  modulo_result <- x %% 2
   is_even <- modulo_result == 0
   return(is_even)
 }
-
 even_test(4)
-
 even_test(3)
 ```
+</p>
+</details>
 
- **Note :** A function can be written in several forms.
+**Note :** A function can be written in several forms.
+<details><summary>Solution</summary>
+<p>
+```{r VandAstep11small, include=TRUE}
+even_test2 <- function(x){
+  (x %% 2) == 0
+}
+even_test(4)
+even_test(3)
+```
+</p>
+</details>
+
+RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
+
+- click on the `Run button` above the editor panel, or
+- select “Run Lines” from the “Code” menu, or
+- hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run. 
+
+If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
+
+
+## Cleaning up
 
 No We can now clean your environment
 
@@ -461,35 +569,56 @@ No We can now clean your environment
 rm(x)
 ```
 
+What appenned in the *Environment* panel ?
+Check the documentation of this command
 
+<details><summary>Solution</summary>
+<p>
 ```{r VandAstep16, include=TRUE}
 ?rm
 ```
+</p>
+</details>
 
 ```{r VandAstep17, include=TRUE}
 ls()
 ```
 
+<div class="pencadre">
+Combine `rm` and `ls` to cleanup your *Environment*
+</div>
+
+<details><summary>Solution</summary>
+<p>
 ```{r VandAstep18, include=TRUE}
 rm(list = ls())
 ```
+</p>
+</details>
 
 ```{r VandAstep19, include=TRUE}
 ls()
 ```
 
-<fieldset id='pencadre' style='text-align: left'>
-  <legend style='border: 0px;'>Summary box</legend>
-  <li> Assigning a variable is done with ` <- `.</li>
-  <li> The assigned variables are listed in the environment box.</li>
-  <li> Variable names can contain letters, numbers, underscores and periods. </li>
-  <li> Functions are also variable and can write in several forms</li>
-  <li> An editing box is available on Rstudio.</li>
-</fieldset>
+<div class='pencadre'>
+  **Summary so far:**
+  
+  - Assigning a variable is done with ` <- `.
+  - The assigned variables are listed in the environment box.
+  - Variable names can contain letters, numbers, underscores and periods.
+  - Functions are also variable and can write in several forms
+  - An editing box is available on Rstudio.
+  
+</div>
 
 # Complex variable type 
 
-### Vector (aka list)
+You can only go so far with the variables we have already seen.
+In R there are also **complex variable type**, which can be seen as combination of simple variable type.
+
+## Vector (aka list)
+
+Vectors are simple list of variable of the same type
 
 ```{r Vecstep1, include=TRUE}
 c(1, 2, 3, 4, 5)
@@ -513,6 +642,8 @@ x <- c(1:5)
 2^x
 ```
 
+**Note:** this kind of operation is called **vectorisation** and is very powerful in R.
+
 To determine the type of the elements of a vector:
 
 ```{r Vecstep5, include=TRUE}
@@ -530,8 +661,11 @@ x + 0.5
 is.vector(x)
 ```
 
+Vectors can be extended to named vectors:
+
 ```{r Vecstep8, include=TRUE}
 y <- c(a = 1, b = 2, c = 3, d = 4, e = 5)
+y
 ```
 
 We can compare the elements of two vectors:
@@ -542,51 +676,86 @@ y
 x == y
 ```
 
-<fieldset id='pencadre' style='text-align: left'>
-  <legend style='border: 0px;'>Summary box</legend>
-  <li> A variable can be of different types : `numeric`, `character`, `vector`, `function`, etc.</li>
-  <li> Calculations and comparisons apply to vectors.</li>
-  <li> Do not hesitate to use the help box to understand functions!  </li>
-</fieldset>
+<div class="pencadre">
+  **Summary so far**
+  
+  - A variable can be of different types : `numeric`, `character`, `vector`, `function`, etc.
+  - Calculations and comparisons apply to vectors.
+  - Do not hesitate to use the help box to understand functions!
+  
+</div>
 
-# Packages  
-### Installing packages
+We will see other complex variables type during this formation.
+
+# Packages
+
+R base is like a new smartphone, you can do loots of things with it but you can also install new apps to a huge range of other things.
+In R those apps are called **packages**.
+
+There are different sources to get packages from:
+
+- The [CRAN](https://cran.r-project.org/) which is the default source
+- [Bioconducor](http://www.bioconductor.org) which is another source specialized for biology packages
+- Directly from [github](https://github.com/)
+
+To install packages from [Bioconducor](http://www.bioconductor.org) and [github](https://github.com/) you will need to install specific packages from the [CRAN](https://cran.r-project.org/).
+
+## Installing packages
+
+To install packages, you can use the `install.packages` function (don't forget to use tabulation for long variable names).
 
 ```R
 install.packages("tidyverse")
 ```
 
-or click on `Tools` and `Install Packages...`
+or you can click on `Tools` and `Install Packages...`
 
 ![](./img/formationR_installTidyverse.png)
 
+Install also the `ggplot2` package.
+
+
+<details><summary>Solution</summary>
+<p>
 ```R
 install.packages("ggplot2")
 ```
+</p>
+</details>
 
-### Loading packages
+## Loading packages
+
+Once a package is installed, you need to load it in your R session to be able to use it.
+The command `sessionInfo` display your session information.
+
 
 ```{r packagesstep1, include=TRUE}
 sessionInfo()
 ```
 
+<div class='pencadre'>
+Use the command `library` to load the `ggplot2` package and check your session
+</div>
+
+<details><summary>Solution</summary>
+<p>
 ```{r packagesstep2, include=TRUE}
-library(tidyverse)
-```
-
-
-```R
+library("ggplot2")
 sessionInfo()
 ```
-### Unloading packages
+</p>
+</details>
+
+## Unloading packages
+
+Sometime, you may want to unload package from your session instead of relaunching R.
 
 ```{r packagesstep4, include=TRUE}
-unloadNamespace("tidyverse")
+unloadNamespace("ggplot2")
 ```
-
 
 ```R
 sessionInfo()
 ```
 
-##See you to Session#2 : "Introduction to Tidyverse"
+##See you in [Session 2 : "Introduction to Tidyverse"](session_2.html)
