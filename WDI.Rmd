@@ -1,10 +1,27 @@
 ---
 title: "World data bank indicator"
-output: html_document
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "2021"
+output:
+  rmdformats::downcute:
+    self_contain: false
+    use_bookdown: true
+    default_style: "dark"
+    lightbox: true
+    css: "../src/style.css"
 ---
 
 ```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = NA)
+```
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(
+  position = c('top', 'right'),
+  color = "white",
+  tooltip_message = 'Click to copy',
+  tooltip_success = 'Copied !')
 ```
 
 ## World Bank datasets
