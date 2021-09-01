@@ -1,232 +1,210 @@
 ---
-title: "R#2: introduction to Tidyverse"
+title: "R.2: introduction to Tidyverse"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
-date: "Mars 2020"
+date: "2021"
 output:
-  html_document: default
-  pdf_document: default
+  rmdformats::downcute:
+    self_contain: false
+    use_bookdown: true
+    default_style: "dark"
+    lightbox: true
+    css: "../src/style.css"
 ---
-<style type="text/css">
-h3 { /* Header 3 */
-  position: relative ;
-  color: #729FCF ;
-  left: 5%;
-}
-h2 { /* Header 2 */
-  color: darkblue ;
-  left: 10%;
-} 
-h1 { /* Header 1 */
-  color: #034b6f ;
-} 
-#pencadre{
-  border:1px; 
-  border-style:solid; 
-  border-color: #034b6f; 
-  background-color: #EEF3F9; 
-  padding: 1em;
-  text-align: center ;
-  border-radius : 5px 4px 3px 2px;
-}
-legend{
-  color: #034b6f ;
-}
-#pquestion {
-  color: darkgreen;
-  font-weight: bold;
-  
-}
-}
-</style>
+
 ```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
-
-library(tidyverse)
-# tmp <- tempfile(fileext = ".zip")
-# download.file("http://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip",
-#               tmp,
-#               quiet = TRUE)
-# unzip(tmp, exdir = "data-raw")
-# new_class_level <- c(
-#   "Compact Cars",
-#   "Large Cars",
-#   "Midsize Cars",
-#   "Midsize Cars",
-#   "Midsize Cars",
-#   "Compact Cars",
-#   "Minivan",
-#   "Minivan",
-#   "Pickup Trucks",
-#   "Pickup Trucks",
-#   "Pickup Trucks",
-#   "Sport Utility Vehicle",
-#   "Sport Utility Vehicle",
-#   "Compact Cars",
-#   "Special Purpose Vehicle",
-#   "Special Purpose Vehicle",
-#   "Special Purpose Vehicle",
-#   "Special Purpose Vehicle",
-#   "Special Purpose Vehicle",
-#   "Special Purpose Vehicle",
-#   "Sport Utility Vehicle",
-#   "Sport Utility Vehicle",
-#   "Pickup Trucks",
-#   "Pickup Trucks",
-#   "Pickup Trucks",
-#   "Pickup Trucks",
-#   "Sport Utility Vehicle",
-#   "Sport Utility Vehicle",
-#   "Compact Cars",
-#   "Two Seaters",
-#   "Vans",
-#   "Vans",
-#   "Vans",
-#   "Vans"
-# )
-# new_fuel_level <- c(
-#   "gas",
-#   "Diesel",
-#   "Regular",
-#   "gas",
-#   "gas",
-#   "Regular",
-#   "Regular",
-#   "Hybrid",
-#   "Hybrid",
-#   "Regular",
-#   "Regular",
-#   "Hybrid",
-#   "Hybrid"
-# )
-# read_csv("data-raw/vehicles.csv") %>%
-#   select(
-#     "id",
-#     "make",
-#     "model",
-#     "year",
-#     "VClass",
-#     "trany",
-#     "drive",
-#     "cylinders",
-#     "displ",
-#     "fuelType",
-#     "highway08",
-#     "city08"
-#   ) %>% 
-#   rename(
-#     "class" = "VClass",
-#     "trans" = "trany",
-#     "drive" = "drive",
-#     "cyl" = "cylinders",
-#     "displ" = "displ",
-#     "fuel" = "fuelType",
-#     "hwy" = "highway08",
-#     "cty" = "city08"
-#   ) %>%
-#   filter(drive != "") %>%
-#   drop_na() %>% 
-#   arrange(make, model, year) %>%
-#   mutate(class = factor(as.factor(class), labels = new_class_level)) %>%
-#   mutate(fuel = factor(as.factor(fuel), labels = new_fuel_level)) %>%
-#   write_csv("2_data.csv")
-
+knitr::opts_chunk$set(comment = NA)
+```
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(
+  position = c('top', 'right'),
+  color = "white",
+  tooltip_message = 'Click to copy',
+  tooltip_success = 'Copied !')
+```
+```{r download_data, include=FALSE, eval=FALSE}
+library("tidyverse")
+tmp <- tempfile(fileext = ".zip")
+download.file("http://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip",
+              tmp,
+              quiet = TRUE)
+unzip(tmp, exdir = "data-raw")
+new_class_level <- c(
+  "Compact Cars",
+  "Large Cars",
+  "Midsize Cars",
+  "Midsize Cars",
+  "Midsize Cars",
+  "Compact Cars",
+  "Minivan",
+  "Minivan",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Sport Utility Vehicle",
+  "Sport Utility Vehicle",
+  "Compact Cars",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Special Purpose Vehicle",
+  "Sport Utility Vehicle",
+  "Sport Utility Vehicle",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Pickup Trucks",
+  "Sport Utility Vehicle",
+  "Sport Utility Vehicle",
+  "Compact Cars",
+  "Two Seaters",
+  "Vans",
+  "Vans",
+  "Vans",
+  "Vans"
+)
+new_fuel_level <- c(
+  "gas",
+  "Diesel",
+  "Regular",
+  "gas",
+  "gas",
+  "Regular",
+  "Regular",
+  "Hybrid",
+  "Hybrid",
+  "Regular",
+  "Regular",
+  "Hybrid",
+  "Hybrid"
+)
+read_csv("data-raw/vehicles.csv") %>%
+  select(
+    "id",
+    "make",
+    "model",
+    "year",
+    "VClass",
+    "trany",
+    "drive",
+    "cylinders",
+    "displ",
+    "fuelType",
+    "highway08",
+    "city08"
+  ) %>%
+  rename(
+    "class" = "VClass",
+    "trans" = "trany",
+    "drive" = "drive",
+    "cyl" = "cylinders",
+    "displ" = "displ",
+    "fuel" = "fuelType",
+    "hwy" = "highway08",
+    "cty" = "city08"
+  ) %>%
+  filter(drive != "") %>%
+  drop_na() %>%
+  arrange(make, model, year) %>%
+  mutate(class = factor(as.factor(class), labels = new_class_level)) %>%
+  mutate(fuel = factor(as.factor(fuel), labels = new_fuel_level)) %>%
+  write_csv("mpg.csv")
 ```
 
+# Introduction
 
-The goal of this practical is to familiarize yourself with `ggplot2`.
+In the last session, we have gone through the basis of R.
+Instead of continuing to learn more about R programming, in this session we are going to jump directly to rendering plots.
+
+We make this choice for three reasons:
+
+- Rendering nice plots is direclty rewarding
+- You will be able to apply what you learn in this session to your own data (given that they are *correctly formated*)
+- We will come back to R programming later, when you have all the necessary tools to visualize your results
+
 
 The objectives of this session will be to:
 
-- Create basic plot with `ggplot2`
+- Create basic plot with the `ggplot2` `library`
 - Understand the `tibble` type
 - Learn the different aesthetics in R plots
-- Compose graphics
-
-
-<div id='pencadre'>
-
-**Write the commands in the grey box in the terminal.**
-
-**The expected results will always be printed in a white box here.**
-
-**You can `copy-paste` but I advise you to practice writing directly in the terminal. To validate the line at the end of your command: press `Return`.**
-</div> 
-
+- Compose complex graphics
 
 ## Tidyverse
 
-The tidyverse is a collection of R packages designed for data science.
+The `tidyverse` is a collection of R packages designed for data science that include `ggplot2`.
 
-All packages share an underlying design philosophy, grammar, and data structures.
+All packages share an underlying design philosophy, grammar, and data structures (plus the same shape of logo).
 
 <center>
 ![](./img/tidyverse.jpg){width=500px}
 </center>
 
- \ 
+`tidyverse` is a meta library, which can be long to install with the following command:
 ```R
 install.packages("tidyverse")
 ```
 
-```R
+Luckily for your `tidyverse` is preinstalled on your Rstudio server. So you just have to load the ` library`
+
+```{R load_tidyverse}
 library("tidyverse")
 ```
-
- \ 
  
 ### Toy data set `mpg`
 
-This dataset contains a subset of the fuel economy data that the EPA makes available on http://fueleconomy.gov . It contains only models which had a new release every year between 1999 and 2008.
+This dataset contains a subset of the fuel economy data that the EPA makes available on [fueleconomy.gov](http://fueleconomy.gov).
+It contains only models which had a new release every year between 1999 and 2008.
 
+You can use the `?` command to know more about this dataset.
 
 ```{r mpg_inspect, include=TRUE}
 ?mpg
-mpg
 ```
+
+But instead of using a dataset included in a R package, you may want to be able to use any dataset with the same format.
+For that we are going to use the command `read_csv` which is able to read a [csv](https://en.wikipedia.org/wiki/Comma-separated_values) file.
+
+This command also work for file URL
+
+```{r mpg_download, cache=TRUE, message=FALSE}
+new_mpg <- read_csv(
+  "http://perso.ens-lyon.fr/laurent.modolo/R/mpg.csv"
+)
+```
+
+You can check the number of line and column of the data with `dim`:
 
 ```{r mpg_inspect2, include=TRUE}
-dim(mpg)
+dim(new_mpg)
 ```
+
+To visualize the data in Rstudio you can use the command `View`
 
 ```R
-View(mpg)
+View(new_mpg)
 ```
+
 ### New script
 
+Like in the last session, instead of typing your commands direclty in the console, you are going to write them in an R script.
+
 ![](./img/formationR_session2_scriptR.png)
-
- \ 
-
-<!-- ### Updated version of the data -->
-
-<!-- `mpg` is loaded with tidyverse, we want to be able to read our own data from -->
-
-<!--  \  -->
-<!-- http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv -->
-
-<!-- ```{r mpg_download, cache=TRUE, message=FALSE} -->
-<!-- new_mpg <- read_csv( -->
-<!--   "http://perso.ens-lyon.fr/laurent.modolo/R/2_data.csv" -->
-<!--   ) -->
-
-<!-- ``` -->
-
- \ 
- 
- \ 
-
 # First plot with `ggplot2`
 
-Relationship between engine size `displ` and fuel efficiency `hwy`.
+We are going to make the simpliest plot possible to study the relationship between two variables: the scatterplot.
+
+The following command generate a plot between engine size `displ` and fuel efficiency `hwy`.
 
 ```{r new_mpg_plot_a, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point()
-
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-### Composition of plot with `ggplot2`
-
+`ggplot2` is a system for declaratively creating graphics, based on [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl). You provide the data, tell `ggplot2` how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
 ```
 ggplot(data = <DATA>) + 
@@ -239,42 +217,26 @@ ggplot(data = <DATA>) +
 - each geom function in `ggplot2` takes a `mapping` argument
 - the `mapping` argument is always paired with `aes()`
 
- \ 
+
+<div class="pencadre">
+Make a scatterplot of `hwy` ( fuel efficiency ) vs. `cyl` ( number of cylinders ).
+</div>
  
 
-<div id="pquestion"> - Make a scatterplot of `hwy` ( fuel efficiency ) vs. `cyl` ( number of cylinders ). </div>
-
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
- 
- 
-
-
+<details><summary>Solution</summary>
+<p>
 ```{r new_mpg_plot_b, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg, mapping = aes(x = hwy, y = cyl)) + 
   geom_point()
 ```
 
- \ 
- 
-
- \ 
+</p>
+<div class="pencadre">
+What seems to be the problem ?
+</div>
+</details>
  
 # Aesthetic mappings
-
 
 `ggplot2` will automatically assign a unique level of the aesthetic (here a unique color) to each unique value of the variable, a process known as scaling. `ggplot2` will also add a legend that explains which levels correspond to which values.
 
@@ -284,7 +246,7 @@ Try the following aesthetic:
 - `alpha`
 - `shape`
 
-### Aesthetic mappings : `color`
+## `color` mapping
 
 ```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
@@ -292,29 +254,26 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
 ```
 
 
-### Aesthetic mappings : `size`
+## `size` mapping
 
 ```{r new_mpg_plot_f, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, size = class)) + 
   geom_point()
 ```
 
-###  Aesthetic mapping : `alpha`
+## `alpha` mapping
 
 ```{r new_mpg_plot_g, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, alpha = class)) + 
   geom_point()
 ```
 
-###  Aesthetic mapping : `shape`
+## `shape` mapping
 
 ```{r new_mpg_plot_h, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, shape = class)) + 
   geom_point()
 ```
-
- 
- \ 
 
 You can also set the aesthetic properties of your geom manually. For example, we can make all of the points in our plot blue and squares:
 
@@ -323,62 +282,58 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(color = "blue", shape=0)
 ```
 
-
- \ 
+Here is a list of different shapes available in R:
 <center>
 ![](./img/shapes.png){width=300px}
-
- \ 
- 
-![](./img/colors.png){width=100px} 
 </center>
+ 
+<div class="pencadre">
+What’s gone wrong with this code? Why are the points not blue?
+</div>
 
-<div id="pquestion">- What’s gone wrong with this code? Why are the points not blue?</div>
-
-```R
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = "blue")) + 
-  geom_point()
-```
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
- 
- \ 
-
-```{r res2, cache = TRUE, echo=FALSE, fig.width=8, fig.height=4.5}
+```{r new_mpg_plot_not_blue, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = "blue")) + 
   geom_point()
 ```
 
- \ 
+<details><summary>Solution</summary>
+<p>
+```{r new_mpg_plot_blue, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(color = "blue")
+```
+</p>
+</details>
  
-- Map a **continuous** variable to color.
+## mapping a **continuous** variable to a color.
+
+You can also map continuous variable to a color
 
 ```{r continu, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = cyl)) + 
   geom_point()
 ```
 
-<div id="pquestion">- What happens if you map an aesthetic to something other than a variable name, like `color = displ < 5`?</div>
+<div class="pencadre">
+What happens if you map an aesthetic to something other than a variable name, like `color = displ < 5`?
+</div>
+
+<details><summary>Solution</summary>
+<p>
 ```{r condiColor, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = displ < 5)) + 
   geom_point()
 ```
-
- \ 
- 
- \ 
+</p>
+</details>
  
 # Facets
 
+You can create multiple plot at once by faceting. For this you can use the command `facet_wrap`.
+This command take a formula as input.
+We will come back to formulas in R later, for now, your have to know that formulas start with a `~` symbol.
+
+To make a scatterplot of `displ` versus `hwy` per car `class` you can use the following code:
 
 ```{r new_mpg_plot_k, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
@@ -386,13 +341,22 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   facet_wrap(~class, nrow = 2)
 ```
 
- \ 
+<div class="pencadre">
+Now try to facet your plot by `fl + class`
+</div>
+
+
+<details><summary>Solution</summary>
+<p>
+Formulas allow your to express complex relationship between variables in R !
 
 ```{r new_mpg_plot_l, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point() + 
   facet_wrap(~ fl + class, nrow = 2)
 ```
+</p>
+</details>
 
 # Composition
 
@@ -442,20 +406,25 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 # Challenge  !
 
-<div id="pquestion">- Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</div>
+<div class="pencadre">
+Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+</div>
 ```R
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
-  geom_point() + 
+  geom_point(show.legend = FALSE) + 
   geom_smooth(se = FALSE)
 ```
-**http://perso.ens-lyon.fr/laurent.modolo/R/2_d**
 
+<div class="pencadre">
 - What does `show.legend = FALSE` do?
 - What does the `se` argument to `geom_smooth()` do?
+</div>
 
 ## Third challenge
 
-- Recreate the R code necessary to generate the following graph
+<div class="pencadre">
+Recreate the R code necessary to generate the following graph
+</div>
 
 ```{r new_mpg_plot_u, echo = FALSE, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
