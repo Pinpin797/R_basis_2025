@@ -12,6 +12,7 @@ Groups:
 - Laurent Modolo (IFB)
 - Christophe Arpin
 - Carine Rey (IFB)
+- Helene Polveche
 
 ## Tuesday
 - Jeremy Barbier
