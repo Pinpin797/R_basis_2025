@@ -17,11 +17,10 @@ Groups:
 - Jeremy Barbier
 - David Armisen
 - Marie Cariou (IFB)
-
+- Nicolas Fontrodona
 
 ## Friday
 - Antoine Corbin
-- Nicolas Fontrodona
 - Emmanuel Labaronne (IFB)
 - Stephane Janczarski
 - Catherine Cerutti
