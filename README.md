@@ -9,20 +9,20 @@ The sessions will be starting the 14/09:
 Groups:
 ## Monday
 - Jacques Brocard
-- Laurent Modolo
+- Laurent Modolo (IFB)
 - Christophe Arpin
-- Carine Rey
+- Carine Rey (IFB)
 
 ## Tuesday
 - Jeremy Barbier
 - David Armisen
-- Marie Cariou
+- Marie Cariou (IFB)
 
 
 ## Friday
 - Antoine Corbin
 - Nicolas Fontrodona
-- Emmanuel Labaronne
+- Emmanuel Labaronne (IFB)
 - Stephane Janczarski
 - Catherine Cerutti
 - Anissa Guillemin
