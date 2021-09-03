@@ -28,3 +28,7 @@ Groups:
 - Anissa Guillemin
 
 # program
+
+- Session 1: first step with R and RStudio
+- Session 2: my first plot with `ggplot2`
+- Session 3: more fun with `ggplot2`
