@@ -12,5 +12,5 @@ session_*/slides_files
 session_2/data-raw/
 session_2/mpg.csv
 session_*/session_*_cache/
-session_(/session_*_files/
+session_*/session_*_files/
 
