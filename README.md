@@ -24,7 +24,7 @@ Groups:
 - Antoine Corbin
 - Emmanuel Labaronne (IFB)
 - Stephane Janczarski
-- Catherine Cerutti
+- Catherine Cerutti (abs the 01/10)
 - Anissa Guillemin
 
 # program
