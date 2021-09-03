@@ -8,4 +8,9 @@ session_*/*.log
 session_*/slides_cache
 session_*/slides_files
 *.Rproj
+.DS_Store
+session_2/data-raw/
+session_2/mpg.csv
+session_*/session_*_cache/
+session_(/session_*_files/
 
