@@ -49,42 +49,59 @@ Like in the previous sessions, it's good practice to create a new **.R** file to
  
 # `ggplot2` statistical transformations
 
+In the previous session, we have ploted the data as they are by using the variables values as **x** or **y** coordinates, color shade, size or transparency.
+When dealing with categorical variables, also called **factors**, it can be interesting to perform some simple statistical transformations.
+For example we may want to have coordinates on an axis proportional to the number of records for a given category.
 
 We are going to use the `diamonds` data set included in `tidyverse`.
 
-- Use the `help` and `view` command to explore this data set.
+<div class="pencadre">
+
+- Use the `help` and `View` command to explore this data set.
+- How much records does this dataset contains ?
 - Try the `str` command, which information are displayed ?
+
+</div>
 
 ```{r str_diamon}
 str(diamonds)
 ```
 
-We saw scatterplot (`geom_point()`), smoothplot (`geom_smooth()`). Now barplot with `geom_bar()` : 
+## Introduction to `geom_bar`
 
-```{r diamonds_barplot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+We saw scatterplot (`geom_point()`), smoothplot (`geom_smooth()`).
+Now barplot with `geom_bar()` : 
+
+```{r diamonds_barplot, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = diamonds, mapping = aes(x = cut)) + 
   geom_bar()
 ```
 
 More diamonds are available with high quality cuts.
 
-On the x-axis, the chart displays cut, a variable from diamonds. On the y-axis, it displays count, but count is not a variable in diamonds!
+On the x-axis, the chart displays **cut**, a variable from diamonds. On the y-axis, it displays **count**, **but count is not a variable in diamonds!**
 
-The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation. The figure below describes how this process works with `geom_bar()`.
+
+## **geom** and **stat**
+
+The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation.
+The figure below describes how this process works with `geom_bar()`.
 
 ![](img/visualization-stat-bar.png)
 
+You can generally use **geoms** and **stats** interchangeably. For example, you can recreate the previous plot using `stat_count()` instead of `geom_bar()`:
 
-You can generally use geoms and stats interchangeably. For example, you can recreate the previous plot using `stat_count()` instead of `geom_bar()`:
-
-```{r diamonds_stat_count, include=TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+```{r diamonds_stat_count, include=TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = diamonds, mapping = aes(x = cut)) + 
   stat_count()
 ```
 
-Every geom has a default stat; and every stat has a default geom. This means that you can typically use geoms without worrying about the underlying statistical transformation. There are three reasons you might need to use a stat explicitly:
+Every **geom** has a default **stat**; and every **stat** has a default **geom**. This means that you can typically use **geoms** without worrying about the underlying statistical transformation. There are three reasons you might need to use a **stat** explicitly:
 
-- You might want to override the default stat. 
+## Why **stat** ?
+
+You might want to override the default stat.
+For example in the following `demo` dataset we allready have a varible for the **counts** per `cut`.
 
 ```{r 3_a, include=TRUE, fig.width=8, fig.height=4.5}
 demo <- tribble(
@@ -101,36 +118,66 @@ demo <- tribble(
 to guess at their meaning from the context, and you will learn exactly what
 they do soon!)
 
+<div class="pencadre">
+So instead of using the default `geom_bar` parameter `stat = "count"` ty to use `"identity"`
+</div>
+
+<details><summary>Solution</summary>
+<p>
 ```{r 3_ab, include=TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = demo, mapping = aes(x = cut, y = freq)) +
   geom_bar(stat = "identity")
 ```
+</p>
+</details>
 
-- You might want to override the default mapping from transformed variables to aesthetics ( e.g. proportion). 
+You might want to override the default mapping from transformed variables to aesthetics ( e.g. proportion). 
+
 ```{r 3_b, include=TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop.., group = 1)) + 
   geom_bar()
 ```
   
-- In our proportion bar chart, we need to set `group = 1`. Why?
+<div class="pencadre">
+In our proportion bar chart, we need to set `group = 1`. Why?
+</div>
 
+<details><summary>Solution</summary>
+<p>
 ```{r diamonds_stats_challenge, include=TRUE, message=FALSE, fig.width=8, fig.height=4.5}
 ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop..)) + 
   geom_bar()
 ```
 
 If group is not used, the proportion is calculated with respect to the data that contains that field and is ultimately going to be 100% in any case. For instance, The proportion of an ideal cut in the ideal cut specific data will be 1.
+</p>
+</details>
 
-- You might want to draw greater attention to the statistical transformation in your code. 
-you might use stat_summary(), which summarises the y values for each unique x
-value, to draw attention to the summary that you are computing:
+## More details with `stat_summary`
 
+<div class="pencadre">
+You might want to draw greater attention to the statistical transformation in your code. 
+you might use `stat_summary()`, which summarize the **y** values for each unique **x**
+value, to draw attention to the summary that you are computing
+</div>
+
+<details><summary>Solution</summary>
+<p>
 ```{r 3_c, include=TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) + 
   stat_summary()
+```
+</p>
+</details>
 
-  
+<div class="pencadre">
+Set the `fun.min`, `fun.max` and `fun` to the `min`, `max` and `median` function respectively
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r 3_d, include=TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) + 
   stat_summary(
     fun.min = min,
@@ -138,54 +185,80 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
     fun = median
   )
 ```
+</p>
+</details>
 
+# Coloring area plots
 
-# Position adjustments
+<div class="pencadre">
+You can colour a bar chart using either the `color` aesthetic, or, more usefully, `fill`:
+Try both solutions on a `cut`, histogram.
+</div>
 
-You can colour a bar chart using either the `color` aesthetic, 
-
+<details><summary>Solution</summary>
+<p>
 ```{r diamonds_barplot_color, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, color = cut)) + 
   geom_bar()
 ```
 
-or, more usefully, `fill`:
-
 ```{r diamonds_barplot_fill, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
   geom_bar()
 ```
+</p>
+</details>
 
+<div class="pencadre">
 You can also use `fill` with another variable:
+Try to color by `clarity`. Is `clarity` a continuous or categorial variable ?
+</div>
 
+<details><summary>Solution</summary>
+<p>
 ```{r diamonds_barplot_fill_clarity, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
   geom_bar()
 ```
+</p>
+</details>
 
-The stacking is performed by the position adjustment `position`
+# Position adjustments
 
-## fill
+The stacking of the `fill` parameter is performed by the position adjustment `position`
 
+<div class="pencadre">
+Try the following `position` parameter for `geom_bar`: `"fill"`, `"dodge"` and `"jitter"`
+</div>
+
+
+<details><summary>Solution</summary>
+<p>
 ```{r diamonds_barplot_pos_fill, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
   geom_bar( position = "fill")
 ```
-
-## dodge
 
 ```{r diamonds_barplot_pos_dodge, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
   geom_bar( position = "dodge")
 ```
 
-## jitter
-
 ```{r diamonds_barplot_pos_jitter, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
   geom_bar( position = "jitter")
 ```
+</p>
+</details>
 
+`jitter` is often used for plotting points when they are stacked on top of each others.
+
+<div class="pencadre">
+Compare `geom_point` to `geom_jitter` to plot `cut` versus `depth` and color by `clarity`
+</div>
+
+<details><summary>Solution</summary>
+<p>
 ```{r dia_jitter2, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
   geom_point()
@@ -195,6 +268,8 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
   geom_jitter()
 ```
+</p>
+</details>
 
 ## violin
 
