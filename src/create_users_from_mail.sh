@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 # USAGE
-#wget -qO - http://perso.ens-lyon.fr/laurent.modolo/R/create_users_from_mail.sh | bash -s usertest@mail.fr usertest2@mail.f
+# wget -qO - http://perso.ens-lyon.fr/laurent.modolo/R/create_users_from_mail.sh | tr -d '\r' | bash -s usertest@mail.fr usertest2@mail.f
 
 USERMAILS=$@
 for USERMAIL in ${USERMAILS[@]}
