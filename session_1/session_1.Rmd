@@ -4,11 +4,11 @@ author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-l
 date: "2021"
 output:
   rmdformats::downcute:
-    self_contain: false
+    self_contain: true
     use_bookdown: true
     default_style: "dark"
     lightbox: true
-    css: "../src/style.css"
+    css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
 ---
 
 ```{r setup, include=FALSE}
