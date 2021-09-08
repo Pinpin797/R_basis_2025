@@ -45,20 +45,20 @@ library("tidyverse")
 </p>
 </details>
 
-Like in the previous sessions, it's good practice to create a new **.R** file to write your code instead of using directly the R terminal.
+Like in the previous sessions, it's good practice to create a new **.R** file to write your code instead of using the R terminal directly.
  
 # `ggplot2` statistical transformations
 
-In the previous session, we have ploted the data as they are by using the variables values as **x** or **y** coordinates, color shade, size or transparency.
+In the previous session, we have plotted the data as they are by using the variable values as **x** or **y** coordinates, color shade, size or transparency.
 When dealing with categorical variables, also called **factors**, it can be interesting to perform some simple statistical transformations.
-For example we may want to have coordinates on an axis proportional to the number of records for a given category.
+For example, we may want to have coordinates on an axis proportional to the number of records for a given category.
 
 We are going to use the `diamonds` data set included in `tidyverse`.
 
 <div class="pencadre">
 
 - Use the `help` and `View` command to explore this data set.
-- How much records does this dataset contains ?
+- How much records does this dataset contain ?
 - Try the `str` command, which information are displayed ?
 
 </div>
@@ -101,7 +101,7 @@ Every **geom** has a default **stat**; and every **stat** has a default **geom**
 ## Why **stat** ?
 
 You might want to override the default stat.
-For example in the following `demo` dataset we allready have a varible for the **counts** per `cut`.
+For example, in the following `demo` dataset we already have a variable for the **counts** per `cut`.
 
 ```{r 3_a, include=TRUE, fig.width=8, fig.height=4.5}
 demo <- tribble(
@@ -119,7 +119,7 @@ to guess at their meaning from the context, and you will learn exactly what
 they do soon!)
 
 <div class="pencadre">
-So instead of using the default `geom_bar` parameter `stat = "count"` ty to use `"identity"`
+So instead of using the default `geom_bar` parameter `stat = "count"` try to use `"identity"`
 </div>
 
 <details><summary>Solution</summary>
@@ -131,7 +131,7 @@ ggplot(data = demo, mapping = aes(x = cut, y = freq)) +
 </p>
 </details>
 
-You might want to override the default mapping from transformed variables to aesthetics ( e.g. proportion). 
+You might want to override the default mapping from transformed variables to aesthetics ( e.g., proportion). 
 
 ```{r 3_b, include=TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop.., group = 1)) + 
@@ -149,7 +149,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop..)) +
   geom_bar()
 ```
 
-If group is not used, the proportion is calculated with respect to the data that contains that field and is ultimately going to be 100% in any case. For instance, The proportion of an ideal cut in the ideal cut specific data will be 1.
+If group is not used, the proportion is calculated with respect to the data that contains that field and is ultimately going to be 100% in any case. For instance, the proportion of an ideal cut in the ideal cut specific data will be 1.
 </p>
 </details>
 
@@ -191,7 +191,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
 # Coloring area plots
 
 <div class="pencadre">
-You can colour a bar chart using either the `color` aesthetic, or, more usefully, `fill`:
+You can color a bar chart using either the `color` aesthetic, or, more usefully `fill`:
 Try both solutions on a `cut`, histogram.
 </div>
 
@@ -251,10 +251,10 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
 </p>
 </details>
 
-`jitter` is often used for plotting points when they are stacked on top of each others.
+`jitter` is often used for plotting points when they are stacked on top of each other.
 
 <div class="pencadre">
-Compare `geom_point` to `geom_jitter` to plot `cut` versus `depth` and color by `clarity`
+Compare `geom_point` to `geom_jitter`  plot `cut` versus `depth` and color by `clarity`
 </div>
 
 <details><summary>Solution</summary>
@@ -271,60 +271,75 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 </p>
 </details>
 
-## violin
+<div class="pencadre">
+What parameters of `geom_jitter` control the amount of jittering ?
+</div>
 
+<details><summary>Solution</summary>
+<p>
+```{r dia_jitter4, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+  geom_jitter(width = .1, height = .1)
+```
+</p>
+</details>
+
+In the `geom_jitter` plot that we made, we cannot really see the limits of the different clarity groups. Instead we can use the `geom_violin` to see their density.
+
+<details><summary>Solution</summary>
+<p>
 ```{r dia_violon, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
   geom_violin()
 ```
+</p>
+</details>
 
 # Coordinate systems
 
 Cartesian coordinate system where the x and y positions act independently to determine the location of each point. There are a number of other coordinate systems that are occasionally helpful.
-
 
 ```{r dia_boxplot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
   geom_boxplot()
 ```
 
+<div class="pencardre">
+Add the `coord_flip()` layer to the previous plot
+</div>
 
-
+<details><summary>Solution</summary>
+<p>
 ```{r dia_boxplot_flip, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
   geom_boxplot() +
   coord_flip()
 ```
+</p>
+</details>
 
+<div class="pencardre">
+Add the `coord_polar()` layer to this  plot:
 
-```{r dia_12, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = depth, y = table)) + 
-  geom_point() +
-  geom_abline()
-```
-
-
-```{r dia_quickmap, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = depth, y = table)) + 
-  geom_point() +
-  geom_abline() +
-  coord_quickmap()
-```
-
-
-
-
-```{r diamonds_bar, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-bar <- ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
+```{r diamonds_bar, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE, eval=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
   geom_bar( show.legend = FALSE,  width = 1 ) + 
   theme(aspect.ratio = 1) +
   labs(x = NULL, y = NULL)
-
-bar
 ```
+</div>
 
-
-```{r diamonds_bar_polar, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-bar + coord_polar()
+<details><summary>Solution</summary>
+<p>
+```{r diamonds_bar2, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
+  geom_bar( show.legend = FALSE,  width = 1 ) + 
+  theme(aspect.ratio = 1) +
+  labs(x = NULL, y = NULL) +
+  coord_polar()
 ```
+</p>
+</details>
+
+By combining the right **geom**, **coordinates** and **faceting** functions, you can build a large number of different plots to present your results.
 
