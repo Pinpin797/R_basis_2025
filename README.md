@@ -19,7 +19,7 @@ Groups:
 - Helene Polveche
 
 ## Tuesday
-- Jeremy Barbier
+- Jeremy Barbier (abs the 14/09)
 - David Armisen
 - Marie Cariou (IFB)
 - Nicolas Fontrodona
