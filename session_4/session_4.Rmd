@@ -1,0 +1,566 @@
+---
+title: "R.4: data transformation"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+date: "2021"
+output:
+  rmdformats::downcute:
+    self_contain: true
+    use_bookdown: true
+    default_style: "dark"
+    lightbox: true
+    css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = NA)
+```
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(
+  position = c('top', 'right'),
+  color = "white",
+  tooltip_message = 'Click to copy',
+  tooltip_success = 'Copied !')
+```
+
+# Introduction
+
+The goal of this practical is to practice data transformation with `tidyverse`.
+The objectives of this session will be to:
+
+- Filter rows with `filter()`
+- Arrange rows with `arrange()`
+- Select columns with `select()`
+- Add new variables with `mutate()`
+- Combining multiple operations with the pipe `%>%`
+
+<div class="pencadre">
+For this session we are going to work with a new dataset included in the `nycflights13` package.
+Install this package and load it.
+As usual you will also need the `tidyverse` library.
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```R
+install.packages("nycflights13")
+```
+
+```{r packageloaded, include=TRUE, message=FALSE}
+library("tidyverse")
+library("nycflights13")
+```
+</p>
+</details>
+ 
+## Data set : nycflights13
+
+`nycflights13::flights`Contains all 336,776 flights that departed from New York City in 2013.
+The data comes from the US Bureau of Transportation Statistics, and is documented in `?flights`
+
+```{r display_data, include=TRUE}
+flights
+```
+
+## Data type
+
+In programming languages, all variables are not equal.
+When you display a `tibble` you can see the **type** of a column.
+Here is a list of common variable **types** that you will encounter
+
+- **int** stands for integers.
+- **dbl** stands for doubles or real numbers.
+- **chr** stands for character vectors or strings.
+- **dttm** stands for date-times (a date + a time).
+- **lgl** stands for logical, vectors that contain only `TRUE` or `FALSE`.
+- **fctr** stands for factors, which R uses to represent categorical variables with fixed possible values.
+- **date** stands for dates.
+
+You cannot add an **int** to a **chr**, but you can add an **int** to a **dbl** the results will be a **dbl**.
+ 
+# `filter` rows
+
+Variable **types** are important to keep in mind for comparisons.
+The `filter()` function allows you to subset observations based on their values. 
+
+<div class="pencadre">
+
+What is the results of the following `filter` command ?
+
+```{r filter_month_day, include=TRUE, eval=FALSE}
+filter(flights, month == 1, day == 1)
+```
+</div>
+ 
+`dplyr` functions never modify their inputs, so if you want to save the result, you’ll need to use the assignment operator, `<-`
+
+<div class="pencadre">
+Save the previous command in a `jan1` variable
+</div
+<details><summary>Solution</summary>
+<p>
+```{r filter_month_day_sav, include=TRUE}
+jan1 <- filter(flights, month == 1, day == 1)
+```
+</p>
+</details>
+ 
+<div class="pencadre">
+R either prints out the results, or saves them to a variable.
+What happens when you put your variable assignment code between parenthesis `(` `)` ?
+
+```{r filter_month_day_sav_display, eval=FALSE}
+(dec25 <- filter(flights, month == 12, day == 25))
+```
+</div>
+ 
+## Logical operators
+
+Multiple arguments to `filter()` are combined with **AND**: every expression must be `TRUE` in order for a row to be included in the output.
+
+In R you can use the symbols `&`, `|`, `!` and the function `xor()` to build other kinds of tests.
+
+![](./img/transform-logical.png)
+<div class="pencadre">
+Test the following operations:
+
+```{r filter_logical_operators_a, eval=FALSE}
+filter(flights, month == 11 | month == 12)
+```
+```{r filter_logical_operators_b, eval=FALSE}
+filter(flights, month %in% c(11, 12))
+```
+```{r filter_logical_operators_c, eval=FALSE}
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+```
+```{r filter_logical_operators_d, eval=FALSE}
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+```
+</div>
+
+Combinations of logical operators is a powerful programmatic way to select subset of data.
+Keep in mind, however, that long logical expression can be hard to read and understand, so it may be easier to apply successive small filters instead of one long one.
+
+## Missing values
+
+One important feature of R that can make comparison tricky is missing values, or `NA`s for **Not Availables**.
+Indeed each of the variable type can contain either a value of this type (i.e., `2` for an **int**) or nothing.
+The *nothing recorded in a variable* status is represented with the `NA` symbol.
+
+As operations with `NA` values don't make sense, if you have `NA` somewhere in your operation, the results will be `NA`
+
+```{r filter_logical_operators_NA, include=TRUE}
+NA > 5
+10 == NA
+NA + 10
+```
+
+However, you can test for `NA`s with the function `is.na()`:
+
+```{r filter_logical_operators_test_NA, include=TRUE}
+is.na(NA)
+```
+
+`filter()` only includes rows where the condition is `TRUE`; it excludes both `FALSE` and `NA` values. If you want to preserve missing values, ask for them explicitly:
+
+```{r filter_logical_operators_test_NA2, include=TRUE}
+df <- tibble(x = c(1, NA, 3))
+filter(df, x > 1)
+filter(df, is.na(x) | x > 1)
+```
+
+## Challenges
+
+<div class="pencadre">
+Find all flights that:
+- Had an arrival delay of two or more hours (you can check `?flights`)
+- Flew to Houston (IAH or HOU)
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r filter_chalenges_a, eval=TRUE}
+filter(flights, arr_delay >= 60 | arr_delay <= 120)
+```
+```{r filter_chalenges_b, eval=TRUE}
+filter(flights, dest %in% c("IAH", "HOU"))
+```
+</p>
+</details>
+
+<div class="pencadre">
+How many flights have a missing `dep_time` ?
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r filter_chalenges_c, eval=TRUE}
+filter(flights, is.na(dep_time))
+```
+</p>
+</details>
+
+<div class="pencadre">
+Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r filter_chalenges_d, eval=TRUE}
+NA ^ 0 # ^ 0 is always 1 it's an arbitrary rule not a computation
+NA | TRUE # if a member of a OR operation is TRUE the results is TRUE
+FALSE & NA # if a member of a AN operation is FALSE the results is TRUE
+NA * 0 # here we have a true computation
+```
+</p>
+</details>
+
+# Arrange rows with `arrange()`
+
+`arrange()` works similarly to `filter()` except that instead of selecting rows, it changes their order.
+
+```{r arrange_ymd, include=TRUE}
+arrange(flights, year, month, day)
+```
+
+<div class="pencadre">
+Use `desc()` to reorder by a column in descending order:
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r arrange_desc, include=TRUE}
+arrange(flights, desc(dep_delay))
+```
+</p>
+</details>
+
+## Missing values
+
+Missing values are always sorted at the end:
+
+```{r arrange_NA, include=TRUE}
+arrange(tibble(x = c(5, 2, NA)), x)
+arrange(tibble(x = c(5, 2, NA)), desc(x))
+```
+
+## Challenges
+<div class="pencadre">
+
+- Find the most delayed flight.
+- Find the flight that left earliest.
+- How could you arrange all missing values to the start ?
+
+</div>
+
+<details><summary>Solution</summary>
+<p>
+Find the most delayed flight.
+```{r chalange_arrange_desc_a, include=TRUE}
+arrange(flights, desc(dep_delay))
+```
+Find the flight that left earliest.
+```{r chalange_arrange_desc_b, include=TRUE}
+arrange(flights, dep_delay)
+```
+How could you arrange all missing values to the start
+```{r chalange_arrange_desc_c, include=TRUE}
+arrange(tibble(x = c(5, 2, NA)), desc(is.na(x)))
+```
+</p>
+</details>
+
+
+# Select columns with `select()`
+
+`select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
+
+You can select by column names
+```{r select_ymd_a, , include=TRUE}
+select(flights, year, month, day)
+```
+
+By defining a range of columns
+```{r select_ymd_b, , include=TRUE}
+select(flights, year:day)
+```
+
+Or you can do a negative (`-`) to remove columns.
+```{r select_ymd_c, , include=TRUE}
+select(flights, -(year:day))
+```
+
+## Helper functions
+
+here are a number of helper functions you can use within `select()`:
+
+- `starts_with("abc")`: matches names that begin with `"abc"`.
+- `ends_with("xyz")`: matches names that end with `"xyz"`.
+- `contains("ijk")`: matches names that contain `"ijk"`.
+- `num_range("x", 1:3)`: matches `x1`, `x2` and `x3`.
+
+See `?select` for more details.
+
+## Challenges
+
+<div class="pencadre">
+
+- Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`.
+<details><summary>Solution</summary>
+<p>
+```{r challenge_select_a, eval=FALSE}
+select(flights, contains("time") | contains("delay"))
+select(flights, contains("_") & !starts_with("sched") & !starts_with("time"))
+```
+</p>
+</details>
+- What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
+```{r select_one_of, eval=T, message=F, cache=T}
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+```
+<details><summary>Solution</summary>
+<p>
+```{r challenge_select_b, eval=FALSE}
+select(flights, one_of(vars))
+```
+</p>
+</details>
+- Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
+```{r select_contains, eval=F, message=F, cache=T}
+select(flights, contains("TIME"))
+```
+<details><summary>Solution</summary>
+<p>
+```{r challenge_select_c, eval=FALSE}
+select(flights, contains("TIME", ignore.case = FALSE))
+```
+</p>
+</details>
+
+</div>
+ 
+# Add new variables with `mutate()`
+
+It’s often useful to add new columns that are functions of existing columns. That’s the job of `mutate()`.
+
+<div class="pencadre">
+First let's create a smaller dataset to work on `flights_sml` that contains
+- columns from `year` to `day`
+- columns that ends with `delays`
+- the `distance` and `air_time` columns
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r mutate, include=TRUE}
+(flights_sml <- select(flights,  year:day, ends_with("delay"), distance, air_time))
+```
+</p>
+</details>
+
+## `mutate()`
+
+```R
+mutate(tbl, new_var_a = opperation_a, ..., new_var_n = opperation_n)
+```
+`mutate()` allows you to add new columns (`new_var_a`, ... , `new_var_n`) and to fill them with the results of an operation.
+
+We can create a `gain` column to check if the pilot managed to compensate is departure delay
+```{r mutate_gain}
+mutate(flights_sml, gain = dep_delay - arr_delay)
+```
+
+<div class="pencadre">
+Using `mutate` add a new column `gain` and `speed` that contains the average speed of the plane to the `flights_sml` tibble.
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r mutate_reuse, include=TRUE}
+flights_sml <- mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+)
+```
+</details>
+</p>
+
+
+<div class="pencadre">
+Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of the number of minutes since midnight.
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r mutate_challenges_a, eval=F, message=F, cache=T}
+mutate(
+  flights,
+  dep_time = (dep_time %/% 100) * 60 +
+    dep_time %% 100,
+  sched_dep_time = (sched_dep_time %/% 100) * 60 +
+    sched_dep_time %% 100
+)
+```
+</details>
+</p>
+
+## Useful creation functions
+
+- Offsets: `lead()` and `lag()` allow you to refer to leading or lagging values. This allows you to compute running differences (e.g. `x - lag(x)`) or find when values change (`x != lag(x)`).
+- Cumulative and rolling aggregates: R provides functions for running sums, products, mins and maxes: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`; and dplyr provides `cummean()` for cumulative means. 
+- Logical comparisons, `<`, `<=`, `>`, `>=`, `!=`, and `==`
+- Ranking: there are a number of ranking functions, but you should start with `min_rank()`. There is also `row_number()`, `dense_rank()`, `percent_rank()`, `cume_dist()`, `ntile()`
+
+ 
+# Combining multiple operations with the pipe
+
+
+<div id="pencadre">
+Find the 10 most delayed flights using a ranking function. `min_rank()`
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r pipe_example_a, include=TRUE}
+flights_md <- mutate(flights,
+                     most_delay = min_rank(desc(dep_delay)))
+flights_md <- filter(flights_md, most_delay < 10)
+flights_md <- arrange(flights_md, most_delay)
+```
+</p>
+</details>
+
+
+We don't want to create useless intermediate variables so we can use the pipe operator: `%>%`
+( or `ctrl + shift + M`). 
+
+Behind the scenes, `x %>% f(y)` turns into `f(x, y)`, and `x %>% f(y) %>% g(z)` turns into `g(f(x, y), z)` and so on. You can use the pipe to rewrite multiple operations in a way that you can read left-to-right, top-to-bottom. 
+
+<div id="pencadre">
+Try to pipe operator to rewrite your precedent code with only **one** variable assignment.
+</div>
+ 
+
+<details><summary>Solution</summary>
+<p>
+```{r pipe_example_b, include=TRUE}
+flights_md2 <- flights %>%
+    mutate(most_delay = min_rank(desc(dep_delay))) %>% 
+    filter(most_delay < 10) %>% 
+    arrange(most_delay)
+```
+</p>
+</details>
+
+Working with the pipe is one of the key criteria for belonging to the `tidyverse`. The only exception is `ggplot2`: it was written before the pipe was discovered and use `+` instead of `%>%`. Unfortunately, the next iteration of `ggplot2`, `ggvis`, which does use the pipe, isn’t quite ready for prime time yet.
+
+# Grouped summaries with `summarise()`
+
+`summarise()` collapses a data frame to a single row:
+
+Check the difference between `summarise()` and `mutate()` with the following commands:
+
+```{r load_data, eval=FALSE}
+flights %>% 
+  mutate(delay = mean(dep_delay, na.rm = TRUE))
+flights %>% 
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+```
+
+## The power of `summarise()` with `group_by()`
+
+The `group_by()` function changes the unit of analysis from the complete dataset to individual groups.
+Then, when you use the function you already know on grouped data frame and they’ll be automatically applied *by group*.
+
+You can use the following code to compute the average delay per months across years.
+
+```{r summarise_group_by, include=TRUE, fig.width=8, fig.height=3.5}
+flights_delay <- flights %>% 
+  group_by(year, month) %>% 
+  summarise(delay = mean(dep_delay, na.rm = TRUE), sd = sd(dep_delay, na.rm = TRUE)) %>% 
+  arrange(month)
+
+ggplot(data = flights_delay, mapping = aes(x = month, y = delay)) +
+  geom_bar(stat="identity", color="black", fill = "#619CFF") +
+  geom_errorbar(mapping = aes( ymin=0, ymax=delay+sd)) + 
+  theme(axis.text.x = element_blank())
+```
+<div class="pencadre">
+Why did we `group_by` `year` and `month` and not only `year` ?
+</div>
+
+
+## Missing values
+
+<div class="pencadre">
+You may have wondered about the `na.rm` argument we used above. What happens if we don’t set it?
+</div>
+
+```{r summarise_group_by_NA, include=TRUE}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    dist = mean(distance),
+    delay = mean(arr_delay)
+  )
+```
+
+Aggregation functions obey the usual rule of missing values: **if there’s any missing value in the input, the output will be a missing value**.
+
+# Counts
+
+Whenever you do any aggregation, it’s always a good idea to include either a count (`n()`). That way you can check that you’re not drawing conclusions based on very small amounts of data.
+
+```{r summarise_group_by_count, include = T, echo=F, warning=F, message=F, fig.width=8, fig.height=3.5}
+summ_delay_filghts <- flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(dest != "HNL") %>% 
+  filter(delay < 40 & delay > -20)
+
+  
+
+ggplot(data = summ_delay_filghts, mapping = aes(x = dist, y = delay, size = count)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  theme(legend.position='none')
+```
+
+<div class="pencadre">
+Imagine that we want to explore the relationship between the distance and average delay for each location and recreate the above figure. 
+here are three steps to prepare this data: 
+
+1. Group flights by destination.
+2. Summarize to compute distance, average delay, and number of flights using `n()`.
+3. Filter to remove noisy points and Honolulu airport, which is almost twice as far away as the next closest airport.
+4. Filter to remove noisy points with delay superior to 40 or inferior to -20
+5. Create a `mapping` on `dist`, `delay` and `count` as `size`.
+6. Use the layer `geom_point()` and `geom_smooth()`
+7. We can hide the legend with the layer `theme(legend.position='none')`
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r summarise_group_by_count_b, include = T, eval=F, warning=F, message=F, fig.width=8, fig.height=3.5}
+flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(dest != "HNL") %>% 
+  filter(delay < 40 & delay > -20) %>% 
+  ggplot(mapping = aes(x = dist, y = delay, size = count)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  theme(legend.position='none')
+```
+</p>
+</details>
+ 
