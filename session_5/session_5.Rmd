@@ -1,6 +1,6 @@
 ---
-title: "R#5: Pipping and grouping"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)
+title: "R.5: Pipping and grouping"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2021"
 output:
   rmdformats::downcute:
@@ -116,7 +116,7 @@ Then, when you use the function you already know on grouped data frame and they�
 
 You can use the following code to compute the average delay per months across years.
 
-```{r summarise_group_by, include=TRUE, fig.width=8, fig.height=3.5}
+```{r summarise_group_by, include=TRUE, message=FALSE, fig.width=8, fig.height=3.5}
 flights_delay <- flights %>% 
   group_by(year, month) %>% 
   summarise(delay = mean(dep_delay, na.rm = TRUE), sd = sd(dep_delay, na.rm = TRUE)) %>% 
@@ -138,6 +138,8 @@ Why did we `group_by` `year` and `month` and not only `year` ?
 You may have wondered about the `na.rm` argument we used above. What happens if we don’t set it?
 </div>
 
+<details><summary>Solution</summary>
+<p>
 ```{r summarise_group_by_NA, include=TRUE}
 flights %>% 
   group_by(dest) %>% 
@@ -146,6 +148,8 @@ flights %>%
     delay = mean(arr_delay)
   )
 ```
+</p>
+</details>
 
 Aggregation functions obey the usual rule of missing values: **if there’s any missing value in the input, the output will be a missing value**.
 
@@ -361,7 +365,7 @@ Which carrier has the worst delays?
 
 <details><summary>Solution</summary>
 <p>
-```{r grouping_challenges_c, eval=F, echo = T, message=FALSE, cache=T}
+```{r grouping_challenges_c1, eval=F, echo = T, message=FALSE, cache=T}
 flights %>% 
   group_by(carrier) %>% 
   summarise(
@@ -380,7 +384,7 @@ Can you disentangle the effects of bad airports vs. bad carriers? (Hint: think a
 
 <details><summary>Solution</summary>
 <p>
-```{r grouping_challenges_c, eval=F, echo = T, message=FALSE, cache=T}
+```{r grouping_challenges_c2, eval=F, echo = T, message=FALSE, cache=T}
 flights %>% 
   group_by(carrier, dest) %>% 
   summarise(
