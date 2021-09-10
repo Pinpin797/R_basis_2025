@@ -1,0 +1,298 @@
+---
+title: 'R#3: Transformations with ggplot2'
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+date: "Mars 2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+<style type="text/css">
+h3 { /* Header 3 */
+  position: relative ;
+  color: #729FCF ;
+  left: 5%;
+}
+h2 { /* Header 2 */
+  color: darkblue ;
+  left: 10%;
+} 
+h1 { /* Header 1 */
+  color: #034b6f ;
+} 
+#pencadre{
+  border:1px; 
+  border-style:solid; 
+  border-color: #034b6f; 
+  background-color: #EEF3F9; 
+  padding: 1em;
+  text-align: center ;
+  border-radius : 5px 4px 3px 2px;
+}
+legend{
+  color: #034b6f ;
+}
+#pquestion {
+  color: darkgreen;
+  font-weight: bold;
+}
+</style>
+
+```{r setup, include=FALSE, cache=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The goal of this practical is to practices advanced features of `ggplot2`.
+
+The objectives of this session will be to:
+
+- learn about statistical transformations
+- practices position adjustments
+- change the coordinate systems
+
+ \ 
+ 
+# `ggplot2` statistical transformations
+
+ \ 
+ 
+```{r packageloaded, include=TRUE, message=FALSE}
+library("tidyverse")
+```
+
+ \ 
+ 
+We are going to use the `diamonds` data set included in `tidyverse`.
+
+- Use the `help` and `view` command to explore this data set.
+- Try the `str` command, which information are displayed ?
+
+```R
+str(diamonds)
+```
+
+```
+## Classes 'tbl_df', 'tbl' and 'data.frame':    53940 obs. of  10 variables:
+##  $ carat  : num  0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
+##  $ cut    : Ord.factor w/ 5 levels "Fair"<"Good"<..: 5 4 2 4 2 3 3 3 1 3 ...
+##  $ color  : Ord.factor w/ 7 levels "D"<"E"<"F"<"G"<..: 2 2 2 6 7 7 6 5 2 5 ...
+##  $ clarity: Ord.factor w/ 8 levels "I1"<"SI2"<"SI1"<..: 2 3 5 4 2 6 7 3 4 5 ...
+##  $ depth  : num  61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...
+##  $ table  : num  55 61 65 58 58 57 57 55 61 61 ...
+##  $ price  : int  326 326 327 334 335 336 336 337 337 338 ...
+##  $ x      : num  3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...
+##  $ y      : num  3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...
+##  $ z      : num  2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...
+```
+
+ \ 
+ 
+We saw scatterplot (`geom_point()`), smoothplot (`geom_smooth()`). Now barplot with `geom_bar()` : 
+
+```{r diamonds_barplot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut)) + 
+  geom_bar()
+```
+
+More diamonds are available with high quality cuts.
+
+On the x-axis, the chart displays cut, a variable from diamonds. On the y-axis, it displays count, but count is not a variable in diamonds!
+
+The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation. The figure below describes how this process works with `geom_bar()`.
+
+![](img/visualization-stat-bar.png)
+
+
+You can generally use geoms and stats interchangeably. For example, you can recreate the previous plot using `stat_count()` instead of `geom_bar()`:
+
+```{r diamonds_stat_count, include=TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut)) + 
+  stat_count()
+```
+
+ \ 
+
+Every geom has a default stat; and every stat has a default geom. This means that you can typically use geoms without worrying about the underlying statistical transformation. There are three reasons you might need to use a stat explicitly:
+
+- You might want to override the default stat. 
+
+```{r 3_a, include=TRUE, fig.width=8, fig.height=4.5}
+demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+
+# (Don't worry that you haven't seen <- or tribble() before. You might be able
+# to guess at their meaning from the context, and you will learn exactly what
+# they do soon!)
+
+ggplot(data = demo, mapping = aes(x = cut, y = freq)) +
+  geom_bar(stat = "identity")
+
+```
+
+- You might want to override the default mapping from transformed variables to aesthetics ( e.g. proportion). 
+```{r 3_b, include=TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop.., group = 1)) + 
+  geom_bar()
+```
+  
+- In our proportion bar chart, we need to set `group = 1`. Why?
+
+```{r diamonds_stats_challenge, include=TRUE, message=FALSE, fig.width=8, fig.height=4.5}
+ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop..)) + 
+  geom_bar()
+```
+
+If group is not used, the proportion is calculated with respect to the data that contains that field and is ultimately going to be 100% in any case. For instance, The proportion of an ideal cut in the ideal cut specific data will be 1.
+
+ \ 
+ 
+- You might want to draw greater attention to the statistical transformation in your code. 
+
+```{r 3_c, include=TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+# you might use stat_summary(), which summarises the y values for each unique x
+# value, to draw attention to the summary that you are computing:
+
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) + 
+  stat_summary()
+
+  
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) + 
+  stat_summary(
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+
+# Position adjustments
+
+ \ 
+ 
+You can colour a bar chart using either the `color` aesthetic, 
+
+```{r diamonds_barplot_color, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, color = cut)) + 
+  geom_bar()
+```
+
+ \ 
+
+or, more usefully, `fill`:
+
+```{r diamonds_barplot_fill, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
+  geom_bar()
+```
+
+
+
+You can also use `fill` with another variable:
+
+```{r diamonds_barplot_fill_clarity, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+  geom_bar()
+```
+
+
+
+The stacking is performed by the position adjustment `position`
+
+### fill
+
+```{r diamonds_barplot_pos_fill, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+  geom_bar( position = "fill")
+```
+
+### dodge
+
+```{r diamonds_barplot_pos_dodge, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+  geom_bar( position = "dodge")
+```
+
+### jitter
+
+```{r diamonds_barplot_pos_jitter, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+  geom_bar( position = "jitter")
+```
+
+
+
+```{r dia_jitter2, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+  geom_point()
+```
+
+```{r dia_jitter3, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+  geom_jitter()
+```
+
+### violin
+
+```{r dia_violon, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+  geom_violin()
+```
+
+
+# Coordinate systems
+
+Cartesian coordinate system where the x and y positions act independently to determine the location of each point. There are a number of other coordinate systems that are occasionally helpful.
+
+
+```{r dia_boxplot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+  geom_boxplot()
+```
+
+
+
+```{r dia_boxplot_flip, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+  geom_boxplot() +
+  coord_flip()
+```
+
+
+```{r dia_12, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = depth, y = table)) + 
+  geom_point() +
+  geom_abline()
+```
+
+
+```{r dia_quickmap, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(data = diamonds, mapping = aes(x = depth, y = table)) + 
+  geom_point() +
+  geom_abline() +
+  coord_quickmap()
+```
+
+
+
+
+```{r diamonds_bar, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+bar <- ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
+  geom_bar( show.legend = FALSE,  width = 1 ) + 
+  theme(aspect.ratio = 1) +
+  labs(x = NULL, y = NULL)
+
+bar
+```
+
+
+```{r diamonds_bar_polar, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+bar + coord_polar()
+```
+
+
+##See you to Session#4 : "data transformation"

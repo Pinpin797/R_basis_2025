@@ -1,0 +1,659 @@
+---
+title: 'R#1: Introduction to R and RStudio'
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+date: "Mars 2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+<style type="text/css">
+h3 { /* Header 3 */
+  position: relative ;
+  color: #729FCF ;
+  left: 5%;
+}
+h2 { /* Header 2 */
+  color: darkblue ;
+  left: 10%;
+} 
+h1 { /* Header 1 */
+  color: #034b6f ;
+} 
+#pencadre{
+  border:1px; 
+  border-style:solid; 
+  border-color: #034b6f; 
+  background-color: #EEF3F9; 
+  padding: 1em;
+  text-align: center ;
+  border-radius : 5px 4px 3px 2px;
+}
+legend{
+  color: #034b6f ;
+}
+#pquestion {
+  color: darkgreen;
+  font-weight: bold;
+  
+}
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+The goal of this practical is to familiarize yourself with R and the RStudio
+environment.
+
+The objectives of this session will be to:
+
+- Understand the purpose of each pane in RStudio
+- Do basic computation with R
+- Define variables and assign data to variables
+- Manage a workspace in R
+- Call functions
+- Manage packages
+- Be ready to write graphics !
+
+<center>
+![](./img/intro_img.png){width=400px}
+</center>
+
+### Acknowledgments
+
+<div id='pencadre'>
+
+  ![](./img/software_carpentry_logo.svg){width=300px}
+  
+  
+  https://software-carpentry.org/
+</div> 
+
+ 
+<div id='pencadre'>
+  ![](./img/r_for_data_science.png){width=100px}
+ 
+  http://swcarpentry.github.io/r-novice-gapminder/
+</div> 
+
+ \ 
+ 
+- **Margot** and **Alexandre** for assistance!
+
+
+# Some R background
+
+![](./img/Rlogo.png){width=40px}
+is a programming language and free software environment for statistical
+computing and graphics supported by the *R Foundation for Statistical Computing*.
+
+- Created by **Ross Ihaka** and **Robert Gentleman**
+- initial version released in 1995
+- free and open-source implementation the S programming language
+- currently developed by the **R Development Core Team**.
+
+
+Reasons to use it:
+
+- It’s free, well documented, and runs almost everywhere
+- it has a large (and growing) user base among scientists
+- it has a large library of external packages available for performing diverse tasks. 
+
+- **15,068** available packages on https://cran.r-project.org/
+- **3,087** available packages on http://www.bioconductor.org
+- **122,720** available repository on https://github.com/
+
+R is usually used in a terminal:
+
+![](./img/R_terminal.png)
+
+
+# RStudio, the R Integrated development environment (*IDE*)
+
+IDE application that provides **comprehensive facilities** to computer programmers for
+software development. Rstudio is **free** and **open-source**.
+
+
+### An interface
+
+![](./img/RStudio.png)
+
+### The same console as before (in Red box)
+
+![](./img/RStudio_console.png)
+
+# R as a calculator
+
+- Add: `+`
+- Divide: `/`
+- Multiply: `*`
+- Subtract: `-`
+- Exponents: `^` or `**`
+- Parentheses: `(`, `)`
+
+<div id='pencadre'>
+**Now Open RStudio.**
+
+**Write the commands in the grey box in the terminal.**
+
+**The expected results will always be printed in a white box here.**
+
+**You can `copy-paste` but I advise you to practice writing directly in the terminal. To validate the line at the end of your command: press `Return`.**
+</div> 
+
+
+### First commands
+
+```{r calculatorstep1, include=TRUE}
+1 + 100
+```
+
+ \ 
+```R
+1 +
+```
+The console displays `+`.  
+It is waiting for the next command. Write just `100` :
+
+```R
+100
+```
+```{r calculatorstep2, echo=FALSE}
+1 + 100
+```
+
+
+### R keeps to the mathematical order
+```{r calculatorstep3, include=TRUE}
+3 + 5 * 2
+```
+
+```{r calculatorstep4, include=TRUE}
+(3 + 5) * 2
+```
+
+ \ 
+
+```{r calculatorstep5, include=TRUE}
+(3 + (5 * (2 ^ 2))) # hard to read
+3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
+```
+ \ 
+ **Note :** The text following a `#` is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means. 
+
+### Scientific notation
+```{r calculatorstep6, include=TRUE}
+2/10000
+```
+
+
+`2e-4` is shorthand for `2 * 10^(-4)`
+
+```{r calculatorstep7, include=TRUE}
+5e3
+```
+
+### Mathematical functions
+
+```{r calculatorstep8, include=TRUE}
+log(1)  # natural logarithm
+```
+
+```{r calculatorstep9, include=TRUE}
+log10(10) # base-10 logarithm
+```
+
+```{r calculatorstep10, include=TRUE}
+exp(0.5)
+```
+
+\ 
+
+Compute the factorial of 9 (`9!`)
+
+```{r calculatorstep11, include=TRUE}
+9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1
+```
+
+ \ 
+or
+```{r calculatorstep12, include=TRUE}
+factorial(9)
+```
+
+### Comparing things
+
+Comparisons can be made with R. The result will return a `TRUE` or `FALSE` value (`boolean` type).
+
+
+equality (note two equal signs read as "is equal to")
+```{r calculatorstep13, include=TRUE}
+1 == 1
+```
+
+
+inequality (read as "is not equal to")
+```{r calculatorstep14, include=TRUE}
+1 != 2 
+```
+
+
+less than
+```{r calculatorstep15, include=TRUE}
+1 < 2
+```
+
+
+less than or equal to
+```{r calculatorstep16, include=TRUE}
+1 <= 1
+```
+
+
+greater than
+```{r calculatorstep17, include=TRUE}
+1 > 0
+```
+
+ \ \
+ 
+<fieldset id='pencadre' style='text-align: left'>
+  <legend style='border: 0px;'>Summary box</legend>
+  <li> R is a programming language and free software environment for statistical
+computing and graphics (free & opensource) with a large library of external packages available for performing diverse tasks.</li>
+  <li> RStudio is an IDR application that provides comprehensive facilities to computer programmers for
+software development.</li>
+  <li>R as a calculator </li>
+  <li>R allows comparisons to be made </li>
+  
+</fieldset>
+ 
+ \ \ 
+ \ \ 
+
+# Variables and assignment
+
+`<-` is the assignment operator in R. (read as left member take right member value) 
+
+` = ` also exists but is **not recommended!** It will be used preferentially in other cases.  (*We will see them later*)
+
+```{r VandAstep1, include=TRUE}
+x <- 1/40
+```
+
+```{r VandAstep2, include=TRUE}
+x
+```
+
+### The environment
+
+You now see the `x` value in the environment box (*in red*).
+
+![](./img/RStudio_environment.png)
+
+ \ 
+
+This **variable** is present in your work environment. You can use it to perform different mathematical applications.
+
+
+```{r VandAstep3, include=TRUE}
+log(x)
+```
+
+You can assign another value to `x`.
+```{r VandAstep4, include=TRUE}
+x <- 100
+log(x)
+```
+
+\ 
+```{r VandAstep5, include=TRUE}
+x <- x + 1  # x become 101 (100 + 1)
+y <- x * 2
+y
+```
+
+ \ 
+
+A variable can be assigned a `numeric` value as well as a `character` value.
+
+Just put our character (or string) between double quote `"` when you assign this value.
+```{r VandAstep6, include=TRUE}
+z <- "x"  # One character
+z
+a <- "Hello world"  # Multiple characters == String
+a
+```
+
+ \ 
+```R
+x + z
+```
+ \ 
+ 
+How to test the type of the variable?
+```{r VandAstep20, include=TRUE}
+
+is.character(z)
+
+b <- 1/40
+b
+typeof(b)
+```
+
+### Variables names
+
+Variable names can contain letters, numbers, underscores and periods.
+
+They cannot start with a number nor contain spaces at all.
+
+Different people use different conventions for long variable names, these include:
+
+```
+periods.between.words
+underscores_between_words
+camelCaseToSeparateWords
+```
+
+What you use is up to you, but be consistent.
+
+ \ 
+
+<div id="pquestion">   Which of the following are valid R variable names?</div>
+
+```
+min_height
+max.height
+_age            # no
+.mass
+MaxLength
+min-length      # no
+2widths         # no
+celsius2kelvin
+```
+ \ 
+
+### Functions are also variables
+
+```{r VandAstep7, include=TRUE}
+logarithm <- log
+```
+
+
+A R function can have different arguments
+
+```
+function (x, base = exp(1))
+```
+
+- `base` is a named argument are read from left to right
+- named arguments breaks the reading order
+- named arguments make your code more readable
+
+ \ 
+ 
+To know more about the `log` function we can read its manual.
+
+```{r VandAstep8, include=TRUE}
+help(log)
+```
+
+or
+
+```{r VandAstep9, include=TRUE}
+?log
+```
+
+ \ 
+This block allows you to view the different outputs (?help, graphs, etc.).
+
+![](./img/formationR_VandAstep8_encadre.png)
+
+
+ \ 
+ 
+
+### A code editor
+
+![](./img/RStudio_editor.png)
+
+ \ 
+ 
+RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
+
+- click on the `Run button` above the editor panel, or
+- select “Run Lines” from the “Code” menu, or
+- hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run. 
+
+If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
+
+
+Copy your `function` into a `tp_1.R` file
+
+ \ 
+
+We can  define our own function with :
+
+- function name,
+- declaration of function type,
+- arguments,
+- `{` and `}` top open and close function,
+
+```
+function_name <- function(a, b){
+
+
+}
+```
+- a series of operations,
+
+```
+function_name <- function(a, b){
+  result_1 <- operation1(a, b)
+  result_2 <- operation2(result_1, b)
+
+}
+```
+
+- `return` operation
+
+```
+function_name <- function(a, b){
+  result_1 <- operation1(a, b)
+  result_2 <- operation2(result_1, b)
+  return(result_2)
+}
+```
+
+ \ 
+<div id="pquestion">How to write a function to test if a number is even?</div>
+
+ \ 
+ 
+ 
+```{r VandAstep11, include=TRUE}
+even_test <- function(x){
+  modulo_result <- x %% 2         # %% is modulo operator
+  is_even <- modulo_result == 0
+  return(is_even)
+}
+
+even_test(4)
+
+even_test(3)
+```
+
+ **Note :** A function can write in several forms.
+
+ \ 
+
+No We can now clean your environment
+
+```{r VandAstep15, include=TRUE}
+rm(x)
+```
+
+
+```{r VandAstep16, include=TRUE}
+?rm
+```
+
+```{r VandAstep17, include=TRUE}
+ls()
+```
+
+```{r VandAstep18, include=TRUE}
+rm(list = ls())
+```
+
+```{r VandAstep19, include=TRUE}
+ls()
+```
+
+ \ 
+
+<fieldset id='pencadre' style='text-align: left'>
+  <legend style='border: 0px;'>Summary box</legend>
+  <li> Assigning a variable is done with ` <- `.</li>
+  <li> The assigned variables are listed in the environment box.</li>
+  <li> Variable names can contain letters, numbers, underscores and periods. </li>
+  <li> Functions are also variable and can write in several forms</li>
+  <li> An editing box is available on Rstudio.</li>
+
+</fieldset>
+
+ \ 
+ 
+ \ 
+ 
+# Complex variable type 
+
+### Vector (aka list)
+
+```{r Vecstep1, include=TRUE}
+c(1, 2, 3, 4, 5)
+```
+
+or
+
+```{r Vecstep2, include=TRUE}
+c(1:5)
+```
+
+ \ 
+ 
+ \ 
+A mathematical calculation can be performed on the elements of the vector:
+
+```{r Vecstep3, include=TRUE}
+2^c(1:5)
+```
+
+
+```{r Vecstep4, include=TRUE}
+x <- c(1:5)
+2^x
+```
+
+ \ 
+ 
+ \ 
+To determine the type of the elements of a vector:
+
+```{r Vecstep5, include=TRUE}
+typeof(x)
+```
+
+
+```{r Vecstep6, include=TRUE}
+typeof(x + 0.5)
+x + 0.5
+```
+
+
+```{r Vecstep7, include=TRUE}
+is.vector(x)
+```
+
+ \ 
+ 
+ \ 
+
+```{r Vecstep8, include=TRUE}
+y <- c(a = 1, b = 2, c = 3, d = 4, e = 5)
+```
+
+ \ 
+We can compare the elements of two vectors:
+
+```{r Vecstep9, include=TRUE}
+x
+y
+x == y
+```
+
+ \ 
+
+ \ 
+
+<fieldset id='pencadre' style='text-align: left'>
+  <legend style='border: 0px;'>Summary box</legend>
+  <li> A variable can be of different types : `numeric`, `character`, `vector`, `function`, etc.</li>
+  <li> Calculations and comparisons apply to vectors.</li>
+  <li> Do not hesitate to use the help box to understand functions!  </li>
+</fieldset>
+
+ \ 
+ 
+ \ 
+
+# Packages  
+### Installing packages
+
+```R
+install.packages("tidyverse")
+```
+
+or click on `Tools` and `Install Packages...`
+
+![](./img/formationR_installTidyverse.png)
+
+ \ 
+
+```R
+install.packages("ggplot2")
+```
+
+### Loading packages
+
+```{r packagesstep1, include=TRUE}
+sessionInfo()
+```
+
+ \ 
+
+```{r packagesstep2, include=TRUE}
+library(tidyverse)
+```
+
+
+```R
+sessionInfo()
+```
+### Unloading packages
+
+```{r packagesstep4, include=TRUE}
+unloadNamespace("tidyverse")
+```
+
+
+```R
+sessionInfo()
+```
+
+ \ 
+ 
+##See you to Session#2 : "Introduction to Tidyverse"
