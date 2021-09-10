@@ -12,7 +12,7 @@ The sessions will be starting the 14/09:
 
 Groups:
 ## Monday
-- Jacques Brocard
+- Jacques Brocard (abs after 18/10)
 - Laurent Modolo (IFB)
 - Christophe Arpin
 - Carine Rey (IFB)
