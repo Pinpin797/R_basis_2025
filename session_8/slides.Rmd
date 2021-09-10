@@ -1,0 +1,168 @@
+---
+title: '#8 Factors'
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "31 Jan 2020"
+always_allow_html: yes
+output:
+  slidy_presentation:
+    highlight: tango
+  beamer_presentation:
+    theme: metropolis
+    slide_level: 3
+    fig_caption: no
+    df_print: tibble
+    highlight: tango
+    latex_engine: xelatex
+---
+```{r setup, include=FALSE, cache=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Creating factors
+
+Imagine that you have a variable that records month:
+
+```{r declare_month, eval=T, cache=T}
+x1 <- c("Dec", "Apr", "Jan", "Mar")
+```
+
+Using a string to record this variable has two problems:
+
+1. There are only twelve possible months, and there’s nothing saving you from typos:
+
+```{r declare_month2, eval=T, cache=T}
+x2 <- c("Dec", "Apr", "Jam", "Mar")
+```
+
+2. It doesn’t sort in a useful way:
+
+```{r sort_month, eval=T, cache=T}
+sort(x1)
+```
+
+## Creating factors
+
+You can fix both of these problems with a factor.
+
+```{r sort_month_factor, eval=T, cache=T}
+month_levels <- c(
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+)
+y1 <- factor(x1, levels = month_levels)
+y1
+sort(y1)
+```
+
+## Creating factors
+
+And any values not in the set will be converted to NA:
+
+```{r sort_month_factor2, eval=T, cache=T}
+y2 <- parse_factor(x2, levels = month_levels)
+y2
+```
+
+Sometimes you’d prefer that the order of the levels match the order of the first appearance in the data.
+
+```{r inorder_month_factor, eval=T, cache=T}
+f2 <- x1 %>% factor() %>% fct_inorder()
+f2
+levels(f2)
+```
+
+## General Social Survey
+
+```{r race_count, eval=T, cache=T}
+gss_cat %>%
+  count(race)
+```
+
+## General Social Survey
+
+By default, ggplot2 will drop levels that don’t have any values. You can force them to display with:
+
+```{r race_plot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(gss_cat, aes(race)) +
+  geom_bar() +
+  scale_x_discrete(drop = FALSE)
+```
+
+## Modifying factor order
+
+It’s often useful to change the order of the factor levels in a visualisation.
+
+```{r tv_hour, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+relig_summary <- gss_cat %>%
+  group_by(relig) %>%
+  summarise(
+    age = mean(age, na.rm = TRUE),
+    tvhours = mean(tvhours, na.rm = TRUE),
+    n = n()
+  )
+ggplot(relig_summary, aes(tvhours, relig)) + geom_point()
+```
+
+**8_a**
+
+## Modifying factor order
+
+It is difficult to interpret this plot because there’s no overall pattern. We can improve it by reordering the levels of relig using `fct_reorder()`. `fct_reorder()` takes three arguments:
+
+- `f`, the factor whose levels you want to modify.
+- `x`, a numeric vector that you want to use to reorder the levels.
+- Optionally, `fun`, a function that’s used if there are multiple values of `x` for each value of `f`. The default value is `median`.
+
+## Modifying factor order
+
+```{r tv_hour_order, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(relig_summary, aes(tvhours, fct_reorder(relig, tvhours))) +
+  geom_point()
+```
+
+**8_b**
+
+## Modifying factor order
+
+As you start making more complicated transformations, I’d recommend moving them out of `aes()` and into a separate `mutate()` step. For example, you could rewrite the plot above as:
+
+```{r tv_hour_order_mutate, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+relig_summary %>%
+  mutate(relig = fct_reorder(relig, tvhours)) %>%
+  ggplot(aes(tvhours, relig)) +
+    geom_point()
+```
+**8_c**
+
+## `fct_reorder2()`
+
+Another type of reordering is useful when you are colouring the lines on a plot. `fct_reorder2()` reorders the factor by the `y` values associated with the largest `x` values. This makes the plot easier to read because the line colours line up with the legend.
+
+```{r fct_reorder2, eval=T, plot=T}
+by_age <- gss_cat %>%
+  filter(!is.na(age)) %>%
+  count(age, marital) %>%
+  group_by(age) %>%
+  mutate(prop = n / sum(n))
+```
+**8_d**
+
+## `fct_reorder2()`
+
+```{r fct_reorder2a, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(by_age, aes(age, prop, colour = marital)) +
+  geom_line(na.rm = TRUE)
+```
+
+**8_e**
+
+## `fct_reorder2()`
+
+```{r fct_reorder2b, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
+ggplot(by_age, aes(age, prop, colour = fct_reorder2(marital, age, prop))) +
+  geom_line() +
+  labs(colour = "marital")
+```
+
+**8_f**

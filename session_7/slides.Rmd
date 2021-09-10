@@ -1,0 +1,411 @@
+---
+title: '#7 String & RegExp'
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+date: "08 Nov 2019"
+always_allow_html: yes
+output:
+  beamer_presentation:
+    theme: metropolis
+    slide_level: 3
+    fig_caption: no
+    df_print: tibble
+    highlight: tango
+    latex_engine: xelatex
+  slidy_presentation:
+    highlight: tango
+---
+```{r setup, include=FALSE, cache=TRUE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+
+## String basics
+
+```
+string1 <- "This is a string"
+string2 <- 'If I want to include a "quote"
+inside a string, I use single quotes'
+```
+
+If you forget to close a quote, you’ll see +, the continuation character:
+
+```
+> "This is a string without a closing quote
++ 
++ 
++ HELP I'M STUCK
+```
+
+If this happen to you, press Escape and try again!
+
+## String basics
+
+To include a literal single or double quote in a string you can use \ to “escape” it:
+
+```
+double_quote <- "\"" # or '"'
+single_quote <- '\'' # or "'"
+```
+if you want to include a literal backslash, you’ll need to double it up: `"\\"`.
+ 
+## String basics
+
+the printed representation of a string is not the same as string itself
+
+```
+x <- c("\"", "\\")
+x
+#> [1] "\"" "\\"
+writeLines(x)
+#> "
+#> \
+```
+
+## String basics
+
+Special characters:
+
+The most common are `"\n"`, newline, and `"\t"`, tab, but you can see the complete list by requesting help on `"`: `?'"'`
+
+## String basics
+
+- String length
+
+```{r str_length, eval=T, message=FALSE, cache=T}
+str_length(c("a", "R for data science", NA))
+```
+
+- Combining strings
+```{r str_c, eval=T, message=FALSE, cache=T}
+str_c("x", "y", "z")
+```
+
+- Subsetting strings
+```{r str_sub, eval=T, message=FALSE, cache=T}
+x <- c("Apple", "Banana", "Pear")
+str_sub(x, 1, 3)
+```
+
+## String basics
+- Subsetting strings
+negative numbers count backwards from end
+```{r str_sub2, eval=T, message=FALSE, cache=T}
+str_sub(x, -3, -1)
+```
+
+- Lower case transform
+```{r str_to_lower, eval=T, message=FALSE, cache=T}
+str_to_lower(x)
+```
+
+- ordering
+```{r str_sort, eval=T, message=FALSE, cache=T}
+str_sort(x)
+```
+
+## Matching patterns with regular expressions
+
+Regexps are a very terse language that allow you to describe patterns in strings.
+
+To learn regular expressions, we’ll use `str_view()` and `str_view_all()`. These functions take a character vector and a regular expression, and show you how they match.
+
+## Matching patterns with regular expressions
+
+```{r str_view, eval=T, message=FALSE, cache=T}
+x <- c("apple", "banana", "pear")
+str_view(x, "an")
+```
+
+The next step up in complexity is `.`, which matches any character (except a newline):
+
+```{r str_viewdot, eval=T, message=FALSE, cache=T}
+x <- c("apple", "banana", "pear")
+str_view(x, ".a.")
+```
+
+
+## Matching patterns with regular expressions
+
+But if “`.`” matches any character, how do you match the character “`.`”? You need to use an “escape” to tell the regular expression you want to match it exactly, not use its special behaviour. Like strings, regexps use the backslash, `\`, to escape special behaviour. So to match an ., you need the regexp `\.`. Unfortunately this creates a problem. We use strings to represent regular expressions, and `\` is also used as an escape symbol in strings. So to create the regular expression `\.` we need the string "`\\.`".
+
+## Matching patterns with regular expressions
+
+```{r str_viewdotescape, eval=T, message=FALSE, cache=T}
+dot <- "\\."
+writeLines(dot)
+str_view(c("abc", "a.c", "bef"), "a\\.c")
+```
+
+## Matching patterns with regular expressions
+
+If `\` is used as an escape character in regular expressions, how do you match a literal `\`? Well you need to escape it, creating the regular expression `\\`. To create that regular expression, you need to use a string, which also needs to escape `\`. That means to match a literal `\` you need to write "`\\\\`" — you need four backslashes to match one!
+
+
+## Matching patterns with regular expressions
+
+```{r str_viewbackslashescape, eval=T, message=FALSE, cache=T}
+x <- "a\\b"
+writeLines(x)
+str_view(x, "\\\\")
+```
+
+## Exercises
+
+- Explain why each of these strings don’t match a \: "`\`", "`\\`", "`\\\`".
+- How would you match the sequence `"'\`?
+- What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
+
+## Anchors
+
+- `^` match the start of the string.
+- `$` match the end of the string.
+
+```{r str_viewanchors, eval=T, cache=T}
+x <- c("apple", "banana", "pear")
+str_view(x, "^a")
+```
+
+## Anchors
+
+- `^` match the start of the string.
+- `$` match the end of the string.
+
+```{r str_viewanchorsend, eval=T, cache=T}
+str_view(x, "a$")
+```
+
+## Anchors
+
+- `^` match the start of the string.
+- `$` match the end of the string.
+
+```{r str_viewanchorsstartend, eval=T, cache=T}
+x <- c("apple pie", "apple", "apple cake")
+str_view(x, "^apple$")
+```
+
+## Exercices
+
+
+
+- How would you match the literal string `"$^$"`?
+
+- Given the corpus of common words in stringr::words, create regular expressions that find all words that:
+  -Start with “y”.
+  - End with “x”
+  - Are exactly three letters long. (Don’t cheat by using `str_length()`!)
+  - Have seven letters or more.
+
+Since this list is long, you might want to use the match argument to str_view() to show only the matching or non-matching words.
+
+## Character classes and alternatives
+
+- `\d`: matches any digit.
+- `\s`: matches any whitespace (e.g. space, tab, newline).
+- `[abc]`: matches a, b, or c.
+- `[^abc]`: matches anything except a, b, or c.
+
+```
+str_view(c("abc", "a.c", "a*c", "a c"), "a[.]c")
+str_view(c("abc", "a.c", "a*c", "a c"), ".[*]c")
+str_view(c("abc", "a.c", "a*c", "a c"), "a[ ]")
+```
+
+## Character classes and alternatives
+
+You can use alternation to pick between one or more alternative patterns. For example, abc|d..f will match either ‘“abc”’, or "deaf". Note that the precedence for | is low, so that abc|xyz matches abc or xyz not abcyz or abxyz. Like with mathematical expressions, if precedence ever gets confusing, use parentheses to make it clear what you want:
+
+```
+str_view(c("grey", "gray"), "gr(e|a)y")
+```
+
+## Exercices
+
+Create regular expressions to find all words that:
+
+- Start with a vowel.
+- That only contain consonants. (Hint: thinking about matching “not”-vowels.)
+- End with ed, but not with eed.
+- End with ing or ise.
+
+## Repetition
+
+- `?`: 0 or 1
+- `+`: 1 or more
+- `*`: 0 or more
+
+```
+x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
+str_view(x, "CC?")
+str_view(x, "CC+")
+str_view(x, 'C[LX]+')
+```
+
+## Repetition
+
+You can also specify the number of matches precisely:
+
+- `{n}`: exactly n
+- `{n,}`: n or more
+- `{,m}`: at most m
+- `{n,m}`: between n and m
+
+```
+str_view(x, "C{2}")
+str_view(x, "C{2,}")
+str_view(x, "C{2,3}")
+```
+
+## Exercices
+
+- Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
+  - `^.*$`
+  - `"\\{.+\\}"`
+  - `\d{4}-\d{2}-\d{2}`
+  - `"\\\\{4}"`
+- Create regular expressions to find all words that:
+  - Start with three consonants.
+  - Have three or more vowels in a row.
+  - Have two or more vowel-consonant pairs in a row.
+
+
+## Grouping
+
+You learned about parentheses as a way to disambiguate complex expressions. Parentheses also create a numbered capturing group (number 1, 2 etc.). A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses. You can refer to the same text as previously matched by a capturing group with backreferences, like `\1`, `\2` etc. 
+
+```
+str_view(fruit, "(..)\\1", match = TRUE)
+```
+
+## Exercices
+
+
+
+- Describe, in words, what these expressions will match:
+  - `"(.)\1\1"`
+  - `"(.)(.)\\2\\1"`
+  - `"(..)\1"`
+  - `"(.).\\1.\\1"`
+  - `"(.)(.)(.).*\\3\\2\\1"`
+- Construct regular expressions to match words that:
+  - Start and end with the same character.
+  - Contain a repeated pair of letters (e.g. `“church”` contains `“ch”` repeated twice.)
+  - Contain one letter repeated in at least three places (e.g. `“eleven”` contains three `“e”`s.)
+
+## Detect matches
+
+```
+x <- c("apple", "banana", "pear")
+str_detect(x, "e")
+```
+
+How many common words start with t?
+
+```
+sum(str_detect(words, "^t"))
+```
+
+What proportion of common words end with a vowel?
+
+```
+mean(str_detect(words, "[aeiou]$"))
+```
+
+## Combining detection
+
+Find all words containing at least one vowel, and negate
+```
+no_vowels_1 <- !str_detect(words, "[aeiou]")
+```
+
+Find all words consisting only of consonants (non-vowels)
+```
+no_vowels_2 <- str_detect(words, "^[^aeiou]+$")
+identical(no_vowels_1, no_vowels_2)
+```
+
+## With tibble
+
+```{r str_detecttibble, eval=T, cache=T}
+df <- tibble(
+  word = words, 
+  i = seq_along(word)
+)
+df %>% 
+  filter(str_detect(word, "x$"))
+```
+
+## Extract matches
+
+```{r str_sentences, eval=T, cache=T}
+head(sentences)
+```
+
+We want to find all sentences that contain a colour. We first create a vector of colour names, and then turn it into a single regular expression:
+
+```{r color_regex, eval=T, cache=T}
+colours <- c("red", "orange", "yellow", "green", "blue", "purple")
+colour_match <- str_c(colours, collapse = "|")
+colour_match
+```
+
+## Extract matches
+
+We can select the sentences that contain a colour, and then extract the colour to figure out which one it is:
+
+```{r color_regex_extract, eval=T, cache=T}
+has_colour <- str_subset(sentences, colour_match)
+matches <- str_extract(has_colour, colour_match)
+head(matches)
+```
+
+## Grouped matches
+
+Imagine we want to extract nouns from the sentences. As a heuristic, we’ll look for any word that comes after “a” or “the”.
+
+```{r noun_regex, eval=T, cache=T}
+noun <- "(a|the) ([^ ]+)"
+has_noun <- sentences %>%
+  str_subset(noun) %>%
+  head(10)
+has_noun %>% 
+  str_extract(noun)
+```
+
+## Grouped matches
+
+`str_extract()` gives us the complete match; `str_match()` gives each individual component.
+
+```{r noun_regex_match, eval=T, cache=T}
+has_noun %>% 
+  str_match(noun)
+```
+
+## Exercises
+
+- Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
+
+## Replacing matches
+
+Instead of replacing with a fixed string you can use backreferences to insert components of the match. In the following code, I flip the order of the second and third words.
+
+```{r replacing_matches, eval=T, cache=T}
+sentences %>% 
+  str_replace("([^ ]+) ([^ ]+) ([^ ]+)", "\\1 \\3 \\2") %>%
+  head(5)
+```
+
+## Exercices
+
+- Replace all forward slashes in a string with backslashes.
+- Implement a simple version of `str_to_lower()` using `replace_all()`.
+- Switch the first and last letters in words. Which of those strings are still words?
+
+## Splitting
+
+```{r splitting, eval=T, cache=T}
+sentences %>%
+  head(5) %>% 
+  str_split("\\s")
+```
