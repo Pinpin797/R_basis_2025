@@ -24,4 +24,27 @@ klippy::klippy(
   tooltip_success = 'Copied !')
 ```
 
-To install packages from [github](https://github.com/) you need to
+If you need to install a package that is not available on the CRAN but on a github repository, you can do it using the "remotes" package. Indeed this package imports functions that will allow you to install a package available on [github](https://github.com/) or bitbucket or gitlab directly on your computer.
+
+To use the "remotes" packages, you must first install it:
+
+```R
+install.packages("remotes")
+```
+
+Once "remotes" is installed, you will be able to install all R package from github or from their URL.
+
+For example, if you want to install the last version of a "gganimate", which allow you to animate ggplot2 graphes, you can use :
+
+```R
+remotes::install_github("thomasp85/gganimate")
+```
+
+By default the latest version of the package is installed, if you want a given version you can specify it :
+
+```R
+remotes::install_github("thomasp85/gganimate@v1.0.7")
+```
+
+You can find more information in the documentation of remotes : [https://remotes.r-lib.org](https://remotes.r-lib.org)
+
