@@ -25,7 +25,7 @@ Groups:
 - Nicolas Fontrodona
 
 ## Friday
-- Antoine Corbin
+- Antoine Corbin (abs the 01/10)
 - Emmanuel Labaronne (IFB)
 - Stephane Janczarski
 - Catherine Cerutti (abs the 01/10)
