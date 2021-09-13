@@ -1,10 +1,10 @@
 ---
 title: 'R.1: Installing packages from Bioconductor'
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+author: "Carine Rey [carine.rey@ens-lyon.fr](mailto:carine.rey@ens-lyon.fr), Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2021"
 output:
   rmdformats::downcute:
-    self_contain: false
+    self_contain: true
     use_bookdown: true
     default_style: "dark"
     lightbox: true
