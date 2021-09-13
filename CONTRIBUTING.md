@@ -8,9 +8,7 @@
 
 ## Supplementary exercices
 - Add summary of all code used in the session at the end of the sesssion
-- Write the session_1/bioconductor.Rmd training (and add link in session_1.Rmd)
-- Write the session_1/github.Rmd training (and add link in session_1.Rmd)
 - Write the WDI.Rmd training which will be for a later session
 - Write tuto to create IFB accout and launch Rstudio server
 - Write session_2/exel.Rmd to load an exel version of the mpg data
-- Write session_2/ggannimate.Rmd https://exts.ggplot2.tidyverse.org/gallery/ or another example of ggplot2 addons
+- Write session_2/ggannimate.Rmd https://exts.ggplot2.tidyverse.org/gallery/ or another example of ggplot2 addons and cowplot (https://wilkelab.org/cowplot/articles/introduction.html)
