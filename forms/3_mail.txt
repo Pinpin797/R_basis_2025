@@ -1,0 +1,14 @@
+Bonjour,
+
+Voici vos identifiants pour les machines de la salle de TP du CBP. Ces identifiants sont valables 1 mois. Vous en recevrez d’autres d’ici la fin de la formation.
+
+Votre nom de connexion ou login : 
+Votre mot de passe initial : 
+
+Bien cordialement,
+
+Laurent Modolo
+IR2 CNRS, LBMC UMR 5239
+04 72 72 80 48
+laurent.modolo@ens-lyon.fr
+
