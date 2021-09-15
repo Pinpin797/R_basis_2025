@@ -122,7 +122,7 @@ Instead of continuing to learn more about R programming, in this session we are 
 We make this choice for three reasons:
 
 - Rendering nice plots is directly rewarding
-- You will be able to apply what you learn in this session to your own data (given that they are *correctly formated*)
+- You will be able to apply what you learn in this session to your own data (given that they are *correctly formatted*)
 - We will come back to R programming later, when you have all the necessary tools to visualize your results.
 
 
@@ -499,3 +499,118 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 ```
 </p>
 </details>
+
+# To go further: publication ready plots
+
+Once you have created the graph you need for your publication, you have to save it.
+You can do it with the the "ggsave" function.
+
+First save your plot in a variable :
+
+```{r}
+p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+      geom_point()
+```
+
+Then save it in the wanted format:
+
+```{r, eval=F}
+ggsave("test_plot_1.png", p1, width = 12, height = 8, units = "cm")
+```
+
+```{r, eval=F}
+ggsave("test_plot_1.pdf", p1, width = 12, height = 8, units = "cm")
+```
+
+You may also change the appearance of your plot by adding a "theme" layer to your plot:
+
+```{r,fig.width=8, fig.height=4.5, message=FALSE}
+p1 + theme_bw()
+```
+
+```{r,fig.width=8, fig.height=4.5, message=FALSE}
+p1 + theme_minimal()
+```
+
+You may have to combine several plots, for that you can use the "cowplot" package which is a "ggplot2" extension.
+First install it :
+
+```{r, eval=F}
+install.packages("cowplot")
+```
+
+Then you can use the function "plot" grid to combine plots in a publication ready style:
+
+```{r,message=FALSE}
+library(cowplot)
+```
+
+```{r,fig.width=8, fig.height=4.5, message=FALSE}
+p1 <- ggplot(data = new_mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+p1
+```
+
+
+```{r,fig.width=8, fig.height=4.5, message=FALSE}
+p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point()
+p2
+```
+
+
+```{r,fig.width=8, fig.height=4.5, message=FALSE}
+plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)
+```
+
+You can also save it in a file.
+
+```{r, eval=F}
+p_final = plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)
+ggsave("test_plot_1_and_2.png", p_final, width = 20, height = 8, units = "cm")
+```
+
+You can learn more features about "cowplot" on its website: [https://wilkelab.org/cowplot/articles/introduction.html](https://wilkelab.org/cowplot/articles/introduction.html)
+
+<div class="pencadre">
+Use the "cowplot" documentation to reproduce this plot and save it.
+</div>
+
+```{r, echo=F}
+p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+  geom_point() + theme_bw()
+
+p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy, color = class)) + 
+  geom_point() + theme_bw()
+
+p_row <- plot_grid(p1 + theme(legend.position = "none"), p2 + theme(legend.position = "none"), labels = c('A', 'B'), label_size = 12)
+p_legend <- get_legend(p1 + theme(legend.position = "top"))
+
+plot_grid(p_row, p_legend, nrow = 2, rel_heights = c(1,0.2))
+```
+
+<details><summary>Solution</summary>
+<p>
+```{r , echo = TRUE, eval = F}
+p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+  geom_point() + theme_bw()
+
+p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy, color = class)) + 
+  geom_point() + theme_bw()
+
+p_row <- plot_grid(p1 + theme(legend.position = "none"), p2 + theme(legend.position = "none"), labels = c('A', 'B'), label_size = 12)
+p_legend <- get_legend(p1 + theme(legend.position = "top"))
+
+p_final <- plot_grid(p_row, p_legend, nrow = 2, rel_heights = c(1,0.2))
+p_final
+```
+
+```{r , echo = TRUE, eval = F}
+ggsave("plot_1_2_and_legend.png", p_final, width = 20, height = 8, units = "cm")
+```
+
+</p>
+</details>
+
+There are a lot of other available "ggplot2" extensions which can be useful (and also beautiful).
+You can take a look at them here: [https://exts.ggplot2.tidyverse.org/gallery/](https://exts.ggplot2.tidyverse.org/gallery/)

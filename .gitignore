@@ -9,8 +9,11 @@ session_*/slides_cache
 session_*/slides_files
 *.Rproj
 .DS_Store
+session_1/bioconductor_files
+session_1/github_files
 session_2/data-raw/
 session_2/mpg.csv
+session_2/*png
 session_*/session_*_cache/
 session_*/session_*_files/
 forms/*.tsv
