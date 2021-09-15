@@ -172,7 +172,7 @@ This command also works for file URL
 
 ```{r mpg_download, cache=TRUE, message=FALSE}
 new_mpg <- read_csv(
-  "http://perso.ens-lyon.fr/laurent.modolo/R/mpg.csv"
+  "http://perso.ens-lyon.fr/laurent.modolo/R/session_2/mpg.csv"
 )
 ```
 
@@ -503,7 +503,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 # To go further: publication ready plots
 
 Once you have created the graph you need for your publication, you have to save it.
-You can do it with the the "ggsave" function.
+You can do it with the the `ggsave` function.
 
 First save your plot in a variable :
 
@@ -522,7 +522,7 @@ ggsave("test_plot_1.png", p1, width = 12, height = 8, units = "cm")
 ggsave("test_plot_1.pdf", p1, width = 12, height = 8, units = "cm")
 ```
 
-You may also change the appearance of your plot by adding a "theme" layer to your plot:
+You may also change the appearance of your plot by adding a `theme` layer to your plot:
 
 ```{r,fig.width=8, fig.height=4.5, message=FALSE}
 p1 + theme_bw()
@@ -532,14 +532,14 @@ p1 + theme_bw()
 p1 + theme_minimal()
 ```
 
-You may have to combine several plots, for that you can use the "cowplot" package which is a "ggplot2" extension.
+You may have to combine several plots, for that you can use the `cowplot` package which is a `ggplot2` extension.
 First install it :
 
 ```{r, eval=F}
 install.packages("cowplot")
 ```
 
-Then you can use the function "plot" grid to combine plots in a publication ready style:
+Then you can use the function `plot` grid to combine plots in a publication ready style:
 
 ```{r,message=FALSE}
 library(cowplot)
@@ -570,10 +570,10 @@ p_final = plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)
 ggsave("test_plot_1_and_2.png", p_final, width = 20, height = 8, units = "cm")
 ```
 
-You can learn more features about "cowplot" on its website: [https://wilkelab.org/cowplot/articles/introduction.html](https://wilkelab.org/cowplot/articles/introduction.html)
+You can learn more features about `cowplot` on [https://wilkelab.org/cowplot/articles/introduction.html](its website). 
 
 <div class="pencadre">
-Use the "cowplot" documentation to reproduce this plot and save it.
+Use the `cowplot` documentation to reproduce this plot and save it.
 </div>
 
 ```{r, echo=F}
@@ -612,5 +612,5 @@ ggsave("plot_1_2_and_legend.png", p_final, width = 20, height = 8, units = "cm")
 </p>
 </details>
 
-There are a lot of other available "ggplot2" extensions which can be useful (and also beautiful).
-You can take a look at them here: [https://exts.ggplot2.tidyverse.org/gallery/](https://exts.ggplot2.tidyverse.org/gallery/)
+There are a lot of other available `ggplot2` extensions which can be useful (and also beautiful).
+You can take a look at them here: [https://exts.ggplot2.tidyverse.org/gallery/]( ggplot2 gallery)
