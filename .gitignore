@@ -18,3 +18,4 @@ session_*/session_*_cache/
 session_*/session_*_files/
 forms/*.tsv
 forms/*.csv
+forms/2021/
