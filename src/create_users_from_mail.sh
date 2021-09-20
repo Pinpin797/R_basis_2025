@@ -7,9 +7,9 @@ USERMAILS=$@
 for USERMAIL in ${USERMAILS[@]}
 do
   USERNAME=$(echo ${USERMAIL} | sed -E 's/(.*)@.*/\1/')
-  adduser ${USERNAME} --gecos 'First Last,RoomNumber,WorkPhone,HomePhone' --disabled-password
+  adduser ${USERNAME} --gecos 'First Last,RoomNumber,WorkPhone,HomePhone' --disabled-password --force-badname > /dev/null
   PASSWD=$(openssl rand -base64 10)
-  echo "${USERNAME}:${PASSWD}" | chpasswd
+  echo "${USERNAME}:${PASSWD}" | chpasswd > /dev/null
   echo "======================================================================="
   echo "${USERMAIL}:"
   echo "${USERNAME}"
