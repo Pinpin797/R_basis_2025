@@ -343,3 +343,4 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
 
 By combining the right **geom**, **coordinates** and **faceting** functions, you can build a large number of different plots to present your results.
 
+## See you in [R.4: data transformation](http://perso.ens-lyon.fr/laurent.modolo/R/session_4/)

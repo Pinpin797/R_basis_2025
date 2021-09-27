@@ -758,4 +758,4 @@ unloadNamespace("ggplot2")
 sessionInfo()
 ```
 
-##See you in [Session 2 : "Introduction to Tidyverse"](session_2.html)
+## See you in [Session 2 : "Introductionto Tidyverse"](http://perso.ens-lyon.fr/laurent.modolo/R/session_2/)

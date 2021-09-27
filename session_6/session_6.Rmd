@@ -134,7 +134,7 @@ table2 %>%
 
 Sometime the information can be split between different table
 
-```{r airlines, eval=F, echo = T}
+```{r airlines, eval=T, echo = T}
 library(nycflights13)
 flights
 airlines
@@ -243,3 +243,5 @@ These expect the x and y inputs to have the same variables, and treat the observ
 - `intersect(x, y)`: return only observations in both `x` and `y`.
 - `union(x, y)`: return unique observations in `x` and `y`.
 - `setdiff(x, y)`: return observations in `x`, but not in `y`.
+
+## See you in [R.7: String & RegExp](http://perso.ens-lyon.fr/laurent.modolo/R/session_7/)

@@ -410,3 +410,5 @@ mutate(
 - Cumulative and rolling aggregates: R provides functions for running sums, products, mins and maxes: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`; and dplyr provides `cummean()` for cumulative means. 
 - Logical comparisons, `<`, `<=`, `>`, `>=`, `!=`, and `==`
 - Ranking: there are a number of ranking functions, but you should start with `min_rank()`. There is also `row_number()`, `dense_rank()`, `percent_rank()`, `cume_dist()`, `ntile()`
+
+## See you in [R#5: Pipping and grouping](http://perso.ens-lyon.fr/laurent.modolo/R/session_5/)

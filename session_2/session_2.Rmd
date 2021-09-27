@@ -500,6 +500,8 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 </p>
 </details>
 
+## See you in [R.3: Transformations with ggplot2](http://perso.ens-lyon.fr/laurent.modolo/R/session_3/)
+
 # To go further: publication ready plots
 
 Once you have created the graph you need for your publication, you have to save it.

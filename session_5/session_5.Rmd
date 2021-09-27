@@ -394,3 +394,5 @@ flights %>%
 ```
 </p>
 </details>
+
+## See you in [R.6: tidydata](http://perso.ens-lyon.fr/laurent.modolo/R/session_6/)
