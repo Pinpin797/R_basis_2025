@@ -11,5 +11,14 @@
 - Add summary of all code used in the session at the end of the sesssion
 - Write the WDI.Rmd training which will be for a later session
 - Write tuto to create IFB accout and launch Rstudio server
-- Write session_3/exel.Rmd to load an exel version of the mpg data
-- Write session_3/ggannimate.Rmd https://exts.ggplot2.tidyverse.org/gallery/ or another example of ggplot2 addons 
+- Add sup training on the floating point problem for session_4 : 
+
+```
+x <- sqrt(2) ^ 2
+x
+#> [1] 2
+x == 2
+FALSE
+```
+
+Use `dplyr::near()` instead
