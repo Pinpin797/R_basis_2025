@@ -343,4 +343,81 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
 
 By combining the right **geom**, **coordinates** and **faceting** functions, you can build a large number of different plots to present your results.
 
-## See you in [R.4: data transformation](http://perso.ens-lyon.fr/laurent.modolo/R/session_4/)
+# See you in [R.4: data transformation](http://perso.ens-lyon.fr/laurent.modolo/R/session_4/)
+
+# To go further:  animated plots from xls files
+
+In order to be able to read information from a xls file, we will use the `openxlsx` packages. To generate animation we will use the `ggannimate` package. The additional `gifski` package will allow R to save your animation in the gif format (Graphics Interchange Format)
+
+```{r install_readxl, eval=F}
+install.packages(c("openxlsx", "gganimate", "gifski"))
+```
+```{r load_readxl}
+library(openxlsx)
+library(gganimate)
+library(gifski)
+```
+
+<div class="pencardre">
+Use the `openxlsx` package to save the [http://perso.ens-lyon.fr/laurent.modolo/R/session_3/gapminder.xlsx](http://perso.ens-lyon.fr/laurent.modolo/R/session_3/gapminder.xlsx) file to the `gapminder` variable
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r load_xlsx}
+gapminder <- read.xlsx("http://perso.ens-lyon.fr/laurent.modolo/R/session_3/gapminder.xlsx")
+```
+</p>
+</details>
+
+This dataset contains 4 variables of interest for us to display per country:
+- `gdpPercap` the GDP par capita (US$, inflation-adjusted)
+- `lifeExp` the life expectancy at birth, in years
+- `pop` the population size
+- `contient` a factor with 5 levels
+
+<div class="pencardre">
+Using `ggplot2`, build a scatterplot of the `gdpPercap` vs `lifeExp`. Add the `pop` and `continent` information to this plot.
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r gapminder_plot_a}
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
+  geom_point()
+```
+</p>
+</details>
+
+<div class="pencardre">
+What's wrong ?
+You can use the `scale_x_log10()` to display the `gdpPercap` on the `log10` scale.
+</div>
+
+
+<details><summary>Solution</summary>
+<p>
+```{r gapminder_plot_b}
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
+  geom_point() + 
+  scale_x_log10()
+```
+</p>
+</details>
+
+<div class="pencardre">
+We would like to add the `year` information to the plots. We could use a `facet_wrap`, but instead we are going to use the `gganimate` package.
+
+For this we need to add a `transition_time` layer that will take as an argument `year` to our plot.
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r gapminder_plot_c}
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
+  geom_point() + 
+  scale_x_log10() +
+  transition_time(year)
+```
+</p>
+</details>
