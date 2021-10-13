@@ -418,7 +418,7 @@ mutate(
 # To go further:  Data transformation and color sets.
 
 There are a number of color palettes available in R, thanks to different packages such as `RColorBrewer`, `Viridis` or `Ghibli`. 
-We will use them here to decorate our graphs, either on data already studied in the training, `mpg`, or on more specialized data such as lists of differentially expressed genes ( GSE86356 )
+We will use them here to decorate our graphs, either on data already studied in the training, `mpg`, or on more specialized data such as lists of differentially expressed genes ( [GSE86356](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE86356) )
 
 ```{r install_colorPal, eval=F}
 install.packages(c("ghibli", "RColorBrewer", "viridis"))
