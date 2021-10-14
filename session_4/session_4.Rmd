@@ -626,7 +626,8 @@ To make the graph below, use `ggplot2`, the functions `geom_point()`, `geom_hlin
 </div> 
 
 **Tips 1 :** Don t forget the transformation of the adjusted pvalue. 
-**Tips 2 :** Feel free to search your favorite Web browser for help.
+**Tips 2 :** Feel free to search your favorite Web browser for help. 
+**Tips 3 :** `geom_label_repel()` function needs a new parameter 'data'. 
 
 ```{r VolcanoPlotDemo, echo = FALSE}
 ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), col = UpDown)) +
