@@ -474,7 +474,7 @@ For the next part, we will use a real data set. Anterior tibial muscle tissue wa
 
 First, we will use the gene count table of these samples, formatted for use in ggplot2 ( `pivot_longer()` [function](https://tidyr.tidyverse.org/reference/pivot_longer.html) ).
 
-Open the csv file using the `read_csv2()` function. The file is located at "XXX".
+Open the csv file using the `read_csv2()` function. The file is located at "http://perso.ens-lyon.fr/laurent.modolo/R/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv".
 
 <details><summary>Solution</summary>
   <p>
@@ -549,4 +549,18 @@ ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
   </p>
 </details>
 
+## Volcano Plot 
 
+For this last exercise, we will use the results of the differential gene expression analysis between DM1 vs WT conditions. 
+
+Open the csv file using the `read_csv2()` function. The file is located at "http://perso.ens-lyon.fr/laurent.modolo/R/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv".
+
+<details><summary>Solution</summary>
+  <p>
+```{r read_csv2}
+tab <- read_csv2("http://perso.ens-lyon.fr/laurent.modolo/R/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
+
+expr_DM1
+```
+  </p>
+</details>
