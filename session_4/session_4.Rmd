@@ -567,13 +567,25 @@ tab
 
 To make a Volcano plot, displaying different information about the significativity of the variation thanks to the colors, we will have to make a series of modifications on this table.
 
-We will have to create : 
+With `mutate()` and `ifelse()` [fonctions](https://dplyr.tidyverse.org/reference/if_else.html), we will have to create : 
 
 - a column 'sig' : it indicates if the gene is significant ( TRUE or FALSE ). 
 **Thresholds :** baseMean > 20 and  padj < 0.05 and abs(log2FoldChange) >= 1.5 
 
 - a column 'UpDown' : it indicates if the gene is Up regulated or Down regulated. 
 
+<details><summary>Solution</summary>
+  <p>
+```{r sig}
+tab.sig <- tab %>% 
+  mutate(sig = baseMean > 20 & padj < 0.05 & abs(log2FoldChange) >= 1.5 ) %>%  
+  mutate(UpDown = ifelse(baseMean > 20 & padj < 0.05 & log2FoldChange >= 1.5, "Up", 
+                         ifelse(baseMean > 20 & padj < 0.05 & log2FoldChange <= -1.5, "Down", "NO")
+  ) )
 
+tab
+```
+  </p>
+</details>
 
 
