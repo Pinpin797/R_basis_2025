@@ -489,6 +489,7 @@ To display only Brewer palettes that are colorblind friendly, specify the option
 ```{r colorblindBrewer}
 display.brewer.all(colorblindFriendly = TRUE)
 ```
+
 ## Viridis
 
 `viridis` package provide a series of color maps that are designed to improve graph readability for readers with common forms of color blindness and/or color vision deficiency. 
