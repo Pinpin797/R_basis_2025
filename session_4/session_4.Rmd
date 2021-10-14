@@ -493,6 +493,7 @@ Fit the samples on the x-axis and the genes on the y-axis.
 
 <details><summary>Solution</summary>
   <p>
+```{r heatmap1}
 ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
   geom_tile() +
   labs(y="Genes", x = "Samples") +
@@ -500,13 +501,34 @@ ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
     axis.text.y = element_text(size= 4),
     axis.text.x = element_text(size = 4, angle = 90)
   )
+```
   </p>
 </details>
 
 With the default color gradient, even with the transformation, the heatmap is difficult to study. 
 
-R interprets a large number of colors, indicated in RGB, hexadimal, or just by name. For example :
+R interprets a large number of colors, indicated in RGB, hexadimal, or just by name. For example : 
 
+<center>
+![](./img/colorsR.png){width=400px}
+</center>
+
+With `scale_fill_gradient2()` function, change the colors of the gradient, taking white for the minimum value and 'springgreen4' for the maximum value.
+
+<details><summary>Solution</summary>
+  <p>
+```{r heatmapGreen}
+ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
+  geom_tile() +
+  scale_fill_gradient2(low = "white", high = "springgreen4") +
+  labs(y="Genes", x = "Samples") +
+  theme(
+    axis.text.y = element_text(size= 4),
+    axis.text.x = element_text(size = 4, angle = 90)
+  )
+```
+  </p>
+</details>
 
 
 
