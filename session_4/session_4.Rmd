@@ -479,7 +479,7 @@ Open the csv file using the `read_csv2()` function. The file is located at "XXX"
 <details><summary>Solution</summary>
   <p>
 ```{r read_csv1}
-expr_DM1 <- read_csv2("XXX/Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
+expr_DM1 <- read_csv2("http://perso.ens-lyon.fr/laurent.modolo/R/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
 
 expr_DM1
 ```
