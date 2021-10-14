@@ -101,6 +101,7 @@ Save the previous command in a `jan1` variable
  
 <details><summary>Solution</summary>
 <p>
+
 ```{r filter_month_day_sav, include=TRUE}
 jan1 <- filter(flights, month == 1, day == 1)
 ```
@@ -129,12 +130,15 @@ Test the following operations:
 ```{r filter_logical_operators_a, eval=FALSE}
 filter(flights, month == 11 | month == 12)
 ```
+
 ```{r filter_logical_operators_b, eval=FALSE}
 filter(flights, month %in% c(11, 12))
 ```
+
 ```{r filter_logical_operators_c, eval=FALSE}
 filter(flights, !(arr_delay > 120 | dep_delay > 120))
 ```
+
 ```{r filter_logical_operators_d, eval=FALSE}
 filter(flights, arr_delay <= 120, dep_delay <= 120)
 ```
@@ -198,6 +202,7 @@ How many flights have a missing `dep_time` ?
 
 <details><summary>Solution</summary>
 <p>
+
 ```{r filter_chalenges_c, eval=TRUE}
 filter(flights, is.na(dep_time))
 ```
@@ -210,6 +215,7 @@ Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA`
 
 <details><summary>Solution</summary>
 <p>
+
 ```{r filter_chalenges_d, eval=TRUE}
 NA ^ 0 # ^ 0 is always 1 it's an arbitrary rule not a computation
 NA | TRUE # if a member of a OR operation is TRUE the results is TRUE
@@ -233,6 +239,7 @@ Use `desc()` to reorder by a column in descending order:
 
 <details><summary>Solution</summary>
 <p>
+
 ```{r arrange_desc, include=TRUE}
 arrange(flights, desc(dep_delay))
 ```
@@ -259,6 +266,7 @@ arrange(tibble(x = c(5, 2, NA)), desc(x))
 
 <details><summary>Solution</summary>
 <p>
+
 Find the most delayed flight.
 ```{r chalange_arrange_desc_a, include=TRUE}
 arrange(flights, desc(dep_delay))
@@ -312,6 +320,7 @@ See `?select` for more details.
 - Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`.
 <details><summary>Solution</summary>
 <p>
+
 ```{r challenge_select_a, eval=FALSE}
 select(flights, contains("time") | contains("delay"))
 select(flights, contains("_") & !starts_with("sched") & !starts_with("time"))
@@ -326,6 +335,7 @@ vars <- c("year", "month", "day", "dep_delay", "arr_delay")
 
 <details><summary>Solution</summary>
 <p>
+
 ```{r challenge_select_b, eval=FALSE}
 select(flights, one_of(vars))
 ```
@@ -338,6 +348,7 @@ select(flights, contains("TIME"))
 ```
 <details><summary>Solution</summary>
 <p>
+
 ```{r challenge_select_c, eval=FALSE}
 select(flights, contains("TIME", ignore.case = FALSE))
 ```
@@ -359,6 +370,7 @@ First let s create a smaller dataset to work on `flights_sml` that contains
 
 <details><summary>Solution</summary>
 <p>
+
 ```{r mutate, include=TRUE}
 (flights_sml <- select(flights,  year:day, ends_with("delay"), distance, air_time))
 ```
@@ -383,6 +395,7 @@ Using `mutate` add a new column `gain` and `speed` that contains the average spe
 
 <details><summary>Solution</summary>
 <p>
+
 ```{r mutate_reuse, include=TRUE}
 flights_sml <- mutate(flights_sml,
   gain = dep_delay - arr_delay,
@@ -399,6 +412,7 @@ Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to
 
 <details><summary>Solution</summary>
 <p>
+
 ```{r mutate_challenges_a, eval=F, message=F, cache=T}
 mutate(
   flights,
@@ -453,7 +467,8 @@ Go to the links to find the appropriate function: they are very similar between 
 
 <details><summary>Solution</summary>
   <p>
-  ```{r mpg_color1}
+
+```{r mpg_color1}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
   geom_point() +
   scale_color_brewer(palette = "Dark2")
@@ -486,6 +501,7 @@ Open the csv file using the `read_csv2()` function. The file is located at "http
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r read_csv1}
 expr_DM1 <- read_csv2("http://perso.ens-lyon.fr/laurent.modolo/R/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
 
@@ -501,6 +517,7 @@ Fit the samples on the x-axis and the genes on the y-axis.
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r heatmap1}
 ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
   geom_tile() +
@@ -526,6 +543,7 @@ With `scale_fill_gradient2()` function, change the colors of the gradient, takin
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r heatmapGreen}
 ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
   geom_tile() +
@@ -544,6 +562,7 @@ Now let s use the [viridis color gradient](https://gotellilab.github.io/GotelliL
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r heatmapViridis}
 ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
   geom_tile() +
@@ -565,6 +584,7 @@ Open the csv file using the `read_csv2()` function. The file is located at "http
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r read_csv2}
 tab <- read_csv2("http://perso.ens-lyon.fr/laurent.modolo/R/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
 
@@ -584,6 +604,7 @@ With `mutate()` and `ifelse()` [fonctions](https://dplyr.tidyverse.org/reference
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r sig}
 tab.sig <- tab %>% 
   mutate(sig = baseMean > 20 & padj < 0.05 & abs(log2FoldChange) >= 1.5 ) %>%  
@@ -606,6 +627,7 @@ Install and load the `ggrepl` package.
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r ggrepel, eval = F}
 install.packages("ggrepel")
 ```
@@ -622,6 +644,7 @@ Let s **filter** our table into a new variable, top10, to keep only the top 10 a
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r top10}
 top10 <- tab.sig %>% 
   filter(sig == TRUE) %>% 
@@ -657,6 +680,7 @@ ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
 
 <details><summary>Solution</summary>
   <p>
+
 ```{r VolcanoPlotSolut, echo = TRUE, results = 'hide'}
 ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
   geom_point() +
