@@ -502,6 +502,7 @@ ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
     axis.text.x = element_text(size = 4, angle = 90)
   )
 ```
+**Nota bene :** The elements of the axes, and the theme in general, are modified in the `theme()` function. 
   </p>
 </details>
 
@@ -529,6 +530,8 @@ ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
 ```
   </p>
 </details>
+
+
 
 
 
