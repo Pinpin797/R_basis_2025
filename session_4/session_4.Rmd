@@ -401,8 +401,9 @@ mutate(
     sched_dep_time %% 100
 )
 ```
-</details>
 </p>
+</details>
+
 
 ## Useful creation functions
 
