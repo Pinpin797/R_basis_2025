@@ -602,7 +602,15 @@ Install and load the `ggrepl` package.
 install.packages("ggrepel")
 library(ggrepel)
 ```
+  </p>
+</details>
 
+Let s **filter** our table into a new variable, top10, to keep only the top 10 according to the adjusted pvalue. 
+**Tips :**  You can use the [function](https://dplyr.tidyverse.org/reference/slice.html) `slice_min()`
+
+top10 <- tab.sig %>% 
+  filter(sig == TRUE) %>% 
+  slice_min(n = 10, padj)
 
 
 
