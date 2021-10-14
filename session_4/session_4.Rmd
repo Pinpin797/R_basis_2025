@@ -41,7 +41,7 @@ As usual you will also need the `tidyverse` library.
 </div>
 
 <details><summary>Solution</summary>
-  <p>
+  <p> 
 ```{r installP, eval = F}
 install.packages("nycflights13")
 ```
