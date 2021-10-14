@@ -593,4 +593,16 @@ tab.sig
   </p>
 </details>
 
+We want to see the top10 DEGs on the graph. For this, we will use the package `ggrepel`.
+Install and load the `ggrepl` package.
+
+<details><summary>Solution</summary>
+  <p>
+```{r ggrepel}
+install.packages("ggrepel")
+library(ggrepel)
+```
+
+
+
 
