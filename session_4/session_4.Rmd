@@ -147,7 +147,7 @@ One important feature of R that can make comparison tricky is missing values, or
 Indeed each of the variable type can contain either a value of this type (i.e., `2` for an **int**) or nothing.
 The *nothing recorded in a variable* status is represented with the `NA` symbol.
 
-As operations with `NA` values don't make sense, if you have `NA` somewhere in your operation, the results will be `NA`
+As operations with `NA` values don t make sense, if you have `NA` somewhere in your operation, the results will be `NA`
 
 ```{r filter_logical_operators_NA, include=TRUE}
 NA > 5
@@ -344,7 +344,7 @@ select(flights, contains("TIME", ignore.case = FALSE))
 It’s often useful to add new columns that are functions of existing columns. That’s the job of `mutate()`.
 
 <div class="pencadre">
-First let's create a smaller dataset to work on `flights_sml` that contains
+First let s create a smaller dataset to work on `flights_sml` that contains
 - columns from `year` to `day`
 - columns that ends with `delays`
 - the `distance` and `air_time` columns
@@ -620,11 +620,45 @@ top10 <- tab.sig %>%
 </details>
 
 The data is ready to be used to make a volcano plot!  
-To make the graph below, use `ggplot2`, the functions `geom_point()`, `geom_hline()`, `geom_vline()`, `theme_minimal()`, `theme()` (to remove the legend), `geom_label_repel()` and the function `scale_color_manual()` for the colors.
 
-```{r VolcanoPlotDemo, }
+<div class="pencadre">
+To make the graph below, use `ggplot2`, the functions `geom_point()`, `geom_hline()`, `geom_vline()`, `theme_minimal()`, `theme()` (to remove the legend), `geom_label_repel()` and the function `scale_color_manual()` for the colors.
+</div> 
+
+**Tips 1 :** Don t forget the transformation of the adjusted pvalue. 
+**Tips 2 :** Feel free to search your favorite Web browser for help.
+
+```{r VolcanoPlotDemo, echo = FALSE}
+ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), col = UpDown)) +
+  geom_point() +
+  scale_color_manual(values=c("steelblue", "lightgrey", "firebrick" )) +
+  geom_hline(yintercept=-log10(0.05), col="black") +
+  geom_vline(xintercept=c(-1.5, 1.5), col="black") +
+  theme_minimal() +
+  theme(
+    legend.position="none"
+  ) +
+  labs(y="-log10(p-value)", x = "log2(FoldChange)") +
+  geom_label_repel(data = top10, mapping = aes(label = gene_symbol)) 
 
 ```
 
+<details><summary>Solution</summary>
+  <p>
+```{r VolcanoPlotSolut, echo = T, results = 'hide'}
+ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), col = UpDown)) +
+  geom_point() +
+  scale_color_manual(values=c("steelblue", "lightgrey", "firebrick" )) +
+  geom_hline(yintercept=-log10(0.05), col="black") +
+  geom_vline(xintercept=c(-1.5, 1.5), col="black") +
+  theme_minimal() +
+  theme(
+    legend.position="none"
+  ) +
+  labs(y="-log10(p-value)", x = "log2(FoldChange)") +
+  geom_label_repel(data = top10, mapping = aes(label = gene_symbol)) 
 
+```
+  </p>
+</details>
 
