@@ -424,6 +424,18 @@ We will use them here to decorate our graphs, either on data already studied in 
 install.packages(c("ghibli", "RColorBrewer", "viridis"))
 ```
 
+```{r load_library}
+library(tidyverse)
+
+library(RColorBrewer)
+library(ghibli)
+library(viridis)
+```
+Using `mpg` and the 'ggplot2' package, reproduce the graph studied in session 2, 3.1: color mapping. 
+Modify the colors representing the class of cars with the palettes `Dark2` of [RColorBrewer](https://www.datanovia.com/en/fr/blog/palette-de-couleurs-rcolorbrewer-de-a-a-z/), then `MononokeMedium` from [Ghibli](https://github.com/ewenme/ghibli).
+
+
+
 
 
 
