@@ -431,6 +431,9 @@ library(RColorBrewer)
 library(ghibli)
 library(viridis)
 ```
+
+## RColorBrewer & Ghibli 
+
 Using `mpg` and the 'ggplot2' package, reproduce the graph studied in session 2, 3.1: color mapping. 
 Modify the colors representing the class of cars with the palettes `Dark2` of [RColorBrewer](https://www.datanovia.com/en/fr/blog/palette-de-couleurs-rcolorbrewer-de-a-a-z/), then `MononokeMedium` from [Ghibli](https://github.com/ewenme/ghibli). 
 
@@ -463,14 +466,24 @@ To display only Brewer palettes that are colorblind friendly, specify the option
 ```{r colorblindBrewer}
 display.brewer.all(colorblindFriendly = TRUE)
 ```
+## Viridis
+
+`viridis` package provide a series of color maps that are designed to improve graph readability for readers with common forms of color blindness and/or color vision deficiency. 
+
+For the next part, we will use a real data set. Anterior tibial muscle tissue was collected from 20 patients, with or without confirmed myotonic dystrophy type 1 (DM1). Illumina RNAseq was performed on these samples and the sequencing data are available on GEO with the identifier GSE86356. 
+
+First, we will use the gene count table of these samples, formatted for use in ggplot2 ( `pivot_longer()` [function](https://tidyr.tidyverse.org/reference/pivot_longer.html) ).
+
+Open the csv file using the `read_csv2()` function. The file is located at "XXX".
 
 
-
-
-
-
-
-
+<details><summary>Solution</summary>
+  <p>
+```{r read_csv1}
+expr_DM1 <- read_csv2("XXX/Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
+```
+  </p>
+</details>
 
 
 
