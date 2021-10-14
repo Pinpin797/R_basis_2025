@@ -381,9 +381,9 @@ flights_sml <- mutate(flights_sml,
   gain = dep_delay - arr_delay,
   speed = distance / air_time * 60
 )
-```
-</details>
+``` 
 </p>
+</details>
 
 
 <div class="pencadre">
