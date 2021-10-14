@@ -96,7 +96,7 @@ filter(flights, month == 1, day == 1)
 
 <div class="pencadre">
 Save the previous command in a `jan1` variable
-</div
+</div>
 <details><summary>Solution</summary>
 <p>
 ```{r filter_month_day_sav, include=TRUE}
