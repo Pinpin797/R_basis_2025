@@ -314,10 +314,12 @@ select(flights, contains("_") & !starts_with("sched") & !starts_with("time"))
 ```
 </p>
 </details>
-- What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
+- What does the `one_of()` function do? Why might it be helpful in conjunction with this vector? 
+
 ```{r select_one_of, eval=T, message=F, cache=T}
 vars <- c("year", "month", "day", "dep_delay", "arr_delay")
 ```
+
 <details><summary>Solution</summary>
 <p>
 ```{r challenge_select_b, eval=FALSE}
@@ -325,6 +327,7 @@ select(flights, one_of(vars))
 ```
 </p>
 </details>
+
 - Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
 ```{r select_contains, eval=F, message=F, cache=T}
 select(flights, contains("TIME"))
