@@ -627,10 +627,10 @@ To make the graph below, use `ggplot2`, the functions `geom_point()`, `geom_hlin
 
 **Tips 1 :** Don t forget the transformation of the adjusted pvalue. 
 **Tips 2 :** Feel free to search your favorite Web browser for help. 
-**Tips 3 :** `geom_label_repel()` function needs a new parameter 'data'. 
+**Tips 3 :** `geom_label_repel()` function needs a new parameter 'data' and 'label' in aes parameters. 
 
 ```{r VolcanoPlotDemo, echo = FALSE}
-ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), col = UpDown)) +
+ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
   geom_point() +
   scale_color_manual(values=c("steelblue", "lightgrey", "firebrick" )) +
   geom_hline(yintercept=-log10(0.05), col="black") +
@@ -646,8 +646,8 @@ ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), col = UpDown)) +
 
 <details><summary>Solution</summary>
   <p>
-```{r VolcanoPlotSolut, echo = T, results = 'hide'}
-ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), col = UpDown)) +
+```{r VolcanoPlotSolut, echo = TRUE, results = 'hide'}
+ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
   geom_point() +
   scale_color_manual(values=c("steelblue", "lightgrey", "firebrick" )) +
   geom_hline(yintercept=-log10(0.05), col="black") +
