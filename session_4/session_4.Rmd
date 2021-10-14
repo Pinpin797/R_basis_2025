@@ -503,4 +503,10 @@ ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
   </p>
 </details>
 
+With the default color gradient, even with the transformation, the heatmap is difficult to study. 
+
+R interprets a large number of colors, indicated in RGB, hexadimal, or just by name. For example :
+
+
+
 
