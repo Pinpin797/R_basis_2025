@@ -603,8 +603,11 @@ Install and load the `ggrepl` package.
 
 <details><summary>Solution</summary>
   <p>
-```{r ggrepel}
+```{r ggrepel, eval = F}
 install.packages("ggrepel")
+```
+
+```{r ggrepel2}
 library(ggrepel)
 ```
   </p>
