@@ -579,11 +579,16 @@ With `mutate()` and `ifelse()` [fonctions](https://dplyr.tidyverse.org/reference
 ```{r sig}
 tab.sig <- tab %>% 
   mutate(sig = baseMean > 20 & padj < 0.05 & abs(log2FoldChange) >= 1.5 ) %>%  
-  mutate(UpDown = ifelse(baseMean > 20 & padj < 0.05 & log2FoldChange >= 1.5, "Up", 
-                         ifelse(baseMean > 20 & padj < 0.05 & log2FoldChange <= -1.5, "Down", "NO")
-  ) )
+  mutate(UpDown = ifelse(
+                        baseMean > 20 & padj < 0.05 & log2FoldChange >= 1.5, 
+                        "Up", 
+                         ifelse(
+                           baseMean > 20 & padj < 0.05 & log2FoldChange <= -1.5, 
+                           "Down", 
+                           "NO"
+                          )))
 
-tab
+tab.sig
 ```
   </p>
 </details>
