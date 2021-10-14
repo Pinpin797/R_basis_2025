@@ -456,6 +456,13 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
   </p>
 </details>
  
+The choice of colors is very important for the comprehension of a graphic. Some palettes are not suitable for everyone. For example, for people with color blindness, color gradients from green to red, or from yellow to blue should be avoided. 
+
+To display only Brewer palettes that are colorblind friendly, specify the option `colorblindFriendly = TRUE` as follows:
+
+```{r colorblindBrewer}
+display.brewer.all(colorblindFriendly = TRUE)
+```
 
 
 
