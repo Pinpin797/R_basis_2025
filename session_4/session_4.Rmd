@@ -180,9 +180,11 @@ Find all flights that:
 
 <details><summary>Solution</summary>
 <p>
+
 ```{r filter_chalenges_a, eval=TRUE}
 filter(flights, arr_delay >= 60 | arr_delay <= 120)
 ```
+
 ```{r filter_chalenges_b, eval=TRUE}
 filter(flights, dest %in% c("IAH", "HOU"))
 ```
