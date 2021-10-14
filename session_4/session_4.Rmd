@@ -531,7 +531,22 @@ ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
   </p>
 </details>
 
+It s better, but still not perfect!
+Now let s use the [viridis color gradient](https://gotellilab.github.io/GotelliLabMeetingHacks/NickGotelli/ViridisColorPalette.html) for this graph.
 
-
+<details><summary>Solution</summary>
+  <p>
+```{r heatmapViridis}
+ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
+  geom_tile() +
+  scale_fill_viridis_c() +
+  labs(y="Genes", x = "Samples") +
+  theme(
+    axis.text.y = element_text(size= 4),
+    axis.text.x = element_text(size = 4, angle = 90)
+  )
+```
+  </p>
+</details>
 
 
