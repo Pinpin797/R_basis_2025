@@ -560,7 +560,20 @@ Open the csv file using the `read_csv2()` function. The file is located at "http
 ```{r read_csv2}
 tab <- read_csv2("http://perso.ens-lyon.fr/laurent.modolo/R/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
 
-expr_DM1
+tab
 ```
   </p>
 </details>
+
+To make a Volcano plot, displaying different information about the significativity of the variation thanks to the colors, we will have to make a series of modifications on this table.
+
+We will have to create : 
+
+- a column 'sig' : it indicates if the gene is significant ( TRUE or FALSE ). 
+**Thresholds :** baseMean > 20 and  padj < 0.05 and abs(log2FoldChange) >= 1.5 
+
+- a column 'UpDown' : it indicates if the gene is Up regulated or Down regulated. 
+
+
+
+
