@@ -476,15 +476,31 @@ First, we will use the gene count table of these samples, formatted for use in g
 
 Open the csv file using the `read_csv2()` function. The file is located at "XXX".
 
-
 <details><summary>Solution</summary>
   <p>
 ```{r read_csv1}
 expr_DM1 <- read_csv2("XXX/Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
+
+expr_DM1
 ```
   </p>
 </details>
 
+With this tibble, use `ggplot2` and the `geom_tile()` function to make a heatmap.
+Fit the samples on the x-axis and the genes on the y-axis.
 
+**Tip:** Transform the counts into log10(x + 1) for a better visualization.
+
+<details><summary>Solution</summary>
+  <p>
+ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
+  geom_tile() +
+  labs(y="Genes", x = "Samples") +
+  theme(
+    axis.text.y = element_text(size= 4),
+    axis.text.x = element_text(size = 4, angle = 90)
+  )
+  </p>
+</details>
 
 
