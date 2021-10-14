@@ -605,12 +605,26 @@ library(ggrepel)
   </p>
 </details>
 
-Let s **filter** our table into a new variable, top10, to keep only the top 10 according to the adjusted pvalue. 
+Let s **filter** our table into a new variable, top10, to keep only the top 10 according to the adjusted pvalue. The **smaller** the adjusted pvalue, the more significant.
+
 **Tips :**  You can use the [function](https://dplyr.tidyverse.org/reference/slice.html) `slice_min()`
 
+<details><summary>Solution</summary>
+  <p>
+```{r top10}
 top10 <- tab.sig %>% 
   filter(sig == TRUE) %>% 
   slice_min(n = 10, padj)
+```
+  </p>
+</details>
+
+The data is ready to be used to make a volcano plot!  
+To make the graph below, use `ggplot2`, the functions `geom_point()`, `geom_hline()`, `geom_vline()`, `theme_minimal()`, `theme()` (to remove the legend), `geom_label_repel()` and the function `scale_color_manual()` for the colors.
+
+```{r VolcanoPlotDemo, }
+
+```
 
 
 
