@@ -276,17 +276,17 @@ arrange(tibble(x = c(5, 2, NA)), desc(is.na(x)))
 `select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
 
 You can select by column names
-```{r select_ymd_a, , include=TRUE}
+```{r select_ymd_a, include=TRUE}
 select(flights, year, month, day)
 ```
 
 By defining a range of columns
-```{r select_ymd_b, , include=TRUE}
+```{r select_ymd_b, include=TRUE}
 select(flights, year:day)
 ```
 
 Or you can do a negative (`-`) to remove columns.
-```{r select_ymd_c, , include=TRUE}
+```{r select_ymd_c, include=TRUE}
 select(flights, -(year:day))
 ```
 
