@@ -432,7 +432,13 @@ library(ghibli)
 library(viridis)
 ```
 Using `mpg` and the 'ggplot2' package, reproduce the graph studied in session 2, 3.1: color mapping. 
-Modify the colors representing the class of cars with the palettes `Dark2` of [RColorBrewer](https://www.datanovia.com/en/fr/blog/palette-de-couleurs-rcolorbrewer-de-a-a-z/), then `MononokeMedium` from [Ghibli](https://github.com/ewenme/ghibli).
+Modify the colors representing the class of cars with the palettes `Dark2` of [RColorBrewer](https://www.datanovia.com/en/fr/blog/palette-de-couleurs-rcolorbrewer-de-a-a-z/), then `MononokeMedium` from [Ghibli](https://github.com/ewenme/ghibli). 
+
+```{r mpg_color}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+  geom_point()
+```
+Go to the links to find the appropriate function: they are very similar between the two packages.
 
 <details><summary>Solution</summary>
   <p>
