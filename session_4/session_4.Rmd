@@ -185,13 +185,8 @@ Find all flights that:
 
 <details><summary>Solution</summary>
 <p>
-
-```{r filter_chalenges_a, eval=TRUE}
-filter(flights, arr_delay >= 60 | arr_delay <= 120)
-```
-
 ```{r filter_chalenges_b, eval=TRUE}
-filter(flights, dest %in% c("IAH", "HOU"))
+filter(flights, arr_delay >= 120 & dest %in% c("IAH", "HOU"))
 ```
 </p>
 </details>
@@ -327,6 +322,7 @@ select(flights, contains("_") & !starts_with("sched") & !starts_with("time"))
 ```
 </p>
 </details>
+
 - What does the `one_of()` function do? Why might it be helpful in conjunction with this vector? 
 
 ```{r select_one_of, eval=T, message=F, cache=T}
