@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /bin/bash
 
 # Convert list of mail to the format : NOM;Prenom 
 # for the page https://instella.ens-lyon.fr/stella/intra/compteInvite.html -> Ajouter une liste de comptes
