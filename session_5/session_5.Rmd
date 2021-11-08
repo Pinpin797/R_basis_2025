@@ -232,7 +232,7 @@ Look at the number of canceled flights per day. Is there a pattern?
 **Remember to always try to decompose complex questions into smaller and simple problems**
 
 - What are `canceled` flights?
-- Who can I `canceled` flights?
+- Who can I create a `canceled` flights variable?
 - We need to define the day of the week `wday` variable (`strftime(x,'%A')` give you the name of the day from a POSIXct date).
 - We can count the number of canceled flight (`cancel_day`) by day of the week (`wday`).
 - We can pipe transformed and filtered tibble into a `ggplot` function.
