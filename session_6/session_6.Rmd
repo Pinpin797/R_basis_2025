@@ -188,7 +188,9 @@ table2 %>%
 
 ## Relational data
 
-Sometime the information can be split between different table
+To avoid having a huge table and to save space, information is often splited between different tables.
+
+In our `flights` dataset, information about the `carrier` or the `airports` (origin and dest) are saved in a separate table (`airlines`, `airports`).
 
 ```{r airlines, eval=T, echo = T}
 library(nycflights13)
@@ -200,27 +202,40 @@ flights2 <- flights %>%
   select(year:day, hour, origin, dest, tailnum, carrier)
 ```
 
-## Relational data
+## Relational schema
+
+The relationships between tables can be seen in a relational graph. The variables used to connect each pair of tables are called keys. A key is a variable (or set of variables) that uniquely identifies an observation.
 
 ```{r airlines_dag, echo=FALSE, out.width='100%'}
 knitr::include_graphics('img/relational-nycflights.png')
 ```
 
-## joints
+## Joints
+
+If you have to combine data from 2 tables in a a new table, you will use `joints`.
+
+There are several types of joints depending of what you want to get. 
 
 ```{r joints, echo=FALSE, out.width='100%'}
 knitr::include_graphics('img/join-venn.png')
 ```
 
-## `inner_joint()`
+Small concrete examples:
 
-Matches pairs of observations whenever their keys are equal
+```{r , echo=FALSE, out.width='100%'}
+knitr::include_graphics('img/overview_joins.png')
+```
+
+### `inner_joint()`
+
+keeps observations in `x` AND `y`
 
 ```{r inner_joint, eval=T}
 flights2 %>%
   inner_join(airlines)
 ```
-## `left_joint()`
+
+### `left_joint()`
 
 keeps all observations in `x`
 
@@ -229,7 +244,7 @@ flights2 %>%
   left_join(airlines)
 ```
 
-## `right_joint()`
+### `right_joint()`
 
 keeps all observations in `y`
 
@@ -238,7 +253,7 @@ flights2 %>%
   right_join(airlines)
 ```
 
-## `full_joint()`
+### `full_joint()`
 
 keeps all observations in `x` and `y`
 
@@ -251,27 +266,39 @@ flights2 %>%
 
 The default, `by = NULL`, uses all variables that appear in both tables, the so called natural join.
 
-```{r left_join_weather, eval=T}
+```{r , eval=T}
 flights2 %>% 
   left_join(weather)
 ```
 
-## Defining the key columns
+If the two tables contain columns with the same names but corresponding to different things (such as `year` in `flights2` and `planes`) you have to manually define the key or the keys.
 
-The default, `by = NULL`, uses all variables that appear in both tables, the so called natural join.
-
-```{r left_join_tailnum, eval=T, echo = T}
+```{r , eval=T, echo = T}
 flights2 %>% 
   left_join(planes, by = "tailnum")
 ```
 
-## Defining the key columns
+If you want to join by data that are in two columns with different names, you must specify the correspondence with a named character vector: `by = c("a" = "b")`. This will match variable `a` in table `x` to variable `b` in table `y`.
 
-A named character vector: `by = c("a" = "b")`. This will match variable `a` in table `x` to variable `b` in table `y`.
-
-```{r left_join_airport, eval=T, echo = T}
+```{r , eval=T, echo = T}
 flights2 %>% 
   left_join(airports, c("dest" = "faa"))
+```
+
+If 2 columns have identical names in the input tables but are not used in the join, they are automatically renamed with the suffix `.x` and `.y` because all column names must be different in the output table.
+
+```{r , eval=T, echo = T}
+flights2 %>% 
+  left_join(airports, c("dest" = "faa")) %>% 
+  left_join(airports, c("origin" = "faa"))
+```
+
+You can change the suffix using the option `suffix`
+
+```{r , eval=T, echo = T}
+flights2 %>% 
+  left_join(airports, by = c("dest" = "faa")) %>% 
+  left_join(airports, by = c("origin" = "faa"), suffix = c(".dest",".origin"))
 ```
 
 ## Filtering joins
@@ -280,9 +307,6 @@ Filtering joins match observations in the same way as mutating joins, but affect
 
 - `semi_join(x, y)` keeps all observations in `x` that have a match in `y`.
 - `anti_join(x, y)` drops all observations in `x` that have a match in `y`.
-
-
-## Filtering joins
 
 ```{r top_dest, eval=T, echo = T}
 top_dest <- flights %>%
@@ -299,5 +323,9 @@ These expect the x and y inputs to have the same variables, and treat the observ
 - `intersect(x, y)`: return only observations in both `x` and `y`.
 - `union(x, y)`: return unique observations in `x` and `y`.
 - `setdiff(x, y)`: return observations in `x`, but not in `y`.
+
+```{r , echo=FALSE, out.width='100%'}
+knitr::include_graphics('img/overview_set.png')
+```
 
 ## See you in [R.7: String & RegExp](http://perso.ens-lyon.fr/laurent.modolo/R/session_7/)
