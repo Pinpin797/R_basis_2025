@@ -54,13 +54,18 @@ library(tidyverse)
 </p>
 </details>
 
-For this practical we are going to use the `table` dataset which demonstrate multiple ways to layout the same tabular data.
+For this practical we are going to use the `table` set of datasets which demonstrate multiple ways to layout the same tabular data.
 
 <div class="pencadre">
-Use the help to know more about this dataset
+Use the help to know more about `table1` dataset
 </div>
 
 <details><summary>Solution</summary>
+
+```{r}
+?table1
+```
+
 <p>
 `table1`, `table2`, `table3`, `table4a`, `table4b`, and `table5` all display the number of TB (Tuberculosis) cases documented by the World Health Organization in Afghanistan, Brazil, and China between 1999 and 2000. The data contains values associated with four variables (country, year, cases, and population), but each table organizes the values in a different layout.
 
@@ -71,6 +76,41 @@ The data is a subset of the data contained in the World Health Organization Glob
 # Pivoting data
 
 ## pivot longer
+
+```{r, echo=FALSE, out.width='100%'}
+knitr::include_graphics('img/pivot_longer.png')
+```
+
+```{r, eval = F}
+wide_example <- tibble(X1 = c("A","B"),
+                      X2 = c(1,2),
+                      X3 = c(0.1,0.2),
+                      X4 = c(10,20))
+```
+
+If you have a wide dataset, such as `wide_example`, that you want to make longer, you will use the `pivot_longer()` function. 
+
+You have to specify the names of the columns you want to pivot into longer format (X2,X3,X4):
+
+```{r, eval = F}
+wide_example %>%
+  pivot_longer(c(X2,X3,X4))
+```
+
+... or the reverse selection (-X1):
+
+```{r, eval = F}
+wide_example %>% pivot_longer(-X1)
+```
+
+You can specify the names of the columns where the data will be tidy (by default, it is `names` and `value`):
+
+```{r, eval = F}
+long_example <- wide_example %>%
+  pivot_longer(-X1), names_to = "V1", values_to = "V2")
+```
+
+### Exercice
 
 <div class="pencadre">
 Visualize the `table4a` dataset (you can use the `View()` function).
@@ -108,6 +148,22 @@ table4a %>%
 </details>
 
 ## pivot wider 
+
+```{r, echo=FALSE, out.width='100%'}
+knitr::include_graphics('img/pivot_wider.png')
+```
+
+If you have a long dataset, that you want to make wider, you will use the `pivot_wider()` function. 
+
+You have to specify which column contains the name of the output column (`names_from`), and which column contains the cell values from (`values_from`).
+
+```{r, eval = F}
+long_example %>% pivot_wider(names_from = V1,
+                             values_from = V2)
+```
+
+
+### Exercice
 
 <div class="pencadre">
 Visualize the `table2` dataset
