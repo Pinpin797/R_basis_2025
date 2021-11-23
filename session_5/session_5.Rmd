@@ -6,7 +6,7 @@ output:
   rmdformats::downcute:
     self_contain: true
     use_bookdown: true
-    default_style: "dark"
+    default_style: "light"
     lightbox: true
     css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
 ---
@@ -276,7 +276,7 @@ flights %>%
   mutate(wday = strftime(time_hour,'%A')) %>% 
   group_by(wday) %>% 
   mutate(
-    prop_cancel_day = sum(canceled)/sum(!canceled),
+    prop_cancel_day = sum(canceled)/n(),
     av_delay = mean(dep_delay, na.rm = TRUE)
   ) %>%
   ungroup() %>% 

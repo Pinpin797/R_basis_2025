@@ -6,7 +6,7 @@ output:
   rmdformats::downcute:
     self_contain: true
     use_bookdown: true
-    default_style: "dark"
+    default_style: "light"
     lightbox: true
     css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
 ---

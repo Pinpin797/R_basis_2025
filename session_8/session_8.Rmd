@@ -1,25 +1,48 @@
 ---
-title: '#8 Factors'
+title: "R.8: Factors"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
-date: "31 Jan 2020"
-always_allow_html: yes
+date: "2021"
 output:
-  slidy_presentation:
-    highlight: tango
-  beamer_presentation:
-    theme: metropolis
-    slide_level: 3
-    fig_caption: no
-    df_print: tibble
-    highlight: tango
-    latex_engine: xelatex
+  rmdformats::downcute:
+    self_contain: true
+    use_bookdown: true
+    default_style: "light"
+    lightbox: true
+    css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
 ---
-```{r setup, include=FALSE, cache=TRUE}
+
+```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
+knitr::opts_chunk$set(comment = NA)
+```
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(
+  position = c('top', 'right'),
+  color = "white",
+  tooltip_message = 'Click to copy',
+  tooltip_success = 'Copied !')
 ```
 
-## Creating factors
+# Introduction
+
+In this session, you will learn more about the factor type in R.
+Factors can be very useful, but you have to be mindful of the implicit conversions from simple vector to factor !
+They are the source of loot of pain for R programmers.
+
+<div class="pencadre">
+As usual we will need the `tidyverse` library.
+</div>
+
+<details><summary>Solution</summary>
+<p>
+```{r load_data, eval=T, message=F}
+library(tidyverse)
+```
+</p>
+</details>
+
+# Creating factors
 
 Imagine that you have a variable that records month:
 
@@ -41,8 +64,6 @@ x2 <- c("Dec", "Apr", "Jam", "Mar")
 sort(x1)
 ```
 
-## Creating factors
-
 You can fix both of these problems with a factor.
 
 ```{r sort_month_factor, eval=T, cache=T}
@@ -54,8 +75,6 @@ y1 <- factor(x1, levels = month_levels)
 y1
 sort(y1)
 ```
-
-## Creating factors
 
 And any values not in the set will be converted to NA:
 
@@ -72,16 +91,14 @@ f2
 levels(f2)
 ```
 
-## General Social Survey
+# General Social Survey
 
 ```{r race_count, eval=T, cache=T}
 gss_cat %>%
   count(race)
 ```
 
-## General Social Survey
-
-By default, ggplot2 will drop levels that don’t have any values. You can force them to display with:
+By default, `ggplot2` will drop levels that don’t have any values. You can force them to display with:
 
 ```{r race_plot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(gss_cat, aes(race)) +
@@ -89,7 +106,7 @@ ggplot(gss_cat, aes(race)) +
   scale_x_discrete(drop = FALSE)
 ```
 
-## Modifying factor order
+# Modifying factor order
 
 It’s often useful to change the order of the factor levels in a visualisation.
 
@@ -104,26 +121,16 @@ relig_summary <- gss_cat %>%
 ggplot(relig_summary, aes(tvhours, relig)) + geom_point()
 ```
 
-**8_a**
-
-## Modifying factor order
-
 It is difficult to interpret this plot because there’s no overall pattern. We can improve it by reordering the levels of relig using `fct_reorder()`. `fct_reorder()` takes three arguments:
 
 - `f`, the factor whose levels you want to modify.
 - `x`, a numeric vector that you want to use to reorder the levels.
 - Optionally, `fun`, a function that’s used if there are multiple values of `x` for each value of `f`. The default value is `median`.
 
-## Modifying factor order
-
 ```{r tv_hour_order, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(relig_summary, aes(tvhours, fct_reorder(relig, tvhours))) +
   geom_point()
 ```
-
-**8_b**
-
-## Modifying factor order
 
 As you start making more complicated transformations, I’d recommend moving them out of `aes()` and into a separate `mutate()` step. For example, you could rewrite the plot above as:
 
@@ -133,9 +140,8 @@ relig_summary %>%
   ggplot(aes(tvhours, relig)) +
     geom_point()
 ```
-**8_c**
 
-## `fct_reorder2()`
+# `fct_reorder2()`
 
 Another type of reordering is useful when you are colouring the lines on a plot. `fct_reorder2()` reorders the factor by the `y` values associated with the largest `x` values. This makes the plot easier to read because the line colours line up with the legend.
 
@@ -146,23 +152,14 @@ by_age <- gss_cat %>%
   group_by(age) %>%
   mutate(prop = n / sum(n))
 ```
-**8_d**
-
-## `fct_reorder2()`
 
 ```{r fct_reorder2a, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(by_age, aes(age, prop, colour = marital)) +
   geom_line(na.rm = TRUE)
 ```
 
-**8_e**
-
-## `fct_reorder2()`
-
 ```{r fct_reorder2b, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(by_age, aes(age, prop, colour = fct_reorder2(marital, age, prop))) +
   geom_line() +
   labs(colour = "marital")
 ```
-
-**8_f**
