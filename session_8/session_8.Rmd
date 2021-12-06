@@ -163,3 +163,20 @@ ggplot(by_age, aes(age, prop, colour = fct_reorder2(marital, age, prop))) +
   geom_line() +
   labs(colour = "marital")
 ```
+
+# Materials
+
+There are lots of material online for R and more particularly on `tidyverse` and `Rstudio`
+
+You can find cheat sheet for all the packages of the `tidyverse` on this page:
+[https://www.rstudio.com/resources/cheatsheets/](https://www.rstudio.com/resources/cheatsheets/)
+
+The `Rstudio` websites are also a good place to learn more about R and the meta-package maintenained by the `Rstudio` community:
+- [https://www.rstudio.com/resources/webinars/](https://www.rstudio.com/resources/webinars/)
+- [https://www.rstudio.com/products/rpackages/](https://www.rstudio.com/products/rpackages/)
+
+For example [rmarkdown](https://rmarkdown.rstudio.com/) is a great way to turn your analyses into high quality documents, reports, presentations and dashboards.
+
+In addition most packages will provide **vignette**s on how to perform an analysis from scratch. On the [bioconductor.org](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html) website (specialised on R packages for biologists), you will have direct links to the packages vignette.
+
+Finally, don't forget to search the web for your problems or error in R websites like [stackoverflow](https://stackoverflow.com/) contains high quality and well-curated answers.
