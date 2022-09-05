@@ -8,7 +8,7 @@ output:
     use_bookdown: true
     default_style: "light"
     lightbox: true
-    css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
+    css: "www/style_Rmd.css"
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +16,13 @@ rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
-```{r klippy, echo=FALSE, include=TRUE}
+
+```{r klippy, echo=FALSE, include=FALSE}
+if (! require("klippy")) {
+  install.packages("remotes")
+  remotes::install_github("rlesur/klippy")
+}
+
 klippy::klippy(
   position = c('top', 'right'),
   color = "white",
@@ -74,11 +80,16 @@ Reasons to use it:
 
 ```{r echo=F}
 cran_packages <- nrow(available.packages(repos = "http://cran.us.r-project.org"))
+
+if (! require("rvest")) {
+  install.packages("rvest", quiet = T)
+}
+
 library(rvest)
 url <- 'https://www.bioconductor.org/packages/release/bioc/'
 biocPackages <- url %>% read_html() %>% html_table() %>%.[[1]]
 bioconductor_packages <- nrow(biocPackages)
-````
+```
 
 - **`r cran_packages`** available packages on https://cran.r-project.org/
 - **`r bioconductor_packages`** available packages on http://www.bioconductor.org
