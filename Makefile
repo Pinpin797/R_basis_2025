@@ -1,10 +1,14 @@
 all: public/index.html \
+    public/img/ \
 	public/session_1.html
 
 public/:
 	mkdir -p public
 	mkdir -p public/www
 	mkdir -p public/img
+
+public/img/:
+	cp -r img/ public/img
 
 public/www/github-pandoc.css: www/github-pandoc.css
 	cp www/github-pandoc.css public/www/github-pandoc.css
