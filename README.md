@@ -1,5 +1,16 @@
 # R formation
 
+## 2022
+
+### Trainers
+
+ - Nicolas Fontrodona
+ - Christophe Arpin
+ - Laurent Gilquin
+ - Carine Rey (IFB)
+
+## 2021
+
 The sessions will be starting the 14/09:
 
 - **Monday 11h - 12h30**
