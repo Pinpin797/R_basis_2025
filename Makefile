@@ -1,0 +1,43 @@
+all: public/index.html \
+	public/session_1.html
+
+public/:
+	mkdir -p public
+	mkdir -p public/www
+	mkdir -p public/img
+
+public/www/github-pandoc.css: www/github-pandoc.css
+	cp www/github-pandoc.css public/www/github-pandoc.css
+
+public/www/style_Rmd.css: www/style_Rmd.css
+	cp www/style_Rmd.css public/www/style_Rmd.css
+
+public/www/*.ttf: www/Raleway-Regular.ttf www/YanoneKaffeesatz-Bold.ttf
+	cp www/*ttf public/www/
+
+public/index.html: public/ index.md public/www/github-pandoc.css
+	pandoc -s -c www/github-pandoc.css index.md -o public/index.html
+
+public/session_1.html: public/ session_1/session_1.Rmd public/www/style_Rmd.css
+	Rscript -e 'install.packages("rmdformats"); rmarkdown::render("session_1/session_1.Rmd", output_dir = "public/")'
+
+## Test docker in local
+
+test : local/session_1.html \
+	local/index.html
+
+local/: 
+	mkdir -p local
+
+local/session_1.html: local/ session_1/session_1.Rmd www/style_Rmd.css
+	docker run --rm -ti -v ${PWD}:/work -w /work rocker/r-rmd \
+Rscript -e 'install.packages("rmdformats"); rmarkdown::render("session_1/session_1.Rmd", output_dir = "local/")'
+
+local/index.html: local/ index.md www/github-pandoc.css
+	docker run --rm -ti -v ${PWD}:/work -w /work rocker/r-rmd \
+pandoc -s -c www/github-pandoc.css index.md -o local/index.html
+
+clean:
+	sudo rm -r local public
+
+.PHONY: clean test
