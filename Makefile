@@ -5,7 +5,8 @@ all: public/index.html \
 	public/session_3.html \
 	public/session_4.html \
 	public/session_5.html \
-	public/session_6.html
+	public/session_6.html \
+	public/session_7.html
 
 public/:
 	mkdir -p public
@@ -48,6 +49,9 @@ public/session_5.html: public/ session_5/session_5.Rmd public/www/style_Rmd.css
 
 public/session_6.html: public/ session_6/session_6.Rmd public/www/style_Rmd.css
 	Rscript -e 'rmarkdown::render("session_6/session_6.Rmd", output_dir = "public/")'
+
+public/session_7.html: public/ session_7/session_7.Rmd public/www/style_Rmd.css
+	Rscript -e 'rmarkdown::render("session_7/session_7.Rmd", output_dir = "public/")'
 
 ## Test docker in local
 
