@@ -1,15 +1,22 @@
 ---
 title: "R.8: Factors"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
-date: "2021"
+date: "2022"
 output:
   rmdformats::downcute:
     self_contain: true
     use_bookdown: true
     default_style: "light"
     lightbox: true
-    css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
+    css: "../www/style_Rmd.css"
 ---
+
+```{r include=FALSE}
+library(fontawesome)
+``` 
+
+&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
+
 
 ```{r setup, include=FALSE}
 rm(list=ls())
