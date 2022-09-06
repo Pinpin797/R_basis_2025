@@ -1,15 +1,21 @@
 ---
 title: "R.4: data transformation"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
-date: "2021"
+date: "2022"
 output:
   rmdformats::downcute:
     self_contain: true
     use_bookdown: true
     default_style: "light"
     lightbox: true
-    css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
+    css: "../www/style_Rmd.css"
 ---
+
+```{r include=FALSE}
+library(fontawesome)
+``` 
+
+&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
 
 ```{r setup, include=FALSE}
 rm(list=ls())
@@ -429,7 +435,7 @@ mutate(
 - Logical comparisons, `<`, `<=`, `>`, `>=`, `!=`, and `==`
 - Ranking: there are a number of ranking functions, but you should start with `min_rank()`. There is also `row_number()`, `dense_rank()`, `percent_rank()`, `cume_dist()`, `ntile()`
 
-## See you in [R#5: Pipping and grouping](http://perso.ens-lyon.fr/laurent.modolo/R/session_5/)
+## See you in [R#5: Pipping and grouping](https://can.gitbiopages.ens-lyon.fr/R_basis/session_5/)
 
 
 
@@ -494,13 +500,13 @@ For the next part, we will use a real data set. Anterior tibial muscle tissue wa
 
 First, we will use the gene count table of these samples, formatted for use in ggplot2 ( `pivot_longer()` [function](https://tidyr.tidyverse.org/reference/pivot_longer.html) ).
 
-Open the csv file using the `read_csv2()` function. The file is located at "http://perso.ens-lyon.fr/laurent.modolo/R/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv".
+Open the csv file using the `read_csv2()` function. The file is located at "https://can.gitbiopages.ens-lyon.fr/R_basis/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv".
 
 <details><summary>Solution</summary>
   <p>
 
 ```{r read_csv1}
-expr_DM1 <- read_csv2("http://perso.ens-lyon.fr/laurent.modolo/R/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
+expr_DM1 <- read_csv2("https://can.gitbiopages.ens-lyon.fr/R_basis/Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
 
 expr_DM1
 ```
@@ -577,13 +583,13 @@ ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
 
 For this last exercise, we will use the results of the differential gene expression analysis between DM1 vs WT conditions. 
 
-Open the csv file using the `read_csv2()` function. The file is located at "http://perso.ens-lyon.fr/laurent.modolo/R/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv".
+Open the csv file using the `read_csv2()` function. The file is located at "http://can.gitbiopages.ens-lyon.fr/R_basis/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv".
 
 <details><summary>Solution</summary>
   <p>
 
 ```{r read_csv2}
-tab <- read_csv2("http://perso.ens-lyon.fr/laurent.modolo/R/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
+tab <- read_csv2("http://can.gitbiopages.ens-lyon.fr/R_basis/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
 
 tab
 ```
