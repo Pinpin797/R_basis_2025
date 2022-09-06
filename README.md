@@ -2,6 +2,8 @@
 
 ## 2022
 
+Course link : https://can.gitbiopages.ens-lyon.fr/R_basis/
+
 ### Trainers
 
  - Nicolas Fontrodona
