@@ -1,7 +1,7 @@
 ---
 title: 'R.1: Introduction to R and RStudio'
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
-date: "2021"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr);\n Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+date: "2022"
 output:
   rmdformats::downcute:
     self_contain: true
@@ -11,7 +11,13 @@ output:
     css: "../www/style_Rmd.css"
 ---
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
+library(fontawesome)
+``` 
+
+&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
+
+```{r setup, include=FALSE , echo=FALSE}
 rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
@@ -769,4 +775,4 @@ unloadNamespace("ggplot2")
 sessionInfo()
 ```
 
-## See you in [Session 2 : "Introductionto Tidyverse"](http://perso.ens-lyon.fr/laurent.modolo/R/session_2/)
+## See you in [Session 2 : "Introduction to Tidyverse"](https://can.gitbiopages.ens-lyon.fr/R_basis/session_2/)
