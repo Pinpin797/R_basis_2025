@@ -821,4 +821,4 @@ unloadNamespace("ggplot2")
 sessionInfo()
 ```
 
-## See you in [Session 2 : "Introduction to Tidyverse"](https://can.gitbiopages.ens-lyon.fr/R_basis/session_2/)
+## See you in [Session 2 : "Introduction to Tidyverse"](https://can.gitbiopages.ens-lyon.fr/R_basis/session_2.html)
