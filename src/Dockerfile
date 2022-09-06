@@ -17,4 +17,4 @@ RUN Rscript -e "install.packages('gifski')"
 RUN Rscript -e "install.packages('openxlsx')"
 
 #session4
-RUN Rscript -e "install.packages(c('ghibli', 'nycflights13'))"
+RUN Rscript -e "install.packages(c('ghibli', 'nycflights13','viridis'))"
