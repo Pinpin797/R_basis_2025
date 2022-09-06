@@ -370,9 +370,18 @@ Use the `openxlsx` package to save the [https://can.gitbiopages.ens-lyon.fr/R_ba
 
 <details><summary>Solution</summary>
 <p>
-```{r load_xlsx}
+2 solutions :
+
+Use directly the url
+```{r load_xlsx_url, eval = F}
 gapminder <- read.xlsx("https://can.gitbiopages.ens-lyon.fr/R_basis/session_3/gapminder.xlsx")
 ```
+
+Dowload the file, save it in the same directory as your script then use the local path
+```{r load_xlsx}
+gapminder <- read.xlsx("gapminder.xlsx")
+```
+
 </p>
 </details>
 
