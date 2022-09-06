@@ -46,11 +46,11 @@ local/www/*.ttf: local/ www/Raleway-Regular.ttf www/YanoneKaffeesatz-Bold.ttf
 	cp www/*ttf local/www/
 
 local/session_1.html: local/ session_1/session_1.Rmd local/www/style_Rmd.css
-	docker run --rm -ti -v ${PWD}:/work -w /work rocker/tidyverse \
-Rscript -e 'install.packages("rmdformats"); rmarkdown::render("session_1/session_1.Rmd", output_dir = "local/")'
+	docker run --rm -ti -v ${PWD}:/work -w /work carinerey/r_for_beginners \
+Rscript -e 'rmarkdown::render("session_1/session_1.Rmd", output_dir = "local/")'
 
 local/index.html: local/ index.md local/www/github-pandoc.css
-	docker run --rm -ti -v ${PWD}:/work -w /work rocker/tidyverse \
+	docker run --rm -ti -v ${PWD}:/work -w /work carinerey/r_for_beginners \
 pandoc -s -c www/github-pandoc.css index.md -o local/index.html
 
 clean:
