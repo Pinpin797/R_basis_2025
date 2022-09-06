@@ -3,7 +3,7 @@
 
 pages:
   stage: deploy
-  image: rocker/r-rmd
+  image: rocker/tidyverse
   script:
     - make
   artifacts:
