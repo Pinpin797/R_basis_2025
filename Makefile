@@ -1,6 +1,7 @@
 all: public/index.html \
     public/img/ \
-	public/session_1.html
+	public/session_1.html \
+	public/session_2.html
 
 public/:
 	mkdir -p public
@@ -23,7 +24,11 @@ public/index.html: public/ index.md public/www/github-pandoc.css
 	pandoc -s -c www/github-pandoc.css index.md -o public/index.html
 
 public/session_1.html: public/ session_1/session_1.Rmd public/www/style_Rmd.css
-	Rscript -e 'install.packages("rmdformats"); rmarkdown::render("session_1/session_1.Rmd", output_dir = "public/")'
+	Rscript -e 'rmarkdown::render("session_1/session_1.Rmd", output_dir = "public/")'
+
+public/session_2.html: public/ session_2/session_2.Rmd public/www/style_Rmd.css
+	Rscript -e 'rmarkdown::render("session_2/session_2.Rmd", output_dir = "public/")'
+
 
 ## Test docker in local
 
