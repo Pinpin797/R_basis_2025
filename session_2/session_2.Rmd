@@ -29,7 +29,7 @@ klippy::klippy(
   tooltip_message = 'Click to copy',
   tooltip_success = 'Copied !')
 ```
-```{r download_data, include=FALSE, eval=FALSE}
+```{r download_data, include=FALSE, eval=T}
 library("tidyverse")
 tmp <- tempfile(fileext = ".zip")
 download.file("http://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip",
@@ -176,9 +176,13 @@ For that we are going to use the command `read_csv` which is able to read a [csv
 
 This command also works for file URL
 
-```{r mpg_download, cache=TRUE, message=FALSE}
+```{r mpg_download_local, cache=TRUE, message=FALSE, echo = F, include=F}
+new_mpg <- read_csv("./mpg.csv")
+```
+
+```{r mpg_download, cache=TRUE, message=FALSE, eval = F}
 new_mpg <- read_csv(
-  "http://perso.ens-lyon.fr/laurent.modolo/R/session_2/mpg.csv"
+  "https://can.gitbiopages.ens-lyon.fr/R_basis/session_2/mpg.csv"
 )
 ```
 

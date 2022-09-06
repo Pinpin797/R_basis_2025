@@ -33,7 +33,9 @@ public/session_1.html: public/ session_1/session_1.Rmd public/www/style_Rmd.css
 	Rscript -e 'rmarkdown::render("session_1/session_1.Rmd", output_dir = "public/")'
 
 public/session_2.html: public/ session_2/session_2.Rmd public/www/style_Rmd.css
+	mkdir -p public/session_2/
 	Rscript -e 'rmarkdown::render("session_2/session_2.Rmd", output_dir = "public/")'
+	mv mpg.csv public/session_2/mpg.csv
 
 public/session_3.html: public/ session_3/session_3.Rmd public/www/style_Rmd.css session_3/gapminder.xlsx
 	mkdir -p public/session_3/
