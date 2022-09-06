@@ -15,3 +15,6 @@ RUN Rscript -e "install.packages('remotes'); remotes::install_github('rlesur/kli
 RUN Rscript -e "install.packages('gganimate')"
 RUN Rscript -e "install.packages('gifski')"
 RUN Rscript -e "install.packages('openxlsx')"
+
+#session4
+RUN Rscript -e "install.packages(c('ghibli', 'nycflights13'))"
