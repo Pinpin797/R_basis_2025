@@ -1,15 +1,22 @@
 ---
 title: "R.6: tidydata"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
-date: "2021"
+author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr);\nCarine Rey [carine.rey@ens-lyon.fr](mailto:carine.rey@ens-lyon.fr)"
+date: "2022"
 output:
   rmdformats::downcute:
     self_contain: true
     use_bookdown: true
     default_style: "light"
     lightbox: true
-    css: "http://perso.ens-lyon.fr/laurent.modolo/R/src/style.css"
+    css: "../www/style_Rmd.css"
 ---
+
+```{r include=FALSE}
+library(fontawesome)
+``` 
+
+&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
+
 
 ```{r setup, include=FALSE}
 rm(list=ls())
@@ -107,7 +114,7 @@ You can specify the names of the columns where the data will be tidy (by default
 
 ```{r, eval = F}
 long_example <- wide_example %>%
-  pivot_longer(-X1), names_to = "V1", values_to = "V2")
+  pivot_longer(-X1, names_to = "V1", values_to = "V2")
 ```
 
 ### Exercice
@@ -328,4 +335,4 @@ These expect the x and y inputs to have the same variables, and treat the observ
 knitr::include_graphics('img/overview_set.png')
 ```
 
-## See you in [R.7: String & RegExp](http://perso.ens-lyon.fr/laurent.modolo/R/session_7/)
+## See you in [R.7: String & RegExp](https://can.gitbiopages.ens-lyon.fr/R_basis/session_7/)
