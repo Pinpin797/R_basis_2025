@@ -503,10 +503,12 @@ First, we will use the gene count table of these samples, formatted for use in g
 Open the csv file using the `read_csv2()` function. The file is located at "https://can.gitbiopages.ens-lyon.fr/R_basis/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv".
 
 <details><summary>Solution</summary>
-  <p>
+<p>
+
+Download the Expression_matrice_pivot_longer_DEGs_GSE86356.csv file and save it in your working directory.
 
 ```{r read_csv1}
-expr_DM1 <- read_csv2("https://can.gitbiopages.ens-lyon.fr/R_basis/Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
+expr_DM1 <- read_csv2("Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
 
 expr_DM1
 ```
