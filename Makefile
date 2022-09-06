@@ -1,7 +1,10 @@
 all: public/index.html \
     public/img/ \
 	public/session_1.html \
-	public/session_2.html
+	public/session_2.html \
+	public/session_3.html \
+	public/session_4.html \
+	public/session_5.html
 
 public/:
 	mkdir -p public
