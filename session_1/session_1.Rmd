@@ -84,7 +84,7 @@ Reasons to use it:
 - It has a large (and growing) user base among scientists
 - It has a large library of external packages available for performing diverse tasks. 
 
-```{r echo=F}
+```{r echo=F, message=F}
 cran_packages <- nrow(available.packages(repos = "http://cran.us.r-project.org"))
 
 if (! require("rvest")) {
@@ -491,6 +491,7 @@ Instead we are going to use the Rstudio code editor panel, to write our code.
 You can go to **File > New File > R script** to open your editor panel.
 
 ![](./img/RStudio_editor.png)
+
 ## Writing function
 
 We can  define our own function with :
@@ -719,6 +720,8 @@ To install packages from [Bioconducor](http://www.bioconductor.org) and [github]
 
 ## Installing packages
 
+### From CRAN
+
 To install packages, you can use the `install.packages` function (don't forget to use tabulation for long variable names).
 
 ```R
@@ -739,6 +742,49 @@ install.packages("ggplot2")
 ```
 </p>
 </details>
+
+### From Bioconducor
+
+To install packages from [bioconductor](http://www.bioconductor.org) you must first install a package called "BiocManager".
+This package imports a function called "install" allowing you to install packages hosted in bioconductor from their name.
+
+To install "BiocManager" you must type:
+
+```R
+install.packages("BiocManager")
+```
+
+Then to install, for example "tximport", you just have to write:
+
+```R
+BiocManager::install("tximport")
+```
+
+### From github
+
+If you need to install a package that is not available on the CRAN but on a github repository, you can do it using the "remotes" package. Indeed this package imports functions that will allow you to install a package available on [github](https://github.com/) or bitbucket or gitlab directly on your computer.
+
+To use the "remotes" packages, you must first install it:
+
+```R
+install.packages("remotes")
+```
+
+Once "remotes" is installed, you will be able to install all R package from github or from their URL.
+
+For example, if you want to install the last version of a "gganimate", which allow you to animate ggplot2 graphes, you can use :
+
+```R
+remotes::install_github("thomasp85/gganimate")
+```
+
+By default the latest version of the package is installed, if you want a given version you can specify it :
+
+```R
+remotes::install_github("thomasp85/gganimate@v1.0.7")
+```
+
+You can find more information in the documentation of remotes : [https://remotes.r-lib.org](https://remotes.r-lib.org)
 
 ## Loading packages
 
