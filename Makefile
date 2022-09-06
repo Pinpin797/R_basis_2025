@@ -29,6 +29,11 @@ public/session_1.html: public/ session_1/session_1.Rmd public/www/style_Rmd.css
 public/session_2.html: public/ session_2/session_2.Rmd public/www/style_Rmd.css
 	Rscript -e 'rmarkdown::render("session_2/session_2.Rmd", output_dir = "public/")'
 
+public/session_3.html: public/ session_3/session_3.Rmd public/www/style_Rmd.css session_3/gapminder.xlsx
+	mkdir -p public/session_3/
+	cp session_3/gapminder.xlsx public/session_3/gapminder.xlsx
+	Rscript -e 'rmarkdown::render("session_3/session_3.Rmd", output_dir = "public/")'
+
 
 ## Test docker in local
 
