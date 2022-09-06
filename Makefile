@@ -39,6 +39,9 @@ public/session_4.html: public/ session_4/session_4.Rmd public/www/style_Rmd.css 
 	cp session_4/*.csv public/session_4/
 	Rscript -e 'rmarkdown::render("session_4/session_4.Rmd", output_dir = "public/")'
 
+public/session_5.html: public/ session_5/session_5.Rmd public/www/style_Rmd.css
+	Rscript -e 'rmarkdown::render("session_5/session_5.Rmd", output_dir = "public/")'
+
 ## Test docker in local
 
 test : local/index.html \
