@@ -590,8 +590,10 @@ Open the csv file using the `read_csv2()` function. The file is located at "http
 <details><summary>Solution</summary>
   <p>
 
+Download the "EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv" file and save it in your working directory.
+
 ```{r read_csv2}
-tab <- read_csv2("http://can.gitbiopages.ens-lyon.fr/R_basis/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
+tab <- read_csv2("EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
 
 tab
 ```
