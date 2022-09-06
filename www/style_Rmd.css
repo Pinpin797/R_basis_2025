@@ -16,11 +16,11 @@ html, body {
 
 @font-face {
     font-family: 'Yanone Kaffeesatz';
-    src:url("../src/YanoneKaffeesatz-Bold.ttf");
+    src:url("../www/YanoneKaffeesatz-Bold.ttf");
 }
 @font-face {
     font-family: 'Raleway';
-    src:url("../src/Raleway-Regular.ttf");
+    src:url("../www/Raleway-Regular.ttf");
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap');

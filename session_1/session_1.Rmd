@@ -8,7 +8,7 @@ output:
     use_bookdown: true
     default_style: "light"
     lightbox: true
-    css: "www/style_Rmd.css"
+    css: "../www/style_Rmd.css"
 ---
 
 ```{r setup, include=FALSE}
