@@ -23,18 +23,22 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
 
-```{r klippy, echo=FALSE, include=FALSE}
+```{r klippy_install, echo=FALSE, include=FALSE}
 if (! require("klippy")) {
   install.packages("remotes")
   remotes::install_github("rlesur/klippy")
 }
+```
 
+
+```{r klippy, echo=FALSE, include=TRUE}
 klippy::klippy(
   position = c('top', 'right'),
   color = "white",
   tooltip_message = 'Click to copy',
   tooltip_success = 'Copied !')
 ```
+
 
 # Introduction
 
