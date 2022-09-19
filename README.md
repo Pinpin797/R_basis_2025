@@ -9,7 +9,7 @@ Course link : https://can.gitbiopages.ens-lyon.fr/R_basis/
  - Nicolas Fontrodona
  - Christophe Arpin
  - Laurent Gilquin
- - Gislain Durif (IFB)
+ - Ghislain Durif (IFB)
  - Antoine Corbin
  - Omran Allatif
  - Carine Rey (IFB)
