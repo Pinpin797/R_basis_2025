@@ -248,7 +248,7 @@ To call mathematical function you must with `function_name(<number>)`.
 For example, for the natural logarithm:
 
 ```{r calculatorstep8, include=TRUE}
-log(1)  # natural logarithm
+log(2)  # natural logarithm
 ```
 
 ```{r calculatorstep9, include=TRUE}
@@ -294,7 +294,7 @@ You can use the `↑` (upper arrow) key to edit the last command and go through 
 
 - inequality (read as "is not equal to")
 ```{r calculatorstep14, include=TRUE}
-1 != 2 
+1 != 2
 ```
 
 - less than
@@ -337,7 +337,7 @@ Rstudio provides lots of such shortcuts (you can display them by pressing `alt` 
 We assign a value to `x`, `x` is called a variable.
 
 ```{r VandAstep1, include=TRUE}
-x <- 1/40
+x <- 1 / 40
 
 ```
 
@@ -389,7 +389,7 @@ x + z
 How to test the type of the variable?
 ```{r VandAstep20, include=TRUE}
 is.character(z)
-b <- 1/40
+b <- 1 / 40
 b
 typeof(b)
 ```
@@ -402,7 +402,7 @@ This is called autocompletion, don't hesitate to spam your `tabulation` key as y
 
 Variable names can contain **letters**, **numbers**, **underscores** and **periods**.
 
-They **cannot start with a number** nor contain spaces at all.
+They **cannot start with a number or an underscore** nor contain spaces at all.
 
 Different people use different conventions for long variable names, these include:
 
