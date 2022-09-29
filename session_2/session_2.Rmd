@@ -247,7 +247,15 @@ ggplot(data = <DATA>) +
 What happend when you use only the command `ggplot(data = mpg)` ?
 </div>
 
-
+<details><summary>Solution</summary>
+<p>
+```{r only_ggplot, cache = TRUE, fig.width=4.5, fig.height=2}
+ggplot(data = new_mpg) 
+```
+</p>
+</details>
+ 
+ 
 <div class="pencadre">
 Make a scatterplot of `hwy` ( fuel efficiency ) vs. `cyl` ( number of cylinders ).
 </div>
@@ -261,9 +269,19 @@ ggplot(data = new_mpg, mapping = aes(x = hwy, y = cyl)) +
 ```
 
 </p>
+
 <div class="pencadre">
 What seems to be the problem ?
 </div>
+
+<details><summary>Solution</summary>
+<p>
+Dots with the same coordinates are superposed.
+
+</p>
+</details>
+
+
 </details>
  
 # Aesthetic mappings
@@ -381,8 +399,8 @@ Now try to facet your plot by `fl + class`
 Formulas allow you to express complex relationship between variables in R !
 
 ```{r new_mpg_plot_l, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point() + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
   facet_wrap(~ fl + class, nrow = 2)
 ```
 </p>
@@ -426,7 +444,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 
  \ 
 
-We can use different `data` for different layers (you will lean more on `filter()` later)
+We can use different `data` (here new_mpg and mpg tables) for different layers (you will lean more on `filter()` later)
 
 ```{r new_mpg_plot_t, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
@@ -441,7 +459,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
 </div>
 ```R
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) + 
   geom_point(show.legend = FALSE) + 
   geom_smooth(se = FALSE)
 ```
@@ -451,38 +469,82 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 - What does the `se` argument to `geom_smooth()` do?
 </div>
 
-## Second challenge
-
-<div class="pencadre">
-How being a `2seater` car impact the engine size versus fuel efficiency relationship ?
-
-Make a plot *colorizing* this information
-</div>
 
 <details><summary>Solution</summary>
 <p>
-```{r new_mpg_plot_color_2seater, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point() +
-  geom_point(data = filter(mpg, class == "2seater"), color = "red")
+```{r soluce_challenge_1, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) + 
+  geom_point(show.legend = FALSE) + 
+  geom_smooth(se = FALSE)
 ```
 </p>
 </details>
 
 
+
+## Second challenge
+
 <div class="pencadre">
-Write a `function` called `plot_color_2seater` that can take as sol argument the variable `mpg` and plot the same graph.
+How being a `Two Seaters` car (*class column*) impact the engine size (*displ column*) versus fuel efficiency relationship (*hwy column*) ?
+
+1. Make a plot of `hwy` in function of `displ ` 
+1. *Colorize* this plot in another color for `Two Seaters` class
+2. *Split* this plot for each *class*
+
+</div>
+
+<details><summary>Solution 1</summary>
+<p>
+
+```{r new_mpg_plot_color_2seater1, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point()
+```
+
+</p>
+</details>
+
+<details><summary>Solution 2</summary>
+<p>
+```{r new_mpg_plot_color_2seater2, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() +
+  geom_point(data = filter(new_mpg, class == "Two Seaters"), color = "red")
+```
+
+</p>
+</details>
+
+<details><summary>Solution 3</summary>
+<p>
+
+```{r new_mpg_plot_color_2seater_facet, cache = TRUE, fig.width=8, fig.height=4.5}
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() +
+  geom_point(data = filter(new_mpg, class == "Two Seaters"), color = "red") +
+  facet_wrap(~class)
+```
+
+</p>
+</details>
+
+
+<div class="pencadre">
+Write a `function` called `plot_color_a_class` that can take as argument the class and plot the same graph for this class
 </div>
 
 <details><summary>Solution</summary>
 <p>
 ```{r new_mpg_plot_color_2seater_fx, cache = TRUE, fig.width=8, fig.height=4.5}
-plot_color_2seater <- function(mpg) {
-  ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+plot_color_a_class <- function(my_class) {
+  ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
     geom_point() +
-    geom_point(data = filter(mpg, class == "2seater"), color = "red")
+    geom_point(data = filter(new_mpg, class == my_class), color = "red") +
+    facet_wrap(~class)
 }
-plot_color_2seater(mpg)
+plot_color_a_class("Two Seaters")
+plot_color_a_class("Compact Cars")
+
 ```
 </p>
 </details>
@@ -491,21 +553,23 @@ plot_color_2seater(mpg)
 ## Third challenge
 
 <div class="pencadre">
-Recreate the R code necessary to generate the following graph
+Recreate the R code necessary to generate the following graph (see "linetype" option of "geom_smooth")
 </div>
 
 ```{r new_mpg_plot_u, echo = FALSE, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = fuel)) +
   geom_point() +
-  geom_smooth(mapping = aes(linetype = drv))
+  geom_smooth(linetype = "dashed", color = "black") +
+  facet_wrap(~fuel)
 ```
 
 <details><summary>Solution</summary>
 <p>
 ```{r new_mpg_plot_v, eval=F}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = fuel)) +
   geom_point() +
-  geom_smooth(mapping = aes(linetype = drv))
+  geom_smooth(linetype = "dashed", color = "black") +
+  facet_wrap(~fuel)
 ```
 </p>
 </details>
@@ -515,7 +579,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 # To go further: publication ready plots
 
 Once you have created the graph you need for your publication, you have to save it.
-You can do it with the the `ggsave` function.
+You can do it with the `ggsave` function.
 
 First save your plot in a variable :
 
