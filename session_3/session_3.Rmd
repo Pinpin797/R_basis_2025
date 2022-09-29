@@ -432,7 +432,8 @@ For this we need to add a `transition_time` layer that will take as an argument 
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
   geom_point() + 
   scale_x_log10() +
-  transition_time(year)
+  transition_time(year) +
+  labs(title = 'Year: {as.integer(frame_time)}')
 ```
 </p>
 </details>
