@@ -562,7 +562,7 @@ The function variable (here `x`) is independant of the global environment: It de
 -  The order of arguments is important
 
 <div class="pencadre">
-Predict the result of R1, R2, R3 and R4.
+Predict the result of R1, R2 and R3.
 
 ```R
 minus <- function(a, b){
@@ -580,9 +580,6 @@ R2 <- minus(2,4)
 a <- 2
 b <- 10
 R3  <-  minus(b,a)
-
-#R4
-R3  <- minus(b = 10, a = 5)
 ```
 </div>
  
@@ -620,13 +617,60 @@ minus(b,a)
 
 - Naming variables is more explicit and bypasses the order.
 
-```{r minus4, include=TRUE}
+<div class="pencadre">
+Predict the result of R1, R2 and R3.
+```R
+minus <- function(a, b){
+  result_1 <- a - b 
+  return(result_1)
+}
+
+#R1:
+R1 <- minus(a=6,b=3)
+
+#R2
+R2 <- minus(b=3,a=6)
+
+#R3
+a <- 10
+b <- 2
+
+R3  <- minus(b=b,a=a)
+```
+</div>
+ 
+<details><summary>Solution 1</summary>
+<p>
+```{r minus21, include=TRUE}
+minus <- function(a, b){
+  result_1 <- a - b 
+  return(result_1)
+}
 minus(a=6,b=3)
+```
+</p>
+</details>
+
+
+<details><summary>Solution 2</summary>
+<p>
+```{r minus22, include=TRUE}
 minus(b=3,a=6)
+```
+</p>
+</details>
+
+
+<details><summary>Solution 3</summary>
+<p>
+```{r minus23, include=TRUE}
 a <- 10
 b <- 2
 minus(b=b,a=a)
 ```
+</p>
+</details>
+
 
 - Default values for arguments may be set at definition and the Default value is used when argument is not provided.
 
