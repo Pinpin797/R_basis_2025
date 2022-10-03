@@ -126,23 +126,38 @@ To open RStudio, you can install the [RStudio application](https://www.rstudio.c
 
 Otherwise you can use the link and the login details provided to you by email. The web version of Rstudio is the same as the application expect that you can open it any recent browser.
 
-## Rstudio interface
+### Rstudio interface
 
 ![](./img/RStudio.png)
 
-## The same console as before (in Red box)
+### A R console
+
+The same console as before (in Red box)
 
 ![](./img/RStudio_console.png)
 
-## Errors, warnings, and messages
 
-The R console is a textual interface, which means that you will enter code, but it also means that R is going to write information back to you and that you will have to pay attention at what is written.
 
-There are 3 categories of messages that R can send you: **Errors** prefaced with `Error in…`, **Warnings** prefaced with `Warning:` and **Messages** which don’t start with either `Error` or `Warning`.
+### A code editor
 
-- **Errors**, you must consider them as red light. You must figure out what is causing it. Usually you can find useful clues in the errors message about how to solve it.
-- **Warning**, warnings are yellow light. The code is running but you have to pay attention. It's almost always a good idea to try to fix warnings.
-- **Message** are just friendly messages from R telling you how things are running.
+We are now going to write our first function.
+We could do it directly in the R console, with multi-line commands but this process is tedious.
+
+Instead we are going to use the Rstudio code editor panel, to write our code.
+You can go to **File > New File > R script** to open your editor panel.
+
+![](./img/RStudio_editor.png)
+
+
+## How to execute R code in Rstudio ?
+
+RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
+
+- click on the `Run button` above the editor panel, or
+- select “Run Lines” from the “Code” menu, or
+- hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run. 
+
+If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
 
 
 # R as a Calculator
@@ -200,6 +215,16 @@ It is waiting for the next command. Write just `100` and press `⏎`:
 ```{r calculatorstep2, echo=FALSE}
 1 + 100
 ```
+
+## Errors, warnings, and messages
+
+The R console is a textual interface, which means that you will enter code, but it also means that R is going to write information back to you and that you will have to pay attention at what is written.
+
+There are 3 categories of messages that R can send you: **Errors** prefaced with `Error in…`, **Warnings** prefaced with `Warning:` and **Messages** which don’t start with either `Error` or `Warning`.
+
+- **Errors**, you must consider them as red light. You must figure out what is causing it. Usually you can find useful clues in the errors message about how to solve it.
+- **Warning**, warnings are yellow light. The code is running but you have to pay attention. It's almost always a good idea to try to fix warnings.
+- **Message** are just friendly messages from R telling you how things are running.
 
 
 ## R keeps to the mathematical order
@@ -317,7 +342,7 @@ You can use the `↑` (upper arrow) key to edit the last command and go through 
   
   - R is a programming language and free software environment for statistical
 computing and graphics (free & opensource) with a large library of external packages available for performing diverse tasks.
-  - RStudio is an IDR application that provides comprehensive facilities to computer programmers for software development.
+  - RStudio is an IDE application that provides comprehensive facilities to computer programmers for software development.
   - R can be used as a calculator
   - R can perform comparisons
   
@@ -486,15 +511,6 @@ Test that your `logarithm` function can work in base 10
 </p>
 </details>
 
-## A code editor
-
-We are now going to write our first function.
-We could do it directly in the R console, with multi-line commands but this process is tedious.
-
-Instead we are going to use the Rstudio code editor panel, to write our code.
-You can go to **File > New File > R script** to open your editor panel.
-
-![](./img/RStudio_editor.png)
 
 ## Writing function
 
@@ -505,17 +521,19 @@ We can  define our own function with :
 - arguments: between `(` `)`,
 - `{` and `}` to open and close function body,
 
-Here is an example of function declaration with two arguments `a` and `b`.
+Here is an example of function declaration with two arguments `a` and `b`.  Any argument name can be used.
+
 ```R
 function_name <- function(a, b){
 
 
 }
 ```
+
 - a series of operations,
 
-The argument `a` and `b` are accessible from within the function body as the variable
-`a` and `b`.
+The argument `a` and `b` are accessible from within the function body as the variable `a` and `b`.
+In the function body argument are independant of the global environment.
 
 ```R
 function_name <- function(a, b){
@@ -537,17 +555,151 @@ function_name <- function(a, b){
 }
 ```
 
-**Note: ** if you don't use `return` by default the evaluation of the last line of your function body is returned
+**Note: ** if you don't use `return` by default the evaluation of the last line of your function body is returned.
+
+The function variable (here `x`) is independant of the global environment: It defines to which value the operation will be applied in the function body.
+
+-  The order of arguments is important
 
 <div class="pencadre">
-Try a function to test if a number is even?
-You can use the `%%` modulo operators
+Predict the result of R1, R2, R3 and R4.
 
-Name this function `even_test` and use the `==` comparison to test if the results
-of the modulo is equal to `0`.
+```R
+minus <- function(a, b){
+  result_1 <- a - b 
+  return(result_1)
+}
+
+#R1:
+R1 <- minus(4,2)
+
+#R2
+R2 <- minus(2,4)
+
+#R3
+a <- 2
+b <- 10
+R3  <-  minus(b,a)
+
+#R4
+R3  <- minus(b = 10, a = 5)
+```
+</div>
+ 
+<details><summary>Solution 1</summary>
+<p>
+```{r minus1, include=TRUE}
+minus <- function(a, b){
+  result_1 <- a - b 
+  return(result_1)
+}
+minus(4,2)
+```
+</p>
+</details>
+
+
+<details><summary>Solution 2</summary>
+<p>
+```{r minus2, include=TRUE}
+minus(2,4)
+```
+</p>
+</details>
+
+
+<details><summary>Solution 3</summary>
+<p>
+```{r minus3, include=TRUE}
+a <- 10
+b <- 2
+minus(b,a)
+```
+</p>
+</details>
+
+- Naming variables is more explicit and bypasses the order.
+
+```{r minus4, include=TRUE}
+minus(a=6,b=3)
+minus(b=3,a=6)
+a <- 10
+b <- 2
+minus(b=b,a=a)
+```
+
+- Default values for arguments may be set at definition and the Default value is used when argument is not provided.
+
+```{r minus10, include=TRUE}
+minus_10 <- function(a, b=10){
+  result_1 <- a - b 
+  return(result_1)
+}
+minus_10(40)
+minus_10(40,b=5)
+minus_10(40,5)
+```
+- Functions can be define without argument
+
+```{r print_hw, include=TRUE}
+print_hw <- function(){
+  print("Hello world!")
+  print("How R U?")
+}
+```
+
+<div class="pencadre">
+What is the difference between `print_hw` and `print_hw()` ?
+
 </div>
  
 <details><summary>Solution</summary>
+<p>
+`print_hw` is considered as an environment variable, and R return the definition of `print_hw`.
+You need to add `()` to execute it
+
+```{r print_hw_env, include=TRUE}
+print_hw
+```
+
+```{r print_hw_e, include=TRUE}
+print_hw()
+```
+
+</p>
+</details>
+
+
+## Some exercices
+
+<div class="pencadre">
+1. Try a function (`rect_area`) to calculate the area of a rectangle of length "L" and width "W"
+
+2. (more difficult) Try a function  (`even_test`) to test if a number is even?
+For that, you can use the `%%` modulo operators to get the remainder of an euclidean division and use the `==` comparison to test if the results
+of the modulo is equal to `0`.
+
+```{r modulo, include=TRUE}
+13 %% 2
+```
+
+</div>
+ 
+<details><summary>Solution 1 </summary>
+<p>
+
+```{r rect_area, include=TRUE}
+rect_area <- function(L,W){
+  area <- L * W
+  return(area)
+}
+rect_area(4,3)
+```
+</p>
+</details>
+
+
+<details><summary>Solution 2 </summary>
 <p>
 ```{r VandAstep11, include=TRUE}
 even_test <- function(x){
@@ -558,12 +710,9 @@ even_test <- function(x){
 even_test(4)
 even_test(3)
 ```
-</p>
-</details>
 
 **Note :** A function can be written in several forms.
-<details><summary>Solution</summary>
-<p>
+
 ```{r VandAstep11small, include=TRUE}
 even_test2 <- function(x){
   (x %% 2) == 0
@@ -574,21 +723,13 @@ even_test(3)
 </p>
 </details>
 
-RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
-
-- click on the `Run button` above the editor panel, or
-- select “Run Lines” from the “Code” menu, or
-- hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run. 
-
-If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
-
 
 ## Cleaning up
 
-No We can now clean your environment
+We can now clean your environment
 
 ```{r VandAstep15, include=TRUE}
-rm(x)
+rm(minus)
 ```
 
 What appenned in the *Environment* panel ?
@@ -823,6 +964,12 @@ unloadNamespace("ggplot2")
 
 ```R
 sessionInfo()
+```
+
+## Help on packages (when existing)
+
+```R
+browseVignettes(ggplot2)
 ```
 
 ## See you in [Session 2 : "Introduction to Tidyverse"](https://can.gitbiopages.ens-lyon.fr/R_basis/session_2.html)
