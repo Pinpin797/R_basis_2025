@@ -557,7 +557,7 @@ function_name <- function(a, b){
 
 **Note: ** if you don't use `return` by default the evaluation of the last line of your function body is returned.
 
-The function variable (here `x`) is independant of the global environment: It defines to which value the operation will be applied in the function body.
+**Note: **  The function variables (here `a` and `b`) are independant of the global environment: They define to which values the operation will be applied in the function body.
 
 -  The order of arguments is important
 
@@ -618,8 +618,11 @@ minus(b,a)
 - Naming variables is more explicit and bypasses the order.
 
 <div class="pencadre">
-Predict the result of R1, R2 and R3.
+Predict the result of R1, R2, R3 and R4.
 ```R
+a <- 10
+b <- 2
+
 minus <- function(a, b){
   result_1 <- a - b 
   return(result_1)
@@ -632,21 +635,24 @@ R1 <- minus(a=6,b=3)
 R2 <- minus(b=3,a=6)
 
 #R3
-a <- 10
-b <- 2
+R3 <- a
 
-R3  <- minus(b=b,a=a)
+#R4
+R4  <- minus(b=b,a=a)
 ```
 </div>
  
 <details><summary>Solution 1</summary>
 <p>
 ```{r minus21, include=TRUE}
+a <- 10
+b <- 2
 minus <- function(a, b){
   result_1 <- a - b 
   return(result_1)
 }
-minus(a=6,b=3)
+R1 <- minus(a=6,b=3)
+R1
 ```
 </p>
 </details>
@@ -655,7 +661,8 @@ minus(a=6,b=3)
 <details><summary>Solution 2</summary>
 <p>
 ```{r minus22, include=TRUE}
-minus(b=3,a=6)
+R2 <- minus(b=3,a=6)
+R2
 ```
 </p>
 </details>
@@ -664,9 +671,17 @@ minus(b=3,a=6)
 <details><summary>Solution 3</summary>
 <p>
 ```{r minus23, include=TRUE}
-a <- 10
-b <- 2
-minus(b=b,a=a)
+R3 <- a
+R3
+```
+</p>
+</details>
+
+<details><summary>Solution 4</summary>
+<p>
+```{r minus24, include=TRUE}
+R4  <- minus(b=b,a=a)
+R4
 ```
 </p>
 </details>
