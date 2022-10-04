@@ -503,7 +503,7 @@ First let's create a thiner dataset to work on `flights_thin` that contains
 - the `distance` and `air_time` columns
 - the `dep_time` and `sched_dep_time` columns
 
-Then let's create an even smaller dataset as toy dataset to test your commands before using them on the large dataset (It a good reflex to take). For that you can use the function `head`
+Then let's create an even smaller dataset as toy dataset to test your commands before using them on the large dataset (It a good reflex to take). For that you can use the function `head` or `sample_n` for a more random sampling.
 
 - select only 5 rows
 
@@ -516,6 +516,7 @@ Then let's create an even smaller dataset as toy dataset to test your commands b
 ```{r mutate, include=TRUE}
 (flights_thin <- select(flights,  year:day, ends_with("delay"), distance, air_time, contains("dep_time")))
 (flights_thin_toy <- head(flights_thin, n=5))
+(flights_thin_toy2 <- sample_n(flights_thin, size=5))
 ```
 </p>
 </details>
@@ -602,7 +603,18 @@ mutate(
   .after = "dep_time" )
 ``` 
 
-In one row (or you can also remove column HH and MM using select): 
+or `.keep = "used"` to keep only the columns used for the calculus which can be usefull for debugging
+
+```{r mutate_challenges_a21, include=TRUE}
+mutate(
+  flights_thin_toy,
+  HH = dep_time %/% 100,
+  MM = dep_time %% 100,
+  dep_time2 = HH * 60 + MM,
+  .keep = "used" )
+``` 
+
+In one row (or you can also remove columns HH and MM using select): 
 
 ```{r mutate_challenges_a3, include=TRUE, eval = F}
 mutate(
@@ -642,13 +654,13 @@ mutate(
 
 ## Useful creation functions
 
-- Offsets: `lead()` and `lag()` allow you to refer to leading or lagging values. This allows you to compute running differences (e.g. `x - lag(x)`) or find when values change (`x != lag(x)`).
-- Cumulative and rolling aggregates: R provides functions for running sums, products, mins and maxes: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`; and dplyr provides `cummean()` for cumulative means. 
+- Offsets: lead(x) and lag(x) allow you to refer to the previous or next values of the column x. This allows you to compute running differences (e.g. `x - lag(x)`) or find when values change (`x != lag(x)`).
+- R provides functions for running cumulative sums, products, mins and maxes: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`; and dplyr provides `cummean()` for cumulative means. 
 - Logical comparisons, `<`, `<=`, `>`, `>=`, `!=`, and `==`
-- Ranking: there are a number of ranking functions, but you should start with `min_rank()`. There is also `row_number()`, `dense_rank()`, `percent_rank()`, `cume_dist()`, `ntile()`
+- Ranking: there are a number of ranking functions, the most frequently used being min_rank(). They differ by the way ties are treated, etc. Try ?mutate, ?min_rank, ?rank, for more information.
+
 
 ## See you in [R#5: Pipping and grouping](https://can.gitbiopages.ens-lyon.fr/R_basis/session_5.html)
-
 
 
 # To go further:  Data transformation and color sets.
@@ -718,13 +730,21 @@ Open the csv file using the `read_csv2()` function. The file is located at "http
 <p>
 
 Download the Expression_matrice_pivot_longer_DEGs_GSE86356.csv file and save it in your working directory.
+You may have to set you working directory using `setwd()`
 
 ```{r read_csv1}
 expr_DM1 <- read_csv2("Expression_matrice_pivot_longer_DEGs_GSE86356.csv")
 
 expr_DM1
 ```
-  </p>
+
+or you can read it from the url
+
+```{r read_csv1_url, eval = F}
+(expr_DM1 <- read_csv2("https://can.gitbiopages.ens-lyon.fr/R_basis/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv"))
+```
+
+</p>
 </details>
 
 With this tibble, use `ggplot2` and the `geom_tile()` function to make a heatmap.
@@ -736,13 +756,14 @@ Fit the samples on the x-axis and the genes on the y-axis.
   <p>
 
 ```{r heatmap1}
-ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
+(DM1_tile_base <-
+  ggplot(expr_DM1, aes(samples, Genes, fill = log1p(counts))) +
   geom_tile() +
   labs(y="Genes", x = "Samples") +
   theme(
-    axis.text.y = element_text(size= 4),
-    axis.text.x = element_text(size = 4, angle = 90)
-  )
+    axis.text.y = element_text(size= 6),
+    axis.text.x = element_text(size = 6, angle = 90)
+  ))
 ```
 **Nota bene :** The elements of the axes, and the theme in general, are modified in the `theme()` function. 
   </p>
@@ -762,14 +783,8 @@ With `scale_fill_gradient2()` function, change the colors of the gradient, takin
   <p>
 
 ```{r heatmapGreen}
-ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
-  geom_tile() +
-  scale_fill_gradient2(low = "white", high = "springgreen4") +
-  labs(y="Genes", x = "Samples") +
-  theme(
-    axis.text.y = element_text(size= 4),
-    axis.text.x = element_text(size = 4, angle = 90)
-  )
+DM1_tile_base + scale_fill_gradient2(low = "white", high = "springgreen4")
+
 ```
   </p>
 </details>
@@ -781,14 +796,7 @@ Now let s use the [viridis color gradient](https://gotellilab.github.io/GotelliL
   <p>
 
 ```{r heatmapViridis}
-ggplot(expr_DM1, aes(samples, Genes, fill= log1p(counts))) +
-  geom_tile() +
-  scale_fill_viridis_c() +
-  labs(y="Genes", x = "Samples") +
-  theme(
-    axis.text.y = element_text(size= 4),
-    axis.text.x = element_text(size = 4, angle = 90)
-  )
+DM1_tile_base + scale_fill_viridis_c()
 ```
   </p>
 </details>
@@ -809,6 +817,15 @@ tab <- read_csv2("EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
 
 tab
 ```
+
+```{r read_csv2_url, eval = F}
+tab <- read_csv2("https://can.gitbiopages.ens-lyon.fr/R_basis/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv")
+tab
+```
+
+
+
+
   </p>
 </details>
 
@@ -819,30 +836,24 @@ With `mutate()` and `ifelse()` [fonctions](https://dplyr.tidyverse.org/reference
 - a column 'sig' : it indicates if the gene is significant ( TRUE or FALSE ). 
 **Thresholds :** baseMean > 20 and  padj < 0.05 and abs(log2FoldChange) >= 1.5 
 
-- a column 'UpDown' : it indicates if the gene is Up regulated or Down regulated. 
+- a column 'UpDown' : it indicates if the gene is significantly up-regulated (Up), down-regulated (Down), or not significantly regulated (NO).
 
 <details><summary>Solution</summary>
   <p>
 
 ```{r sig}
-tab.sig <- tab %>% 
-  mutate(sig = baseMean > 20 & padj < 0.05 & abs(log2FoldChange) >= 1.5 ) %>%  
-  mutate(UpDown = ifelse(
-                        baseMean > 20 & padj < 0.05 & log2FoldChange >= 1.5, 
-                        "Up", 
-                         ifelse(
-                           baseMean > 20 & padj < 0.05 & log2FoldChange <= -1.5, 
-                           "Down", 
-                           "NO"
-                          )))
-
-tab.sig
+(tab.sig <- mutate(tab,
+                   sig = baseMean > 20 & padj < 0.05 & abs(log2FoldChange) >= 1.5,
+                   UpDown = ifelse(sig, ### we can use in the same mutate a column created by a previous line
+                                  ifelse(log2FoldChange > 0, "Up", "Down"), "NO")
+                   )
+)
 ```
   </p>
 </details>
 
 We want to see the top10 DEGs on the graph. For this, we will use the package `ggrepel`.
-Install and load the `ggrepl` package.
+Install and load the `ggrepel` package.
 
 <details><summary>Solution</summary>
   <p>
@@ -857,19 +868,26 @@ library(ggrepel)
   </p>
 </details>
 
-Let s **filter** our table into a new variable, top10, to keep only the top 10 according to the adjusted pvalue. The **smaller** the adjusted pvalue, the more significant.
+
+Let's **filter** out table into a new variable, top10, to keep only the significant differentialy expressed genes with the top 10 adjusted pvalue. The **smaller** the adjusted pvalue, the more significant.
+
 
 **Tips :**  You can use the [function](https://dplyr.tidyverse.org/reference/slice.html) `slice_min()`
 
 <details><summary>Solution</summary>
-  <p>
+<p>
+
+```{r top10_1}
+(top10 <- arrange(tab.sig, desc(sig), padj))
+(top10 <- mutate(top10, row_N = row_number()))
+(top10 <- filter(top10, row_N <= 10))
+```
 
 ```{r top10}
-top10 <- tab.sig %>% 
-  filter(sig == TRUE) %>% 
-  slice_min(n = 10, padj)
+(top10 <- filter(tab.sig, sig == TRUE))
+(top10 <- slice_min(top10, padj, n = 10))
 ```
-  </p>
+</p>
 </details>
 
 The data is ready to be used to make a volcano plot!  
@@ -878,9 +896,11 @@ The data is ready to be used to make a volcano plot!
 To make the graph below, use `ggplot2`, the functions `geom_point()`, `geom_hline()`, `geom_vline()`, `theme_minimal()`, `theme()` (to remove the legend), `geom_label_repel()` and the function `scale_color_manual()` for the colors.
 </div> 
 
-**Tips 1 :** Don t forget the transformation of the adjusted pvalue. 
-**Tips 2 :** Feel free to search your favorite Web browser for help. 
-**Tips 3 :** `geom_label_repel()` function needs a new parameter 'data' and 'label' in aes parameters. 
+
+- **Tips 1 :** Don t forget the transformation of the adjusted pvalue.
+- **Tips 2 :** Feel free to search your favorite Web browser for help. 
+- **Tips 3 :** `geom_label_repel()` function needs a new parameter 'data' and 'label' in aes parameters. 
+
 
 ```{r VolcanoPlotDemo, echo = FALSE}
 ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
@@ -889,9 +909,7 @@ ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
   geom_hline(yintercept=-log10(0.05), col="black") +
   geom_vline(xintercept=c(-1.5, 1.5), col="black") +
   theme_minimal() +
-  theme(
-    legend.position="none"
-  ) +
+  theme(legend.position="none") +
   labs(y="-log10(p-value)", x = "log2(FoldChange)") +
   geom_label_repel(data = top10, mapping = aes(label = gene_symbol)) 
 
@@ -907,9 +925,7 @@ ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
   geom_hline(yintercept=-log10(0.05), col="black") +
   geom_vline(xintercept=c(-1.5, 1.5), col="black") +
   theme_minimal() +
-  theme(
-    legend.position="none"
-  ) +
+  theme(legend.position="none") +
   labs(y="-log10(p-value)", x = "log2(FoldChange)") +
   geom_label_repel(data = top10, mapping = aes(label = gene_symbol)) 
 
