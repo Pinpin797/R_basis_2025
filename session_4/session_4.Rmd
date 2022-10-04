@@ -62,12 +62,25 @@ library("nycflights13")
  
 ## Data set : nycflights13
 
-`nycflights13::flights`Contains all 336,776 flights that departed from New York City in 2013.
+`nycflights13::flights` Contains all 336,776 flights that departed from New York City in 2013.
 The data comes from the US Bureau of Transportation Statistics, and is documented in `?flights`
+
+```R
+?flights
+```
+
+You can display the first rows of the dataset to have an overview of the data.
 
 ```{r display_data, include=TRUE}
 flights
 ```
+
+To know all the colnames of a table you can use the function `colnames(dataset)`
+
+```{r display_colnames, include=TRUE}
+colnames(flights)
+```
+
 
 ## Data type
 
@@ -88,50 +101,91 @@ You cannot add an **int** to a **chr**, but you can add an **int** to a **dbl** 
 # `filter` rows
 
 Variable **types** are important to keep in mind for comparisons.
-The `filter()` function allows you to subset observations based on their values. 
+The `filter()` function allows you to subset observations based on their values.
 
-<div class="pencadre">
+The good reflex to take when you meet a new function of a package is to look at the help with `?function_name` to learn how to use it and to know the different arguments.
 
-What is the results of the following `filter` command ?
-
-```{r filter_month_day, include=TRUE, eval=FALSE}
-filter(flights, month == 1, day == 1)
+```R
+?filter
 ```
-</div>
- 
+
+
+## Use test to filter on a column
+
+You can use the relational operators (`<`,`>`,`==`,`<=`,`>=`,`!=`) to make a test on a column and keep rows for which the results is `TRUE`.
+
+```{r filter_sup_eq, include=TRUE, eval=FALSE}
+filter(flights, air_time >= 680)
+filter(flights, carrier ==  "HA")
+filter(flights, origin !=  "JFK")
+```
+The operator `%in%` is very usefull to test if a value is in a list.
+
+```{r filter_sup_inf, include=TRUE, eval=FALSE}
+filter(flights, carrier %in% c("OO","AS"))
+filter(flights, month %in% c(5,6,7,12))
+```
+
+
 `dplyr` functions never modify their inputs, so if you want to save the result, you’ll need to use the assignment operator, `<-`
 
 <div class="pencadre">
-Save the previous command in a `jan1` variable
+Save the flights longer than 680 minutes in a `long_flights` variable
 </div> 
  
 <details><summary>Solution</summary>
 <p>
 
-```{r filter_month_day_sav, include=TRUE}
-jan1 <- filter(flights, month == 1, day == 1)
+```{r filter_day_sav, include=TRUE}
+long_flights <- filter(flights, air_time >= 680)
 ```
 </p>
 </details>
- 
-<div class="pencadre">
-R either prints out the results, or saves them to a variable.
-What happens when you put your variable assignment code between parenthesis `(` `)` ?
 
-```{r filter_month_day_sav_display, eval=FALSE}
-(dec25 <- filter(flights, month == 12, day == 25))
-```
-</div>
- 
-## Logical operators
+
+## Logical operators to filter on several columns
 
 Multiple arguments to `filter()` are combined with **AND**: every expression must be `TRUE` in order for a row to be included in the output.
 
-In R you can use the symbols `&`, `|`, `!` and the function `xor()` to build other kinds of tests.
+```{r filter_month_day_sav, include=TRUE}
+filter(flights, month == 12, day == 25)
+```
+
+
+In R you can use the symbols `&` (and), `|` (or), `!` (not) and the function `xor()` to build other kinds of tests.
 
 ![](./img/transform-logical.png)
+
+
 <div class="pencadre">
-Test the following operations:
+Display the `long_flights` variable and predict the results of 
+
+```{r logical_operators_exemples2, eval=FALSE}
+filter(long_flights,  day <= 15 & carrier == "HA")
+filter(long_flights,  day <= 15 | carrier == "HA")
+filter(long_flights,  (day <= 15 | carrier == "HA") & (! month > 2))
+```
+
+
+</div> 
+ 
+<details><summary>Solution</summary>
+<p>
+
+```{r logical_operators_exemples2_sol, include=TRUE}
+long_flights
+
+filter(long_flights,  day <= 15 & carrier == "HA")
+filter(long_flights,  day <= 15 | carrier == "HA")
+filter(long_flights,  (day <= 15 | carrier == "HA") & (! month > 2))
+```
+</p>
+</details>
+
+
+
+<div class="pencadre">
+Test the following operations and translate them with words
 
 ```{r filter_logical_operators_a, eval=FALSE}
 filter(flights, month == 11 | month == 12)
@@ -146,12 +200,27 @@ filter(flights, !(arr_delay > 120 | dep_delay > 120))
 ```
 
 ```{r filter_logical_operators_d, eval=FALSE}
+filter(flights, arr_delay <= 120 & dep_delay <= 120)
+```
+
+```{r filter_logical_operators_e, eval=FALSE}
 filter(flights, arr_delay <= 120, dep_delay <= 120)
 ```
+
 </div>
 
 Combinations of logical operators is a powerful programmatic way to select subset of data.
 Keep in mind, however, that long logical expression can be hard to read and understand, so it may be easier to apply successive small filters instead of one long one.
+
+
+<div class="pencadre">
+R either prints out the results, or saves them to a variable.
+What happens when you put your variable assignment code between parenthesis `(` `)` ?
+
+```{r filter_month_day_sav_display, eval=FALSE}
+(dec25 <- filter(flights, month == 12, day == 25))
+```
+</div>
 
 ## Missing values
 
