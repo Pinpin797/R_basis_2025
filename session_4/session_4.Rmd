@@ -228,7 +228,7 @@ One important feature of R that can make comparison tricky is missing values, or
 Indeed each of the variable type can contain either a value of this type (i.e., `2` for an **int**) or nothing.
 The *nothing recorded in a variable* status is represented with the `NA` symbol.
 
-As operations with `NA` values don t make sense, if you have `NA` somewhere in your operation, the results will be `NA`
+As operations with `NA` values don't make sense, if you have `NA` somewhere in your operation, the results will be `NA`
 
 ```{r filter_logical_operators_NA, include=TRUE}
 NA > 5
@@ -245,16 +245,19 @@ is.na(NA)
 `filter()` only includes rows where the condition is `TRUE`; it excludes both `FALSE` and `NA` values. If you want to preserve missing values, ask for them explicitly:
 
 ```{r filter_logical_operators_test_NA2, include=TRUE}
-df <- tibble(x = c(1, NA, 3))
-filter(df, x > 1)
-filter(df, is.na(x) | x > 1)
+df <- tibble( x = c("A","B","C"),
+              y = c(1, NA, 3)
+            )
+df
+filter(df, y > 1)
+filter(df, is.na(y) | y > 1)
 ```
 
 ## Challenges
 
 <div class="pencadre">
 Find all flights that:
-- Had an arrival delay of two or more hours (you can check `?flights`)
+- Had an arrival delay (`arr_delay`) of two or more hours (you can check `?flights`)
 - Flew to Houston (IAH or HOU)
 </div>
 
@@ -289,7 +292,7 @@ Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA`
 ```{r filter_chalenges_d, eval=TRUE}
 NA ^ 0 # ^ 0 is always 1 it's an arbitrary rule not a computation
 NA | TRUE # if a member of a OR operation is TRUE the results is TRUE
-FALSE & NA # if a member of a AN operation is FALSE the results is TRUE
+FALSE & NA # if a member of a AND operation is FALSE the results is FALSE
 NA * 0 # here we have a true computation
 ```
 </p>
@@ -300,54 +303,55 @@ NA * 0 # here we have a true computation
 `arrange()` works similarly to `filter()` except that instead of selecting rows, it changes their order.
 
 ```{r arrange_ymd, include=TRUE}
-arrange(flights, year, month, day)
+arrange(flights, distance, dep_delay)
 ```
 
-<div class="pencadre">
-Use `desc()` to reorder by a column in descending order:
-</div>
 
-<details><summary>Solution</summary>
-<p>
+You can use `desc()` to reorder by a column in descending order:
 
 ```{r arrange_desc, include=TRUE}
-arrange(flights, desc(dep_delay))
+arrange(flights, distance, desc(dep_delay))
 ```
-</p>
-</details>
+
 
 ## Missing values
 
 Missing values are always sorted at the end:
 
 ```{r arrange_NA, include=TRUE}
-arrange(tibble(x = c(5, 2, NA)), x)
-arrange(tibble(x = c(5, 2, NA)), desc(x))
+df <- tibble( x = c("A","B","C"),
+              y = c(1, NA, 3)
+            )
+df
+
+arrange(df, y)
+arrange(df, desc(y))
 ```
 
 ## Challenges
 <div class="pencadre">
 
-- Find the most delayed flight.
-- Find the flight that left earliest.
-- How could you arrange all missing values to the start ?
+- Find the most delayed flight at arrival (`arr_delay`).
+- Find the flight that left earliest (`dep_delay`).
+- How could you arrange all missing values to the start in the `df` tibble ?
 
 </div>
 
 <details><summary>Solution</summary>
 <p>
 
-Find the most delayed flight.
+Find the most delayed flight at arrival
 ```{r chalange_arrange_desc_a, include=TRUE}
-arrange(flights, desc(dep_delay))
+arrange(flights, desc(arr_delay))
 ```
 Find the flight that left earliest.
 ```{r chalange_arrange_desc_b, include=TRUE}
 arrange(flights, dep_delay)
 ```
-How could you arrange all missing values to the start
+How could you arrange all missing values to the start in the `df` tibble ?
+
 ```{r chalange_arrange_desc_c, include=TRUE}
-arrange(tibble(x = c(5, 2, NA)), desc(is.na(x)))
+arrange(df, desc(is.na(y)))
 ```
 </p>
 </details>
@@ -358,47 +362,75 @@ arrange(tibble(x = c(5, 2, NA)), desc(is.na(x)))
 `select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
 
 You can select by column names
+
 ```{r select_ymd_a, include=TRUE}
 select(flights, year, month, day)
 ```
 
 By defining a range of columns
+
 ```{r select_ymd_b, include=TRUE}
 select(flights, year:day)
 ```
 
-Or you can do a negative (`-`) to remove columns.
+Or, you can do a negative (`-`) to remove columns.
+
 ```{r select_ymd_c, include=TRUE}
 select(flights, -(year:day))
 ```
+
+And, you can also rename column names on the fly.
+
+```{r select_ymd_d, include=TRUE}
+select(flights, Y = year, M = month, D = day)
+```
+
 
 ## Helper functions
 
 here are a number of helper functions you can use within `select()`:
 
-- `starts_with("abc")`: matches names that begin with `"abc"`.
-- `ends_with("xyz")`: matches names that end with `"xyz"`.
-- `contains("ijk")`: matches names that contain `"ijk"`.
+- `starts_with("abc")`: matches column names that begin with `"abc"`.
+- `ends_with("xyz")`: matches column names that end with `"xyz"`.
+- `contains("ijk")`: matches column names that contain `"ijk"`.
 - `num_range("x", 1:3)`: matches `x1`, `x2` and `x3`.
+- `where(test_function)`: select columns for which the result is TRUE.
 
 See `?select` for more details.
 
 ## Challenges
 
 <div class="pencadre">
-
-- Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`.
-<details><summary>Solution</summary>
 <p>
 
-```{r challenge_select_a, eval=FALSE}
-select(flights, contains("time") | contains("delay"))
-select(flights, contains("_") & !starts_with("sched") & !starts_with("time"))
+- Brainstorm as many ways as possible to select only `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`. You can associate several selections arguments with `|` , `&` and `!`. 
+
+The simplest way to start: 
+
+```{r challenge_select_a1_simple}
+df_dep_arr <- select(flights, dep_time, dep_delay, arr_time, arr_delay)
+colnames(df_dep_arr)
+```
+
+</p>
+</div>
+
+<details><summary>Other solutions</summary>
+<p>
+
+```{r challenge_select_a1, eval=FALSE}
+select(flights, dep_time, dep_delay, arr_time, arr_delay)
+select(flights, starts_with("dep"), starts_with("arr") )
+select(flights, starts_with("dep") | starts_with("arr") )
+select(flights, matches("^(dep|arr)") )
+select(flights, dep_time : arr_delay & !starts_with("sched"))
 ```
 </p>
 </details>
 
-- What does the `one_of()` function do? Why might it be helpful in conjunction with this vector? 
+- What does the `any_of()` function do?
+- Why might it be helpful in conjunction with this vector? What is the difference with `all_of()`  (hint : add "toto" to vars) ?
+
 
 ```{r select_one_of, eval=T, message=F, cache=T}
 vars <- c("year", "month", "day", "dep_delay", "arr_delay")
@@ -408,12 +440,40 @@ vars <- c("year", "month", "day", "dep_delay", "arr_delay")
 <p>
 
 ```{r challenge_select_b, eval=FALSE}
-select(flights, one_of(vars))
+select(flights, any_of(vars))
+select(flights, all_of(vars))
+```
+
+From the help message (`?all_of()`) :
+
+ - all_of() is for strict selection. If any of the variables in the character vector is missing, an error is thrown.
+ - any_of() doesn't check for missing variables. It is especially useful with negative selections, when you would like to make sure a variable is removed.
+ 
+```{r challenge_select_b2, eval=FALSE}
+vars <- c(vars, "toto")
+select(flights, any_of(vars))
+select(flights, all_of(vars))
+```
+</p>
+</details>
+
+- Select all columns wich contain character values ? numeric values ?
+
+</p>
+</div>
+
+<details><summary>Solution</summary>
+<p>
+
+```{r challenge_select_e1, eval=FALSE}
+select(flights, where(is.character))
+select(flights, where(is.numeric))
 ```
 </p>
 </details>
 
 - Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
+
 ```{r select_contains, eval=F, message=F, cache=T}
 select(flights, contains("TIME"))
 ```
