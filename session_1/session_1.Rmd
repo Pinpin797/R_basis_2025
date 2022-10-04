@@ -1013,7 +1013,7 @@ sessionInfo()
 ## Help on packages (when existing)
 
 ```R
-browseVignettes(ggplot2)
+browseVignettes("ggplot2")
 ```
 
 ## See you in [Session 2 : "Introduction to Tidyverse"](https://can.gitbiopages.ens-lyon.fr/R_basis/session_2.html)
