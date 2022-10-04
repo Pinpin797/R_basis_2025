@@ -140,11 +140,13 @@ The same console as before (in Red box)
 
 ### A code editor
 
-We are now going to write our first function.
+We are now going to write our first commands.
 We could do it directly in the R console, with multi-line commands but this process is tedious.
 
 Instead we are going to use the Rstudio code editor panel, to write our code.
 You can go to **File > New File > R script** to open your editor panel.
+
+Beside, you can keep your code history.
 
 ![](./img/RStudio_editor.png)
 
@@ -154,7 +156,7 @@ You can go to **File > New File > R script** to open your editor panel.
 RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
 
 - click on the `Run button` above the editor panel, or
-- select “Run Lines” from the “Code” menu, or
+- select `Run Selected Lines` from the `Code` menu, or
 - hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run. 
 
 If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
@@ -173,8 +175,6 @@ Now that we know what we should do and what to expect, we are going to try some 
 
 <div class="pencadre">
 Now Open RStudio.
-Write the commands in colors in a blue box in the terminal.
-The expected results will always be printed in white in a blue box.
 
 You can `copy paste`  but I advise you to practice writing directly in the terminal.
 Like all the languages, you will become more familiar with R by using it.
