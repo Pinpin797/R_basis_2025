@@ -435,7 +435,7 @@ mutate(
 - Logical comparisons, `<`, `<=`, `>`, `>=`, `!=`, and `==`
 - Ranking: there are a number of ranking functions, but you should start with `min_rank()`. There is also `row_number()`, `dense_rank()`, `percent_rank()`, `cume_dist()`, `ntile()`
 
-## See you in [R#5: Pipping and grouping](https://can.gitbiopages.ens-lyon.fr/R_basis/session_5/)
+## See you in [R#5: Pipping and grouping](https://can.gitbiopages.ens-lyon.fr/R_basis/session_5.html)
 
 
 
