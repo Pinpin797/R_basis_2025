@@ -412,8 +412,7 @@ df_dep_arr <- select(flights, dep_time, dep_delay, arr_time, arr_delay)
 colnames(df_dep_arr)
 ```
 
-</p>
-</div>
+
 
 <details><summary>Other solutions</summary>
 <p>
@@ -459,8 +458,7 @@ select(flights, all_of(vars))
 
 - Select all columns wich contain character values ? numeric values ?
 
-</p>
-</div>
+
 
 <details><summary>Solution</summary>
 <p>
@@ -477,6 +475,7 @@ select(flights, where(is.numeric))
 ```{r select_contains, eval=F, message=F, cache=T}
 select(flights, contains("TIME"))
 ```
+
 <details><summary>Solution</summary>
 <p>
 
@@ -486,65 +485,146 @@ select(flights, contains("TIME", ignore.case = FALSE))
 </p>
 </details>
 
+
+</p>
 </div>
+ 
+ 
  
 # Add new variables with `mutate()`
 
 It’s often useful to add new columns that are functions of existing columns. That’s the job of `mutate()`.
 
 <div class="pencadre">
-First let s create a smaller dataset to work on `flights_sml` that contains
+First let's create a thiner dataset to work on `flights_thin` that contains
+
 - columns from `year` to `day`
 - columns that ends with `delays`
 - the `distance` and `air_time` columns
+- the `dep_time` and `sched_dep_time` columns
+
+Then let's create an even smaller dataset as toy dataset to test your commands before using them on the large dataset (It a good reflex to take). For that you can use the function `head`
+
+- select only 5 rows
+
 </div>
+
 
 <details><summary>Solution</summary>
 <p>
 
 ```{r mutate, include=TRUE}
-(flights_sml <- select(flights,  year:day, ends_with("delay"), distance, air_time))
+(flights_thin <- select(flights,  year:day, ends_with("delay"), distance, air_time, contains("dep_time")))
+(flights_thin_toy <- head(flights_thin, n=5))
 ```
 </p>
 </details>
 
+
 ## `mutate()`
+
 
 ```R
 mutate(tbl, new_var_a = opperation_a, ..., new_var_n = opperation_n)
 ```
+
 `mutate()` allows you to add new columns (`new_var_a`, ... , `new_var_n`) and to fill them with the results of an operation.
 
-We can create a `gain` column to check if the pilot managed to compensate is departure delay
+
+We can create a `gain` column whic can be the difference betwenn the delay at the departure and at the arrival to check if the pilot managed to compensate is departure delay.
+
 ```{r mutate_gain}
-mutate(flights_sml, gain = dep_delay - arr_delay)
+mutate(flights_thin_toy, gain = dep_delay - arr_delay)
 ```
 
 <div class="pencadre">
-Using `mutate` add a new column `gain` and `speed` that contains the average speed of the plane to the `flights_sml` tibble.
+
+Using `mutate` to add a new column `gain` and `speed` that contains the average speed of the plane to the `flights_thin_toy` tibble (speed = distance / time).
 </div>
 
 <details><summary>Solution</summary>
 <p>
 
 ```{r mutate_reuse, include=TRUE}
-flights_sml <- mutate(flights_sml,
+flights_thin_toy <- mutate(flights_thin_toy,
   gain = dep_delay - arr_delay,
   speed = distance / air_time * 60
 )
+flights_thin_toy
 ``` 
 </p>
 </details>
 
 
 <div class="pencadre">
-Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of the number of minutes since midnight.
+Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. (see the help to get more information on these columns) In the flight dataset, convert them to a more convenient representation of the number of minutes since midnight.
+
+**Hints** :
+
+ - `dep_time` and `sched_dep_time` are in the HHMM format (see the help to get these information). So you have to first get the number of hours `HH`, convert them in minutes and then add the number of minutes `MM`.
+
+ - For exemple : `20:03` will be display `2003`, so to convert it in minutes you have to do `20 * 60 + 03 (= 1203) `. 
+
+ - To split the number `HHMM` in hours  (`HH`) and minutes (`MM`) you have to use an eucledean division of HHMM by 100 to get the number of hours as the divisor and the number of minute as the remainder. For that use the modulo operator `%%` to get the remainder and it's friend `%/%` which return the divisor.
+
+```{r mutate_exemple, include=TRUE}
+HH <- 2003 %/% 100
+HH
+MM <- 2003 %% 100 
+MM
+HH * 60 + MM
+``` 
+It is always a good idea to decompose a problem in small parts.
+First train you only on  `dep_time`. Build the HH and MM columns. Then try to do the convertions in one row.
+
 </div>
 
-<details><summary>Solution</summary>
+<details><summary> Partial solution </summary>
 <p>
 
 ```{r mutate_challenges_a, eval=F, message=F, cache=T}
+mutate(
+  flights_thin_toy,
+  HH = dep_time %/% 100,
+  MM = dep_time %% 100,
+  dep_time2 = HH * 60 + MM
+)
+```
+
+** Note ** You can use the `.after` option to tell where to put the new columns
+
+```{r mutate_challenges_a2, include=TRUE}
+mutate(
+  flights_thin_toy,
+  HH = dep_time %/% 100,
+  MM = dep_time %% 100,
+  dep_time2 = HH * 60 + MM,
+  .after = "dep_time" )
+``` 
+
+In one row (or you can also remove column HH and MM using select): 
+
+```{r mutate_challenges_a3, include=TRUE, eval = F}
+mutate(
+  flights_thin_toy,
+  dep_time2 =  dep_time %/% 100 * 60 + dep_time %% 100,
+  .after = "dep_time" )
+``` 
+
+** Note ** You can also directly replace a column by the result of the mutate operation.
+
+```{r mutate_challenges_a4, include=TRUE, eval = F}
+mutate(
+  flights_thin_toy,
+  dep_time = dep_time * 60 + dep_time)
+``` 
+</p>
+</details>
+
+<details><summary>Final solution</summary>
+<p>
+
+```{r mutate_challenges_b, eval=F, message=F, cache=T}
 mutate(
   flights,
   dep_time = (dep_time %/% 100) * 60 +
@@ -553,6 +633,9 @@ mutate(
     sched_dep_time %% 100
 )
 ```
+
+
+
 </p>
 </details>
 
