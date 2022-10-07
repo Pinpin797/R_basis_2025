@@ -995,8 +995,8 @@ In R those apps are called **packages**.
 There are different sources to get packages from:
 
 - The [CRAN](https://cran.r-project.org/) which is the default source
-- [Bioconducor](http://www.bioconductor.org) which is another source specialized for biology packages (more information [here](./bioconductor.html))
-- Directly from [github](https://github.com/)(more information [here](./github.html))
+- [Bioconducor](http://www.bioconductor.org) which is another source specialized for biology packages
+- Directly from [github](https://github.com/)
 
 To install packages from [Bioconducor](http://www.bioconductor.org) and [github](https://github.com/) you will need to install specific packages from the [CRAN](https://cran.r-project.org/).
 
