@@ -6,13 +6,27 @@ Course link : https://can.gitbiopages.ens-lyon.fr/R_basis/
 
 ### Trainers
 
- - Nicolas Fontrodona
- - Christophe Arpin
- - Laurent Gilquin
- - Ghislain Durif (IFB)
- - Antoine Corbin
- - Omran Allatif
- - Carine Rey (IFB)
+ - **Monday**
+
+   - Nicolas Fontrodona (IFB)
+   - Laurent Gilquin
+   - Audrey Lapendry
+
+ - **Tuesday **
+
+   - Christophe Arpin (IFB)
+   - Ghislain Durif (IFB)
+
+ - **Wednesday**
+
+   - Antoine Corbin (IFB)
+   - Anissa Guillemin
+   - Noemi Rousseaux
+
+ - **Friday**
+
+   - Omran Allatif (IFB)
+   - Carine Rey (IFB)
 
 ## 2021
 
