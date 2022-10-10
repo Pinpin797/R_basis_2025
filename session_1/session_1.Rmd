@@ -952,7 +952,7 @@ You can use booleans to define which values should be kept.
 ```{r index2, include=TRUE}
 x <- c(1,5,7,8,15)
 x[c(TRUE,FALSE,TRUE,FALSE,TRUE)]
-x[c(FALSE,TRUE)] # Bolean vector is reuse if it is not of the same size of the vector to index
+x[c(FALSE,TRUE)] # Bolean vector is reused if it is not of the same size of the vector to index
 
 y <- c(TRUE,FALSE,FALSE,FALSE,TRUE)
 x[y]
@@ -972,7 +972,7 @@ x <- c(1,5,7,8,15)
 x[1] <- 3
 x
 
-x[x>5] <- 5
+x[x>5] <- 13
 x
 ```
 
