@@ -390,7 +390,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 ```
 
 <div class="pencadre">
-Now try to facet your plot by `fl + class`
+Now try to facet your plot by `fuel + class`
 </div>
 
 
@@ -399,9 +399,9 @@ Now try to facet your plot by `fl + class`
 Formulas allow you to express complex relationship between variables in R !
 
 ```{r new_mpg_plot_l, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ fl + class, nrow = 2)
+  facet_wrap(~ fuel + class, nrow = 2)
 ```
 </p>
 </details>
