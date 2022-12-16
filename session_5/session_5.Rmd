@@ -163,29 +163,29 @@ Whenever you do any aggregation, it’s always a good idea to include either a c
 summ_delay_filghts <- flights %>% 
   group_by(dest) %>% 
   summarise(
-    count = n(),
-    dist = mean(distance, na.rm = TRUE),
-    delay = mean(arr_delay, na.rm = TRUE)
+    n_flights = n(),
+    avg_distance = mean(distance, na.rm = TRUE),
+    avg_delay = mean(arr_delay, na.rm = TRUE)
   ) %>% 
   filter(dest != "HNL") %>% 
-  filter(delay < 40 & delay > -20)
+  filter(avg_delay < 40 & avg_delay > -20)
 
-ggplot(data = summ_delay_filghts, mapping = aes(x = dist, y = delay, size = count)) +
+ggplot(summ_delay_filghts, mapping = aes(x = avg_distance, y = avg_delay, size = n_flights)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE) +
   theme(legend.position='none')
 ```
 
 <div class="pencadre">
-Imagine that we want to explore the relationship between the distance and average delay for each location and recreate the above figure. 
+Imagine that we want to explore the relationship between the average distance (`distance`) and average delay (`arr_delay`) for each location (`dest`) and recreate the above figure. 
 here are three steps to prepare this data: 
 
 1. Group flights by destination.
-2. Summarize to compute distance, average delay, and number of flights using `n()`.
-3. Filter to remove noisy points and Honolulu airport, which is almost twice as far away as the next closest airport.
+2. Summarize to compute average distance (`avg_distance`), average delay (`avg_delay`), and number of flights using `n()` (`n_flights`).
+3. Filter to remove Honolulu airport, which is almost twice as far away as the next closest airport.
 4. Filter to remove noisy points with delay superior to 40 or inferior to -20
-5. Create a `mapping` on `dist`, `delay` and `count` as `size`.
-6. Use the layer `geom_point()` and `geom_smooth()`
+5. Create a `mapping` on `avg_distance`, `avg_delay` and `n_flights` as `size`.
+6. Use the layer `geom_point()` and `geom_smooth()` (use method = lm)
 7. We can hide the legend with the layer `theme(legend.position='none')`
 </div>
 
@@ -195,13 +195,13 @@ here are three steps to prepare this data:
 flights %>% 
   group_by(dest) %>% 
   summarise(
-    count = n(),
-    dist = mean(distance, na.rm = TRUE),
-    delay = mean(arr_delay, na.rm = TRUE)
+    n_flights = n(),
+    avg_distance = mean(distance, na.rm = TRUE),
+    avg_delay = mean(arr_delay, na.rm = TRUE)
   ) %>% 
   filter(dest != "HNL") %>% 
-  filter(delay < 40 & delay > -20) %>% 
-  ggplot(mapping = aes(x = dist, y = delay, size = count)) +
+  filter(avg_delay < 40 & avg_delay > -20) %>% 
+  ggplot(mapping = aes(x = avg_distance, y = avg_delay, size = n_flights)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE) +
   theme(legend.position='none')
@@ -231,13 +231,15 @@ flights %>%
 
 <div class="pencadre">
 
+
 Look at the number of canceled flights per day. Is there a pattern?
+
+(A canceled flight is a flight where the `dep_time` or the `arr_time` is `NA`)
 
 **Remember to always try to decompose complex questions into smaller and simple problems**
 
-- What are `canceled` flights?
-- Who can I create a `canceled` flights variable?
-- We need to define the day of the week `wday` variable (`strftime(x,'%A')` give you the name of the day from a POSIXct date).
+- How can you create a `canceled` flights variable which will be TRUE if the flight is canceled or FALSE if not?
+- We need to define the day of the week `wday` variable (Monday, Tuesday, ...). To do that, you can use `strftime(x,'%A')` to get the name of the day of a `x` date in the POSIXct format as in the `time_hour` column, ex: `strftime("2013-01-01 05:00:00 EST",'%A')` return "Tuesday" ).
 - We can count the number of canceled flight (`cancel_day`) by day of the week (`wday`).
 - We can pipe transformed and filtered tibble into a `ggplot` function.
 - We can use `geom_col` to have a barplot of the number of `cancel_day` for each. `wday`
@@ -379,7 +381,7 @@ flights %>%
 </details>
 
 <div class="pencadre">
-Can you disentangle the effects of bad airports vs. bad carriers? (Hint: think about `group_by(carrier, dest) %>% summarise(n())`)
+Can you disentangle the effects of bad airports vs. bad carriers? (Hint: think about `group_by(carrier, dest) %>% summarise(n=n())`)
 </div>
 
 <details><summary>Solution</summary>
