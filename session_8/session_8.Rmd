@@ -179,10 +179,12 @@ You can find cheat sheet for all the packages of the `tidyverse` on this page:
 [https://www.rstudio.com/resources/cheatsheets/](https://www.rstudio.com/resources/cheatsheets/)
 
 The `Rstudio` websites are also a good place to learn more about R and the meta-package maintenained by the `Rstudio` community:
+
 - [https://www.rstudio.com/resources/webinars/](https://www.rstudio.com/resources/webinars/)
 - [https://www.rstudio.com/products/rpackages/](https://www.rstudio.com/products/rpackages/)
 
-For example [rmarkdown](https://rmarkdown.rstudio.com/) is a great way to turn your analyses into high quality documents, reports, presentations and dashboards.
+For example [rmarkdown](https://rmarkdown.rstudio.com/) is a great way to turn your analyses into high quality documents, reports, presentations and dashboards:
+
  - A comprehensive guide: [https://bookdown.org/yihui/rmarkdown/](https://bookdown.org/yihui/rmarkdown/)
  - The cheatsheet [https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf)
 
