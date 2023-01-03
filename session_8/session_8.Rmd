@@ -108,7 +108,7 @@ gss_cat %>%
 By default, `ggplot2` will drop levels that don’t have any values. You can force them to display with:
 
 ```{r race_plot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(gss_cat, aes(race)) +
+ggplot(gss_cat, aes(x=race)) +
   geom_bar() +
   scale_x_discrete(drop = FALSE)
 ```
@@ -125,7 +125,7 @@ relig_summary <- gss_cat %>%
     tvhours = mean(tvhours, na.rm = TRUE),
     n = n()
   )
-ggplot(relig_summary, aes(tvhours, relig)) + geom_point()
+ggplot(relig_summary, aes(x = tvhours, y = relig)) + geom_point()
 ```
 
 It is difficult to interpret this plot because there’s no overall pattern. We can improve it by reordering the levels of relig using `fct_reorder()`. `fct_reorder()` takes three arguments:
@@ -135,7 +135,7 @@ It is difficult to interpret this plot because there’s no overall pattern. We 
 - Optionally, `fun`, a function that’s used if there are multiple values of `x` for each value of `f`. The default value is `median`.
 
 ```{r tv_hour_order, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(relig_summary, aes(tvhours, fct_reorder(relig, tvhours))) +
+ggplot(relig_summary, aes(x = tvhours, y = fct_reorder(relig, tvhours))) +
   geom_point()
 ```
 
@@ -144,7 +144,7 @@ As you start making more complicated transformations, I’d recommend moving the
 ```{r tv_hour_order_mutate, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 relig_summary %>%
   mutate(relig = fct_reorder(relig, tvhours)) %>%
-  ggplot(aes(tvhours, relig)) +
+  ggplot(aes(x = tvhours, y = relig)) +
     geom_point()
 ```
 
@@ -161,7 +161,7 @@ by_age <- gss_cat %>%
 ```
 
 ```{r fct_reorder2a, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(by_age, aes(age, prop, colour = marital)) +
+ggplot(by_age, aes(x = age, y = prop, colour = marital)) +
   geom_line(na.rm = TRUE)
 ```
 
@@ -183,6 +183,8 @@ The `Rstudio` websites are also a good place to learn more about R and the meta-
 - [https://www.rstudio.com/products/rpackages/](https://www.rstudio.com/products/rpackages/)
 
 For example [rmarkdown](https://rmarkdown.rstudio.com/) is a great way to turn your analyses into high quality documents, reports, presentations and dashboards.
+ - A comprehensive guide: [https://bookdown.org/yihui/rmarkdown/](https://bookdown.org/yihui/rmarkdown/)
+ - The cheatsheet [https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf)
 
 In addition most packages will provide **vignette**s on how to perform an analysis from scratch. On the [bioconductor.org](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html) website (specialised on R packages for biologists), you will have direct links to the packages vignette.
 
