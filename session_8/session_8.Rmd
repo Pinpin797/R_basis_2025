@@ -108,7 +108,7 @@ gss_cat %>%
 By default, `ggplot2` will drop levels that don’t have any values. You can force them to display with:
 
 ```{r race_plot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(gss_cat, aes(x=race)) +
+ggplot(gss_cat, aes(x = race)) +
   geom_bar() +
   scale_x_discrete(drop = FALSE)
 ```
@@ -166,7 +166,7 @@ ggplot(by_age, aes(x = age, y = prop, colour = marital)) +
 ```
 
 ```{r fct_reorder2b, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(by_age, aes(age, prop, colour = fct_reorder2(marital, age, prop))) +
+ggplot(by_age, aes(x = age, y = prop, colour = fct_reorder2(marital, age, prop))) +
   geom_line() +
   labs(colour = "marital")
 ```
