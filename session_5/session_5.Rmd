@@ -281,7 +281,7 @@ flights %>%
   ) %>% 
   mutate(wday = strftime(time_hour,'%A')) %>% 
   group_by(wday) %>% 
-  mutate(
+  summarise(
     prop_cancel_day = sum(canceled)/n(),
     av_delay = mean(dep_delay, na.rm = TRUE)
   ) %>%
