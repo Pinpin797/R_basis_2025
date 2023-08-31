@@ -1,0 +1,472 @@
+$webform = array (
+  'nid' => '778888',
+  'next_serial' => '1',
+  'confirmation' => '',
+  'confirmation_format' => 'wysiwyg_user',
+  'redirect_url' => '<none>',
+  'status' => '1',
+  'block' => '0',
+  'allow_draft' => '0',
+  'auto_save' => '0',
+  'submit_notice' => '1',
+  'confidential' => '0',
+  'submit_text' => '',
+  'submit_limit' => '1',
+  'submit_interval' => '-1',
+  'total_submit_limit' => '-1',
+  'total_submit_interval' => '-1',
+  'progressbar_bar' => '0',
+  'progressbar_page_number' => '0',
+  'progressbar_percent' => '0',
+  'progressbar_pagebreak_labels' => '1',
+  'progressbar_include_confirmation' => '1',
+  'progressbar_label_first' => 'Inscription / Registration',
+  'progressbar_label_confirmation' => 'Terminé',
+  'preview' => '0',
+  'preview_next_button_label' => '',
+  'preview_prev_button_label' => '',
+  'preview_title' => '',
+  'preview_message' => '',
+  'preview_message_format' => 'wysiwyg_user',
+  'preview_excluded_components' => 
+  array (
+  ),
+  'confirm_email_request_lifetime' => NULL,
+  'confirm_email_delete_submissions' => '0',
+  'record_exists' => true,
+  'roles' => 
+  array (
+    0 => '1',
+    1 => '2',
+  ),
+  'emails' => 
+  array (
+  ),
+  'components' => 
+  array (
+    15 => 
+    array (
+      'nid' => 778888,
+      'cid' => '15',
+      'pid' => '0',
+      'form_key' => 'new_1663580649768',
+      'name' => 'Prénom / Name',
+      'type' => 'textfield',
+      'value' => '',
+      'extra' => 
+      array (
+        'width' => '',
+        'maxlength' => '',
+        'minlength' => '',
+        'field_prefix' => '',
+        'field_suffix' => '',
+        'disabled' => 0,
+        'unique' => 0,
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'placeholder' => 'Dupont',
+        'attributes' => 
+        array (
+        ),
+        'private' => 0,
+        'analysis' => false,
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '1',
+      'page_num' => 1,
+    ),
+    14 => 
+    array (
+      'nid' => 778888,
+      'cid' => '14',
+      'pid' => '0',
+      'form_key' => 'new_1663580608320',
+      'name' => 'Nom / Surname',
+      'type' => 'textfield',
+      'value' => '',
+      'extra' => 
+      array (
+        'width' => '',
+        'maxlength' => '',
+        'minlength' => '',
+        'field_prefix' => '',
+        'field_suffix' => '',
+        'disabled' => 0,
+        'unique' => 0,
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'placeholder' => 'John',
+        'attributes' => 
+        array (
+        ),
+        'private' => 0,
+        'analysis' => false,
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '2',
+      'page_num' => 1,
+    ),
+    1 => 
+    array (
+      'nid' => 778888,
+      'cid' => '1',
+      'pid' => '0',
+      'form_key' => 'new_1661852344800',
+      'name' => 'adresse e-mail / e-mail address',
+      'type' => 'email',
+      'value' => '@ens-lyon.fr (ou @inserm.fr, @chu-lyon.fr)',
+      'extra' => 
+      array (
+        'multiple' => 0,
+        'format' => 'short',
+        'width' => '',
+        'unique' => 1,
+        'disabled' => 0,
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'placeholder' => '',
+        'attributes' => 
+        array (
+        ),
+        'private' => 0,
+        'analysis' => true,
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '3',
+      'page_num' => 1,
+    ),
+    3 => 
+    array (
+      'nid' => 778888,
+      'cid' => '3',
+      'pid' => '0',
+      'form_key' => 'new_1661852536156',
+      'name' => 'Laboratoire / Laboratory',
+      'type' => 'select',
+      'value' => '',
+      'extra' => 
+      array (
+        'items' => '1|CIRI - Centre International de Recherche en Infectiologie
+2|IGFL - Institut de Génomique Fonctionnelle de lyon
+3|LBMC - Laboratoire de Biologie et modelisation de la Cellule
+RDP - Laboratoire de Reproduction et Développement des Plantes|RDP - Laboratoire de Reproduction et Développement des Plantes
+MMSB - MOlecular microbiology and structural biochemistry|MMSB - MOlecular microbiology and structural biochemistry
+LBTI - Laboratoire de Biologie Tissulaire et d\'Ingénierie Thérapeutique|LBTI - Laboratoire de Biologie Tissulaire et d\'Ingénierie Thérapeutique
+IVPC - Infections Virales et Pathologie Comparée|IVPC - Infections Virales et Pathologie Comparée
+IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service UMS3760 CNRS-UCBL - Directeur : Christophe Geourjon     L\'IBCP héberge les 2 unités de recherche MMSB et LBTI. L’institut a pour vocation de gérer le bâtiment, les ressources technologiques et une partie du personnel technique partagé par ces 2 unités.|IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service UMS3760 CNRS-UCBL - Directeur : Christophe Geourjon     L\'IBCP héberge les 2 unités de recherche MMSB et LBTI. L’institut a pour vocation de gérer le bâtiment, les ressources technologiques et une partie du personnel technique partagé par ces 2 unités.
+',
+        'multiple' => false,
+        'aslist' => true,
+        'empty_option' => '',
+        'optrand' => 0,
+        'other_option' => NULL,
+        'other_text' => 'Autre...',
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'custom_keys' => 0,
+        'options_source' => '',
+        'private' => 0,
+        'analysis' => true,
+        'value' => '1',
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '4',
+      'page_num' => 1,
+    ),
+    30 => 
+    array (
+      'nid' => 778888,
+      'cid' => '30',
+      'pid' => '0',
+      'form_key' => 'new_1693394806558',
+      'name' => 'J\'ai un compte @ens-lyon.fr / I have an @ens-lyon.fr account',
+      'type' => 'select',
+      'value' => '',
+      'extra' => 
+      array (
+        'items' => '1|Oui / Yes
+2|Non / No
+',
+        'multiple' => false,
+        'aslist' => false,
+        'empty_option' => '',
+        'optrand' => 0,
+        'other_option' => NULL,
+        'other_text' => 'Autre...',
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'custom_keys' => 0,
+        'options_source' => '',
+        'private' => 0,
+        'analysis' => true,
+        'value' => '1',
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '5',
+      'page_num' => 1,
+    ),
+    31 => 
+    array (
+      'nid' => 778888,
+      'cid' => '31',
+      'pid' => '0',
+      'form_key' => 'new_1693394865971',
+      'name' => 'J\'ai un compte sur le cloud de l\'IFB (Institut Français de Bioinformatique)',
+      'type' => 'select',
+      'value' => '',
+      'extra' => 
+      array (
+        'items' => '1|Oui / Yes
+2|Non / No
+',
+        'multiple' => false,
+        'aslist' => false,
+        'empty_option' => '',
+        'optrand' => 0,
+        'other_option' => NULL,
+        'other_text' => 'Autre...',
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'custom_keys' => 0,
+        'options_source' => '',
+        'private' => 0,
+        'analysis' => true,
+        'value' => '1',
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '6',
+      'page_num' => 1,
+    ),
+    32 => 
+    array (
+      'nid' => 778888,
+      'cid' => '32',
+      'pid' => '0',
+      'form_key' => 'new_1693394929998',
+      'name' => 'Cloud IFB',
+      'type' => 'markup',
+      'value' => '<p>Nous utilisons le cloud de l\'IFB (<link href="https://biosphere.france-bioinformatique.fr/">https://biosphere.france-bioinformatique.fr/</link>) pour les travaux pratiques (les stagiaires travailleront depuis un navigateur internet sur une instance Rstudio server hébergé sur le cloud de l\'IFB).</p>
+
+<p><i>We use the IFB cloud (<link href="https://biosphere.france-bioinformatique.fr/">https://biosphere.france-bioinformatique.fr/</link>) for the practicals (trainees work in their web browser on a Rstudio server hosted on IFB cloud).</i></p>',
+      'extra' => 
+      array (
+        'format' => 'wysiwyg_user',
+        'private' => false,
+        'display_on' => 'form',
+      ),
+      'required' => '0',
+      'weight' => '7',
+      'page_num' => 1,
+    ),
+    12 => 
+    array (
+      'nid' => 778888,
+      'cid' => '12',
+      'pid' => '0',
+      'form_key' => 'new_1663579980628',
+      'name' => 'Choix des créneaux de préférences ? / Preferred slots ?',
+      'type' => 'grid',
+      'value' => '',
+      'extra' => 
+      array (
+        'options' => '0|Oui, je suis disponible / Yes, I am available
+1|Oui, mais si possible je préférerais un autre créneau / Yes, but I would prefer another slot if possible
+3|Non disponible / Not available
+',
+        'questions' => '0|Lundi / Monday 13h-14h30 - salle numérique CBP (ENS de Lyon) - FR
+1|Mercredi / Wednesday 11h-12h30 - salle numérique CBP (ENS de Lyon) - FR
+3|Jeudi / Thursday 11h-12h30 - salle numérique CBP (ENS de Lyon) - EN
+2|Vendredi / Friday 11h-12h30  - salle numérique CBP (ENS de Lyon) - FR
+',
+        'optrand' => 0,
+        'qrand' => 0,
+        'unique' => 0,
+        'title_display' => 'before',
+        'custom_option_keys' => 0,
+        'custom_question_keys' => 0,
+        'sticky' => true,
+        'description' => '',
+        'description_above' => false,
+        'private' => 0,
+        'analysis' => true,
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '8',
+      'page_num' => 1,
+    ),
+    23 => 
+    array (
+      'nid' => 778888,
+      'cid' => '23',
+      'pid' => '0',
+      'form_key' => 'new_1693320671454',
+      'name' => 'Créneaux / Slots',
+      'type' => 'markup',
+      'value' => '<p><strong>Attention</strong> aux horaires qui sont différents le lundi.</p>
+
+<p><i><strong>Watch out</strong> for the hours which are different on Mondays</i></p>
+
+<p>Les salles seront reprécisées par la suite.</p>
+
+<p><i>More details about the locations will be given later.</i></p>
+
+<p>Il y a 10 stagiaires par créneaux, et idéalement 2 formateurs ou formatrices.</p>
+
+<p><i>There will be 10 trainees per slot, and ideally 2 trainers.</i></p>',
+      'extra' => 
+      array (
+        'format' => 'wysiwyg_user',
+        'private' => false,
+        'display_on' => 'form',
+      ),
+      'required' => '0',
+      'weight' => '9',
+      'page_num' => 1,
+    ),
+    26 => 
+    array (
+      'nid' => 778888,
+      'cid' => '26',
+      'pid' => '0',
+      'form_key' => 'new_1693321164081',
+      'name' => 'Langue souhaitée / Preferred language',
+      'type' => 'select',
+      'value' => '',
+      'extra' => 
+      array (
+        'items' => '1|Français
+2|English
+3|Pas de préférence / No preference
+',
+        'multiple' => false,
+        'aslist' => false,
+        'empty_option' => '',
+        'optrand' => 0,
+        'other_option' => NULL,
+        'other_text' => 'Autre...',
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'custom_keys' => 0,
+        'options_source' => '',
+        'private' => 0,
+        'analysis' => true,
+        'value' => '1',
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '10',
+      'page_num' => 1,
+    ),
+    21 => 
+    array (
+      'nid' => 778888,
+      'cid' => '21',
+      'pid' => '0',
+      'form_key' => 'new_1693319362737',
+      'name' => 'En vous inscrivant vous vous engagez à animer l\'ensemble de la formation. / By registering, you agree to teach the entire course.',
+      'type' => 'select',
+      'value' => '',
+      'extra' => 
+      array (
+        'items' => '1|Oui / Yes
+',
+        'multiple' => true,
+        'aslist' => false,
+        'empty_option' => '',
+        'optrand' => 0,
+        'other_option' => NULL,
+        'other_text' => 'Autre...',
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'custom_keys' => 0,
+        'options_source' => '',
+        'private' => 0,
+        'analysis' => true,
+        'value' => '1,2',
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
+      'weight' => '12',
+      'page_num' => 1,
+    ),
+    24 => 
+    array (
+      'nid' => 778888,
+      'cid' => '24',
+      'pid' => '0',
+      'form_key' => 'new_1693320727085',
+      'name' => 'Nouveau champ "balisage"',
+      'type' => 'markup',
+      'value' => '<p>(sauf absence ponctuelle en cas d\'impératif professionnel ou personnel évidemment)</p>
+
+<p><i>(except for one-time absences in case of professional or personal imperative obviously)</i><p>',
+      'extra' => 
+      array (
+        'format' => 'wysiwyg_user',
+        'private' => false,
+        'display_on' => 'form',
+      ),
+      'required' => '0',
+      'weight' => '13',
+      'page_num' => 1,
+    ),
+    28 => 
+    array (
+      'nid' => 778888,
+      'cid' => '28',
+      'pid' => '0',
+      'form_key' => 'new_1693321289280',
+      'name' => 'Remarques ou commentaires / Remarks or comments',
+      'type' => 'textarea',
+      'value' => '',
+      'extra' => 
+      array (
+        'cols' => '',
+        'rows' => '',
+        'title_display' => 'before',
+        'resizable' => 1,
+        'disabled' => 0,
+        'description' => '',
+        'description_above' => false,
+        'placeholder' => '',
+        'attributes' => 
+        array (
+        ),
+        'private' => 0,
+        'analysis' => false,
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '0',
+      'weight' => '14',
+      'page_num' => 1,
+    ),
+  ),
+  'conditionals' => 
+  array (
+  ),
+);
+

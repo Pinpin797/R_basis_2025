@@ -1,0 +1,125 @@
+# Formations "UNIX ligne de commandes" et "R pour les débutant(e)s" automne 2023
+
+Bonjour (english below)
+
+---
+TL;DR formations hebdomadaire au semestre d'automne "UNIX ligne de commandes" (10 places sur 1 créneau) et "R pour les débutant(e)s" (40 places sur 4 créneaux), liens pour s'inscrire ci-dessous (merci de bien lire les informations ci-dessous)
+
+---
+
+Le CAN (https://www.sfr-biosciences.fr/la-sfr/conseil-analyse-numerique/) va organiser deux formations sur le semestre d'automne qui débuteront débuts octobre : "UNIX ligne de commandes" et "R pour les débutant(e)s".
+
+Ces formations s'étaleront sur une dizaine de semaines, jusqu'en décembre (sauf pendant les vacances de Toussaint et Noël, avec la possibilité de rajouter quelques séances en janvier si besoin) à raison de 1h30 de travaux pratiques par semaine.
+
+Ces formations sont accessibles à tous les membres (permanents et non permanents) des laboratoires suivants : CIRI, IGFL, LBMC, RDP, MMSB, LBTI, IVPC, IBCP (partenaires de la SFR BioSciences).
+
+Prérequis : avoir un compte @ens-lyon.fr (pour accéder aux ordinateurs des salles de TP) ou avoir un ordinateur portable avec accès à internet via eduroam et un navigateur internet récent (aucune installation spécifique nécessaire, les TPs se font via une plateforme spécifique accessible par son navigateur Internet).
+
+Il y aura 1 créneau hebdomadaire (en français ou anglais suivant la demande) pour la formation UNIX (soit 10 places) et 4 créneaux hebdomadaires pour la formation R (soit 40 places au total), dont 1 créneau en anglais.
+
+Si vous êtes intéressé(e), vous pouvez vous inscrire via les liens suivants :
+
+- UNIX ligne de commandes : https://framaforms.org/formation-unix-ligne-de-commande-unix-command-line-training-session-1693397101
+- R pour les débutant(e)s : https://framaforms.org/formation-r-pour-les-debutantes-r-for-beginners-training-session-1693316875
+
+IMPORTANT : En vous inscrivant vous vous engagez à venir sur l'ensemble de la formation (sauf absence ponctuelle en cas d'impératif professionnel ou personnel évidemment).
+
+Planning :
+
+- lundi 13h-14h30 : R pour les débutant(e)s
+- mardi 11h-12h30 : UNIX ligne de commandes
+- mercredi 11h-12h30 : R pour les débutant(e)s
+- jeudi 11h-12h30 : R pour les débutant(e)s (in ENGLISH)
+- vendredi 11h-12h30 : R pour les débutant(e)s
+
+Si vous avez des questions, vous pouvez contacter:
+
+- Ghislain Durif (ghislain.durif@ens-lyon.fr)
+- Laurent Modolo (laurent.modolo@ens-lyon.fr)
+
+(Note : un e-mail différent sera envoyé pour en appeler aux formateurs et formatrices volontaires)
+
+Les objectifs de ces formations sont :
+
+Pour "UNIX ligne de commandes" :
+
+- comprendre le fonctionnement général d'un ordinateur
+- interagir avec un système de type UNIX par une interface en ligne de commande
+- utiliser des ressources distantes en ligne de commande
+- installer et utiliser des programmes en ligne de commandes
+- manipuler des données de types textuelles de manière automatisée
+- avoir des notions d'administration sur ce type de système
+- avoir des notions en virtualisation de système
+
+Pour "R pour les débutant(e)s" :
+
+- apprendre les bases du langages R
+- apprendre à utiliser l’IDE Rstudio
+- importer des tables de données
+- filtrer et trier des tables de données
+- réorganiser des tables de données
+- réaliser des figures
+
+Bien cordialement,
+
+----
+
+Hi,
+
+---
+TL;DR weekly training session during fall semester : "UNIX command line" (10 places on 1 slot) and "R for beginners" (40 places on 4 slots), link to register below (thanks to carefully read the information below)
+---
+
+The CAN (https://www.sfr-biosciences.fr/la-sfr/conseil-analyse-numerique/) will organize two training session during the fall semester (starting in early October): "UNIX command line" and "R for beginners".
+
+These training sessions will take place during around ten weeks, until December (except during Toussaint and Christmas Holidays, with the possibility to add additional slots in January if necessary), with 1h30 of tutorial/practical every week.
+
+These training sessions are available for all (permanent and non-permanent) members of the following labs: CIRI, IGFL, LBMC, RDP, MMSB, LBTI, IVPC, IBCP (SFR BioSciences partners).
+
+Requirement: having an @ens-lyon.fr account (to access computers during the session) or having a laptop with a working eduroam Internet access and a recent web browser (no further installation is required, all practicals will be done via a specific platform available through the web browser).
+
+There will be 1 weekly session (in french or in english depending on the registered persons) pour the UNIX training (10 places) and 4 weekly sessions for the R training (40 places), including 1 session in english.
+
+If you are interested, please register using the following links :
+
+- UNIX command line: https://framaforms.org/formation-unix-ligne-de-commande-1661852334
+- R for beginners: https://framaforms.org/formation-r-pour-les-debutantes-1661853807
+
+IMPORTANT: By registering, you agree to attend the entire course (except for one-time absences in case of professional or personal imperative obviously).
+
+Schedule :
+
+- Monday 13h-14h30 : R pour les débutant(e)s
+- Tuesday 11h-12h30 : UNIX ligne de commandes
+- Wednesday 11h-12h30 : R pour les débutant(e)s
+- Thursday 11h-12h30 : R pour les débutant(e)s (in ENGLISH)
+- Friday 11h-12h30 : R pour les débutant(e)s
+
+If you have any questions, please contact:
+
+- Ghislain Durif (ghislain.durif@ens-lyon.fr)
+- Laurent Modolo (laurent.modolo@ens-lyon.fr)
+
+(Note: a separate e-mail will be send to call for trainers)
+
+The contents of the these training sessions are the following :
+
+For "UNIX command line":
+- understand the general functioning of a computer
+- interact with a UNIX-type system through the command line interface
+- use remote resources through command line
+- install and use software and programs through command line
+- automatically manipulate text data
+- learn basic knowledge of system administration
+- learn basic knowledge of system virtualization
+
+For "R for beginners":
+- learn basic knowledge of R language programming
+- use Rstudio IDE (Integrated Development Environment)
+- import data table/array
+- filter and sort data table
+- reorganize data table
+- generate graphics and plots
+
+Best regards,
+

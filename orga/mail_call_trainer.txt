@@ -1,0 +1,88 @@
+# Appel à formateurs/formatrices pour formations "UNIX ligne de commandes" et "R pour les débutant(e)s" automne 2023
+
+Bonjour (english below)
+
+---
+TL;DR appel à formateurs/formatrices pour des formations hebdomadaire au semestre d'automne "UNIX ligne de commandes" (1 créneau) et "R pour les débutant(e)s" (4 créneaux), liens pour s'inscrire ci-dessous
+
+---
+
+Le CAN (https://www.sfr-biosciences.fr/la-sfr/conseil-analyse-numerique/) va organiser deux formations sur le semestre d'automne qui débuteront débuts octobre : "UNIX ligne de commandes" et "R pour les débutant(e)s".
+
+Ces formations s'étaleront sur une dizaine de semaines, jusqu'en décembre (sauf pendant les vacances de Toussaint et Noël, avec la possibilité de rajouter quelques séances en janvier si besoin) à raison de 1h30 de travaux pratiques par semaine avec 10 personnes par créneau.
+
+Ces formations sont accessibles à tous les membres (permanents et non permanents) des laboratoires suivants : CIRI, IGFL, LBMC, RDP, MMSB, LBTI, IVPC, IBCP (partenaires de la SFR BioSciences).
+
+Afin d'animer ces formations, nous sommes à la recherche de formateurs et formatrices volontaires, idéalement au moins 2 par créneau.
+
+Informations importantes :
+
+- il n'y a pas de préparation, les supports sont prêts
+- c'est 1h30 par semaine, on peut facilement échanger si un jour on n'est pas dispo
+- les personnes formées sont vraiment débutantes donc les questions ne seront pas complexes et toute aide sera la bienvenue, il faut juste être à l'aise avec R ou avec la ligne de commande sur UNIX (e.g. OS Linux), pas besoin d'être un expert ou une experte.
+- et surtout c'est super enrichissant!
+
+Si vous êtes intéressé(e), vous pouvez vous inscrire via les liens suivants :
+
+- UNIX ligne de commandes : https://framaforms.org/appel-a-formatrices-et-formateurs-pour-la-formation-unix-ligne-de-commande-call-for-trainers-for
+- R pour les débutant(e)s : https://framaforms.org/appel-a-formatrices-et-formateurs-pour-la-formation-r-pour-les-debutantes-call-for-trainers-for-r
+
+Planning :
+
+- lundi 13h-14h30 : R pour les débutant(e)s
+- mardi 11h-12h30 : UNIX ligne de commandes
+- mercredi 11h-12h30 : R pour les débutant(e)s
+- jeudi 11h-12h30 : R pour les débutant(e)s (in ENGLISH)
+- vendredi 11h-12h30 : R pour les débutant(e)s
+
+Si vous avez des questions, vous pouvez contacter:
+
+- Ghislain Durif (ghislain.durif@ens-lyon.fr)
+- Laurent Modolo (laurent.modolo@ens-lyon.fr)
+Merci d'avance,
+
+Bien cordialement,
+
+----
+
+Hi,
+
+---
+TL;DR call for trainers for the weekly training session during fall semester : "UNIX command line" (1 slot) and "R for beginners" (4 slots), link to register below
+---
+
+The CAN (https://www.sfr-biosciences.fr/la-sfr/conseil-analyse-numerique/) will organize two training session during the fall semester (starting in early October): "UNIX command line" and "R for beginners".
+
+These training sessions will take place during around ten weeks, until December (except during Toussaint and Christmas Holidays, with the possibility to add additional slots in January if necessary), with 1h30 of tutorial/practical every week and 10 trainees/slot.
+
+These training sessions are available for all (permanent and non-permanent) members of the following labs: CIRI, IGFL, LBMC, RDP, MMSB, LBTI, IVPC, IBCP (SFR BioSciences partners).
+
+We are looking for volunteers to be trainers, ideally 2 per slot.
+
+Important information :
+
+- no preparation required, training materials are ready
+- it is only 1h30 per week (or more if you want to teach multiple sessions), it is possible to switch spots with other trainers if you are not available one time
+- trainees will be beginners, so questions will not be too complex and any help is welcomed, you just need to be a regular UNIX command line user (e.g. Linux OS) or R user, no need to be an expert
+- and also it is highly rewarding!
+
+If you are interested, please register using the following links :
+
+- UNIX command line: https://framaforms.org/appel-a-formatrices-et-formateurs-pour-la-formation-unix-ligne-de-commande-call-for-trainers-for
+- R for beginners: https://framaforms.org/appel-a-formatrices-et-formateurs-pour-la-formation-r-pour-les-debutantes-call-for-trainers-for-r
+
+Schedule :
+
+- Monday 13h-14h30 : R pour les débutant(e)s
+- Tuesday 11h-12h30 : UNIX ligne de commandes
+- Wednesday 11h-12h30 : R pour les débutant(e)s
+- Thursday 11h-12h30 : R pour les débutant(e)s (in ENGLISH)
+- Friday 11h-12h30 : R pour les débutant(e)s
+
+If you have any questions, please contact:
+
+- Ghislain Durif (ghislain.durif@ens-lyon.fr)
+- Laurent Modolo (laurent.modolo@ens-lyon.fr)
+Thanks in advance,
+
+Best regards,
