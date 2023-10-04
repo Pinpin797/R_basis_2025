@@ -5,6 +5,12 @@
 - Faire l'appel à chaque séance.
 - On a une douzaine de séance pour couvrir les 8 chapitres, pas de précipitation.
 
+## Liens utiles
+
+- Calendrier partagé indiquant les horaires et salles (au format iCal) à importer dans votre application agenda préférée : https://webmail-preprod.ens-lyon.fr//public/feed/?_cal=Z2R1cmlmOjUzOWQ2OGE4NGVjOTVlOGVkNmJlZmE1NzljZWY5YzM2.ics&_key=NTM5ZDY4YTg0ZWM5NWU4ZWQ2YmVmYTU3OWNlZjljMzZfY2FsaGFzaGtleV82NGY2ZTdmNDA1OTJj
+
+⚠ Les horaires du lundi et la salle du jeudi peuvent être amené à changer.
+
 ## Supports
 
 Les supports de formation sont disponibles ici : https://can.gitbiopages.ens-lyon.fr/R_basis/ (sources : https://gitbio.ens-lyon.fr/can/R_basis)
