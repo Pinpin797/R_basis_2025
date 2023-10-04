@@ -11,7 +11,11 @@ Les supports de formation sont disponibles ici : https://can.gitbiopages.ens-lyo
 
 ## Ressources
 
-Nous utiliserons les ressources du [Cloud IFB](https://biosphere.france-bioinformatique.fr/).
+Nous utiliserons les ressources du [Cloud IFB](https://biosphere.france-bioinformatique.fr/):
+
+- il est accessible via vos identifiants institutionnels (e.g. `@ens-lyon.fr`, etc.)
+- ⚠ il faut se connecter une première fois pour demander l'activation de votre compte
+
 
 ### Avant la formation
 
