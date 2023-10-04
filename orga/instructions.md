@@ -35,7 +35,7 @@ Onglet "RAINBio" → "App Store" → "Rstudio Server" → cliquer sur la clé "C
   + Lien *"https"*: ouvre une session Rstudio dans le navigateur (**il faut accepter l'exception de sécurité**)
   + Lien *"params"*: pour récupérer le *login* et *mot de passe*
 
-3. Récupérer le fichier `r_user_list_<day_number>_<day>.csv` correspondant à votre session : https://nextcloud.ens-lyon.fr/index.php/s/Q3sgnatSXDW2JDe
+3. Récupérer le fichier `r_user_list_<day_number>_<day>.csv` correspondant à votre session via le lien qui vous a été fourni sur le serveur nextcloud de l'ENS.
 
 4. Uploader le fichier `r_user_list_<day_number>_<day>.csv` sur la VM (via l'interface graphique de Rstudio, bouton "upload" dans le panel "Files" en bas à droite)
 
