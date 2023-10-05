@@ -14,13 +14,13 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
 
-# Introduction
+## Introduction
 
 Until now we have worked with data already formated in a *nice way*.
 In the `tidyverse` data formated in a *nice way* are called **tidy**
 The goal of this practical is to understand how to transform an hugly blob of information into a **tidy** data set.
 
-## Tidydata
+### Tidydata
 
 There are three interrelated rules which make a dataset tidy:
 
@@ -63,9 +63,9 @@ The data is a subset of the data contained in the World Health Organization Glob
 </p>
 </details>
 
-# Pivoting data
+## Pivoting data
 
-## pivot longer
+### pivot longer
 
 ```{r, echo=FALSE, out.width='100%'}
 knitr::include_graphics('img/pivot_longer.png')
@@ -100,7 +100,7 @@ long_example <- wide_example %>%
   pivot_longer(-X1, names_to = "V1", values_to = "V2")
 ```
 
-### Exercice
+#### Exercice
 
 <div class="pencadre">
 Visualize the `table4a` dataset (you can use the `View()` function).
@@ -137,7 +137,7 @@ table4a %>%
 </p>
 </details>
 
-## pivot wider 
+### pivot wider 
 
 ```{r, echo=FALSE, out.width='100%'}
 knitr::include_graphics('img/pivot_wider.png')
@@ -153,7 +153,7 @@ long_example %>% pivot_wider(names_from = V1,
 ```
 
 
-### Exercice
+#### Exercice
 
 <div class="pencadre">
 Visualize the `table2` dataset
@@ -174,9 +174,9 @@ table2 %>%
 </p>
 </details>
 
-# Merging data
+## Merging data
 
-## Relational data
+### Relational data
 
 To avoid having a huge table and to save space, information is often splited between different tables.
 
@@ -192,7 +192,7 @@ flights2 <- flights %>%
   select(year:day, hour, origin, dest, tailnum, carrier)
 ```
 
-## Relational schema
+### Relational schema
 
 The relationships between tables can be seen in a relational graph. The variables used to connect each pair of tables are called keys. A key is a variable (or set of variables) that uniquely identifies an observation.
 
@@ -200,7 +200,7 @@ The relationships between tables can be seen in a relational graph. The variable
 knitr::include_graphics('img/relational-nycflights.png')
 ```
 
-## Joints
+### Joints
 
 If you have to combine data from 2 tables in a a new table, you will use `joints`.
 
@@ -216,7 +216,7 @@ Small concrete examples:
 knitr::include_graphics('img/overview_joins.png')
 ```
 
-### `inner_joint()`
+#### `inner_joint()`
 
 keeps observations in `x` AND `y`
 
@@ -225,7 +225,7 @@ flights2 %>%
   inner_join(airlines)
 ```
 
-### `left_joint()`
+#### `left_joint()`
 
 keeps all observations in `x`
 
@@ -234,7 +234,7 @@ flights2 %>%
   left_join(airlines)
 ```
 
-### `right_joint()`
+#### `right_joint()`
 
 keeps all observations in `y`
 
@@ -243,7 +243,7 @@ flights2 %>%
   right_join(airlines)
 ```
 
-### `full_joint()`
+#### `full_joint()`
 
 keeps all observations in `x` and `y`
 
@@ -252,7 +252,7 @@ flights2 %>%
   full_join(airlines)
 ```
 
-## Defining the key columns
+### Defining the key columns
 
 The default, `by = NULL`, uses all variables that appear in both tables, the so called natural join.
 
@@ -291,7 +291,7 @@ flights2 %>%
   left_join(airports, by = c("origin" = "faa"), suffix = c(".dest",".origin"))
 ```
 
-## Filtering joins
+### Filtering joins
 
 Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables. There are two types:
 
@@ -306,7 +306,7 @@ flights %>%
   semi_join(top_dest)
 ```
 
-## Set operations
+### Set operations
 
 These expect the x and y inputs to have the same variables, and treat the observations like sets:
 
@@ -318,4 +318,4 @@ These expect the x and y inputs to have the same variables, and treat the observ
 knitr::include_graphics('img/overview_set.png')
 ```
 
-## See you in [R.7: String & RegExp](https://can.gitbiopages.ens-lyon.fr/R_basis/session_7/)
+### See you in [R.7: String & RegExp](https://can.gitbiopages.ens-lyon.fr/R_basis/session_7/)

@@ -108,7 +108,7 @@ read_csv("data-raw/vehicles.csv") %>%
   write_csv("mpg.csv")
 ```
 
-# Introduction
+## Introduction
 
 In the last session, we have gone through the basis of R.
 Instead of continuing to learn more about R programming, in this session we are going to jump directly to rendering plots.
@@ -127,7 +127,7 @@ The objectives of this session will be to:
 - Learn the different aesthetics in R plots
 - Compose complex graphics
 
-## Tidyverse
+### Tidyverse
 
 The `tidyverse` package is a collection of R packages designed for data science that include `ggplot2`.
 
@@ -148,7 +148,7 @@ Luckily for you, `tidyverse` is preinstalled on your Rstudio server. So you just
 library("tidyverse")
 ```
  
-## Toy data set `mpg`
+### Toy data set `mpg`
 
 This dataset contains a subset of the fuel economy data that the EPA makes available on [fueleconomy.gov](http://fueleconomy.gov).
 It contains only models which had a new release every year between 1999 and 2008.
@@ -197,13 +197,13 @@ new_mpg
 Here we can see that `new_mpg` is a `tibble` we will come back to `tibble` later.
 
 
-## New script
+### New script
 
 Like in the last session, instead of typing your commands directly in the console, you are going to write them in an R script.
 
 ![](./img/formationR_session2_scriptR.png)
 
-# First plot with `ggplot2`
+## First plot with `ggplot2`
 
 We are going to make the simplest plot possible to study the relationship between two variables: the scatterplot.
 
@@ -272,7 +272,7 @@ Dots with the same coordinates are superposed.
 
 </details>
  
-# Aesthetic mappings
+## Aesthetic mappings
 
 `ggplot2` will automatically assign a unique level of the aesthetic (here a unique color) to each unique value of the variable, a process known as scaling. `ggplot2` will also add a legend that explains which levels correspond to which values.
 
@@ -282,7 +282,7 @@ Try the following aesthetic:
 - `alpha`
 - `shape`
 
-## `color` mapping
+### `color` mapping
 
 ```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
@@ -290,21 +290,21 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +
 ```
 
 
-## `size` mapping
+### `size` mapping
 
 ```{r new_mpg_plot_f, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, size = class)) + 
   geom_point()
 ```
 
-## `alpha` mapping
+### `alpha` mapping
 
 ```{r new_mpg_plot_g, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, alpha = class)) + 
   geom_point()
 ```
 
-## `shape` mapping
+### `shape` mapping
 
 ```{r new_mpg_plot_h, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, shape = class)) + 
@@ -341,7 +341,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 </p>
 </details>
  
-## Mapping a **continuous** variable to a color.
+### Mapping a **continuous** variable to a color.
 
 You can also map continuous variable to a color
 
@@ -363,7 +363,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = displ < 5)) +
 </p>
 </details>
  
-# Facets
+## Facets
 
 You can create multiple plots at once by faceting. For this you can use the command `facet_wrap`.
 This command takes a formula as input.
@@ -394,7 +394,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 </p>
 </details>
 
-# Composition
+## Composition
 
 There are different ways to represent the information :
 
@@ -440,9 +440,9 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(data = filter(mpg, class == "subcompact"))
 ```
 
-# Challenge  !
+## Challenge  !
 
-## First challenge
+### First challenge
 <div class="pencadre">
 Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
 </div>
@@ -470,7 +470,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) +
 
 
 
-## Second challenge
+### Second challenge
 
 <div class="pencadre">
 How being a `Two Seaters` car (*class column*) impact the engine size (*displ column*) versus fuel efficiency relationship (*hwy column*) ?
@@ -538,7 +538,7 @@ plot_color_a_class("Compact Cars")
 </details>
 
 
-## Third challenge
+### Third challenge
 
 <div class="pencadre">
 Recreate the R code necessary to generate the following graph (see "linetype" option of "geom_smooth")
@@ -562,9 +562,9 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = fuel)) +
 </p>
 </details>
 
-## See you in [R.3: Transformations with ggplot2](https://can.gitbiopages.ens-lyon.fr/R_basis/session_3.html)
+### See you in [R.3: Transformations with ggplot2](https://can.gitbiopages.ens-lyon.fr/R_basis/session_3.html)
 
-# To go further: publication ready plots
+## To go further: publication ready plots
 
 Once you have created the graph you need for your publication, you have to save it.
 You can do it with the `ggsave` function.

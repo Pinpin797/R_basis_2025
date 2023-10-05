@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
 
-# Introduction
+## Introduction
 
 The goal of this practical is to practice data transformation with `tidyverse`.
 The objectives of this session will be to:
@@ -47,7 +47,7 @@ library("nycflights13")
   </p>
 </details>
  
-## Data set : nycflights13
+### Data set : nycflights13
 
 `nycflights13::flights` Contains all 336,776 flights that departed from New York City in 2013.
 The data comes from the US Bureau of Transportation Statistics, and is documented in `?flights`
@@ -69,7 +69,7 @@ colnames(flights)
 ```
 
 
-## Data type
+### Data type
 
 In programming languages, all variables are not equal.
 When you display a `tibble` you can see the **type** of a column.
@@ -85,7 +85,7 @@ Here is a list of common variable **types** that you will encounter
 
 You cannot add an **int** to a **chr**, but you can add an **int** to a **dbl** the results will be a **dbl**.
  
-# `filter` rows
+## `filter` rows
 
 Variable **types** are important to keep in mind for comparisons.
 The `filter()` function allows you to subset observations based on their values.
@@ -97,7 +97,7 @@ The good reflex to take when you meet a new function of a package is to look at 
 ```
 
 
-## Use test to filter on a column
+### Use test to filter on a column
 
 You can use the relational operators (`<`,`>`,`==`,`<=`,`>=`,`!=`) to make a test on a column and keep rows for which the results is `TRUE`.
 
@@ -130,7 +130,7 @@ long_flights <- filter(flights, air_time >= 680)
 </details>
 
 
-## Logical operators to filter on several columns
+### Logical operators to filter on several columns
 
 Multiple arguments to `filter()` are combined with **AND**: every expression must be `TRUE` in order for a row to be included in the output.
 
@@ -209,7 +209,7 @@ What happens when you put your variable assignment code between parenthesis `(` 
 ```
 </div>
 
-## Missing values
+### Missing values
 
 One important feature of R that can make comparison tricky is missing values, or `NA`s for **Not Availables**.
 Indeed each of the variable type can contain either a value of this type (i.e., `2` for an **int**) or nothing.
@@ -240,7 +240,7 @@ filter(df, y > 1)
 filter(df, is.na(y) | y > 1)
 ```
 
-## Challenges
+### Challenges
 
 <div class="pencadre">
 Find all flights that:
@@ -285,7 +285,7 @@ NA * 0 # here we have a true computation
 </p>
 </details>
 
-# Arrange rows with `arrange()`
+## Arrange rows with `arrange()`
 
 `arrange()` works similarly to `filter()` except that instead of selecting rows, it changes their order.
 
@@ -301,7 +301,7 @@ arrange(flights, distance, desc(dep_delay))
 ```
 
 
-## Missing values
+### Missing values
 
 Missing values are always sorted at the end:
 
@@ -315,7 +315,7 @@ arrange(df, y)
 arrange(df, desc(y))
 ```
 
-## Challenges
+### Challenges
 <div class="pencadre">
 
 - Find the most delayed flight at arrival (`arr_delay`).
@@ -344,7 +344,7 @@ arrange(df, desc(is.na(y)))
 </details>
 
 
-# Select columns with `select()`
+## Select columns with `select()`
 
 `select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
 
@@ -373,7 +373,7 @@ select(flights, Y = year, M = month, D = day)
 ```
 
 
-## Helper functions
+### Helper functions
 
 here are a number of helper functions you can use within `select()`:
 
@@ -385,7 +385,7 @@ here are a number of helper functions you can use within `select()`:
 
 See `?select` for more details.
 
-## Challenges
+### Challenges
 
 <div class="pencadre">
 <p>
@@ -478,7 +478,7 @@ select(flights, contains("TIME", ignore.case = FALSE))
  
  
  
-# Add new variables with `mutate()`
+## Add new variables with `mutate()`
 
 It’s often useful to add new columns that are functions of existing columns. That’s the job of `mutate()`.
 
@@ -509,7 +509,7 @@ Then let's create an even smaller dataset as toy dataset to test your commands b
 </details>
 
 
-## `mutate()`
+### `mutate()`
 
 
 ```R
@@ -639,7 +639,7 @@ mutate(
 </details>
 
 
-## Useful creation functions
+### Useful creation functions
 
 - Offsets: lead(x) and lag(x) allow you to refer to the previous or next values of the column x. This allows you to compute running differences (e.g. `x - lag(x)`) or find when values change (`x != lag(x)`).
 - R provides functions for running cumulative sums, products, mins and maxes: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`; and dplyr provides `cummean()` for cumulative means. 
@@ -647,10 +647,10 @@ mutate(
 - Ranking: there are a number of ranking functions, the most frequently used being min_rank(). They differ by the way ties are treated, etc. Try ?mutate, ?min_rank, ?rank, for more information.
 
 
-## See you in [R#5: Pipping and grouping](https://can.gitbiopages.ens-lyon.fr/R_basis/session_5.html)
+### See you in [R#5: Pipping and grouping](https://can.gitbiopages.ens-lyon.fr/R_basis/session_5.html)
 
 
-# To go further:  Data transformation and color sets.
+## To go further:  Data transformation and color sets.
 
 There are a number of color palettes available in R, thanks to different packages such as `RColorBrewer`, `Viridis` or `Ghibli`. 
 We will use them here to decorate our graphs, either on data already studied in the training, `mpg`, or on more specialized data such as lists of differentially expressed genes ( [GSE86356](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE86356) )
@@ -667,7 +667,7 @@ library(ghibli)
 library(viridis)
 ```
 
-## RColorBrewer & Ghibli 
+### RColorBrewer & Ghibli 
 
 Using `mpg` and the 'ggplot2' package, reproduce the graph studied in session 2, 3.1: color mapping. 
 Modify the colors representing the class of cars with the palettes `Dark2` of [RColorBrewer](https://www.datanovia.com/en/fr/blog/palette-de-couleurs-rcolorbrewer-de-a-a-z/), then `MononokeMedium` from [Ghibli](https://github.com/ewenme/ghibli). 
@@ -703,7 +703,7 @@ To display only Brewer palettes that are colorblind friendly, specify the option
 display.brewer.all(colorblindFriendly = TRUE)
 ```
 
-## Viridis
+### Viridis
 
 `viridis` package provide a series of color maps that are designed to improve graph readability for readers with common forms of color blindness and/or color vision deficiency. 
 
@@ -788,7 +788,7 @@ DM1_tile_base + scale_fill_viridis_c()
   </p>
 </details>
 
-## Volcano Plot 
+### Volcano Plot 
 
 For this last exercise, we will use the results of the differential gene expression analysis between DM1 vs WT conditions. 
 
