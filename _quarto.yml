@@ -1,0 +1,43 @@
+project:
+  type: book
+
+book:
+  title: "R for beginners"
+  author:
+    - "Laurent Modolo"
+    - "Carine Rey"
+    - "Helene Polveche"
+    - "Ghislain Durif"
+    - "Nicolas Fontrodona"
+    - "Romain Bulteau"
+  date: "2023-10-09"
+  chapters:
+    - index.qmd
+    - session_1/session_1.Rmd
+    - session_2/session_2.Rmd
+    - session_3/session_3.Rmd
+    - session_4/session_4.Rmd
+    - session_5/session_5.Rmd
+    - session_6/session_6.Rmd
+    - session_7/session_7.Rmd
+    - session_8/session_8.Rmd
+  body-footer: "License: FIXME.<br>Made with [Quarto](https://quarto.org/)."
+  navbar:
+    search: true
+    right:
+      - icon: git
+        href: https://gitbio.ens-lyon.fr/can/R_basis
+        text: Sources
+
+# bibliography: references.bib
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+
+execute: 
+  cache: true
+
+  
