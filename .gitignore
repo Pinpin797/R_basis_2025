@@ -21,3 +21,7 @@ forms/*.csv
 forms/2021/
 local/*
 public/*
+
+/.quarto/
+/_book/
+
