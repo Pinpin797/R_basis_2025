@@ -4,7 +4,7 @@ pages:
   script:
     - quarto -v
     - |
-      apt-get update && apt-get install -y libxt6 cargo
+      apt update && apt install -y libxt6 cargo
       #session 1
       Rscript -e "install.packages('rvest')"
       #session 3
