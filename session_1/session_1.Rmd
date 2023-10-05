@@ -1084,4 +1084,4 @@ sessionInfo()
 browseVignettes("ggplot2")
 ```
 
-### See you in [Session 2 : "Introduction to Tidyverse"](https://can.gitbiopages.ens-lyon.fr/R_basis/session_2.html)
+### See you in [R.2: "Introduction to Tidyverse"](/session_2/session_2.html)

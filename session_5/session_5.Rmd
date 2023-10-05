@@ -388,4 +388,4 @@ flights %>%
 </p>
 </details>
 
-### See you in [R.6: tidydata](https://can.gitbiopages.ens-lyon.fr/R_basis/session_6/)
+### See you in [R.6: tidydata](/session_6/session_6.html)

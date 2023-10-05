@@ -333,7 +333,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
 
 By combining the right **geom**, **coordinates** and **faceting** functions, you can build a large number of different plots to present your results.
 
-## See you in [R.4: data transformation](https://can.gitbiopages.ens-lyon.fr/R_basis/session_4.html)
+## See you in [R.4: data transformation](/session_4/session_4.html)
 
 ## To go further:  animated plots from xls files
 

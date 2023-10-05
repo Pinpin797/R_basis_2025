@@ -562,7 +562,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = fuel)) +
 </p>
 </details>
 
-### See you in [R.3: Transformations with ggplot2](https://can.gitbiopages.ens-lyon.fr/R_basis/session_3.html)
+### See you in [R.3: Transformations with ggplot2](/session_3/session_3.html)
 
 ## To go further: publication ready plots
 
