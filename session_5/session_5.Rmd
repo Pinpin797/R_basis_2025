@@ -1,33 +1,20 @@
 ---
-title: "R#5: Pipping and grouping"
+title: "R.5: Pipping and grouping"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2022"
-output:
-  rmdformats::downcute:
-    self_contain: true
-    use_bookdown: true
-    default_style: "light"
-    lightbox: true
-    css: "../www/style_Rmd.css"
 ---
 
 ```{r include=FALSE}
 library(fontawesome)
-``` 
 
-&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
+if("conflicted" %in% .packages())
+    conflicted::conflicts_prefer(dplyr::filter)
+```
 
 ```{r setup, include=FALSE}
 rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
-```
-```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy(
-  position = c('top', 'right'),
-  color = "white",
-  tooltip_message = 'Click to copy',
-  tooltip_success = 'Copied !')
 ```
 
 # Introduction
