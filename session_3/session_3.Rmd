@@ -2,35 +2,19 @@
 title: 'R.3: Transformations with ggplot2'
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "2022"
-output:
-  rmdformats::downcute:
-    self_contain: true
-    use_bookdown: true
-    default_style: "light"
-    lightbox: true
-    css: "../www/style_Rmd.css"
 ---
 
 ```{r include=FALSE}
 library(fontawesome)
 ``` 
 
-&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
-
 ```{r setup, include=FALSE}
 rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
-```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy(
-  position = c('top', 'right'),
-  color = "white",
-  tooltip_message = 'Click to copy',
-  tooltip_success = 'Copied !')
-```
 
-# Introduction
+## Introduction
 
 In the last session, we have seen how to use `ggplot2` and [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl). The goal of this practical is to practices more advanced features of `ggplot2`.
 
@@ -53,7 +37,7 @@ library("tidyverse")
 
 Like in the previous sessions, it's good practice to create a new **.R** file to write your code instead of using the R terminal directly.
  
-# `ggplot2` statistical transformations
+## `ggplot2` statistical transformations
 
 In the previous session, we have plotted the data as they are by using the variable values as **x** or **y** coordinates, color shade, size or transparency.
 When dealing with categorical variables, also called **factors**, it can be interesting to perform some simple statistical transformations.
@@ -73,7 +57,7 @@ We are going to use the `diamonds` data set included in `tidyverse`.
 str(diamonds)
 ```
 
-## Introduction to `geom_bar`
+### Introduction to `geom_bar`
 
 We saw scatterplot (`geom_point()`), smoothplot (`geom_smooth()`).
 Now barplot with `geom_bar()` : 
@@ -88,7 +72,7 @@ More diamonds are available with high quality cuts.
 On the x-axis, the chart displays **cut**, a variable from diamonds. On the y-axis, it displays **count**, **but count is not a variable in diamonds!**
 
 
-## **geom** and **stat**
+### **geom** and **stat**
 
 The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation.
 The figure below describes how this process works with `geom_bar()`.
@@ -104,7 +88,7 @@ ggplot(data = diamonds, mapping = aes(x = cut)) +
 
 Every **geom** has a default **stat**; and every **stat** has a default **geom**. This means that you can typically use **geoms** without worrying about the underlying statistical transformation. There are three reasons you might need to use a **stat** explicitly:
 
-## Why **stat** ?
+### Why **stat** ?
 
 You might want to override the default stat.
 For example, in the following `demo` dataset we already have a variable for the **counts** per `cut`.
@@ -159,7 +143,7 @@ If group is not used, the proportion is calculated with respect to the data that
 </p>
 </details>
 
-## More details with `stat_summary`
+### More details with `stat_summary`
 
 <div class="pencadre">
 You might want to draw greater attention to the statistical transformation in your code. 
@@ -194,7 +178,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
 </p>
 </details>
 
-# Coloring area plots
+## Coloring area plots
 
 <div class="pencadre">
 You can color a bar chart using either the `color` aesthetic, or, more usefully `fill`:
@@ -229,7 +213,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
 </p>
 </details>
 
-# Position adjustments
+## Position adjustments
 
 The stacking of the `fill` parameter is performed by the position adjustment `position`
 
@@ -301,7 +285,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 </p>
 </details>
 
-# Coordinate systems
+## Coordinate systems
 
 Cartesian coordinate system where the x and y positions act independently to determine the location of each point. There are a number of other coordinate systems that are occasionally helpful.
 
@@ -349,9 +333,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
 
 By combining the right **geom**, **coordinates** and **faceting** functions, you can build a large number of different plots to present your results.
 
-# See you in [R.4: data transformation](https://can.gitbiopages.ens-lyon.fr/R_basis/session_4.html)
+## See you in [R.4: data transformation](/session_4/session_4.html)
 
-# To go further:  animated plots from xls files
+## To go further:  animated plots from xls files
 
 In order to be able to read information from a xls file, we will use the `openxlsx` packages. To generate animation we will use the `ggannimate` package. The additional `gifski` package will allow R to save your animation in the gif format (Graphics Interchange Format)
 

@@ -1,11 +1,23 @@
-# This file is a template, and might need editing before it works on your project.
-# Full project: https://gitlab.com/pages/plain-html
-
 pages:
   stage: deploy
-  image: carinerey/r_for_beginners
+  image: rocker/tidyverse
   script:
-    - make
+    - quarto -v
+    - |
+      apt update && apt install -y libxt6 cargo
+      #session 1
+      Rscript -e "install.packages('rvest')"
+      #session 3
+      Rscript -e "install.packages('gganimate')"
+      Rscript -e "install.packages('gifski')"
+      Rscript -e "install.packages('openxlsx')"
+      #session 4
+      Rscript -e "install.packages(c('ghibli', 'nycflights13','viridis','ggrepel'))"
+    - |
+      quarto render
+      mkdir public
+      cp -r _book/* public/
+  interruptible: true
   artifacts:
     paths:
       - public

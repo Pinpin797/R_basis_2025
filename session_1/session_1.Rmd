@@ -2,20 +2,11 @@
 title: 'R.1: Introduction to R and RStudio'
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr);\n Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "2022"
-output:
-  rmdformats::downcute:
-    self_contain: true
-    use_bookdown: true
-    default_style: "light"
-    lightbox: true
-    css: "../www/style_Rmd.css"
 ---
 
 ```{r include=FALSE}
 library(fontawesome)
 ``` 
-
-&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
 
 ```{r setup, include=FALSE , echo=FALSE}
 rm(list=ls())
@@ -23,24 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
 
-```{r klippy_install, echo=FALSE, include=FALSE}
-if (! require("klippy")) {
-  install.packages("remotes")
-  remotes::install_github("rlesur/klippy")
-}
-```
 
-
-```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy(
-  position = c('top', 'right'),
-  color = "white",
-  tooltip_message = 'Click to copy',
-  tooltip_success = 'Copied !')
-```
-
-
-# Introduction
+## Introduction
 
 The goal of this practical is to familiarize yourself with R and the RStudio
 environment.
@@ -59,7 +34,7 @@ The objectives of this session will be to:
 ![](./img/intro_img.png){width=400px}
 </center>
 
-## Acknowledgments
+### Acknowledgments
 
 ![](./img/software_carpentry_logo.svg){width=300px}
 
@@ -69,7 +44,7 @@ The objectives of this session will be to:
 - [moderndive.com](https://moderndive.com)
 - [swcarpentry.github.io](http://swcarpentry.github.io/r-novice-gapminder/)
  
-## Some R background
+### Some R background
 
 ![](./img/Rlogo.png){width=40px}
 is a programming language and free software environment for statistical
@@ -105,7 +80,7 @@ bioconductor_packages <- nrow(biocPackages)
 - **`r bioconductor_packages`** available packages on http://www.bioconductor.org
 - **>500k** available repository using R on https://github.com/
 
-## How do I use R ?
+### How do I use R ?
 
 Unlike other statistical software programs like Excel, SPSS, or Minitab that provide [point-and-click](https://en.wikipedia.org/wiki/Point_and_click) interfaces, R is an [interpreted language](https://en.wikipedia.org/wiki/Interpreted_language).
 
@@ -117,7 +92,7 @@ R is usually used in a terminal in which you can type or paste your R code:
 
 But navigating between your terminal, your code and your plots can be tedious, this is why in `r format(Sys.time(), "%Y")` there is a better way to use R !
 
-## RStudio, the R Integrated development environment (*IDE*)
+### RStudio, the R Integrated development environment (*IDE*)
 
 An IDE application provides **comprehensive facilities** to computer programmers for
 software development. Rstudio is **free** and **open-source**.
@@ -126,11 +101,11 @@ To open RStudio, you can install the [RStudio application](https://www.rstudio.c
 
 Otherwise you can use the link and the login details provided to you by email. The web version of Rstudio is the same as the application expect that you can open it any recent browser.
 
-### Rstudio interface
+#### Rstudio interface
 
 ![](./img/RStudio.png)
 
-### A R console
+#### A R console
 
 The same console as before (in Red box)
 
@@ -138,7 +113,7 @@ The same console as before (in Red box)
 
 
 
-### A code editor
+#### A code editor
 
 We are now going to write our first commands.
 We could do it directly in the R console, with multi-line commands but this process is tedious.
@@ -151,7 +126,7 @@ Beside, you can keep your code history.
 ![](./img/RStudio_editor.png)
 
 
-## How to execute R code in Rstudio ?
+### How to execute R code in Rstudio ?
 
 RStudio offers you great flexibility in running code from within the editor window. There are buttons, menu choices, and keyboard shortcuts. To run the current line, you can
 
@@ -162,7 +137,7 @@ RStudio offers you great flexibility in running code from within the editor wind
 If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
 
 
-# R as a Calculator
+## R as a Calculator
 
 Now that we know what we should do and what to expect, we are going to try some basic R instructions. A computer can perform all the operations that a calculator can do, so let's start with that:
 
@@ -183,7 +158,7 @@ To validate the line at the end of your command: press `Return`.
 </div>
 
 
-## First commands
+### First commands
 
 You should see a `>` character before a blinking cursor. The `>` is called a prompt. The prompt is shown when you can enter a new line of R code. 
 ```{r calculatorstep1, include=T, eval=F}
@@ -216,7 +191,7 @@ It is waiting for the next command. Write just `100` and press `⏎`:
 1 + 100
 ```
 
-## Errors, warnings, and messages
+### Errors, warnings, and messages
 
 The R console is a textual interface, which means that you will enter code, but it also means that R is going to write information back to you and that you will have to pay attention at what is written.
 
@@ -227,7 +202,7 @@ There are 3 categories of messages that R can send you: **Errors** prefaced with
 - **Message** are just friendly messages from R telling you how things are running.
 
 
-## R keeps to the mathematical order
+### R keeps to the mathematical order
 
 The order of operation is the natural mathematical order in R:
 
@@ -250,7 +225,7 @@ But to much parenthesis can be hard to read
 
 **Note :** The text following a `#` is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means. 
 
-## Scientific notation
+### Scientific notation
 
 For small of large numbers, R will automatically switch to scientific notation.
 
@@ -265,7 +240,7 @@ You can use `e` to write your own scientific notation.
 5e3
 ```
 
-## Mathematical functions
+### Mathematical functions
 
 R is distributed with a large number of existing functions.
 To call mathematical function you must with `function_name(<number>)`.
@@ -296,7 +271,7 @@ or
 factorial(9)
 ```
 
-## Comparing things
+### Comparing things
 
 We have seen some examples that R can do all the things that a calculator can do.
 But when we are speaking of programming language, we are thinking of writing [computer programs](https://en.wikipedia.org/wiki/Computer_program).
@@ -348,7 +323,7 @@ computing and graphics (free & opensource) with a large library of external pack
   
 </div>
  
-# Variables and assignment
+## Variables and assignment
 
 In addition to being able to perform a huge number of computations very fast, computers can also store information to memory.
 This is a mandatory function to load your data and store intermediate states in your analysis.
@@ -371,7 +346,7 @@ We can then ask R to display the value of `x`.
 x
 ```
 
-## The environment
+### The environment
 
 You now see the `x` value in the environment box (*in red*).
 
@@ -423,7 +398,7 @@ You can type `is.` and press `tabulation`.
 Rstudio will show you a list of function whose names start with `is.`.
 This is called autocompletion, don't hesitate to spam your `tabulation` key as you write R code.
 
-## Variables names
+### Variables names
 
 Variable names can contain **letters**, **numbers**, **underscores** and **periods**.
 
@@ -464,7 +439,7 @@ celsius2kelvin
 </p>
 </details>
 
-## Functions are also variables
+### Functions are also variables
 
 ```{r VandAstep7, include=TRUE}
 logarithm <- log
@@ -512,7 +487,7 @@ Test that your `logarithm` function can work in base 10
 </details>
 
 
-## Writing function
+### Writing function
 
 We can  define our own function with :
 
@@ -570,13 +545,13 @@ minus <- function(a, b){
   return(result_1)
 }
 
-#R1:
+##R1:
 R1 <- minus(4,2)
 
-#R2
+##R2
 R2 <- minus(2,4)
 
-#R3
+##R3
 a <- 2
 b <- 10
 R3  <-  minus(b,a)
@@ -628,16 +603,16 @@ minus <- function(a, b){
   return(result_1)
 }
 
-#R1:
+##R1:
 R1 <- minus(a=6,b=3)
 
-#R2
+##R2
 R2 <- minus(b=3,a=6)
 
-#R3
+##R3
 R3 <- a
 
-#R4
+##R4
 R4  <- minus(b=b,a=a)
 ```
 </div>
@@ -729,7 +704,7 @@ print_hw()
 </details>
 
 
-## Some exercices
+### Some exercices
 
 <div class="pencadre">
 1. Try a function (`rect_area`) to calculate the area of a rectangle of length "L" and width "W"
@@ -817,7 +792,7 @@ even_print(3)
 </details>
 
 
-## Cleaning up
+### Cleaning up
 
 We can now clean your environment
 
@@ -867,12 +842,12 @@ ls()
   
 </div>
 
-# Complex variable type 
+## Complex variable type 
 
 You can only go so far with the variables we have already seen.
 In R there are also **complex variable type**, which can be seen as combination of simple variable type.
 
-## Vector (aka list)
+### Vector (aka list)
 
 Vectors are simple list of variable of the same type
 
@@ -931,7 +906,7 @@ y
 x == y
 ```
 
-## Accessing values
+### Accessing values
 
 There are multiple ways to access or replace values in vectors or other data structures. The most common approach is to use "indexing". 
 In the below, note that brackets `[ ]` are used for indexing, whereas you have already seen that parentheses `( )` are used to call a function and `{ }` to define function. It is very important not to mix these up.
@@ -987,7 +962,7 @@ x
 
 We will see other complex variables type during this formation.
 
-# Packages
+## Packages
 
 R base is like a new smartphone, you can do loots of things with it but you can also install new apps to a huge range of other things.
 In R those apps are called **packages**.
@@ -1000,9 +975,9 @@ There are different sources to get packages from:
 
 To install packages from [Bioconducor](http://www.bioconductor.org) and [github](https://github.com/) you will need to install specific packages from the [CRAN](https://cran.r-project.org/).
 
-## Installing packages
+### Installing packages
 
-### From CRAN
+#### From CRAN
 
 To install packages, you can use the `install.packages` function (don't forget to use tabulation for long variable names).
 
@@ -1025,7 +1000,7 @@ install.packages("ggplot2")
 </p>
 </details>
 
-### From Bioconducor
+#### From Bioconducor
 
 To install packages from [bioconductor](http://www.bioconductor.org) you must first install a package called "BiocManager".
 This package imports a function called "install" allowing you to install packages hosted in bioconductor from their name.
@@ -1042,7 +1017,7 @@ Then to install, for example "tximport", you just have to write:
 BiocManager::install("tximport")
 ```
 
-### From github
+#### From github
 
 If you need to install a package that is not available on the CRAN but on a github repository, you can do it using the "remotes" package. Indeed this package imports functions that will allow you to install a package available on [github](https://github.com/) or bitbucket or gitlab directly on your computer.
 
@@ -1068,7 +1043,7 @@ remotes::install_github("thomasp85/gganimate@v1.0.7")
 
 You can find more information in the documentation of remotes : [https://remotes.r-lib.org](https://remotes.r-lib.org)
 
-## Loading packages
+### Loading packages
 
 Once a package is installed, you need to load it in your R session to be able to use it.
 The command `sessionInfo` display your session information.
@@ -1091,7 +1066,7 @@ sessionInfo()
 </p>
 </details>
 
-## Unloading packages
+### Unloading packages
 
 Sometime, you may want to unload package from your session instead of relaunching R.
 
@@ -1103,10 +1078,10 @@ unloadNamespace("ggplot2")
 sessionInfo()
 ```
 
-## Help on packages (when existing)
+### Help on packages (when existing)
 
 ```R
 browseVignettes("ggplot2")
 ```
 
-## See you in [Session 2 : "Introduction to Tidyverse"](https://can.gitbiopages.ens-lyon.fr/R_basis/session_2.html)
+### See you in [R.2: "Introduction to Tidyverse"](/session_2/session_2.html)

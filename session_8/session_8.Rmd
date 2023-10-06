@@ -2,36 +2,22 @@
 title: "R.8: Factors"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2022"
-output:
-  rmdformats::downcute:
-    self_contain: true
-    use_bookdown: true
-    default_style: "light"
-    lightbox: true
-    css: "../www/style_Rmd.css"
 ---
 
 ```{r include=FALSE}
 library(fontawesome)
-``` 
 
-&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
-
+if("conflicted" %in% .packages())
+    conflicted::conflicts_prefer(dplyr::filter)
+```
 
 ```{r setup, include=FALSE}
 rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
-```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy(
-  position = c('top', 'right'),
-  color = "white",
-  tooltip_message = 'Click to copy',
-  tooltip_success = 'Copied !')
-```
 
-# Introduction
+## Introduction
 
 In this session, you will learn more about the factor type in R.
 Factors can be very useful, but you have to be mindful of the implicit conversions from simple vector to factor !
@@ -49,7 +35,7 @@ library(tidyverse)
 </p>
 </details>
 
-# Creating factors
+## Creating factors
 
 Imagine that you have a variable that records month:
 
@@ -98,7 +84,7 @@ f2
 levels(f2)
 ```
 
-# General Social Survey
+## General Social Survey
 
 ```{r race_count, eval=T, cache=T}
 gss_cat %>%
@@ -113,7 +99,7 @@ ggplot(gss_cat, aes(x = race)) +
   scale_x_discrete(drop = FALSE)
 ```
 
-# Modifying factor order
+## Modifying factor order
 
 It’s often useful to change the order of the factor levels in a visualisation.
 
@@ -148,7 +134,7 @@ relig_summary %>%
     geom_point()
 ```
 
-# `fct_reorder2()`
+## `fct_reorder2()`
 
 Another type of reordering is useful when you are colouring the lines on a plot. `fct_reorder2()` reorders the factor by the `y` values associated with the largest `x` values. This makes the plot easier to read because the line colours line up with the legend.
 
@@ -171,7 +157,7 @@ ggplot(by_age, aes(x = age, y = prop, colour = fct_reorder2(marital, age, prop))
   labs(colour = "marital")
 ```
 
-# Materials
+## Materials
 
 There are lots of material online for R and more particularly on `tidyverse` and `Rstudio`
 

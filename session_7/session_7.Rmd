@@ -2,36 +2,22 @@
 title: "R.7: String & RegExp"
 author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2022"
-output:
-  rmdformats::downcute:
-    self_contain: true
-    use_bookdown: true
-    default_style: "light"
-    lightbox: true
-    css: "../www/style_Rmd.css"
 ---
 
 ```{r include=FALSE}
 library(fontawesome)
-``` 
 
-&ensp;`r fa(name = "fas fa-house", fill = "grey", height = "1em")` &ensp;https://can.gitbiopages.ens-lyon.fr/R_basis/
-
+if("conflicted" %in% .packages())
+    conflicted::conflicts_prefer(dplyr::filter)
+```
 
 ```{r setup, include=FALSE}
 rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
-```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy(
-  position = c('top', 'right'),
-  color = "white",
-  tooltip_message = 'Click to copy',
-  tooltip_success = 'Copied !')
-```
 
-# Introduction
+## Introduction
 
 In the previous session, we have often overlooked a particular type of data, the **string**.
 In R a sequence of characters is stored as a string.
@@ -50,9 +36,9 @@ library(tidyverse)
 </p>
 </details>
 
-# String basics
+## String basics
 
-## String definition
+### String definition
 
 A string can be defined within double `"` or simple `'` quote
 
@@ -82,7 +68,7 @@ single_quote <- '\'' # or "'"
 If you want to include a literal backslash, you’ll need to double it up: `"\\"`.
  
  
-## String representation
+### String representation
 
 The printed representation of a string is not the same as string itself
 
@@ -97,7 +83,7 @@ writeLines(x)
 Some characters have a special representation, they are called **special characters**.
 The most common are `"\n"`, newline, and `"\t"`, tabulation, but you can see the complete list by requesting help on `"`: `?'"'`
 
-## String operation
+### String operation
 
 You can perform basic operation on strings like
 
@@ -134,7 +120,7 @@ str_to_lower(x)
 str_sort(x)
 ```
 
-# Matching patterns with regular expressions
+## Matching patterns with regular expressions
 
 Regexps are a very terse language that allows you to describe patterns in strings.
 
@@ -196,13 +182,13 @@ writeLines(x)
 str_view(x, "\\\\")
 ```
 
-## Exercises
+### Exercises
 
 - Explain why each of these strings doesn’t match a \: "`\`", "`\\`", "`\\\`".
 - How would you match the sequence `"'\`?
 - What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
 
-## Anchors
+### Anchors
 
 Until now we searched for patterns anywhere in the target string. But we can use anchors to be more precise.
 
@@ -223,7 +209,7 @@ x <- c("apple pie", "apple", "apple cake")
 str_view(x, "^apple$")
 ```
 
-## Exercices
+### Exercices
 
 - How would you match the literal string `"$^$"`?
 - Given the corpus of common words in stringr::words, create regular expressions that find all words that:
@@ -234,7 +220,7 @@ str_view(x, "^apple$")
 
 Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
 
-## Character classes and alternatives
+### Character classes and alternatives
 
 In regular expression we have special character and patterns that match groups of characters.
 
@@ -255,7 +241,7 @@ You can use alternations to pick between one or more alternative patterns. For e
 str_view(c("grey", "gray"), "gr(e|a)y")
 ```
 
-## Exercices
+### Exercices
 
 Create regular expressions to find all words that:
 
@@ -264,7 +250,7 @@ Create regular expressions to find all words that:
 - End with ed, but not with eed.
 - End with ing or ise.
 
-## Repetition
+### Repetition
 
 Now that you know how to search for groups of characters you can define the number of times you want to see them.
 
@@ -292,7 +278,7 @@ str_view(x, "C{2,}")
 str_view(x, "C{2,3}")
 ```
 
-## Exercices
+### Exercices
 
 - Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
   - `^.*$`
@@ -305,7 +291,7 @@ str_view(x, "C{2,3}")
   - Have two or more vowel-consonant pairs in a row.
 
 
-## Grouping
+### Grouping
 
 You learned about parentheses as a way to disambiguate complex expressions. Parentheses also create a numbered capturing group (number 1, 2 etc.). A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses. You can refer to the same text as previously matched by a capturing group with back references, like `\1`, `\2` etc. 
 
@@ -313,7 +299,7 @@ You learned about parentheses as a way to disambiguate complex expressions. Pare
 str_view(fruit, "(..)\\1", match = TRUE)
 ```
 
-## Exercices
+### Exercices
 
 - Describe, in words, what these expressions will match:
   - `"(.)\1\1"`
@@ -326,7 +312,7 @@ str_view(fruit, "(..)\\1", match = TRUE)
   - Contain a repeated pair of letters (e.g. `“church”` contains `“ch”` repeated twice.)
   - Contain one letter repeated in at least three places (e.g. `“eleven”` contains three `“e”`s.)
 
-## Detect matches
+### Detect matches
 
 ```{r str_view_match, eval=T, cache=T}
 x <- c("apple", "banana", "pear")
@@ -345,7 +331,7 @@ What proportion of common words ends with a vowel?
 mean(str_detect(words, "[aeiou]$"))
 ```
 
-## Combining detection
+### Combining detection
 
 Find all words containing at least one vowel, and negate
 
@@ -360,7 +346,7 @@ no_vowels_2 <- str_detect(words, "^[^aeiou]+$")
 identical(no_vowels_1, no_vowels_2)
 ```
 
-## With tibble
+### With tibble
 
 ```{r str_detecttibble, eval=T, cache=T}
 df <- tibble(
@@ -371,7 +357,7 @@ df %>%
   filter(str_detect(word, "x$"))
 ```
 
-## Extract matches
+### Extract matches
 
 ```{r str_sentences, eval=T, cache=T}
 head(sentences)
@@ -385,7 +371,7 @@ colour_match <- str_c(colours, collapse = "|")
 colour_match
 ```
 
-## Extract matches
+### Extract matches
 
 We can select the sentences that contain a colour, and then extract the colour to figure out which one it is:
 
@@ -395,7 +381,7 @@ matches <- str_extract(has_colour, colour_match)
 head(matches)
 ```
 
-## Grouped matches
+### Grouped matches
 
 Imagine we want to extract nouns from the sentences. As a heuristic, we’ll look for any word that comes after “a” or “the”.
 
@@ -415,11 +401,11 @@ has_noun %>%
   str_match(noun)
 ```
 
-## Exercises
+### Exercises
 
 - Find all words that come after a `number` like `one`, `two`, `three` etc. Pull out both the number and the word.
 
-## Replacing matches
+### Replacing matches
 
 Instead of replacing with a fixed string, you can use back references to insert components of the match. In the following code, I flip the order of the second and third words.
 
@@ -429,13 +415,13 @@ sentences %>%
   head(5)
 ```
 
-## Exercices
+### Exercices
 
 - Replace all forward slashes in a string with backslashes.
 - Implement a simple version of `str_to_lower()` using `replace_all()`.
 - Switch the first and last letters in words. Which of those strings are still words?
 
-## Splitting
+### Splitting
 
 ```{r splitting, eval=T, cache=T}
 sentences %>%
@@ -443,4 +429,4 @@ sentences %>%
   str_split("\\s")
 ```
 
-## See you in [R.8: Factors](https://can.gitbiopages.ens-lyon.fr/R_basis/session_8/)
+### See you in [R.8: Factors](/session_8/session_8.html)
