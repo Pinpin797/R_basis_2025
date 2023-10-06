@@ -6,7 +6,7 @@ date: "2022"
 
 ```{r include=FALSE}
 library(fontawesome)
-``` 
+```
 
 ```{r setup, include=FALSE , echo=FALSE}
 rm(list=ls())
@@ -43,7 +43,7 @@ The objectives of this session will be to:
 - [software-carpentry.org](https://software-carpentry.org/)
 - [moderndive.com](https://moderndive.com)
 - [swcarpentry.github.io](http://swcarpentry.github.io/r-novice-gapminder/)
- 
+
 ### Some R background
 
 ![](./img/Rlogo.png){width=40px}
@@ -61,7 +61,7 @@ Reasons to use it:
 - It's open source, which means that we have access to every bit of underlying computer code to prove that our results are correct (which is always a good point in science).
 - It’s free, well documented, and runs almost everywhere
 - It has a large (and growing) user base among scientists
-- It has a large library of external packages available for performing diverse tasks. 
+- It has a large library of external packages available for performing diverse tasks.
 
 ```{r echo=F, message=F}
 cran_packages <- nrow(available.packages(repos = "http://cran.us.r-project.org"))
@@ -132,7 +132,7 @@ RStudio offers you great flexibility in running code from within the editor wind
 
 - click on the `Run button` above the editor panel, or
 - select `Run Selected Lines` from the `Code` menu, or
-- hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run. 
+- hit `Ctrl`+`Return` in Windows or Linux or `Cmd`+`Return` on OS X. To run a block of code, select it and then Run.
 
 If you have modified a line of code within a block of code you have just run, there is no need to reselect the section and Run, you can use the next button along, Rerun the previous region. This will run the previous code block including the modifications you have made.
 
@@ -160,7 +160,7 @@ To validate the line at the end of your command: press `Return`.
 
 ### First commands
 
-You should see a `>` character before a blinking cursor. The `>` is called a prompt. The prompt is shown when you can enter a new line of R code. 
+You should see a `>` character before a blinking cursor. The `>` is called a prompt. The prompt is shown when you can enter a new line of R code.
 ```{r calculatorstep1, include=T, eval=F}
 1 + 100
 ```
@@ -178,7 +178,7 @@ Do the same things but press `⏎` (return) after typing `+`.
 1 +
 ```
 
-The console displays `+`.  
+The console displays `+`.
 The `>` can become a `+` in case of multi-lines code.
 As there are two sides to the `+` operator, R know that you still need to enter the right side of your formula.
 It is waiting for the next command. Write just `100` and press `⏎`:
@@ -223,7 +223,7 @@ But to much parenthesis can be hard to read
 3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
 ```
 
-**Note :** The text following a `#` is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means. 
+**Note :** The text following a `#` is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means.
 
 ### Scientific notation
 
@@ -314,15 +314,15 @@ You can use the `↑` (upper arrow) key to edit the last command and go through 
 
 <div class="pencadre">
   **Summary so far**
-  
+
   - R is a programming language and free software environment for statistical
 computing and graphics (free & opensource) with a large library of external packages available for performing diverse tasks.
   - RStudio is an IDE application that provides comprehensive facilities to computer programmers for software development.
   - R can be used as a calculator
   - R can perform comparisons
-  
+
 </div>
- 
+
 ## Variables and assignment
 
 In addition to being able to perform a huge number of computations very fast, computers can also store information to memory.
@@ -385,7 +385,7 @@ You cannot mix different types of variable together:
 ```R
 x + z
 ```
- 
+
 How to test the type of the variable?
 ```{r VandAstep20, include=TRUE}
 is.character(z)
@@ -514,7 +514,7 @@ In the function body argument are independant of the global environment.
 function_name <- function(a, b){
   result_1 <- operation1(a, b)
   result_2 <- operation2(result_1, b)
-  
+
 }
 ```
 
@@ -541,7 +541,7 @@ Predict the result of R1, R2 and R3.
 
 ```R
 minus <- function(a, b){
-  result_1 <- a - b 
+  result_1 <- a - b
   return(result_1)
 }
 
@@ -557,12 +557,12 @@ b <- 10
 R3  <-  minus(b,a)
 ```
 </div>
- 
+
 <details><summary>Solution 1</summary>
 <p>
 ```{r minus1, include=TRUE}
 minus <- function(a, b){
-  result_1 <- a - b 
+  result_1 <- a - b
   return(result_1)
 }
 minus(4,2)
@@ -583,8 +583,8 @@ minus(2,4)
 <details><summary>Solution 3</summary>
 <p>
 ```{r minus3, include=TRUE}
-a <- 10
-b <- 2
+a <- 2
+b <- 10
 minus(b,a)
 ```
 </p>
@@ -599,7 +599,7 @@ a <- 10
 b <- 2
 
 minus <- function(a, b){
-  result_1 <- a - b 
+  result_1 <- a - b
   return(result_1)
 }
 
@@ -616,14 +616,14 @@ R3 <- a
 R4  <- minus(b=b,a=a)
 ```
 </div>
- 
+
 <details><summary>Solution 1</summary>
 <p>
 ```{r minus21, include=TRUE}
 a <- 10
 b <- 2
 minus <- function(a, b){
-  result_1 <- a - b 
+  result_1 <- a - b
   return(result_1)
 }
 R1 <- minus(a=6,b=3)
@@ -666,7 +666,7 @@ R4
 
 ```{r minus10, include=TRUE}
 minus_10 <- function(a, b=10){
-  result_1 <- a - b 
+  result_1 <- a - b
   return(result_1)
 }
 minus_10(40)
@@ -686,7 +686,7 @@ print_hw <- function(){
 What is the difference between `print_hw` and `print_hw()` ?
 
 </div>
- 
+
 <details><summary>Solution</summary>
 <p>
 `print_hw` is considered as an environment variable, and R return the definition of `print_hw`.
@@ -720,7 +720,7 @@ of the modulo is equal to `0`.
 3. Using your `even_test` function, write a new function `even_print` which will print "This number is even" or "This number is odd". You will need the `if else` statement and the function `print`. Find help on how to use them.
 
 </div>
- 
+
 <details><summary>Solution 1 </summary>
 <p>
 
@@ -833,16 +833,16 @@ ls()
 
 <div class='pencadre'>
   **Summary so far:**
-  
+
   - Assigning a variable is done with ` <- `.
   - The assigned variables are listed in the environment box.
   - Variable names can contain letters, numbers, underscores and periods.
   - Functions are also variable and can write in several forms
   - An editing box is available on Rstudio.
-  
+
 </div>
 
-## Complex variable type 
+## Complex variable type
 
 You can only go so far with the variables we have already seen.
 In R there are also **complex variable type**, which can be seen as combination of simple variable type.
@@ -908,7 +908,7 @@ x == y
 
 ### Accessing values
 
-There are multiple ways to access or replace values in vectors or other data structures. The most common approach is to use "indexing". 
+There are multiple ways to access or replace values in vectors or other data structures. The most common approach is to use "indexing".
 In the below, note that brackets `[ ]` are used for indexing, whereas you have already seen that parentheses `( )` are used to call a function and `{ }` to define function. It is very important not to mix these up.
 
 
@@ -953,11 +953,11 @@ x
 
 <div class="pencadre">
   **Summary so far**
-  
+
   - A variable can be of different types : `numeric`, `character`, `vector`, `function`, etc.
   - Calculations and comparisons apply to vectors.
   - Do not hesitate to use the help box to understand functions!
-  
+
 </div>
 
 We will see other complex variables type during this formation.
