@@ -45,6 +45,12 @@ Onglet "RAINBio" → "App Store" → "Rstudio Server" → cliquer sur la clé "C
 
 4. Uploader le fichier `r_user_list_<day_number>_<day>.csv` sur la VM (via l'interface graphique de Rstudio, bouton "upload" dans le panel "Files" en bas à droite)
 
+5. Télécharger le script de création de comptes sur la VM:
+
+```bash
+wget https://gitbio.ens-lyon.fr/can/R_basis/-/raw/main/src/create_users_from_user_list_csv.sh
+```
+
 4. Créer des comptes ad hoc pour les stagiaires sur la VM:
 ```bash
 sudo bash create_users_from_user_list_csv.sh r_user_list_<day_number>_<day>.csv
