@@ -3,12 +3,14 @@
 set -euo pipefail +o nounset
 
 
-TAG="v2022"
+TAG="v2023"
 
 IMAGE_NAME="r_for_beginners"
 DOCKERFILE_DIR="."
 
 REPO=carinerey/$IMAGE_NAME
+
+docker pull rocker/tidyverse
 
 echo "## Build docker: $REPO:$TAG ##"
 docker build -t $REPO:$TAG $DOCKERFILE_DIR
