@@ -429,4 +429,4 @@ sentences %>%
   str_split("\\s")
 ```
 
-## See you in [R.8: Factors](/session_8/session_8.html) {.unnumbered}
+## See you in [R.8: Factors](/session_8/session_8.html) {.unnumbered .unlisted}

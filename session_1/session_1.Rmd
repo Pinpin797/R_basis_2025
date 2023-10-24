@@ -1084,4 +1084,4 @@ sessionInfo()
 browseVignettes("ggplot2")
 ```
 
-## See you in [R.2: "Introduction to Tidyverse"](/session_2/session_2.html) {.unnumbered}
+## See you in [R.2: "Introduction to Tidyverse"](/session_2/session_2.html) {.unnumbered .unlisted}

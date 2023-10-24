@@ -388,4 +388,4 @@ flights %>%
 </p>
 </details>
 
-## See you in [R.6: tidydata](/session_6/session_6.html) {.unnumbered}
+## See you in [R.6: tidydata](/session_6/session_6.html) {.unnumbered .unlisted}
