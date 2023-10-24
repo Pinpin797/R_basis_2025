@@ -318,4 +318,4 @@ These expect the x and y inputs to have the same variables, and treat the observ
 knitr::include_graphics('img/overview_set.png')
 ```
 
-### See you in [R.7: String & RegExp](/session_7/session_7.html)
+## See you in [R.7: String & RegExp](/session_7/session_7.html) {.unnumbered}

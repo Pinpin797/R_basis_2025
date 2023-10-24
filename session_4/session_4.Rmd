@@ -647,7 +647,7 @@ mutate(
 - Ranking: there are a number of ranking functions, the most frequently used being min_rank(). They differ by the way ties are treated, etc. Try ?mutate, ?min_rank, ?rank, for more information.
 
 
-### See you in [R#5: Pipping and grouping](https://can.gitbiopages.ens-lyon.fr/R_basis/session_5.html)
+## See you in [R.5: Pipping and grouping](/session_5/session_5.html) {.unnumbered}
 
 
 ## To go further:  Data transformation and color sets.
