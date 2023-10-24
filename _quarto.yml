@@ -1,5 +1,11 @@
 project:
   type: book
+  resources:
+    - "session_2/mpg.csv"
+    - "session_3/gapminder.xlsx"
+    - "session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv"
+    - "session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv"
+  output-dir: public
 
 book:
   title: "R for beginners"

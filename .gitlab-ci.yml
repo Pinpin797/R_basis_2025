@@ -13,10 +13,7 @@ pages:
       Rscript -e "install.packages('openxlsx')"
       #session 4
       Rscript -e "install.packages(c('ghibli', 'nycflights13','viridis','ggrepel'))"
-    - |
-      quarto render
-      mkdir public
-      cp -r _book/* public/
+    - quarto render
   interruptible: true
   artifacts:
     paths:
