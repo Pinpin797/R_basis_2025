@@ -17,7 +17,7 @@ pages:
     - quarto render
     - |
       # manage mpg.csv file by hand because it is strangely missing
-      cp session_2/mpg.csv/mpg.csv public/session_2/mpg.csv
+      cp session_2/mpg.csv public/session_2/mpg.csv
   interruptible: true
   artifacts:
     paths:
