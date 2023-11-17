@@ -14,6 +14,9 @@ pages:
       #session 4
       Rscript -e "install.packages(c('ghibli', 'nycflights13','viridis','ggrepel'))"
     - quarto render
+    - |
+      # manage mpg.csv file by hand because it is strangely missing
+      cp session2/mpg.csv public/session2/mpg.csv
   interruptible: true
   artifacts:
     paths:
