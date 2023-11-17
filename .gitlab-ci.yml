@@ -2,6 +2,7 @@ pages:
   stage: deploy
   image: rocker/tidyverse
   script:
+    - git clean -f
     - quarto -v
     - |
       apt update && apt install -y libxt6 cargo
@@ -16,7 +17,8 @@ pages:
     - quarto render
     - |
       # manage mpg.csv file by hand because it is strangely missing
-      cp mpg.csv public/session2/mpg.csv
+      # cp mpg.csv public/session2/mpg.csv
+      ls -R .
   interruptible: true
   artifacts:
     paths:
