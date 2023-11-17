@@ -460,13 +460,13 @@ function (x, base = exp(1))
 
 To know more about the `log` function we can read its manual.
 
-```{r VandAstep8, include=TRUE}
+```{r VandAstep8, include=TRUE, eval=FALSE}
 help(log)
 ```
 
 or
 
-```{r VandAstep9, include=TRUE}
+```{r VandAstep9, include=TRUE, eval=FALSE}
 ?log
 ```
 
@@ -805,7 +805,7 @@ Check the documentation of this command
 
 <details><summary>Solution</summary>
 <p>
-```{r VandAstep16, include=TRUE}
+```{r VandAstep16, include=TRUE, eval=FALSE}
 ?rm
 ```
 </p>

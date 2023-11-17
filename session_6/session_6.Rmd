@@ -52,7 +52,7 @@ Use the help to know more about `table1` dataset
 
 <details><summary>Solution</summary>
 
-```{r}
+```{r, eval=FALSE}
 ?table1
 ```
 

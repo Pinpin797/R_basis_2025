@@ -155,7 +155,7 @@ It contains only models which had a new release every year between 1999 and 2008
 
 You can use the `?` command to know more about this dataset.
 
-```{r mpg_inspect, include=TRUE}
+```{r mpg_inspect, include=TRUE, eval=FALSE}
 ?mpg
 ```
 
