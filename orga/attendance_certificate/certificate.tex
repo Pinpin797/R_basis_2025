@@ -1,0 +1,130 @@
+%%%%
+%
+% attendance certificate for R training
+%
+%%%%
+% use the corresponding paper size for your ticket definition
+\documentclass[a4paper,12pt]{letter}
+
+%% doc specifications and language
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[french]{babel}
+\usepackage[autolanguage]{numprint}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm,headheight=3cm,footskip=3cm,includeheadfoot]{geometry}
+\usepackage{color}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\usepackage{multicol}
+
+\setlength{\topskip}{0pt}
+
+% load misc stuff
+\usepackage{graphicx}
+
+%%% manage data
+\usepackage{datatool}
+
+%%% first letter uppercase
+\usepackage{titlecaps} % \titlecap{}
+\newcommand{\firstcap}[1]{\titlecap{#1}}
+
+%%% header-footer
+\usepackage{fancyhdr}
+
+%%%%%% info (to be filled)
+\ifdefined\validator \else
+  \def\validator{Mr X}
+\fi
+\ifdefined\validatorFunction \else
+  \def\validatorFunction{ingénieur de recherche au LBMC}
+\fi
+\ifdefined\organizer \else
+  \def\organizer{le Conseil d'Analyse Numérique (CAN) de la SFR BioSciences (UAR3444/US8)}
+\fi
+\ifdefined\startDate \else
+  \def\startDate{01/10/2023}
+\fi
+\ifdefined\endDate \else
+  \def\endDate{31/01/2024}
+\fi
+\ifdefined\sessionDuration \else
+  \def\sessionDuration{1h30}
+\fi
+\ifdefined\trainingTheme \else
+  \def\trainingTheme{R débutant}
+\fi
+\ifdefined\trainingLocation \else
+  \def\trainingLocation{ENS de Lyon (site Monod)}
+\fi
+\ifdefined\trainingSummary \else
+  \def\trainingSummary{Cette formation est une introduction au langage de programmation R pour les personnes débutantes. Elle se déroule sur une douzaine de semaines à raison d’une heure et demi par semaine au semestre d'automne. Les participants et participantes apprendront les bases du langages R et comment utiliser l’IDE Rstudio. Ils apprendront ensuite à effectuer des manipulations de données complexes avec la suite de packages tidyverse, et enfin à produire des figures complexes à partir de données nettoyées.}
+\fi
+\ifdefined\trainingProgram \else
+  \def\trainingProgram{\begin{multicols}{2}\begin{itemize}
+\item Introduction à R et RStudio
+\item Introduction à Tidyverse
+\item Transformations avec ggplot2
+\item Transformation de données
+\item \textit{Pipping} et \textit{grouping}
+\item Tidydata
+\item \textit{String} \& \textit{RegExp}
+\item \textit{Factors}
+\end{itemize}\end{multicols}}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\sffamily
+
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[l]{\includegraphics[height=2.9cm]{logo/lbmc}}
+\fancyhead[r]{\sffamily Laboratoire de Biologie et Modélisation de la Cellule\\ ENS de Lyon\\ 46, allée d’Italie\\ 69364 LYON CEDEX 07, FRANCE\\ Tél : (+33) 4 72 72 81 71\\ \url{https://www.ens-lyon.fr/LBMC/}}
+\fancyfoot[c]{\makebox[0pt][c]{\includegraphics[height=2cm]{logo/ensl} \hfill \includegraphics[height=2cm]{logo/cnrs} \hfill \includegraphics[height=2cm]{logo/inserm} \hfill \includegraphics[height=2cm]{logo/ucbl}}}
+
+\DTLloaddb{list}{participants.csv}
+\DTLforeach{list}{%
+\firstname=FIRSTNAME,\lastname=LASTNAME,\nsession=SESSION,\time=TIME}{%
+
+\textbf{\Large Attestation individuelle de formation}\vspace{1em}
+
+\begin{center}
+\begin{minipage}{16cm}
+Je, soussigné, \validator, \validatorFunction, atteste que \textbf{\firstname\ \lastname} a suivi la formation suivante, organisée par \organizer\ : \vspace{1em}
+
+\begin{itemize}
+\item Nom de la formation : \trainingTheme
+\item Lieu de la formation : \trainingLocation
+\item Dates de la formation : du \startDate\ au \endDate\ (\sessionDuration/semaine)
+\item Durée totale de la formation : \time\ (soit \nsession\ séances)
+\end{itemize} \vspace{1em}
+
+\textbf{Objectifs de la formation~:} \vspace{1em}
+
+\trainingSummary \vspace{1em}
+
+\textbf{Programme de la formation~:}
+
+\trainingProgram
+
+\vspace{1cm}
+
+\begin{flushright}
+Fait à Lyon le \today
+
+\vspace{1em}
+
+\includegraphics[height=2cm]{signature}
+\end{flushright}
+
+\end{minipage}
+\end{center}
+}
+
+\end{document}
