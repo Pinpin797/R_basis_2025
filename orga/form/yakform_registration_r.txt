@@ -1,5 +1,5 @@
 $webform = array (
-  'nid' => '778530',
+  'nid' => '987111',
   'next_serial' => '1',
   'confirmation' => '',
   'confirmation_format' => 'wysiwyg_user',
@@ -46,45 +46,11 @@ $webform = array (
   array (
     15 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '15',
       'pid' => '0',
       'form_key' => 'new_1663580649768',
       'name' => 'Prénom / Name',
-      'type' => 'textfield',
-      'value' => '',
-      'extra' => 
-      array (
-        'width' => '',
-        'maxlength' => '',
-        'minlength' => '',
-        'field_prefix' => '',
-        'field_suffix' => '',
-        'disabled' => 0,
-        'unique' => 0,
-        'title_display' => 'before',
-        'description' => '',
-        'description_above' => false,
-        'placeholder' => 'Dupont',
-        'attributes' => 
-        array (
-        ),
-        'private' => 0,
-        'analysis' => false,
-        'css_classes' => '',
-        'wrapper_classes' => '',
-      ),
-      'required' => '1',
-      'weight' => '1',
-      'page_num' => 1,
-    ),
-    14 => 
-    array (
-      'nid' => 778530,
-      'cid' => '14',
-      'pid' => '0',
-      'form_key' => 'new_1663580608320',
-      'name' => 'Nom / Surname',
       'type' => 'textfield',
       'value' => '',
       'extra' => 
@@ -109,12 +75,46 @@ $webform = array (
         'wrapper_classes' => '',
       ),
       'required' => '1',
+      'weight' => '1',
+      'page_num' => 1,
+    ),
+    14 => 
+    array (
+      'nid' => 987111,
+      'cid' => '14',
+      'pid' => '0',
+      'form_key' => 'new_1663580608320',
+      'name' => 'Nom / Surname',
+      'type' => 'textfield',
+      'value' => '',
+      'extra' => 
+      array (
+        'width' => '',
+        'maxlength' => '',
+        'minlength' => '',
+        'field_prefix' => '',
+        'field_suffix' => '',
+        'disabled' => 0,
+        'unique' => 0,
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'placeholder' => 'Dupont',
+        'attributes' => 
+        array (
+        ),
+        'private' => 0,
+        'analysis' => false,
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
       'weight' => '2',
       'page_num' => 1,
     ),
     1 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '1',
       'pid' => '0',
       'form_key' => 'new_1661852344800',
@@ -126,7 +126,7 @@ $webform = array (
         'multiple' => 0,
         'format' => 'short',
         'width' => '',
-        'unique' => 1,
+        'unique' => 0,
         'disabled' => 0,
         'title_display' => 'before',
         'description' => '',
@@ -146,7 +146,7 @@ $webform = array (
     ),
     3 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '3',
       'pid' => '0',
       'form_key' => 'new_1661852536156',
@@ -187,7 +187,7 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
     ),
     20 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '20',
       'pid' => '0',
       'form_key' => 'new_1693318963943',
@@ -208,7 +208,7 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
     ),
     19 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '19',
       'pid' => '0',
       'form_key' => 'new_1693316967281',
@@ -244,7 +244,7 @@ Ni l\'un ni l\'autre / None of the above|Ni l\'un ni l\'autre / None of the abov
     ),
     12 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '12',
       'pid' => '0',
       'form_key' => 'new_1663579980628',
@@ -281,7 +281,7 @@ Ni l\'un ni l\'autre / None of the above|Ni l\'un ni l\'autre / None of the abov
     ),
     23 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '23',
       'pid' => '0',
       'form_key' => 'new_1693320671454',
@@ -308,9 +308,65 @@ Ni l\'un ni l\'autre / None of the above|Ni l\'un ni l\'autre / None of the abov
       'weight' => '8',
       'page_num' => 1,
     ),
+    33 => 
+    array (
+      'nid' => 987111,
+      'cid' => '33',
+      'pid' => '0',
+      'form_key' => 'new_1720527498942',
+      'name' => 'Inscription à l\'extension Python / registration for Python extension',
+      'type' => 'select',
+      'value' => '',
+      'extra' => 
+      array (
+        'items' => '1|oui
+2|non
+',
+        'multiple' => false,
+        'aslist' => false,
+        'empty_option' => '',
+        'optrand' => 0,
+        'other_option' => NULL,
+        'other_text' => 'Autre...',
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'custom_keys' => 0,
+        'options_source' => '',
+        'private' => 0,
+        'analysis' => true,
+        'value' => '1',
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '0',
+      'weight' => '9',
+      'page_num' => 1,
+    ),
+    31 => 
+    array (
+      'nid' => 987111,
+      'cid' => '31',
+      'pid' => '0',
+      'form_key' => 'new_1720527316154',
+      'name' => 'Extension Python / Python extension',
+      'type' => 'markup',
+      'value' => '<p>En option, une extension à Python d\'une partie du contenu de la formation "R pour les débutant(e)s" est proposée sur deux séances supplémentaires.</p>
+
+<p><i>As an option, an extension to Python of the "R for beginners" course will be proposed over two additional sessions.</i></p>',
+      'extra' => 
+      array (
+        'format' => 'wysiwyg_user',
+        'private' => false,
+        'display_on' => 'form',
+      ),
+      'required' => '0',
+      'weight' => '11',
+      'page_num' => 1,
+    ),
     26 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '26',
       'pid' => '0',
       'form_key' => 'new_1693321164081',
@@ -341,12 +397,12 @@ Ni l\'un ni l\'autre / None of the above|Ni l\'un ni l\'autre / None of the abov
         'wrapper_classes' => '',
       ),
       'required' => '1',
-      'weight' => '9',
+      'weight' => '12',
       'page_num' => 1,
     ),
     17 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '17',
       'pid' => '0',
       'form_key' => 'new_1663582031315',
@@ -372,12 +428,12 @@ Ni l\'un ni l\'autre / None of the above|Ni l\'un ni l\'autre / None of the abov
         'display_on' => 'form',
       ),
       'required' => '0',
-      'weight' => '11',
+      'weight' => '13',
       'page_num' => 1,
     ),
     21 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '21',
       'pid' => '0',
       'form_key' => 'new_1693319362737',
@@ -406,20 +462,24 @@ Ni l\'un ni l\'autre / None of the above|Ni l\'un ni l\'autre / None of the abov
         'wrapper_classes' => '',
       ),
       'required' => '1',
-      'weight' => '12',
+      'weight' => '14',
       'page_num' => 1,
     ),
     24 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '24',
       'pid' => '0',
       'form_key' => 'new_1693320727085',
       'name' => 'Nouveau champ "balisage"',
       'type' => 'markup',
-      'value' => '<p>(sauf absence ponctuelle en cas d\'impératif professionnel ou personnel évidemment)</p>
+      'value' => '<p>(sauf absence ponctuelle en cas d\'impératif professionnel ou personnel évidemment) 
+Les attestations de formation ne seront délivrées qu\'aux personnes ayant suivi <b>au moins 80%</b> des séances de leur groupe (hors extension Python).
+</p>
 
-<p><i>(except for one-time absences in case of professional or personal imperative obviously)</i><p>',
+<p><i>(except for one-time absences in case of professional or personal imperative obviously)
+Training certificates will only be delivered to people who have attended <b>at least 80%</b> of their group\'s sessions (excluding the Python extension).
+</i><p>',
       'extra' => 
       array (
         'format' => 'wysiwyg_user',
@@ -427,12 +487,12 @@ Ni l\'un ni l\'autre / None of the above|Ni l\'un ni l\'autre / None of the abov
         'display_on' => 'form',
       ),
       'required' => '0',
-      'weight' => '13',
+      'weight' => '15',
       'page_num' => 1,
     ),
     28 => 
     array (
-      'nid' => 778530,
+      'nid' => 987111,
       'cid' => '28',
       'pid' => '0',
       'form_key' => 'new_1693321289280',
@@ -458,7 +518,7 @@ Ni l\'un ni l\'autre / None of the above|Ni l\'un ni l\'autre / None of the abov
         'wrapper_classes' => '',
       ),
       'required' => '0',
-      'weight' => '14',
+      'weight' => '16',
       'page_num' => 1,
     ),
   ),
