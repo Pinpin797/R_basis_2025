@@ -2,7 +2,7 @@
 
 ## Short name
 
-CAN R 2023
+CAN R 2024
 
 ## Full name
 
@@ -30,10 +30,11 @@ Les objectifs de cette formation sont:
 - filtrer et trier des tables de données
 - réorganiser des tables de données
 - réaliser des figures
+- manipuler des expressions régulières
 
 ## Informations pratiques
 
-- Dates : 4 séances de 1h30 par semaine de octobre 2022 à janvier 2023
+- Dates : 4 séances de 1h30 par semaine de octobre 2024 à janvier 2025
 - Lieu : Centre Blaise Pascal (CBP), ENS de Lyon
 - Noms des formateurs : Laurent Modolo, Ghislain Durif, Carine Rey, Laurent Gilquin, Mia Croiset, Nicolas Fontrodona
 - Nombre de participants : 4 groupes * 12
@@ -45,10 +46,10 @@ Nous utiliserons des instances de l'*appliance* "Rstudio server" déjà utilisé
 ### Outils et environnements
 
 - R
-- Rstudio
+- RStudio
 - `tidyverse` R meta-package
 
-Tous ces outils sont intégrés dans l'*appliance* "Rstudio server".
+Tous ces outils sont intégrés dans l'*appliance* "RStudio Server".
 
 ### Resources informatiques
 
@@ -67,8 +68,8 @@ Disponibilité des ressources après la formation ? NON
 
 ## Start
 
-09/10/2023
+30/09/2024
 
 ## End
 
-31/01/2023
+31/01/2025
