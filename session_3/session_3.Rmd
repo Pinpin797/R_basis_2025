@@ -9,7 +9,7 @@ library(fontawesome)
 ``` 
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -63,7 +63,7 @@ We saw scatterplot (`geom_point()`) and smoothplot (`geom_smooth()`).
 We can also use `geom_bar()` to draw barplot:
 
 ```{r diamonds_barplot, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = diamonds, mapping = aes(x = cut)) + 
+ggplot(data = diamonds, mapping = aes(x = cut)) +
   geom_bar()
 ```
 
@@ -82,7 +82,7 @@ The figure below describes how this process works with `geom_bar()`.
 You can generally use **geoms** and **stats** interchangeably. For example, you can recreate the previous plot using `stat_count()` instead of `geom_bar()`:
 
 ```{r diamonds_stat_count, include=TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = diamonds, mapping = aes(x = cut)) + 
+ggplot(data = diamonds, mapping = aes(x = cut)) +
   stat_count()
 ```
 
@@ -125,7 +125,7 @@ ggplot(data = demo, mapping = aes(x = cut, y = freq)) +
 You might want to override the default mapping from transformed variables to aesthetics ( e.g., proportion). 
 
 ```{r 3_b, include=TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop.., group = 1)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = after_stat(prop), group = 1)) +
   geom_bar()
 ```
   
@@ -136,7 +136,7 @@ In our proportion bar chart, we need to set `group = 1`. Why?
 <details><summary>Solution</summary>
 <p>
 ```{r diamonds_stats_challenge, include=TRUE, message=FALSE, fig.width=8, fig.height=4.5}
-ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop..)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = after_stat(prop))) +
   geom_bar()
 ```
 
@@ -155,8 +155,7 @@ value, to draw attention to the summary that you are computing.
 <details><summary>Solution</summary>
 <p>
 ```{r 3_c, include=TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-
-ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
   stat_summary()
 ```
 </p>
@@ -169,7 +168,7 @@ Set the `fun.min`, `fun.max` and `fun` to the `min`, `max` and `median` function
 <details><summary>Solution</summary>
 <p>
 ```{r 3_d, include=TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
   stat_summary(
     fun.min = min,
     fun.max = max,
@@ -190,12 +189,12 @@ Try both approaches on a `cut`, histogram.
 <details><summary>Solution</summary>
 <p>
 ```{r diamonds_barplot_color, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, color = cut)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, color = cut)) +
   geom_bar()
 ```
 
 ```{r diamonds_barplot_fill, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
   geom_bar()
 ```
 </p>
@@ -210,7 +209,7 @@ Try to color by `clarity`. Is `clarity` a continuous or categorical variable ?
 <details><summary>Solution</summary>
 <p>
 ```{r diamonds_barplot_fill_clarity, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
   geom_bar()
 ```
 </p>
@@ -228,18 +227,18 @@ Try the following `position` parameter for `geom_bar`: `"fill"`, `"dodge"` and `
 <details><summary>Solution</summary>
 <p>
 ```{r diamonds_barplot_pos_fill, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
-  geom_bar( position = "fill")
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
+  geom_bar(position = "fill")
 ```
 
 ```{r diamonds_barplot_pos_dodge, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
-  geom_bar( position = "dodge")
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
+  geom_bar(position = "dodge")
 ```
 
 ```{r diamonds_barplot_pos_jitter, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
-  geom_bar( position = "jitter")
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
+  geom_bar(position = "jitter")
 ```
 </p>
 </details>
@@ -253,12 +252,12 @@ Compare `geom_point` to `geom_jitter`  plot `cut` versus `depth` and color by `c
 <details><summary>Solution</summary>
 <p>
 ```{r dia_jitter2, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
   geom_point()
 ```
 
 ```{r dia_jitter3, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
   geom_jitter()
 ```
 </p>
@@ -271,7 +270,7 @@ What parameters of `geom_jitter` control the amount of jittering ?
 <details><summary>Solution</summary>
 <p>
 ```{r dia_jitter4, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
   geom_jitter(width = .1, height = .1)
 ```
 </p>
@@ -282,7 +281,7 @@ In the `geom_jitter` plot that we made, we cannot really see the limits of the d
 <details><summary>Solution</summary>
 <p>
 ```{r dia_violon, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
   geom_violin()
 ```
 </p>
@@ -293,7 +292,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 A Cartesian coordinate system is a coordinate system where the x and y positions act independently to determine the location of each point. There are a number of other coordinate systems that are occasionally helpful.
 
 ```{r dia_boxplot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
   geom_boxplot()
 ```
 
@@ -304,7 +303,7 @@ Add the `coord_flip()` layer to the previous plot.
 <details><summary>Solution</summary>
 <p>
 ```{r dia_boxplot_flip, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
+ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
   geom_boxplot() +
   coord_flip()
 ```
@@ -315,8 +314,8 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 Add the `coord_polar()` layer to this  plot:
 
 ```{r diamonds_bar, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE, eval=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
-  geom_bar( show.legend = FALSE,  width = 1 ) + 
+ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
+  geom_bar(show.legend = FALSE, width = 1) +
   theme(aspect.ratio = 1) +
   labs(x = NULL, y = NULL)
 ```
@@ -325,8 +324,8 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
 <details><summary>Solution</summary>
 <p>
 ```{r diamonds_bar2, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) + 
-  geom_bar( show.legend = FALSE,  width = 1 ) + 
+ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
+  geom_bar(show.legend = FALSE, width = 1) +
   theme(aspect.ratio = 1) +
   labs(x = NULL, y = NULL) +
   coord_polar()
@@ -402,7 +401,7 @@ You can use the `scale_x_log10()` to display the `gdpPercap` on the `log10` scal
 <p>
 ```{r gapminder_plot_b}
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
-  geom_point() + 
+  geom_point() +
   scale_x_log10()
 ```
 </p>
@@ -418,10 +417,10 @@ For this we need to add a `transition_time` layer that will take as an argument 
 <p>
 ```{r gapminder_plot_c}
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
-  geom_point() + 
+  geom_point() +
   scale_x_log10() +
   transition_time(year) +
-  labs(title = 'Year: {as.integer(frame_time)}')
+  labs(title = "Year: {as.integer(frame_time)}")
 ```
 </p>
 </details>

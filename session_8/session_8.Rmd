@@ -7,12 +7,13 @@ date: "2022"
 ```{r include=FALSE}
 library(fontawesome)
 
-if("conflicted" %in% .packages())
-    conflicted::conflicts_prefer(dplyr::filter)
+if ("conflicted" %in% .packages()) {
+  conflicted::conflicts_prefer(dplyr::filter)
+}
 ```
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -61,7 +62,7 @@ You can fix both of these problems with a factor.
 
 ```{r sort_month_factor, eval=T, cache=T}
 month_levels <- c(
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 )
 y1 <- factor(x1, levels = month_levels)
@@ -79,7 +80,9 @@ y2
 Sometimes you'd prefer that the order of the levels match the order of the first appearance in the data.
 
 ```{r inorder_month_factor, eval=T, cache=T}
-f2 <- x1 %>% factor() %>% fct_inorder()
+f2 <- x1 %>%
+  factor() %>%
+  fct_inorder()
 f2
 levels(f2)
 ```
@@ -111,7 +114,8 @@ relig_summary <- gss_cat %>%
     tvhours = mean(tvhours, na.rm = TRUE),
     n = n()
   )
-ggplot(relig_summary, aes(x = tvhours, y = relig)) + geom_point()
+ggplot(relig_summary, aes(x = tvhours, y = relig)) +
+  geom_point()
 ```
 
 It is difficult to interpret this plot because there's no overall pattern. We can improve it by reordering the levels of the factor relig using `fct_reorder()`. `fct_reorder()` takes three arguments:
@@ -131,7 +135,7 @@ As you start making more complicated transformations, I would recommend moving t
 relig_summary %>%
   mutate(relig = fct_reorder(relig, tvhours)) %>%
   ggplot(aes(x = tvhours, y = relig)) +
-    geom_point()
+  geom_point()
 ```
 
 ## `fct_reorder2()`
@@ -174,6 +178,6 @@ For example [rmarkdown](https://rmarkdown.rstudio.com/) is a great way to turn y
  - [a comprehensive guide](https://bookdown.org/yihui/rmarkdown/)
  - [the cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf)
 
-In addition most packages will provide **vignette**s on how to perform an analysis from scratch. On the [cran.r-project.org](https://cran.r-project.org/web/packages/ggplot2/index.html) or [bioconductor.org](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html) websites (specialised on R packages for biologists), you will have direct links to a package vignettes.
+In addition most packages will provide **vignette**s on how to perform an analysis from scratch. On the [cran.r-project.org](https://cran.r-project.org/web/packages/ggplot2/index.html) or [bioconductor.org](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html) (specialised on R packages for biologists) websites, you will have direct links to a package vignettes.
 
 Finally, don't forget to search the web for your problems or error in R, for instance [stackoverflow](https://stackoverflow.com/) contains high quality and well-curated answers.

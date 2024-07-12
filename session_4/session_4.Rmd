@@ -7,12 +7,13 @@ date: "2022"
 ```{r include=FALSE}
 library(fontawesome)
 
-if("conflicted" %in% .packages())
-    conflicted::conflicts_prefer(dplyr::filter)
+if ("conflicted" %in% .packages()) {
+  conflicted::conflicts_prefer(dplyr::filter)
+}
 ``` 
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -49,7 +50,7 @@ library("nycflights13")
  
 ### Data set : nycflights13
 
-`nycflights13::flights` contains all $336 \ 776$ flights that departed from New York City in 2013.
+`nycflights13::flights` contains all 336,776 flights that departed from New York City in 2013.
 The data comes from the US Bureau of Transportation Statistics, and is documented in `?flights`
 
 ```R
@@ -104,14 +105,14 @@ You can use the relational operators (`<`,`>`,`==`,`<=`,`>=`,`!=`) to make a tes
 
 ```{r filter_sup_eq, include=TRUE, eval=FALSE}
 filter(flights, air_time >= 680)
-filter(flights, carrier ==  "HA")
-filter(flights, origin !=  "JFK")
+filter(flights, carrier == "HA")
+filter(flights, origin != "JFK")
 ```
 The operator `%in%` is very useful to test if a value is in a list.
 
 ```{r filter_sup_inf, include=TRUE, eval=FALSE}
-filter(flights, carrier %in% c("OO","AS"))
-filter(flights, month %in% c(5,6,7,12))
+filter(flights, carrier %in% c("OO", "AS"))
+filter(flights, month %in% c(5, 6, 7, 12))
 ```
 
 
@@ -149,9 +150,9 @@ In R you can use the symbols `&` (and), `|` (or), `!` (not) and the function `xo
 Display the `long_flights` variable and predict the results of:
 
 ```{r logical_operators_exemples2, eval=FALSE}
-filter(long_flights,  day <= 15 & carrier == "HA")
-filter(long_flights,  day <= 15 | carrier == "HA")
-filter(long_flights,  (day <= 15 | carrier == "HA") & (! month > 2))
+filter(long_flights, day <= 15 & carrier == "HA")
+filter(long_flights, day <= 15 | carrier == "HA")
+filter(long_flights, (day <= 15 | carrier == "HA") & (!month > 2))
 ```
 
 
@@ -163,9 +164,9 @@ filter(long_flights,  (day <= 15 | carrier == "HA") & (! month > 2))
 ```{r logical_operators_exemples2_sol, include=TRUE}
 long_flights
 
-filter(long_flights,  day <= 15 & carrier == "HA")
-filter(long_flights,  day <= 15 | carrier == "HA")
-filter(long_flights,  (day <= 15 | carrier == "HA") & (! month > 2))
+filter(long_flights, day <= 15 & carrier == "HA")
+filter(long_flights, day <= 15 | carrier == "HA")
+filter(long_flights, (day <= 15 | carrier == "HA") & (!month > 2))
 ```
 </p>
 </details>
@@ -233,9 +234,10 @@ is.na(NA)
 `filter()` only includes rows where the condition is `TRUE`; it excludes both `FALSE` and `NA` values. If you want to preserve missing values, ask for them explicitly:
 
 ```{r filter_logical_operators_test_NA2, include=TRUE}
-df <- tibble( x = c("A","B","C"),
-              y = c(1, NA, 3)
-            )
+df <- tibble(
+  x = c("A", "B", "C"),
+  y = c(1, NA, 3)
+)
 df
 filter(df, y > 1)
 filter(df, is.na(y) | y > 1)
@@ -279,7 +281,7 @@ Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA`
 <p>
 
 ```{r filter_chalenges_d, eval=TRUE}
-NA ^ 0 # ^ 0 is always 1 it's an arbitrary rule not a computation
+NA^0 # ^ 0 is always 1 it's an arbitrary rule not a computation
 NA | TRUE # if a member of a OR operation is TRUE the results is TRUE
 FALSE & NA # if a member of a AND operation is FALSE the results is FALSE
 NA * 0 # here we have a true computation
@@ -308,9 +310,10 @@ arrange(flights, distance, desc(dep_delay))
 Missing values are always sorted at the end:
 
 ```{r arrange_NA, include=TRUE}
-df <- tibble( x = c("A","B","C"),
-              y = c(1, NA, 3)
-            )
+df <- tibble(
+  x = c("A", "B", "C"),
+  y = c(1, NA, 3)
+)
 df
 
 arrange(df, y)
@@ -406,10 +409,10 @@ colnames(df_dep_arr)
 
 ```{r challenge_select_a1, eval=FALSE}
 select(flights, dep_time, dep_delay, arr_time, arr_delay)
-select(flights, starts_with("dep"), starts_with("arr") )
-select(flights, starts_with("dep") | starts_with("arr") )
-select(flights, matches("^(dep|arr)") )
-select(flights, dep_time : arr_delay & !starts_with("sched"))
+select(flights, starts_with("dep"), starts_with("arr"))
+select(flights, starts_with("dep") | starts_with("arr"))
+select(flights, matches("^(dep|arr)"))
+select(flights, dep_time:arr_delay & !starts_with("sched"))
 ```
 </p>
 </details>
@@ -485,7 +488,7 @@ It's often useful to add new columns that are functions of existing columns. Tha
 First let's create a thinner dataset to work on `flights_thin` that contains:
 
 - columns from `year` to `day`
-- columns that ends with `delays`
+- columns that ends with `delay`
 - the `distance` and `air_time` columns
 - the `dep_time` and `sched_dep_time` columns
 
@@ -500,9 +503,9 @@ Then let's create an even smaller toy dataset to test your commands before using
 <p>
 
 ```{r mutate, include=TRUE}
-(flights_thin <- select(flights,  year:day, ends_with("delay"), distance, air_time, contains("dep_time")))
-(flights_thin_toy <- head(flights_thin, n=5))
-(flights_thin_toy2 <- sample_n(flights_thin, size=5))
+(flights_thin <- select(flights, year:day, ends_with("delay"), distance, air_time, contains("dep_time")))
+(flights_thin_toy <- head(flights_thin, n = 5))
+(flights_thin_toy2 <- sample_n(flights_thin, size = 5))
 ```
 </p>
 </details>
@@ -556,7 +559,7 @@ Currently `dep_time` and `sched_dep_time` are convenient to look at, but difficu
 ```{r mutate_exemple, include=TRUE}
 HH <- 2003 %/% 100
 HH
-MM <- 2003 %% 100 
+MM <- 2003 %% 100
 MM
 HH * 60 + MM
 ``` 
@@ -585,7 +588,8 @@ mutate(
   HH = dep_time %/% 100,
   MM = dep_time %% 100,
   dep_time2 = HH * 60 + MM,
-  .after = "dep_time" )
+  .after = "dep_time"
+)
 ``` 
 
 or `.keep = "used"` to keep only the columns used for the calculus which can be usefull for debugging,
@@ -596,7 +600,8 @@ mutate(
   HH = dep_time %/% 100,
   MM = dep_time %% 100,
   dep_time2 = HH * 60 + MM,
-  .keep = "used" )
+  .keep = "used"
+)
 ``` 
 
 In one row (or you can also remove columns HH and MM using select): 
@@ -604,8 +609,9 @@ In one row (or you can also remove columns HH and MM using select):
 ```{r mutate_challenges_a3, include=TRUE, eval = F}
 mutate(
   flights_thin_toy,
-  dep_time2 =  dep_time %/% 100 * 60 + dep_time %% 100,
-  .after = "dep_time" )
+  dep_time2 = dep_time %/% 100 * 60 + dep_time %% 100,
+  .after = "dep_time"
+)
 ``` 
 
 **Note**: You can also directly replace a column by the result of the mutate operation,
@@ -613,7 +619,8 @@ mutate(
 ```{r mutate_challenges_a4, include=TRUE, eval = F}
 mutate(
   flights_thin_toy,
-  dep_time = dep_time * 60 + dep_time)
+  dep_time = dep_time * 60 + dep_time
+)
 ``` 
 </p>
 </details>
@@ -624,10 +631,8 @@ mutate(
 ```{r mutate_challenges_b, eval=F, message=F, cache=T}
 mutate(
   flights,
-  dep_time = (dep_time %/% 100) * 60 +
-    dep_time %% 100,
-  sched_dep_time = (sched_dep_time %/% 100) * 60 +
-    sched_dep_time %% 100
+  dep_time = (dep_time %/% 100) * 60 + dep_time %% 100,
+  sched_dep_time = (sched_dep_time %/% 100) * 60 + sched_dep_time %% 100
 )
 ```
 
@@ -671,7 +676,7 @@ Using `mpg` and the ggplot2 package, reproduce the graph studied in @sec-color-m
 Modify the colors representing the class of cars with the palettes `Dark2` of [RColorBrewer](https://www.datanovia.com/en/fr/blog/palette-de-couleurs-rcolorbrewer-de-a-a-z/), then `MononokeMedium` from [Ghibli](https://github.com/ewenme/ghibli). 
 
 ```{r mpg_color}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
   geom_point()
 ```
 Go to the links to find the appropriate function: they are very similar between the two packages.
@@ -680,13 +685,13 @@ Go to the links to find the appropriate function: they are very similar between 
 <p>
 
 ```{r mpg_color1}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
   geom_point() +
   scale_color_brewer(palette = "Dark2")
 ```
 
 ```{r mpg_color2}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
   geom_point() +
   scale_colour_ghibli_d("MononokeMedium")
 ```
@@ -744,9 +749,9 @@ Fit the samples on the x-axis and the genes on the y-axis.
 (DM1_tile_base <-
   ggplot(expr_DM1, aes(samples, Genes, fill = log1p(counts))) +
   geom_tile() +
-  labs(y="Genes", x = "Samples") +
+  labs(y = "Genes", x = "Samples") +
   theme(
-    axis.text.y = element_text(size= 6),
+    axis.text.y = element_text(size = 6),
     axis.text.x = element_text(size = 6, angle = 90)
   ))
 ```
@@ -825,11 +830,14 @@ With `mutate()` and `ifelse()` [fonctions](https://dplyr.tidyverse.org/reference
 <p>
 
 ```{r sig}
-(tab.sig <- mutate(tab,
-                   sig = baseMean > 20 & padj < 0.05 & abs(log2FoldChange) >= 1.5,
-                   UpDown = ifelse(sig, ### we can use in the same mutate a column created by a previous line
-                                  ifelse(log2FoldChange > 0, "Up", "Down"), "NO")
-                   )
+(
+  tab.sig <- mutate(
+    tab,
+    sig = baseMean > 20 & padj < 0.05 & abs(log2FoldChange) >= 1.5,
+    UpDown = ifelse(sig, ### we can use in the same mutate a column created by a previous line
+      ifelse(log2FoldChange > 0, "Up", "Down"), "NO"
+    )
+  )
 )
 ```
 </p>
@@ -888,13 +896,13 @@ To make the graph below, use `ggplot2`, the functions `geom_point()`, `geom_hlin
 ```{r VolcanoPlotDemo, echo = FALSE}
 ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
   geom_point() +
-  scale_color_manual(values=c("steelblue", "lightgrey", "firebrick" )) +
-  geom_hline(yintercept=-log10(0.05), col="black") +
-  geom_vline(xintercept=c(-1.5, 1.5), col="black") +
+  scale_color_manual(values = c("steelblue", "lightgrey", "firebrick")) +
+  geom_hline(yintercept = -log10(0.05), col = "black") +
+  geom_vline(xintercept = c(-1.5, 1.5), col = "black") +
   theme_minimal() +
-  theme(legend.position="none") +
-  labs(y="-log10(p-value)", x = "log2(FoldChange)") +
-  geom_label_repel(data = top10, mapping = aes(label = gene_symbol)) 
+  theme(legend.position = "none") +
+  labs(y = "-log10(p-value)", x = "log2(FoldChange)") +
+  geom_label_repel(data = top10, mapping = aes(label = gene_symbol))
 
 ```
 
@@ -904,13 +912,13 @@ ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
 ```{r VolcanoPlotSolut, echo = TRUE, results = 'hide'}
 ggplot(tab.sig, aes(x = log2FoldChange, y = -log10(padj), color = UpDown)) +
   geom_point() +
-  scale_color_manual(values=c("steelblue", "lightgrey", "firebrick" )) +
-  geom_hline(yintercept=-log10(0.05), col="black") +
-  geom_vline(xintercept=c(-1.5, 1.5), col="black") +
+  scale_color_manual(values = c("steelblue", "lightgrey", "firebrick")) +
+  geom_hline(yintercept = -log10(0.05), col = "black") +
+  geom_vline(xintercept = c(-1.5, 1.5), col = "black") +
   theme_minimal() +
-  theme(legend.position="none") +
-  labs(y="-log10(p-value)", x = "log2(FoldChange)") +
-  geom_label_repel(data = top10, mapping = aes(label = gene_symbol)) 
+  theme(legend.position = "none") +
+  labs(y = "-log10(p-value)", x = "log2(FoldChange)") +
+  geom_label_repel(data = top10, mapping = aes(label = gene_symbol))
 
 ```
 </p>

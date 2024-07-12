@@ -7,12 +7,13 @@ date: "2022"
 ```{r include=FALSE}
 library(fontawesome)
 
-if("conflicted" %in% .packages())
-    conflicted::conflicts_prefer(dplyr::filter)
+if ("conflicted" %in% .packages()) {
+  conflicted::conflicts_prefer(dplyr::filter)
+}
 ```
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -350,10 +351,10 @@ identical(no_vowels_1, no_vowels_2)
 
 ```{r str_detecttibble, eval=T, cache=T}
 df <- tibble(
-  word = words, 
+  word = words,
   i = seq_along(word)
 )
-df %>% 
+df %>%
   filter(str_detect(word, "x$"))
 ```
 
@@ -390,14 +391,14 @@ noun <- "(a|the) ([^ ]+)"
 has_noun <- sentences %>%
   str_subset(noun) %>%
   head(10)
-has_noun %>% 
+has_noun %>%
   str_extract(noun)
 ```
 
 `str_extract()` gives us the complete match; `str_match()` gives each individual component.
 
 ```{r noun_regex_match, eval=T, cache=T}
-has_noun %>% 
+has_noun %>%
   str_match(noun)
 ```
 
@@ -410,7 +411,7 @@ has_noun %>%
 Instead of replacing with a fixed string, you can use back references to insert components of the match. In the following code, I flip the order of the second and third words.
 
 ```{r replacing_matches, eval=T, cache=T}
-sentences %>% 
+sentences %>%
   str_replace("([^ ]+) ([^ ]+) ([^ ]+)", "\\1 \\3 \\2") %>%
   head(5)
 ```
@@ -425,7 +426,7 @@ sentences %>%
 
 ```{r splitting, eval=T, cache=T}
 sentences %>%
-  head(5) %>% 
+  head(5) %>%
   str_split("\\s")
 ```
 

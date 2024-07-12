@@ -9,7 +9,7 @@ library(fontawesome)
 ```
 
 ```{r setup, include=FALSE , echo=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -66,13 +66,16 @@ Reasons to use it:
 ```{r echo=F, message=F}
 cran_packages <- nrow(available.packages(repos = "http://cran.us.r-project.org"))
 
-if (! require("rvest")) {
+if (!require("rvest")) {
   install.packages("rvest", quiet = T)
 }
 
 library(rvest)
-url <- 'https://www.bioconductor.org/packages/release/bioc/'
-biocPackages <- url %>% read_html() %>% html_table() %>%.[[1]]
+url <- "https://www.bioconductor.org/packages/release/bioc/"
+biocPackages <- url %>%
+  read_html() %>%
+  html_table() %>%
+  .[[1]]
 bioconductor_packages <- nrow(biocPackages)
 ```
 
@@ -219,8 +222,8 @@ You can use parenthesis `(` `)` to change this order.
 But too much parenthesis can be hard to read
 
 ```{r calculatorstep5, include=TRUE}
-(3 + (5 * (2 ^ 2))) # hard to read
-3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
+(3 + (5 * (2^2))) # hard to read
+3 + 5 * (2^2) # if you forget some rules, this might help
 ```
 
 **Note :** The text following a `#` is a comment. It will not be interpreted by R. In the future, I advise you to use comments a lot to explain in your own words what the command means.
@@ -230,7 +233,7 @@ But too much parenthesis can be hard to read
 For small of large numbers, R will automatically switch to scientific notation.
 
 ```{r calculatorstep6, include=TRUE}
-2/10000
+2 / 10000
 ```
 
 `2e-4` is shorthand for `2 * 10^(-4)`
@@ -248,7 +251,7 @@ To call a mathematical function, you must use `function_name(<number>)`.
 For example, for the natural logarithm:
 
 ```{r calculatorstep8, include=TRUE}
-log(2)  # natural logarithm
+log(2) # natural logarithm
 ```
 
 ```{r calculatorstep9, include=TRUE}
@@ -375,9 +378,9 @@ A variable can be assigned a `numeric` value as well as a `character` value.
 
 Just put the character (or string) between double quote `"` when you assign this value.
 ```{r VandAstep6, include=TRUE}
-z <- "x"  # One character
+z <- "x" # One character
 z
-a <- "Hello world"  # Multiple characters == String
+a <- "Hello world" # Multiple characters == String
 a
 ```
 
@@ -541,32 +544,32 @@ function_name <- function(a, b){
 Predict the result of R1, R2 and R3.
 
 ```R
-minus <- function(a, b){
+minus <- function(a, b) {
   result_1 <- a - b
   return(result_1)
 }
 
-##R1:
-R1 <- minus(4,2)
+## R1:
+R1 <- minus(4, 2)
 
-##R2
-R2 <- minus(2,4)
+## R2
+R2 <- minus(2, 4)
 
-##R3
+## R3
 a <- 2
 b <- 10
-R3  <-  minus(b,a)
+R3 <- minus(b, a)
 ```
 </div>
 
 <details><summary>Solution 1</summary>
 <p>
 ```{r minus1, include=TRUE}
-minus <- function(a, b){
+minus <- function(a, b) {
   result_1 <- a - b
   return(result_1)
 }
-minus(4,2)
+minus(4, 2)
 ```
 </p>
 </details>
@@ -575,7 +578,7 @@ minus(4,2)
 <details><summary>Solution 2</summary>
 <p>
 ```{r minus2, include=TRUE}
-minus(2,4)
+minus(2, 4)
 ```
 </p>
 </details>
@@ -586,7 +589,7 @@ minus(2,4)
 ```{r minus3, include=TRUE}
 a <- 2
 b <- 10
-minus(b,a)
+minus(b, a)
 ```
 </p>
 </details>
@@ -599,22 +602,22 @@ Predict the result of R1, R2, R3 and R4.
 a <- 10
 b <- 2
 
-minus <- function(a, b){
+minus <- function(a, b) {
   result_1 <- a - b
   return(result_1)
 }
 
-##R1:
-R1 <- minus(a=6,b=3)
+## R1:
+R1 <- minus(a = 6, b = 3)
 
-##R2
-R2 <- minus(b=3,a=6)
+## R2
+R2 <- minus(b = 3, a = 6)
 
-##R3
+## R3
 R3 <- a
 
-##R4
-R4  <- minus(b=b,a=a)
+## R4
+R4 <- minus(b = b, a = a)
 ```
 </div>
 
@@ -623,11 +626,11 @@ R4  <- minus(b=b,a=a)
 ```{r minus21, include=TRUE}
 a <- 10
 b <- 2
-minus <- function(a, b){
+minus <- function(a, b) {
   result_1 <- a - b
   return(result_1)
 }
-R1 <- minus(a=6,b=3)
+R1 <- minus(a = 6, b = 3)
 R1
 ```
 </p>
@@ -637,7 +640,7 @@ R1
 <details><summary>Solution 2</summary>
 <p>
 ```{r minus22, include=TRUE}
-R2 <- minus(b=3,a=6)
+R2 <- minus(b = 3, a = 6)
 R2
 ```
 </p>
@@ -656,7 +659,7 @@ R3
 <details><summary>Solution 4</summary>
 <p>
 ```{r minus24, include=TRUE}
-R4  <- minus(b=b,a=a)
+R4 <- minus(b = b, a = a)
 R4
 ```
 </p>
@@ -666,18 +669,18 @@ R4
 - Default values for arguments may be set at definition and the default value is used when argument is not provided.
 
 ```{r minus10, include=TRUE}
-minus_10 <- function(a, b=10){
+minus_10 <- function(a, b = 10) {
   result_1 <- a - b
   return(result_1)
 }
 minus_10(40)
-minus_10(40,b=5)
-minus_10(40,5)
+minus_10(40, b = 5)
+minus_10(40, 5)
 ```
 - Functions can be define without argument
 
 ```{r print_hw, include=TRUE}
-print_hw <- function(){
+print_hw <- function() {
   print("Hello world!")
   print("How R U?")
 }
@@ -726,11 +729,11 @@ of the modulo is equal to `0`.
 <p>
 
 ```{r rect_area, include=TRUE}
-rect_area <- function(L,W){
+rect_area <- function(L, W) {
   area <- L * W
   return(area)
 }
-rect_area(4,3)
+rect_area(4, 3)
 ```
 </p>
 </details>
@@ -739,7 +742,7 @@ rect_area(4,3)
 <details><summary>Solution 2 </summary>
 <p>
 ```{r VandAstep11, include=TRUE}
-even_test <- function(x){
+even_test <- function(x) {
   modulo_result <- x %% 2
   is_even <- modulo_result == 0
   return(is_even)
@@ -751,7 +754,7 @@ even_test(3)
 **Note :** A function can be written in several forms.
 
 ```{r VandAstep11smal2, include=TRUE}
-even_test2 <- function(x){
+even_test2 <- function(x) {
   (x %% 2) == 0
 }
 even_test(4)
@@ -765,8 +768,8 @@ even_test(3)
 <details><summary>Solution 3 </summary>
 <p>
 ```{r VandAstep13, include=TRUE}
-even_print <- function(x){
-  if(even_test(x) == TRUE) {
+even_print <- function(x) {
+  if (even_test(x) == TRUE) {
     print("This number is even")
   } else {
     print("This number is odd")
@@ -779,8 +782,8 @@ even_print(3)
 **Note :** There is no need to test whether a boolean variable (TRUE/FALSE) is TRUE or FALSE.
 
 ```{r VandAstep11small14, include=TRUE}
-even_print <- function(x){
-  if(even_test(x)) {
+even_print <- function(x) {
+  if (even_test(x)) {
     print("This number is even")
   } else {
     print("This number is odd")
@@ -919,36 +922,36 @@ Here are some examples that show how elements of vectors can be obtained by inde
 You can use the position(s) of the value(s) in the vector:
 
 ```{r index1, include=TRUE}
-x <- c(1,5,7,8)
+x <- c(1, 5, 7, 8)
 x[4]
-x[c(1,3,4)]
+x[c(1, 3, 4)]
 ```
 You can use booleans to define which values should be kept:
 
 ```{r index2, include=TRUE}
-x <- c(1,5,7,8,15)
-x[c(TRUE,FALSE,TRUE,FALSE,TRUE)]
-x[c(FALSE,TRUE)] # Bolean vector is reused if it is not of the same size of the vector to index
+x <- c(1, 5, 7, 8, 15)
+x[c(TRUE, FALSE, TRUE, FALSE, TRUE)]
+x[c(FALSE, TRUE)] # Bolean vector is reused if it is not of the same size of the vector to index
 
-y <- c(TRUE,FALSE,FALSE,FALSE,TRUE)
+y <- c(TRUE, FALSE, FALSE, FALSE, TRUE)
 x[y]
 ```
 
 You can use names in the case of a named vector:
 
 ```{r index3, include=TRUE}
-x <-c(a = 1, b = 2, c = 3, d = 4, e = 5)
-x[c("a","c")]
+x <- c(a = 1, b = 2, c = 3, d = 4, e = 5)
+x[c("a", "c")]
 ```
 
 You can also use an index to change values:
 
 ```{r index4, include=TRUE}
-x <- c(1,5,7,8,15)
+x <- c(1, 5, 7, 8, 15)
 x[1] <- 3
 x
 
-x[x>5] <- 13
+x[x > 5] <- 13
 x
 ```
 

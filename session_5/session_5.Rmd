@@ -7,12 +7,13 @@ date: "2022"
 ```{r include=FALSE}
 library(fontawesome)
 
-if("conflicted" %in% .packages())
-    conflicted::conflicts_prefer(dplyr::filter)
+if ("conflicted" %in% .packages()) {
+  conflicted::conflicts_prefer(dplyr::filter)
+}
 ```
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -49,8 +50,10 @@ Find the 10 most delayed flights using the ranking function `min_rank()`.
 <details><summary>Solution</summary>
 <p>
 ```{r pipe_example_a, include=TRUE}
-flights_md <- mutate(flights,
-                     most_delay = min_rank(desc(dep_delay)))
+flights_md <- mutate(
+  flights,
+  most_delay = min_rank(desc(dep_delay))
+)
 flights_md <- filter(flights_md, most_delay < 10)
 flights_md <- arrange(flights_md, most_delay)
 ```
@@ -70,9 +73,9 @@ Try to pipe operators to rewrite your precedent code with only **one** variable 
 <p>
 ```{r pipe_example_b, include=TRUE}
 flights_md2 <- flights %>%
-    mutate(most_delay = min_rank(desc(dep_delay))) %>%
-    filter(most_delay < 10) %>%
-    arrange(most_delay)
+  mutate(most_delay = min_rank(desc(dep_delay))) %>%
+  filter(most_delay < 10) %>%
+  arrange(most_delay)
 ```
 </p>
 </details>
@@ -97,9 +100,9 @@ The `summarise()` function collapses a data frame to a single row.
 Check the difference between `summarise()` and `mutate()` with the following commands:
 
 ```{r load_data, eval=FALSE}
-flights %>% 
+flights %>%
   mutate(delay = mean(dep_delay, na.rm = TRUE))
-flights %>% 
+flights %>%
   summarise(delay = mean(dep_delay, na.rm = TRUE))
 ```
 
@@ -114,14 +117,14 @@ Then, when you use aggregation functions on the grouped data frame, they'll be a
 You can use the following code to compute the average delay per months across years.
 
 ```{r summarise_group_by, include=TRUE, fig.width=8, fig.height=3.5}
-flights_delay <- flights %>% 
-  group_by(year, month) %>% 
-  summarise(delay = mean(dep_delay, na.rm = TRUE), sd = sd(dep_delay, na.rm = TRUE)) %>% 
+flights_delay <- flights %>%
+  group_by(year, month) %>%
+  summarise(delay = mean(dep_delay, na.rm = TRUE), sd = sd(dep_delay, na.rm = TRUE)) %>%
   arrange(month)
 
 ggplot(data = flights_delay, mapping = aes(x = month, y = delay)) +
-  geom_bar(stat="identity", color="black", fill = "#619CFF") +
-  geom_errorbar(mapping = aes( ymin=0, ymax=delay+sd)) + 
+  geom_bar(stat = "identity", color = "black", fill = "#619CFF") +
+  geom_errorbar(mapping = aes(ymin = 0, ymax = delay + sd)) +
   theme(axis.text.x = element_blank())
 ```
 
@@ -136,8 +139,8 @@ You may have wondered about the `na.rm` argument we used above. What happens if 
 </div>
 
 ```{r summarise_group_by_NA, include=TRUE}
-flights %>% 
-  group_by(dest) %>% 
+flights %>%
+  group_by(dest) %>%
   summarise(
     dist = mean(distance),
     delay = mean(arr_delay)
@@ -151,20 +154,20 @@ Aggregation functions obey the usual rule of missing values: **if there's any mi
 Whenever you do any aggregation, it's always a good idea to include a count (`n()`). This way, you can check that you're not drawing conclusions based on very small amounts of data.
 
 ```{r summarise_group_by_count, include = T, echo=F, warning=F, message=F, fig.width=8, fig.height=3.5}
-summ_delay_filghts <- flights %>% 
-  group_by(dest) %>% 
+summ_delay_filghts <- flights %>%
+  group_by(dest) %>%
   summarise(
     n_flights = n(),
     avg_distance = mean(distance, na.rm = TRUE),
     avg_delay = mean(arr_delay, na.rm = TRUE)
-  ) %>% 
-  filter(dest != "HNL") %>% 
+  ) %>%
+  filter(dest != "HNL") %>%
   filter(avg_delay < 40 & avg_delay > -20)
 
 ggplot(summ_delay_filghts, mapping = aes(x = avg_distance, y = avg_delay, size = n_flights)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE) +
-  theme(legend.position='none')
+  theme(legend.position = "none")
 ```
 
 <div class="pencadre">
@@ -183,19 +186,19 @@ Here are three steps to prepare those data:
 <details><summary>Solution</summary>
 <p>
 ```{r summarise_group_by_count_b, include = T, eval=F, warning=F, message=F, fig.width=8, fig.height=3.5}
-flights %>% 
-  group_by(dest) %>% 
+flights %>%
+  group_by(dest) %>%
   summarise(
     n_flights = n(),
     avg_distance = mean(distance, na.rm = TRUE),
     avg_delay = mean(arr_delay, na.rm = TRUE)
-  ) %>% 
-  filter(dest != "HNL") %>% 
-  filter(avg_delay < 40 & avg_delay > -20) %>% 
+  ) %>%
+  filter(dest != "HNL") %>%
+  filter(avg_delay < 40 & avg_delay > -20) %>%
   ggplot(mapping = aes(x = avg_distance, y = avg_delay, size = n_flights)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE) +
-  theme(legend.position='none')
+  theme(legend.position = "none")
 ```
 </p>
 </details>
@@ -210,8 +213,8 @@ Try the following example
 </div>
 
 ```{r ungroup, eval=T, message=FALSE, cache=T}
-flights %>% 
-  group_by(year, month, day) %>% 
+flights %>%
+  group_by(year, month, day) %>%
   ungroup() %>%
   summarise(delay = mean(dep_delay, na.rm = TRUE))
 ```
@@ -241,13 +244,13 @@ Look at the number of canceled flights per day. Is there a pattern?
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_a, eval=T, message=FALSE, cache=T}
-flights %>% 
+flights %>%
   mutate(
     canceled = is.na(dep_time) | is.na(arr_time)
-  ) %>% 
-  filter(canceled) %>% 
-  mutate(wday = strftime(time_hour,'%A')) %>% 
-  group_by(wday) %>% 
+  ) %>%
+  filter(canceled) %>%
+  mutate(wday = strftime(time_hour, "%A")) %>%
+  group_by(wday) %>%
   summarise(
     cancel_day = n()
   ) %>%
@@ -266,17 +269,17 @@ Is the proportion of canceled flights by day of the week related to the average 
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_b1, eval=T, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
-flights %>% 
+flights %>%
   mutate(
     canceled = is.na(dep_time) | is.na(arr_time)
-  ) %>% 
-  mutate(wday = strftime(time_hour,'%A')) %>% 
-  group_by(wday) %>% 
+  ) %>%
+  mutate(wday = strftime(time_hour, "%A")) %>%
+  group_by(wday) %>%
   summarise(
-    prop_cancel_day = sum(canceled)/n(),
+    prop_cancel_day = sum(canceled) / n(),
     av_delay = mean(dep_delay, na.rm = TRUE)
   ) %>%
-  ungroup() %>% 
+  ungroup() %>%
   ggplot(mapping = aes(x = av_delay, y = prop_cancel_day, color = wday)) +
   geom_point()
 ```
@@ -293,33 +296,37 @@ Brainstorm a way to have access to the mean and standard deviation or the `prop_
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_b2, eval=T, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
-flights %>% 
+flights %>%
   mutate(
     canceled = is.na(dep_time) | is.na(arr_time)
-  ) %>% 
-  mutate(wday = strftime(time_hour,'%A')) %>% 
-  group_by(day) %>% 
+  ) %>%
+  mutate(wday = strftime(time_hour, "%A")) %>%
+  group_by(day) %>%
   mutate(
-    prop_cancel_day = sum(canceled)/sum(!canceled),
+    prop_cancel_day = sum(canceled) / sum(!canceled),
     av_delay = mean(dep_delay, na.rm = TRUE)
   ) %>%
-  group_by(wday) %>% 
+  group_by(wday) %>%
   summarize(
     mean_cancel_day = mean(prop_cancel_day, na.rm = TRUE),
     sd_cancel_day = sd(prop_cancel_day, na.rm = TRUE),
     mean_av_delay = mean(av_delay, na.rm = TRUE),
     sd_av_delay = sd(av_delay, na.rm = TRUE)
-  ) %>% 
+  ) %>%
   ggplot(mapping = aes(x = mean_av_delay, y = mean_cancel_day, color = wday)) +
   geom_point() +
-  geom_errorbarh(mapping = aes(
-    xmin = -sd_av_delay + mean_av_delay,
-    xmax = sd_av_delay + mean_av_delay
-  )) +
-  geom_errorbar(mapping = aes(
-    ymin = -sd_cancel_day + mean_cancel_day,
-    ymax = sd_cancel_day + mean_cancel_day
-  ))
+  geom_errorbarh(
+    mapping = aes(
+      xmin = -sd_av_delay + mean_av_delay,
+      xmax = sd_av_delay + mean_av_delay
+    )
+  ) +
+  geom_errorbar(
+    mapping = aes(
+      ymin = -sd_cancel_day + mean_cancel_day,
+      ymax = sd_cancel_day + mean_cancel_day
+    )
+  )
 ```
 </p>
 </details>
@@ -331,21 +338,26 @@ Now that you are aware of the interest of using `geom_errorbar`, what `hour` of 
 <details><summary>Solution</summary>
 <p>
 ```{r group_filter_b3, eval=T, warning=F, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
-flights %>% 
-  group_by(hour) %>% 
+flights %>%
+  group_by(hour) %>%
   summarise(
     mean_delay = mean(arr_delay, na.rm = T),
     sd_delay = sd(arr_delay, na.rm = T),
-  ) %>% 
+  ) %>%
   ggplot() +
-  geom_errorbar(mapping = aes(
-    x = hour,
-    ymax = mean_delay + sd_delay,
-    ymin = mean_delay - sd_delay)) +
-  geom_point(mapping = aes(
-    x = hour,
-    y = mean_delay,
-  ))
+  geom_errorbar(
+    mapping = aes(
+      x = hour,
+      ymax = mean_delay + sd_delay,
+      ymin = mean_delay - sd_delay
+    )
+  ) +
+  geom_point(
+    mapping = aes(
+      x = hour,
+      y = mean_delay,
+    )
+  )
 ```
 </p>
 </details>
@@ -359,8 +371,8 @@ Which carrier has the worst delays?
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_c2, eval=F, echo = T, message=FALSE, cache=T}
-flights %>% 
-  group_by(carrier) %>% 
+flights %>%
+  group_by(carrier) %>%
   summarise(
     carrier_delay = mean(arr_delay, na.rm = T)
   ) %>%
@@ -378,8 +390,8 @@ Can you disentangle the effects of bad airports vs. bad carriers? (Hint: think a
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_c1, eval=F, echo = T, message=FALSE, cache=T}
-flights %>% 
-  group_by(carrier, dest) %>% 
+flights %>%
+  group_by(carrier, dest) %>%
   summarise(
     carrier_delay = mean(arr_delay, na.rm = T),
     number_of_flight = n()

@@ -9,7 +9,7 @@ library(fontawesome)
 ``` 
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -72,10 +72,12 @@ knitr::include_graphics('img/pivot_longer.png')
 ```
 
 ```{r, eval = F}
-wide_example <- tibble(X1 = c("A","B"),
-                      X2 = c(1,2),
-                      X3 = c(0.1,0.2),
-                      X4 = c(10,20))
+wide_example <- tibble(
+  X1 = c("A", "B"),
+  X2 = c(1, 2),
+  X3 = c(0.1, 0.2),
+  X4 = c(10, 20)
+)
 ```
 
 If you have a wide dataset, such as `wide_example`, that you want to make longer, you will use the `pivot_longer()` function. 
@@ -84,13 +86,14 @@ You have to specify the names of the columns you want to pivot into longer forma
 
 ```{r, eval = F}
 wide_example %>%
-  pivot_longer(c(X2,X3,X4))
+  pivot_longer(c(X2, X3, X4))
 ```
 
 ... or the reverse selection (-X1):
 
 ```{r, eval = F}
-wide_example %>% pivot_longer(-X1)
+wide_example %>%
+  pivot_longer(-X1)
 ```
 
 You can specify the names of the columns where the data will be tidy (by default, it is `names` and `value`):
@@ -129,10 +132,11 @@ For this we need to :
 - give the name of the variable stored in the cells of the columns years (`case`)
 
 ```{r pivot_longer, eval=T, message=T}
-table4a %>% 
+table4a %>%
   pivot_longer(-country,
-               names_to = "year",
-               values_to = "case")
+    names_to = "year",
+    values_to = "case"
+  )
 ```
 </p>
 </details>
@@ -148,8 +152,10 @@ If you have a long dataset, that you want to make wider, you will use the `pivot
 You have to specify which column contains the name of the output column (`names_from`), and which column contains the cell values from (`values_from`).
 
 ```{r, eval = F}
-long_example %>% pivot_wider(names_from = V1,
-                             values_from = V2)
+long_example %>% pivot_wider(
+  names_from = V1,
+  values_from = V2
+)
 ```
 
 
@@ -167,9 +173,11 @@ The column `count` store two types of information: the `population` size of the 
 You can use the `pivot_wider` function to make your table wider and have one observation per row and one variable per column.
 
 ```{r pivot_wider, eval=T, message=T}
-table2 %>% 
-  pivot_wider(names_from = type,
-              values_from = count)
+table2 %>%
+  pivot_wider(
+    names_from = type,
+    values_from = count
+  )
 ```
 </p>
 </details>
@@ -188,7 +196,7 @@ flights
 airlines
 airports
 weather
-flights2 <- flights %>% 
+flights2 <- flights %>%
   select(year:day, hour, origin, dest, tailnum, carrier)
 ```
 
@@ -257,7 +265,7 @@ flights2 %>%
 The default, `by = NULL`, uses all variables that appear in both tables, the so called natural join.
 
 ```{r , eval=T}
-flights2 %>% 
+flights2 %>%
   left_join(weather)
 ```
 
@@ -271,24 +279,24 @@ flights2 %>%
 If you want to join by data that are in two columns with different names, you must specify the correspondence with a named character vector: `by = c("a" = "b")`. This will match variable `a` in table `x` to variable `b` in table `y`.
 
 ```{r , eval=T, echo = T}
-flights2 %>% 
+flights2 %>%
   left_join(airports, c("dest" = "faa"))
 ```
 
 If two columns have identical names in the input tables but are not used in the join, they are automatically renamed with the suffix `.x` and `.y` because all column names must be different in the output table.
 
 ```{r , eval=T, echo = T}
-flights2 %>% 
-  left_join(airports, c("dest" = "faa")) %>% 
+flights2 %>%
+  left_join(airports, c("dest" = "faa")) %>%
   left_join(airports, c("origin" = "faa"))
 ```
 
 You can change the suffix using the option `suffix`
 
 ```{r , eval=T, echo = T}
-flights2 %>% 
-  left_join(airports, by = c("dest" = "faa")) %>% 
-  left_join(airports, by = c("origin" = "faa"), suffix = c(".dest",".origin"))
+flights2 %>%
+  left_join(airports, by = c("dest" = "faa")) %>%
+  left_join(airports, by = c("origin" = "faa"), suffix = c(".dest", ".origin"))
 ```
 
 ### Filtering joins
@@ -302,7 +310,7 @@ Filtering joins match observations in the same way as mutating joins, but affect
 top_dest <- flights %>%
   count(dest, sort = TRUE) %>%
   head(10)
-flights %>% 
+flights %>%
   semi_join(top_dest)
 ```
 
