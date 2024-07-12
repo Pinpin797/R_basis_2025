@@ -16,9 +16,9 @@ knitr::opts_chunk$set(comment = NA)
 
 ## Introduction
 
-In the last session, we have seen how to use `ggplot2` and [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl). The goal of this practical is to practices more advanced features of `ggplot2`.
+In the last session, we have seen how to use `ggplot2` and [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl). The goal of this session is to practice more advanced features of `ggplot2`.
 
-The objectives of this session will be to:
+The objectives will be to:
 
 - learn about statistical transformations
 - practices position adjustments
@@ -39,7 +39,7 @@ Like in the previous sessions, it's good practice to create a new **.R** file to
  
 ## `ggplot2` statistical transformations
 
-In the previous session, we have plotted the data as they are by using the variable values as **x** or **y** coordinates, color shade, size or transparency.
+In the previous session, we have plotted the data as they are by using the variable values as **x** or **y** coordinates, color shade, size or transparency.  
 When dealing with categorical variables, also called **factors**, it can be interesting to perform some simple statistical transformations.
 For example, we may want to have coordinates on an axis proportional to the number of records for a given category.
 
@@ -47,9 +47,9 @@ We are going to use the `diamonds` data set included in `tidyverse`.
 
 <div class="pencadre">
 
-- Use the `help` and `View` command to explore this data set.
-- How much records does this dataset contain ?
-- Try the `str` command, which information are displayed ?
+- Use the `help` and `View` commands to explore this data set.
+- How many records does this dataset contain ?
+- Try the `str` command. What information is displayed ?
 
 </div>
 
@@ -59,8 +59,8 @@ str(diamonds)
 
 ### Introduction to `geom_bar`
 
-We saw scatterplot (`geom_point()`), smoothplot (`geom_smooth()`).
-Now barplot with `geom_bar()` : 
+We saw scatterplot (`geom_point()`) and smoothplot (`geom_smooth()`).
+We can also use `geom_bar()` to draw barplot:
 
 ```{r diamonds_barplot, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = diamonds, mapping = aes(x = cut)) + 
@@ -86,11 +86,12 @@ ggplot(data = diamonds, mapping = aes(x = cut)) +
   stat_count()
 ```
 
-Every **geom** has a default **stat**; and every **stat** has a default **geom**. This means that you can typically use **geoms** without worrying about the underlying statistical transformation. There are three reasons you might need to use a **stat** explicitly:
+Every **geom** has a default **stat**; and every **stat** has a default **geom**. This means that you can typically use **geoms** without worrying about the underlying statistical transformation. There are three main reasons you might need to use a **stat** explicitly, we discuss them in the next two sections.
 
 ### Why **stat** ?
 
 You might want to override the default stat.
+
 For example, in the following `demo` dataset we already have a variable for the **counts** per `cut`.
 
 ```{r 3_a, include=TRUE, fig.width=8, fig.height=4.5}
@@ -104,8 +105,8 @@ demo <- tribble(
 )
 ```
 
-(Don't worry that you haven't seen `tribble()` before. You might be able
-to guess at their meaning from the context, and you will learn exactly what
+(Don't worry that you haven't seen `tribble()` before. You may be able
+to guess their meaning from the context, and you will learn exactly what
 they do soon!)
 
 <div class="pencadre">
@@ -139,7 +140,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = ..prop..)) +
   geom_bar()
 ```
 
-If group is not used, the proportion is calculated with respect to the data that contains that field and is ultimately going to be 100% in any case. For instance, the proportion of an ideal cut in the ideal cut specific data will be 1.
+If `group` is not used, the proportion is calculated with respect to the data that contain that field and is ultimately going to be 100% in any case. For instance, the proportion of an ideal cut in the ideal cut specific data will be 1.
 </p>
 </details>
 
@@ -147,8 +148,8 @@ If group is not used, the proportion is calculated with respect to the data that
 
 <div class="pencadre">
 You might want to draw greater attention to the statistical transformation in your code. 
-you might use `stat_summary()`, which summarize the **y** values for each unique **x**
-value, to draw attention to the summary that you are computing
+You might use `stat_summary()`, which summarize the **y** values for each unique **x**
+value, to draw attention to the summary that you are computing.
 </div>
 
 <details><summary>Solution</summary>
@@ -162,7 +163,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
 </details>
 
 <div class="pencadre">
-Set the `fun.min`, `fun.max` and `fun` to the `min`, `max` and `median` function respectively
+Set the `fun.min`, `fun.max` and `fun` to the `min`, `max` and `median` function respectively.
 </div>
 
 <details><summary>Solution</summary>
@@ -180,9 +181,10 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
 
 ## Coloring area plots
 
+You can color a bar chart using either the `color` aesthetic, or, more usefully `fill`.
+
 <div class="pencadre">
-You can color a bar chart using either the `color` aesthetic, or, more usefully `fill`:
-Try both solutions on a `cut`, histogram.
+Try both approaches on a `cut`, histogram.
 </div>
 
 <details><summary>Solution</summary>
@@ -199,9 +201,10 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
 </p>
 </details>
 
+You can also use `fill` with another variable.
+
 <div class="pencadre">
-You can also use `fill` with another variable:
-Try to color by `clarity`. Is `clarity` a continuous or categorial variable ?
+Try to color by `clarity`. Is `clarity` a continuous or categorical variable ?
 </div>
 
 <details><summary>Solution</summary>
@@ -215,7 +218,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
 
 ## Position adjustments
 
-The stacking of the `fill` parameter is performed by the position adjustment `position`
+The stacking of the `fill` parameter is performed by the position adjustment `position`.
 
 <div class="pencadre">
 Try the following `position` parameter for `geom_bar`: `"fill"`, `"dodge"` and `"jitter"`
@@ -287,7 +290,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 
 ## Coordinate systems
 
-Cartesian coordinate system where the x and y positions act independently to determine the location of each point. There are a number of other coordinate systems that are occasionally helpful.
+A Cartesian coordinate system is a coordinate system where the x and y positions act independently to determine the location of each point. There are a number of other coordinate systems that are occasionally helpful.
 
 ```{r dia_boxplot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) + 
@@ -295,7 +298,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 ```
 
 <div class="pencardre">
-Add the `coord_flip()` layer to the previous plot
+Add the `coord_flip()` layer to the previous plot.
 </div>
 
 <details><summary>Solution</summary>
@@ -335,9 +338,9 @@ By combining the right **geom**, **coordinates** and **faceting** functions, you
 
 ## See you in [R.4: data transformation](/session_4/session_4.html) {.unnumbered .unlisted}
 
-## To go further:  animated plots from xls files
+## To go further: animated plots from xls files
 
-In order to be able to read information from a xls file, we will use the `openxlsx` packages. To generate animation we will use the `ggannimate` package. The additional `gifski` package will allow R to save your animation in the gif format (Graphics Interchange Format)
+In order to be able to read information from a xls file, we will use the `openxlsx` packages. To generate animation we will use the `ggannimate` package. The additional `gifski` package will allow R to save your animation in the GIF (Graphics Interchange Format) format.
 
 ```{r install_readxl, eval=F}
 install.packages(c("openxlsx", "gganimate", "gifski"))
@@ -349,19 +352,19 @@ library(gifski)
 ```
 
 <div class="pencardre">
-Use the `openxlsx` package to save the [https://can.gitbiopages.ens-lyon.fr/R_basis/session_3/gapminder.xlsx](https://can.gitbiopages.ens-lyon.fr/R_basis/session_3/gapminder.xlsx) file to the `gapminder` variable
+Use the `openxlsx` package to save the [gapminder.xlsx](https://can.gitbiopages.ens-lyon.fr/R_basis/session_3/gapminder.xlsx) file into the `gapminder` variable.
 </div>
 
 <details><summary>Solution</summary>
 <p>
 2 solutions :
 
-Use directly the url
+Use directly the url:
 ```{r load_xlsx_url, eval = F}
 gapminder <- read.xlsx("https://can.gitbiopages.ens-lyon.fr/R_basis/session_3/gapminder.xlsx")
 ```
 
-Dowload the file, save it in the same directory as your script then use the local path
+Download the file, save it in the same directory as your script then use the local path:
 ```{r load_xlsx}
 gapminder <- read.xlsx("gapminder.xlsx")
 ```
@@ -370,6 +373,7 @@ gapminder <- read.xlsx("gapminder.xlsx")
 </details>
 
 This dataset contains 4 variables of interest for us to display per country:
+
 - `gdpPercap` the GDP par capita (US$, inflation-adjusted)
 - `lifeExp` the life expectancy at birth, in years
 - `pop` the population size

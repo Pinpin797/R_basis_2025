@@ -110,7 +110,7 @@ read_csv("data-raw/vehicles.csv") %>%
 
 ## Introduction
 
-In the last session, we have gone through the basis of R.
+In the last session, we have gone through the basics of R.
 Instead of continuing to learn more about R programming, in this session we are going to jump directly to rendering plots.
 
 We make this choice for three reasons:
@@ -142,7 +142,7 @@ All packages share an underlying design philosophy, grammar, and data structures
 install.packages("tidyverse")
 ```
 
-Luckily for you, `tidyverse` is preinstalled on your Rstudio server. So you just have to load the ` library`
+Luckily for you, `tidyverse` is pre-installed on your RStudio server. So you just have to load the ` library`:
 
 ```{R load_tidyverse}
 library("tidyverse")
@@ -150,7 +150,7 @@ library("tidyverse")
  
 ### Toy data set `mpg`
 
-This dataset contains a subset of the fuel economy data that the EPA makes available on [fueleconomy.gov](http://fueleconomy.gov).
+This dataset contains a subset of the fuel economy data that the EPA made available on [fueleconomy.gov](http://fueleconomy.gov).
 It contains only models which had a new release every year between 1999 and 2008.
 
 You can use the `?` command to know more about this dataset.
@@ -159,10 +159,10 @@ You can use the `?` command to know more about this dataset.
 ?mpg
 ```
 
-But instead of using a dataset included in a R package, you may want to be able to use any dataset with the same format.
-For that we are going to use the command `read_csv` which is able to read a [csv](https://en.wikipedia.org/wiki/Comma-separated_values) file.
+But instead of using a dataset included in a R package, you may want to use any dataset with the same format.
+For that, we are going to use the command `read_csv` which is able to read a [csv](https://en.wikipedia.org/wiki/Comma-separated_values) file.
 
-This command also works for file URL
+This command also works for file URL:
 
 ```{r mpg_download_local, cache=TRUE, message=FALSE, echo = F, include=F}
 new_mpg <- read_csv("./mpg.csv")
@@ -180,34 +180,34 @@ You can check the number of lines and columns of the data with `dim`:
 dim(new_mpg)
 ```
 
-To visualize the data in Rstudio you can use the command. `View`
+To visualize the data in RStudio you can use the command `View`,
 
 ```R
 View(new_mpg)
 ```
 
-Or by simply calling the variable.
-Like for simple data type calling a variable print it.
+Or simply calling the variable.
+As with a simple data type, calling a variable prints it.
 But complex data type like `new_mpg` can use complex print function.
 
 ```{r mpg_inspect3, include=TRUE}
 new_mpg
 ```
 
-Here we can see that `new_mpg` is a `tibble` we will come back to `tibble` later.
+Here we can see that `new_mpg` is a `tibble`. We will come back to `tibble` later.
 
 
 ### New script
 
-Like in the last session, instead of typing your commands directly in the console, you are going to write them in an R script.
+As in the last session, instead of typing your commands directly in the console, you will write them in an R script.
 
 ![](./img/formationR_session2_scriptR.png)
 
 ## First plot with `ggplot2`
 
-We are going to make the simplest plot possible to study the relationship between two variables: the scatterplot.
+We are going to make the simplest plot possible to study the relationship between two variables: a scatterplot.
 
-The following command generates a plot between engine size `displ` and fuel efficiency `hwy` present the `new_mpg` `tibble`.
+The following command generates a plot between engine size `displ` and fuel efficiency `hwy` from the `new_mpg` `tibble`.
 
 ```{r new_mpg_plot_a, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = new_mpg) + 
@@ -220,19 +220,20 @@ Are cars with bigger engines less fuel efficient ?
 
 `ggplot2` is a system for declaratively creating graphics, based on [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl). You provide the data, tell `ggplot2` how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
+All ggplot2 plots begin with the same call:
+
 ```
 ggplot(data = <DATA>) + 
   <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
 ```
 
-- you begin a plot with the function `ggplot()`
-- you complete your graph by adding one or more layers
-- `geom_point()` adds a layer with a scatterplot
-- each **geom **function in `ggplot2` takes a `mapping` argument
-- the `mapping` argument is always paired with `aes()`
-
+- you instantiate a plot with the function `ggplot()`
+- you complete your graph by adding, with `+`, one or more layers  
+  ( for instance, `geom_point()` adds a layer with a scatterplot )
+- each **geom** function in ggplot2 takes a `mapping` argument
+- the `mapping` argument is always paired with aesthetics `aes()`
 <div class="pencadre">
-What happend when you use only the command `ggplot(data = mpg)` ?
+What happened when you only use the command `ggplot(data = mpg)` ?
 </div>
 
 <details><summary>Solution</summary>
@@ -276,13 +277,13 @@ Dots with the same coordinates are superposed.
 
 `ggplot2` will automatically assign a unique level of the aesthetic (here a unique color) to each unique value of the variable, a process known as scaling. `ggplot2` will also add a legend that explains which levels correspond to which values.
 
-Try the following aesthetic:
+Try the following aesthetics:
 
 - `size`
 - `alpha`
 - `shape`
 
-### `color` mapping
+### `color` mapping {#sec-color-mapping}
 
 ```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
@@ -324,7 +325,7 @@ Here is a list of different shapes available in R:
 </center>
  
 <div class="pencadre">
-What’s gone wrong with this code? Why are the points not blue?
+What's gone wrong with this code? Why are the points not blue?
 </div>
 
 ```{r new_mpg_plot_not_blue, cache = TRUE, fig.width=8, fig.height=4.5}
@@ -341,7 +342,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 </p>
 </details>
  
-### Mapping a **continuous** variable to a color.
+### Mapping a **continuous** variable to a color
 
 You can also map continuous variable to a color
 
@@ -367,7 +368,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = displ < 5)) +
 
 You can create multiple plots at once by faceting. For this you can use the command `facet_wrap`.
 This command takes a formula as input.
-We will come back to formulas in R later, for now, you have to know that formulas start with a `~` symbol.
+We will come back to formulas in R later, for now, you just have to know that formulas start with a `~` symbol.
 
 To make a scatterplot of `displ` versus `hwy` per car `class` you can use the following code:
 
@@ -396,7 +397,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 
 ## Composition
 
-There are different ways to represent the information :
+There are different ways to represent the information:
 
 ```{r new_mpg_plot_o, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
@@ -412,7 +413,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 
  \ 
 
-We can add as many layers as we want
+We can add as many layers as we want:
 
 ```{r new_mpg_plot_q, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
@@ -422,7 +423,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 
  \
 
-We can make `mapping` layer specific
+We can make `mapping` layer specific:
 
 ```{r new_mpg_plot_s, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
@@ -541,7 +542,7 @@ plot_color_a_class("Compact Cars")
 ### Third challenge
 
 <div class="pencadre">
-Recreate the R code necessary to generate the following graph (see "linetype" option of "geom_smooth")
+Recreate the R code necessary to generate the following graph (see "linetype" option of `geom_smooth`)
 </div>
 
 ```{r new_mpg_plot_u, echo = FALSE, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
@@ -576,7 +577,7 @@ p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +
       geom_point()
 ```
 
-Then save it in the wanted format:
+Then save it in the format of your choice:
 
 ```{r, eval=F}
 ggsave("test_plot_1.png", p1, width = 12, height = 8, units = "cm")

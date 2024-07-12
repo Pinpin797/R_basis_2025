@@ -16,9 +16,9 @@ knitr::opts_chunk$set(comment = NA)
 
 ## Introduction
 
-Until now we have worked with data already formated in a *nice way*.
-In the `tidyverse` data formated in a *nice way* are called **tidy**
-The goal of this practical is to understand how to transform an hugly blob of information into a **tidy** data set.
+Until now we have worked with data already formatted in a *nice way*.
+In the `tidyverse` data formatted in a *nice way* are called **tidy**
+The goal of this session is to understand how to transform an ugly blob of information into a **tidy** data set.
 
 ### Tidydata
 
@@ -28,9 +28,9 @@ There are three interrelated rules which make a dataset tidy:
 - Each observation must have its own row.
 - Each value must have its own cell.
 
-Doing this kind and transformation is often called **data wrangling**, due to the felling that we have to *wrangle* with the data to force them into a **tidy** format.
+Doing this kind and transformation is often called **data wrangling**, due to the feeling that we have to *wrangle* (struggle) with the data to force them into a **tidy** format.
 
-But once this step is finish most of the subsequent analysis will be realy fast to do !
+But once this step is finish most of the subsequent analysis will be really fast to do !
 
 <div class="pencadre">
 As usual we will need the `tidyverse` library.
@@ -44,7 +44,7 @@ library(tidyverse)
 </p>
 </details>
 
-For this practical we are going to use the `table` set of datasets which demonstrate multiple ways to layout the same tabular data.
+For this session, we are going to use the `table*` set of datasets which demonstrate multiple ways to layout the same tabular data.
 
 <div class="pencadre">
 Use the help to know more about `table1` dataset
@@ -80,7 +80,7 @@ wide_example <- tibble(X1 = c("A","B"),
 
 If you have a wide dataset, such as `wide_example`, that you want to make longer, you will use the `pivot_longer()` function. 
 
-You have to specify the names of the columns you want to pivot into longer format (X2,X3,X4):
+You have to specify the names of the columns you want to pivot into longer format (X2, X3, X4):
 
 ```{r, eval = F}
 wide_example %>%
@@ -116,11 +116,11 @@ Is the data **tidy** ? How would you transform this dataset to make it **tidy** 
 <details><summary>Solution</summary>
 <p>
 
-We have information about 3 variables in the `table4a`: `country`, `year` and number of `cases`.
+We have information about 3 variables in `table4a`: `country`, `year` and number of `cases`.
 However, the variable information (`year`) is stored as column names.
 We want to pivot the horizontal column year, vertically and make the table longer.
 
-You can use the `pivot_longer` fonction to make your table longer and have one observation per row and one variable per column.
+You can use the `pivot_longer` function to make your table longer and have one observation per row and one variable per column.
 
 For this we need to :
 
@@ -164,7 +164,7 @@ Is the data **tidy** ? How would you transform this dataset to make it **tidy** 
 <p>
 The column `count` store two types of information: the `population` size of the country and the number of `cases` in the country.
 
-You can use the `pivot_wider` fonction to make your table wider and have one observation per row and one variable per column.
+You can use the `pivot_wider` function to make your table wider and have one observation per row and one variable per column.
 
 ```{r pivot_wider, eval=T, message=T}
 table2 %>% 
@@ -178,7 +178,7 @@ table2 %>%
 
 ### Relational data
 
-To avoid having a huge table and to save space, information is often splited between different tables.
+To avoid having a huge table and to save space, information is often split between different tables.
 
 In our `flights` dataset, information about the `carrier` or the `airports` (origin and dest) are saved in a separate table (`airlines`, `airports`).
 
@@ -194,7 +194,7 @@ flights2 <- flights %>%
 
 ### Relational schema
 
-The relationships between tables can be seen in a relational graph. The variables used to connect each pair of tables are called keys. A key is a variable (or set of variables) that uniquely identifies an observation.
+Relationships between tables can be displayed in a relational graph. The variables used to connect each pair of tables are called keys. A key is a variable (or set of variables) that uniquely identifies an observation.
 
 ```{r airlines_dag, echo=FALSE, out.width='100%'}
 knitr::include_graphics('img/relational-nycflights.png')
@@ -202,9 +202,9 @@ knitr::include_graphics('img/relational-nycflights.png')
 
 ### Joints
 
-If you have to combine data from 2 tables in a a new table, you will use `joints`.
+If you have to combine data from two tables in a new one, you will use `*_joint` functions.
 
-There are several types of joints depending of what you want to get. 
+There are several types of joints depending of what you want to get.
 
 ```{r joints, echo=FALSE, out.width='100%'}
 knitr::include_graphics('img/join-venn.png')
@@ -218,7 +218,7 @@ knitr::include_graphics('img/overview_joins.png')
 
 #### `inner_joint()`
 
-keeps observations in `x` AND `y`
+Keeps observations in `x` AND `y`
 
 ```{r inner_joint, eval=T}
 flights2 %>%
@@ -227,7 +227,7 @@ flights2 %>%
 
 #### `left_joint()`
 
-keeps all observations in `x`
+Keeps all observations in `x`
 
 ```{r left_joint, eval=T}
 flights2 %>%
@@ -236,7 +236,7 @@ flights2 %>%
 
 #### `right_joint()`
 
-keeps all observations in `y`
+Keeps all observations in `y`
 
 ```{r right_joint, eval=T}
 flights2 %>%
@@ -245,7 +245,7 @@ flights2 %>%
 
 #### `full_joint()`
 
-keeps all observations in `x` and `y`
+Keeps all observations in `x` and `y`
 
 ```{r full_joint, eval=T}
 flights2 %>%
@@ -275,7 +275,7 @@ flights2 %>%
   left_join(airports, c("dest" = "faa"))
 ```
 
-If 2 columns have identical names in the input tables but are not used in the join, they are automatically renamed with the suffix `.x` and `.y` because all column names must be different in the output table.
+If two columns have identical names in the input tables but are not used in the join, they are automatically renamed with the suffix `.x` and `.y` because all column names must be different in the output table.
 
 ```{r , eval=T, echo = T}
 flights2 %>% 
@@ -308,7 +308,7 @@ flights %>%
 
 ### Set operations
 
-These expect the x and y inputs to have the same variables, and treat the observations like sets:
+These expect the `x` and `y` inputs to have the same variables, and treat the observations like sets:
 
 - `intersect(x, y)`: return only observations in both `x` and `y`.
 - `union(x, y)`: return unique observations in `x` and `y`.

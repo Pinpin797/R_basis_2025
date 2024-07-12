@@ -22,7 +22,7 @@ knitr::opts_chunk$set(comment = NA)
 In the previous session, we have often overlooked a particular type of data, the **string**.
 In R a sequence of characters is stored as a string.
 
-In this session you will learn the distinctive features of the string type and how we can use string of character within a programming language which is composed of particular string of characters as function names, variables.
+In this session you will learn the distinctive features of the string type and how we can use string of characters within a programming language which is composed of particular string of characters as function names, variables.
 
 <div class="pencadre">
 As usual we will need the `tidyverse` library.
@@ -40,7 +40,7 @@ library(tidyverse)
 
 ### String definition
 
-A string can be defined within double `"` or simple `'` quote
+A string can be defined within double `"` or simple `'` quote:
 
 ```{r string_def, eval=F, message=T}
 string1 <- "This is a string"
@@ -48,7 +48,7 @@ string2 <- 'If I want to include a "quote"
 inside a string, I use single quotes'
 ```
 
-If you forget to close a quote, you’ll see +, the continuation character:
+If you forget to close a quote, you'll see `+`, the continuation character:
 
 ```
 > "This is a string without a closing quote
@@ -65,12 +65,12 @@ To include a literal single or double quote in a string you can use \\ to *escap
 double_quote <- "\"" # or '"'
 single_quote <- '\'' # or "'"
 ```
-If you want to include a literal backslash, you’ll need to double it up: `"\\"`.
+If you want to include a literal backslash, you'll need to double it up: `"\\"`.
  
  
 ### String representation
 
-The printed representation of a string is not the same as string itself
+The printed representation of a string is not the same as a string itself:
 
 ```{r string_rep_escape_a, eval=T, message=T}
 x <- c("\"", "\\")
@@ -104,8 +104,7 @@ x <- c("Apple", "Banana", "Pear")
 str_sub(x, 1, 3)
 ```
 
-- Subsetting strings
-negative numbers count backwards from the end
+- Subsetting strings negative numbers count backwards from the end
 ```{r str_sub2, eval=T, message=FALSE, cache=T}
 str_sub(x, -3, -1)
 ```
@@ -115,19 +114,19 @@ str_sub(x, -3, -1)
 str_to_lower(x)
 ```
 
-- ordering
+- Ordering
 ```{r str_sort, eval=T, message=FALSE, cache=T}
 str_sort(x)
 ```
 
-## Matching patterns with regular expressions
+## Matching patterns with REGular EXpressions (regex)
 
-Regexps are a very terse language that allows you to describe patterns in strings.
+regexps form a very terse language that allows you to describe patterns in strings.
 
-To learn regular expressions, we’ll use `str_view()` and `str_view_all()`. These functions take a character vector and a regular expression, and show you how they match.
+To learn regular expressions, we'll use `str_view()` and `str_view_all()`. These functions take a character vector and a regular expression, and show you how they match.
 
 <div class="pencadre">
-You need to install the `htmlwidgets` packages to use these functions
+You need to install the `htmlwidgets` packages to use these functions.
 </div>
 
 <details><summary>Solution</summary>
@@ -159,8 +158,8 @@ x <- c("apple", "banana", "pear")
 str_view(x, ".a.")
 ```
 
-But if “`.`” matches any character, how do you match the character “`.`”?
-You need to use an “escape” to tell the regular expression you want to match it exactly, not use its special behavior.
+But if `.` matches any character, how do you match the character "`.`"?
+You need to use an "escape" to tell the regular expression you want to match it exactly, not use its special behaviour.
 
 Like strings, regexps use the backslash, `\`, to escape special behaviour.
 So to match an `.`, you need the regexp `\.`. Unfortunately this creates a problem.
@@ -184,7 +183,7 @@ str_view(x, "\\\\")
 
 ### Exercises
 
-- Explain why each of these strings doesn’t match a \: "`\`", "`\\`", "`\\\`".
+- Explain why each of these strings doesn't match a \: "`\`", "`\\`", "`\\\`".
 - How would you match the sequence `"'\`?
 - What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
 
@@ -212,10 +211,10 @@ str_view(x, "^apple$")
 ### Exercices
 
 - How would you match the literal string `"$^$"`?
-- Given the corpus of common words in stringr::words, create regular expressions that find all words that:
-  -Start with “y”.
-  - End with “x”
-  - Are exactly three letters long. (Don’t cheat by using `str_length()`!)
+- Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
+  - Start with "y".
+  - End with "x".
+  - Are exactly three letters long (Don't cheat by using `str_length()`!).
   - Have seven letters or more.
 
 Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
@@ -235,7 +234,8 @@ str_view(c("abc", "a.c", "a*c", "a c"), ".[*]c")
 str_view(c("abc", "a.c", "a*c", "a c"), "a[ ]")
 ```
 
-You can use alternations to pick between one or more alternative patterns. For example, `abc|d..f` will match either `abc`, or `deaf`. Note that the precedent for `|` is low, so that `abc|xyz` matches `abc` or `xyz` not `abcyz` or `abxyz`. Like with mathematical expressions, if presidents ever get confusing, use parentheses to make it clear what you want:
+You can use alternations to pick between one or more alternative patterns. For example, `abc|d..f` will match either `abc`, or `deaf`. Note that the precedent for `|` is low, so that `abc|xyz` matches `abc` or `xyz` not `abcyz` or `abxyz`.  
+Like with mathematical expressions, if alternations ever get confusing, use parentheses to make it clear what you want:
 
 ```{r str_viewanchorsstartend_c, eval=T, cache=T}
 str_view(c("grey", "gray"), "gr(e|a)y")
@@ -246,9 +246,9 @@ str_view(c("grey", "gray"), "gr(e|a)y")
 Create regular expressions to find all words that:
 
 - Start with a vowel.
-- That only contains consonants. (Hint: thinking about matching “not”-vowels.)
-- End with ed, but not with eed.
-- End with ing or ise.
+- That only contains consonants. (Hint: thinking about matching "not"-vowels.)
+- End with "ed", but not with "eed".
+- End with "ing" or "ise".
 
 ### Repetition
 
@@ -280,7 +280,7 @@ str_view(x, "C{2,3}")
 
 ### Exercices
 
-- Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
+- Describe in words what these regular expressions match (read carefully to see if I'm using a regular expression or a string that defines a regular expression):
   - `^.*$`
   - `"\\{.+\\}"`
   - `\d{4}-\d{2}-\d{2}`
@@ -309,8 +309,8 @@ str_view(fruit, "(..)\\1", match = TRUE)
   - `"(.)(.)(.).*\\3\\2\\1"`
 - Construct regular expressions to match words that:
   - Start and end with the same character.
-  - Contain a repeated pair of letters (e.g. `“church”` contains `“ch”` repeated twice.)
-  - Contain one letter repeated in at least three places (e.g. `“eleven”` contains three `“e”`s.)
+  - Contain a repeated pair of letters (e.g. `"church"` contains `"ch"` repeated twice).
+  - Contain one letter repeated in at least three places (e.g. `"eleven"` contains three `"e"`s).
 
 ### Detect matches
 
@@ -319,7 +319,7 @@ x <- c("apple", "banana", "pear")
 str_detect(x, "e")
 ```
 
-How many common words start with t?
+How many common words start with "t"?
 
 ```{r str_view_match_b, eval=T, cache=T}
 sum(str_detect(words, "^t"))
@@ -383,7 +383,7 @@ head(matches)
 
 ### Grouped matches
 
-Imagine we want to extract nouns from the sentences. As a heuristic, we’ll look for any word that comes after “a” or “the”.
+Imagine we want to extract nouns from the sentences. As a heuristic, we'll look for any word that comes after "a" or "the".
 
 ```{r noun_regex, eval=T, cache=T}
 noun <- "(a|the) ([^ ]+)"
