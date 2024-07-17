@@ -1,7 +1,11 @@
 ---
 title: "R.4: data transformation"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+  - "Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
@@ -30,9 +34,9 @@ The objectives will be to:
 
 For this session, we are going to work with a new dataset included in the `nycflights13` package.
 
-<div class="pencadre">
+::: {.callout-exercise}
 Install this package and load it. As usual you will also need the `tidyverse` library.
-</div>
+:::
 
 <details><summary>Solution</summary>
   <p> 
@@ -118,9 +122,9 @@ filter(flights, month %in% c(5, 6, 7, 12))
 
 `dplyr` functions never modify their inputs, so if you want to save the result, you'll need to use the assignment operator, `<-`.
 
-<div class="pencadre">
+::: {.callout-exercise}
 Save the flights longer than 680 minutes in a `long_flights` variable.
-</div> 
+:::
  
 <details><summary>Solution</summary>
 <p>
@@ -146,8 +150,9 @@ In R you can use the symbols `&` (and), `|` (or), `!` (not) and the function `xo
 ![](./img/transform-logical.png)
 
 
-<div class="pencadre">
-Display the `long_flights` variable and predict the results of:
+::: {.callout-exercise}
+Display the `long_flights` variable and predict the results of the following operations.
+:::
 
 ```{r logical_operators_exemples2, eval=FALSE}
 filter(long_flights, day <= 15 & carrier == "HA")
@@ -155,8 +160,6 @@ filter(long_flights, day <= 15 | carrier == "HA")
 filter(long_flights, (day <= 15 | carrier == "HA") & (!month > 2))
 ```
 
-
-</div> 
  
 <details><summary>Solution</summary>
 <p>
@@ -173,8 +176,9 @@ filter(long_flights, (day <= 15 | carrier == "HA") & (!month > 2))
 
 
 
-<div class="pencadre">
+::: {.callout-exercise}
 Test the following operations and translate them with words.
+:::
 
 ```{r filter_logical_operators_a, eval=FALSE}
 filter(flights, month == 11 | month == 12)
@@ -196,20 +200,20 @@ filter(flights, arr_delay <= 120 & dep_delay <= 120)
 filter(flights, arr_delay <= 120, dep_delay <= 120)
 ```
 
-</div>
-
+::: {.callout-tip}
 Combining logical operators is a powerful programmatic way to select subset of data.
 However, keep in mind that long logical expression can be hard to read and understand, so it may be easier to apply successive small filters instead of a long one.
+:::
 
-
-<div class="pencadre">
 R either prints out the results, or saves them to a variable.
+
+::: {.callout-exercise}
 What happens when you put your variable assignment code between parenthesis `(` `)` ?
+:::
 
 ```{r filter_month_day_sav_display, eval=FALSE}
 (dec25 <- filter(flights, month == 12, day == 25))
 ```
-</div>
 
 ### Missing values
 
@@ -245,12 +249,10 @@ filter(df, is.na(y) | y > 1)
 
 ### Challenges
 
-<div class="pencadre">
 Find all flights that:
 
 - Had an arrival delay (`arr_delay`) of two or more hours (you can check `?flights`)
 - Flew to Houston (IAH or HOU)
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -260,9 +262,7 @@ filter(flights, arr_delay >= 120 & dest %in% c("IAH", "HOU"))
 </p>
 </details>
 
-<div class="pencadre">
 How many flights have a missing `dep_time` ?
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -273,9 +273,7 @@ filter(flights, is.na(dep_time))
 </p>
 </details>
 
-<div class="pencadre">
 Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -321,13 +319,10 @@ arrange(df, desc(y))
 ```
 
 ### Challenges
-<div class="pencadre">
 
 - Find the most delayed flight at arrival (`arr_delay`).
 - Find the flight that left earliest (`dep_delay`).
 - How could you arrange all missing values to the start in the `df` tibble ?
-
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -391,9 +386,6 @@ See `?select` for more details.
 
 ### Challenges
 
-<div class="pencadre">
-<p>
-
 - Brainstorm as many ways as possible to select only `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`. You can associate several selections arguments with `|` , `&` and `!`. 
 
 The simplest way to start: 
@@ -402,7 +394,6 @@ The simplest way to start:
 df_dep_arr <- select(flights, dep_time, dep_delay, arr_time, arr_delay)
 colnames(df_dep_arr)
 ```
-
 
 <details><summary>Other solutions</summary>
 <p>
@@ -473,30 +464,24 @@ select(flights, contains("TIME", ignore.case = FALSE))
 ```
 </p>
 </details>
-
-
-</p>
-</div>
- 
  
  
 ## Add new variables with `mutate()`
 
 It's often useful to add new columns that are functions of existing columns. That's the job of `mutate()`.
 
-<div class="pencadre">
-First let's create a thinner dataset to work on `flights_thin` that contains:
+We will first create a thinner dataset `flights_thin_toy` to work on `flights_thin` that contains:
 
 - columns from `year` to `day`
 - columns that ends with `delay`
 - the `distance` and `air_time` columns
 - the `dep_time` and `sched_dep_time` columns
 
-Then let's create an even smaller toy dataset to test your commands before using them on the larger one (It a good reflex to take). For that you can use the function `head` or `sample_n` for a random sampling alternative.
+Then we will create an even smaller toy dataset `flights_thin_toy2` to test our commands before using them on the larger one (It a good reflex to take). For that you can use the function `head` or `sample_n` for a random sampling alternative.
 
-- select only 5 rows
-
-</div>
+::: {.callout-exercise}
+Create both `flights_thin_toy` and `flights_thin_toy2`, select only 5 row for the latter.
+:::
 
 
 <details><summary>Solution</summary>
@@ -526,10 +511,9 @@ We can create a `gain` column, which can be the difference between departure and
 mutate(flights_thin_toy, gain = dep_delay - arr_delay)
 ```
 
-<div class="pencadre">
-
-Using `mutate` to add a new column `gain` and `speed` that contains the average speed of the plane to the `flights_thin_toy` tibble (speed = distance / time).
-</div>
+::: {.callout-exercise}
+Use `mutate` to add a new column `gain` and `speed` that contains the average speed of the plane to the `flights_thin_toy` tibble (speed = distance / time).
+::: 
 
 <details><summary>Solution</summary>
 <p>
@@ -545,8 +529,11 @@ flights_thin_toy
 </details>
 
 
-<div class="pencadre">
-Currently `dep_time` and `sched_dep_time` are convenient to look at, but difficult to work with, as they're not really continuous numbers (see the help to get more information on these columns). In the flight dataset, convert them to a more convenient representation of the number of minutes since midnight.
+Currently `dep_time` and `sched_dep_time` are convenient to look at, but difficult to work with, as they're not really continuous numbers (see the help to get more information on these columns).
+
+::: {.callout-exercise}
+In the flight dataset, convert `dep_time` and `sched_dep_time` to a more convenient representation of the number of minutes since midnight.
+:::
 
 **Hints** :
 
@@ -566,7 +553,6 @@ HH * 60 + MM
 It is always a good idea to decompose a problem in small parts.
 First, only start with `dep_time`. Build the HH and MM columns. Then, try to write both conversions in one row.
 
-</div>
 
 <details><summary> Partial solution </summary>
 <p>
@@ -679,7 +665,10 @@ Modify the colors representing the class of cars with the palettes `Dark2` of [R
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
   geom_point()
 ```
+
+::: {.callout-exercise}
 Go to the links to find the appropriate function: they are very similar between the two packages.
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -714,7 +703,10 @@ For the next part, we will use a real data set. Anterior tibial muscle tissue wa
 
 First, we will use the gene count table of these samples, formatted for use in ggplot2 ( `pivot_longer()` [function](https://tidyr.tidyverse.org/reference/pivot_longer.html) ).
 
-Open the csv file using the `read_csv2()` function. The file is located at "https://can.gitbiopages.ens-lyon.fr/R_basis/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv".
+::: {.callout-exercise}
+Open the csv file using the `read_csv2()` function. The file is located at:  
+<span style="font-size:0.75em;"><i>https://can.gitbiopages.ens-lyon.fr/R_basis/session_4/Expression_matrice_pivot_longer_DEGs_GSE86356.csv</i></span>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -737,8 +729,10 @@ or you can read it from the following url:
 </p>
 </details>
 
+::: {.callout-exercise}
 With this tibble, use `ggplot2` and the `geom_tile()` function to make a heatmap.
 Fit the samples on the x-axis and the genes on the y-axis.
+:::
 
 **Tip**: Transform the counts into log10(x + 1) for a better visualization.
 
@@ -767,7 +761,9 @@ R interprets a large number of colors, indicated in RGB, hexadecimal, or just by
 ![](./img/colorsR.png){width=400px}
 </center>
 
+::: {.callout-exercise}
 With `scale_fill_gradient2()` function, change the colors of the gradient, taking "white" for the minimum value and "springgreen4" for the maximum value.
+:::
 
 <details><summary>Solution</summary>
   <p>
@@ -780,7 +776,10 @@ DM1_tile_base + scale_fill_gradient2(low = "white", high = "springgreen4")
 </details>
 
 It's better, but still not perfect!
-Now let's use the [viridis color gradient](https://gotellilab.github.io/GotelliLabMeetingHacks/NickGotelli/ViridisColorPalette.html) for this graph.
+
+::: {.callout-exercise}
+Use the [viridis color gradient](https://gotellilab.github.io/GotelliLabMeetingHacks/NickGotelli/ViridisColorPalette.html) for this graph.
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -795,7 +794,10 @@ DM1_tile_base + scale_fill_viridis_c()
 
 For this last exercise, we will use the results of the differential gene expression analysis between DM1 vs WT conditions. 
 
-Open the csv file using the `read_csv2()` function. The file is located at "http://can.gitbiopages.ens-lyon.fr/R_basis/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv".
+::: {.callout-exercise}
+Open the csv file using the `read_csv2()` function. The file is located at:  
+<span style="font-size:0.75em;"><i>http://can.gitbiopages.ens-lyon.fr/R_basis/session_4/EWang_Tibialis_DEGs_GRCH37-87_GSE86356.csv</i></span>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -821,10 +823,14 @@ To make a Volcano plot, displaying different information on the significance of 
 
 With `mutate()` and `ifelse()` [fonctions](https://dplyr.tidyverse.org/reference/if_else.html), we will have to create: 
 
-- a column 'sig': it indicates if the gene is significant ( TRUE or FALSE ).  
+- a column `sig`: it indicates if the gene is significant ( TRUE or FALSE ).  
   **Thresholds**: baseMean > 20 and  padj < 0.05 and abs(log2FoldChange) >= 1.5
 
-- a column 'UpDown': it indicates if the gene is significantly up-regulated (Up), down-regulated (Down), or not significantly regulated (NO).
+- a column `UpDown`: it indicates if the gene is significantly up-regulated (Up), down-regulated (Down), or not significantly regulated (NO).
+
+::: {.callout-exercise}
+Create the columns `sig` and `UpDown`.
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -844,7 +850,10 @@ With `mutate()` and `ifelse()` [fonctions](https://dplyr.tidyverse.org/reference
 </details>
 
 We want to see the top10 DEGs on the graph. For this, we will use the package `ggrepel`.
+
+::: {.callout-exercise}
 Install and load the `ggrepel` package.
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -860,10 +869,13 @@ library(ggrepel)
 </details>
 
 
-Let's **filter** out the table into a new variable, top10, to keep only the significant differentially expressed genes, those with the top 10 adjusted pvalue. The **smaller** the adjusted pvalue, the more significant the gene.
+Let's **filter** out the table into a new variable, `top10`, to keep only the significant differentially expressed genes, those with the top 10 adjusted pvalue. The **smaller** the adjusted pvalue, the more significant the gene.
 
+::: {.callout-exercise}
+Create the new variable `top10`.
+:::
 
-**Tips**: You can use the [function](https://dplyr.tidyverse.org/reference/slice.html) `slice_min()`
+**Tip**: You can use the [function](https://dplyr.tidyverse.org/reference/slice.html) `slice_min()`.
 
 <details><summary>Solution</summary>
 <p>
@@ -883,9 +895,9 @@ Let's **filter** out the table into a new variable, top10, to keep only the sign
 
 The data is ready to be used to make a volcano plot!  
 
-<div class="pencadre">
+::: {.callout-exercise}
 To make the graph below, use `ggplot2`, the functions `geom_point()`, `geom_hline()`, `geom_vline()`, `theme_minimal()`, `theme()` (to remove the legend), `geom_label_repel()` and the function `scale_color_manual()` for the colors.
-</div> 
+:::
 
 
 - **Tips 1**: Don't forget the transformation of the adjusted pvalue.

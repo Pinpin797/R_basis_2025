@@ -1,7 +1,10 @@
 ---
 title: "R.7: String & RegExp"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
@@ -25,9 +28,9 @@ In R a sequence of characters is stored as a string.
 
 In this session you will learn the distinctive features of the string type and how we can use string of characters within a programming language which is composed of particular string of characters as function names, variables.
 
-<div class="pencadre">
+::: {.callout-exercise}
 As usual we will need the `tidyverse` library.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -126,9 +129,10 @@ regexps form a very terse language that allows you to describe patterns in strin
 
 To learn regular expressions, we'll use `str_view()` and `str_view_all()`. These functions take a character vector and a regular expression, and show you how they match.
 
-<div class="pencadre">
+::: {.callout-exercise}
+
 You need to install the `htmlwidgets` packages to use these functions.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -182,11 +186,38 @@ writeLines(x)
 str_view(x, "\\\\")
 ```
 
-### Exercises
+::: {.callout-exercise}
 
-- Explain why each of these strings doesn't match a \: "`\`", "`\\`", "`\\\`".
-- How would you match the sequence `"'\`?
-- What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
+## Exercises
+
+1. Explain why each of these strings doesn't match a \: `"\"`, `"\\"`, `"\\\"`.
+2. How would you match the sequence `"'\`?
+3. What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
+
+:::
+
+<details><summary>Solution</summary>
+<p>
+
+1.
+    - `"\"`: would leave an open quote as `\"` would be interpreted as a literal double quote,
+    - `"\\"`: would escape the second `\` so we would be left with a blank,
+    - `"\\\"`: `\"` would again escape the quote so we would be left with an open quote.
+
+<p></p>
+2.  We would need the following pattern `"\\\"'\\\\"`:
+
+    - `\\\"` to escape the double quote,
+    - `'` doesn't need to be escaped (because the string is defined within double quote),
+    - `\\\\` to escape `\`.
+<p></p>
+3. It would match a string of the form: ".(anychar).(anychar).(anychar)"
+   ```{r str_dotstring, eval=F, message=FALSE, cache=T}
+   x <- c("alf.r.e.dd.ss..lsdf.d.kj")
+   str_view(x, "\\..\\..\\..")
+   ```
+</p>
+</details>
 
 ### Anchors
 
@@ -209,16 +240,37 @@ x <- c("apple pie", "apple", "apple cake")
 str_view(x, "^apple$")
 ```
 
-### Exercices
+::: {.callout-exercise}
 
-- How would you match the literal string `"$^$"`?
-- Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
-  - Start with "y".
-  - End with "x".
-  - Are exactly three letters long (Don't cheat by using `str_length()`!).
-  - Have seven letters or more.
+## Exercises
 
-Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
+1. How would you match the literal string `"$^$"`?
+
+2. Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
+
+    a. Start with "y".
+    b. End with "x".
+    c. Are exactly three letters long (Don't cheat by using `str_length()`!).
+    d. Have seven letters or more.
+
+    Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
+:::
+
+<details><summary>Solution</summary>
+<p>
+
+1. We would need the pattern `"\\$\\^\\$"`
+
+<p></p>
+2.
+
+    a. start with "y": `"^y"`
+    b. end with "x": `"x$"`
+    c. three letters long: `"^...$"`
+    d. seven letters or more: `"......."`
+
+</p>
+</details>
 
 ### Character classes and alternatives
 
@@ -242,14 +294,38 @@ Like with mathematical expressions, if alternations ever get confusing, use pare
 str_view(c("grey", "gray"), "gr(e|a)y")
 ```
 
-### Exercices
+::: {.callout-exercise}
+
+## Exercises
 
 Create regular expressions to find all words that:
 
-- Start with a vowel.
-- That only contains consonants. (Hint: thinking about matching "not"-vowels.)
-- End with "ed", but not with "eed".
-- End with "ing" or "ise".
+1. Start with a vowel.
+2. That only contains consonants (Hint: thinking about matching "not"-vowels).
+3. End with "ed", but not with "eed".
+4. End with "ing" or "ise".
+
+:::
+
+<details><summary>Solution</summary>
+<p>
+
+1. start with a vowel: `"^[aeiouy]"`
+
+2. decomposition:
+    - start with a consonant: `"^[^aeiouy]"`
+    - contains one or more consonant: `"[^aeiouy]+"`
+    - end with a consonant: `"[^aeiouy]$"`
+    
+    result is: `"^[^aeiouy][^aeiouy]+[^aeiouy]$"`.
+   
+3. `"[^e]ed$"`
+
+4. `"(ing|ise)$"`
+
+</p>
+</details>
+
 
 ### Repetition
 
@@ -279,17 +355,42 @@ str_view(x, "C{2,}")
 str_view(x, "C{2,3}")
 ```
 
-### Exercices
+::: {.callout-exercise}
 
-- Describe in words what these regular expressions match (read carefully to see if I'm using a regular expression or a string that defines a regular expression):
-  - `^.*$`
-  - `"\\{.+\\}"`
-  - `\d{4}-\d{2}-\d{2}`
-  - `"\\\\{4}"`
-- Create regular expressions to find all words that:
-  - Start with three consonants.
-  - Have three or more vowels in a row.
-  - Have two or more vowel-consonant pairs in a row.
+1. Describe in words what these regular expressions match (read carefully to see if I'm using a regular expression or a string that defines a regular expression):
+
+    a. `^.*$`
+    b. `"\\{.+\\}"`
+    c. `\d{4}-\d{2}-\d{2}`
+    d. `"\\\\{4}"`
+
+2. Create regular expressions to find all words that:
+    
+    a. Start with three consonants.
+    b. Have three or more vowels in a row.
+    c. Have two or more vowel-consonant pairs in a row.
+
+:::
+
+<details><summary>Solution</summary>
+<p>
+
+1.
+
+    a. (regex) starts with anything and ends with anything, matches whole thing
+    b. (string regex) matches non-empty text in brackets
+    c. (regex) matches date in format `yyyy-mm-dd`
+    d. (string regex) matches string that contains `\` repeated 4 times
+
+<p></p>
+2.
+
+    a. `"^[^aeoiouy]{3}"`
+    b. `"[aeiou]{3,}"`
+    c. `"([aeiou][^aeiou]){2,}"`
+
+</p>
+</details>
 
 
 ### Grouping
@@ -300,18 +401,47 @@ You learned about parentheses as a way to disambiguate complex expressions. Pare
 str_view(fruit, "(..)\\1", match = TRUE)
 ```
 
-### Exercices
+::: {.callout-exercise}
 
-- Describe, in words, what these expressions will match:
-  - `"(.)\1\1"`
-  - `"(.)(.)\\2\\1"`
-  - `"(..)\1"`
-  - `"(.).\\1.\\1"`
-  - `"(.)(.)(.).*\\3\\2\\1"`
-- Construct regular expressions to match words that:
-  - Start and end with the same character.
-  - Contain a repeated pair of letters (e.g. `"church"` contains `"ch"` repeated twice).
-  - Contain one letter repeated in at least three places (e.g. `"eleven"` contains three `"e"`s).
+## Exercises
+
+1. Describe, in words, what these expressions will match:
+
+    a. `"(.)\\1\\1"`
+    b. `"(.)(.)\\2\\1"`
+    c. `"(..)\\1"`
+    d. `"(.).\\1.\\1"`
+    e. `"(.)(.)(.).*\\3\\2\\1"`
+
+2. Construct regular expressions to match words that:
+
+    a. Start and end with the same character.
+    b. Contain a repeated pair of letters (e.g. `"church"` contains `"ch"` repeated twice).
+    c. Contain one letter repeated in at least three places (e.g. `"eleven"` contains three `"e"`s).
+
+:::
+
+<details><summary>Solution</summary>
+<p>
+
+1.
+
+    a. matches a character repeated thrice
+    b. matches two characters followed by their reverse order ("abba")
+    c. matches two characters repeated twice (not each)
+    d. matches a character repeated 3 times with one character between each repeat
+    e. matches 3 characters, followed by any characters, then the 3 characters in reverse order
+
+<p></p>
+2.
+
+    a. `"^(.).*\\1$"`
+    b. `"([A-Za-z]{2}).*\\1"`
+    c. `"([A-Za-z]).*\\1.*\\1"`
+
+</p>
+</details>
+
 
 ### Detect matches
 
@@ -402,9 +532,54 @@ has_noun %>%
   str_match(noun)
 ```
 
-### Exercises
+::: {.callout-exercise}
+Find all words that come after a `number` like `one`, `two`, `three` etc. Pull out both the number and the word.
+:::
 
-- Find all words that come after a `number` like `one`, `two`, `three` etc. Pull out both the number and the word.
+<details><summary>Solution</summary>
+<p>
+
+Start by creating a vector of words defining digits:
+```{r digit_vec, eval=T, cache=T}
+nums <- c("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
+```
+
+Next, create the corresponding regular expression to catch any worded digit:
+```{r digit_regex, eval=T, cache=T}
+nums_c <- str_c(nums, collapse = "|")
+```
+
+Then, construct the full regular expression where:  
+`(?<![Y])X` means capture string `X` only if not preceded by string `Y`.  
+Here, `X` corresponds to our worded digit expression and `Y` is any letter (`:alpha:`).
+
+This way, `(?<![:alpha:]) (one|two|three|four|five|six|seven|eight|nine)` will match any of our digit only if not preceded by a letter.
+
+We then add a blank space and `[A-Za-z]+` to capture the word following our worded digit:
+```{r digit_regex_full, eval=T, cache=T}
+re_str <- str_c("(?<![:alpha:])", "(", nums_c, ")", " ", "([A-Za-z]+)", sep = "")
+```
+
+Let's apply it to our sentences:
+```{r sentences_digit_regex, eval=T, cache=T}
+sentences %>%
+  # get the subset of sentences where a match occurred
+  str_subset(regex(re_str, ignore_case = TRUE)) %>%
+  # for each sentence get the matched string
+  str_extract_all(regex(re_str, ignore_case = TRUE)) %>%
+  # convert to vector
+  unlist() %>%
+  # convert to tibble
+  as_tibble_col(column_name = "expr") %>%
+  # split matched strings into components
+  tidyr::separate(
+    col = "expr", 
+    into = c("digit", "word"),
+    remove = FALSE
+  )
+```
+</p>
+</details>
 
 ### Replacing matches
 
@@ -416,11 +591,45 @@ sentences %>%
   head(5)
 ```
 
-### Exercices
+::: {.callout-exercise}
 
-- Replace all forward slashes in a string with backslashes.
-- Implement a simple version of `str_to_lower()` using `replace_all()`.
-- Switch the first and last letters in words. Which of those strings are still words?
+## Exercises
+
+1. Replace all forward slashes in a string with backslashes.
+2. Implement a simple version of `str_to_lower()` using `str_replace_all()`.
+3. Switch the first and last letters in words. Which of those strings are still words?
+
+:::
+
+<details><summary>Solution</summary>
+<p>
+
+1. We can use the function `str_replace_all` with a replacement string:
+   ```{r replacing_slashes, eval=T, cache=T}
+   test_str <- "/test/"
+   writeLines(test_str)
+
+   test_str %>% 
+     str_replace_all(pattern = "/", replacement = "\\\\") %>%
+     writeLines()
+   ```
+
+2. We also can use the function `str_replace_all` with a replacement function:
+   ```{r replacing_to_lower, eval=T, cache=T}
+   sentences %>%
+     str_replace_all(pattern = "([A-Z])", replacement = tolower) %>%
+     head(5)
+   ```
+
+3. Any words that start and end with the same letter and a few other examples like "war –> raw":
+   ```{r switching_words, eval=T, cache=T}
+   words %>%
+     str_replace(pattern = "(^.)(.*)(.$)", replacement = "\\3\\2\\1") %>%
+     head(5)
+   ```
+
+</p>
+</details>
 
 ### Splitting
 

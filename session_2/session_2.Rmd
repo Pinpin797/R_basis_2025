@@ -1,7 +1,11 @@
 ---
 title: "R.2: introduction to Tidyverse"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr);\nHélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+  - "Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
@@ -216,9 +220,9 @@ ggplot(data = new_mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 Are cars with bigger engines less fuel efficient ? 
-</div>
+:::
 
 `ggplot2` is a system for declaratively creating graphics, based on [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl). You provide the data, tell `ggplot2` how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
@@ -234,9 +238,10 @@ ggplot(data = <DATA>) +
   ( for instance, `geom_point()` adds a layer with a scatterplot )
 - each **geom** function in ggplot2 takes a `mapping` argument
 - the `mapping` argument is always paired with aesthetics `aes()`
-<div class="pencadre">
+
+::: {.callout-exercise}
 What happened when you only use the command `ggplot(data = mpg)` ?
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -247,9 +252,9 @@ ggplot(data = new_mpg)
 </details>
  
  
-<div class="pencadre">
+::: {.callout-exercise}
 Make a scatterplot of `hwy` ( fuel efficiency ) vs. `cyl` ( number of cylinders ).
-</div>
+:::
  
 
 <details><summary>Solution</summary>
@@ -261,9 +266,9 @@ ggplot(data = new_mpg, mapping = aes(x = hwy, y = cyl)) +
 
 </p>
 
-<div class="pencadre">
+::: {.callout-exercise}
 What seems to be the problem ?
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -326,9 +331,9 @@ Here is a list of different shapes available in R:
 ![](./img/shapes.png){width=300px}
 </center>
  
-<div class="pencadre">
+::: {.callout-exercise}
 What's gone wrong with this code? Why are the points not blue?
-</div>
+:::
 
 ```{r new_mpg_plot_not_blue, cache = TRUE, fig.width=8, fig.height=4.5}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = "blue")) +
@@ -353,9 +358,9 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = cyl)) +
   geom_point()
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 What happens if you map an aesthetic to something other than a variable name, like `color = displ < 5`?
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -380,9 +385,9 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   facet_wrap(~class, nrow = 2)
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 Now try to facet your plot by `fuel + class`
-</div>
+:::
 
 
 <details><summary>Solution</summary>
@@ -443,23 +448,19 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(data = filter(mpg, class == "subcompact"))
 ```
 
-## Challenge  !
+## Challenges
 
 ### First challenge
-<div class="pencadre">
+
 Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
-</div>
 ```R
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) +
   geom_point(show.legend = FALSE) +
   geom_smooth(se = FALSE)
 ```
 
-<div class="pencadre">
 - What does `show.legend = FALSE` do?
 - What does the `se` argument to `geom_smooth()` do?
-</div>
-
 
 <details><summary>Solution</summary>
 <p>
@@ -475,14 +476,11 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) +
 
 ### Second challenge
 
-<div class="pencadre">
 How being a `Two Seaters` car (*class column*) impact the engine size (*displ column*) versus fuel efficiency relationship (*hwy column*) ?
 
 1. Make a plot of `hwy` in function of `displ ` 
 1. *Colorize* this plot in another color for `Two Seaters` class
 2. *Split* this plot for each *class*
-
-</div>
 
 <details><summary>Solution 1</summary>
 <p>
@@ -520,9 +518,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 </details>
 
 
-<div class="pencadre">
-Write a `function` called `plot_color_a_class` that can take as argument the class and plot the same graph for this class
-</div>
+Write a `function` called `plot_color_a_class` that can take as argument the class and plot the same graph for this class.
 
 <details><summary>Solution</summary>
 <p>
@@ -543,9 +539,7 @@ plot_color_a_class("Compact Cars")
 
 ### Third challenge
 
-<div class="pencadre">
 Recreate the R code necessary to generate the following graph (see "linetype" option of `geom_smooth`)
-</div>
 
 ```{r new_mpg_plot_u, echo = FALSE, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = fuel)) +
@@ -646,9 +640,9 @@ ggsave("test_plot_1_and_2.png", p_final, width = 20, height = 8, units = "cm")
 
 You can learn more features about `cowplot` on [https://wilkelab.org/cowplot/articles/introduction.html](its website). 
 
-<div class="pencadre">
+::: {.callout-exercise}
 Use the `cowplot` documentation to reproduce this plot and save it.
-</div>
+:::
 
 ```{r, echo=F}
 p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +

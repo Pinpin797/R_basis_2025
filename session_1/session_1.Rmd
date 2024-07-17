@@ -1,7 +1,11 @@
 ---
 title: 'R.1: Introduction to R and RStudio'
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr);\n Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+  - "Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
@@ -151,15 +155,14 @@ Now that we know what we should do and what to expect, we are going to try some 
 - Exponents: `^` or `**`
 - Parentheses: `(`, `)`
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
 Now Open RStudio.
 
+::: {.callout-tip}
 You can `copy paste` but I advise you to practice writing directly in the terminal.
 Like all the languages, you will become more familiar with R by using it.
 
 To validate the line at the end of your command: press `Return`.
-</div>
-
+:::
 
 ### First commands
 
@@ -283,11 +286,11 @@ If we want our future programs to be able to perform automatic choices, we need 
 
 Comparisons can be made with R. The result will return a `TRUE` or `FALSE` value (which is not a number as before but a `boolean` type).
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
+::: {.callout-exercise}
 Try the following operator to get a `TRUE` then change your command to get a `FALSE`.
 
 You can use the `↑` (upper arrow) key to edit the last command and go through your history of commands
-</div>
+:::
 
 - equality (note: two equal signs read as "is equal to")
 
@@ -315,8 +318,8 @@ You can use the `↑` (upper arrow) key to edit the last command and go through 
 1 > 0
 ```
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
-  **Summary so far**
+::: {.callout-note}
+## Summary so far
 
   - R is a programming language and free software environment for statistical
 computing and graphics (free & opensource) with a large library of external packages available for performing diverse tasks.
@@ -324,7 +327,7 @@ computing and graphics (free & opensource) with a large library of external pack
   - R can be used as a calculator
   - R can perform comparisons
 
-</div>
+:::
 
 ## Variables and assignment
 
@@ -418,7 +421,9 @@ camelCaseToSeparateWords
 
 What you use is up to you, but be consistent.
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->  Which of the following are valid R variable names?</div>
+::: {.callout-exercise}
+Which of the following are valid R variable names?
+:::
 
 ```{r eval=F, }
 min_height
@@ -478,9 +483,9 @@ This block allows you to view the different outputs (?help, graphs, etc.).
 
 ![](./img/formationR_VandAstep8_encadre.png)
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
+::: {.callout-exercise}
 Test that your `logarithm` function can work in base 10
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -540,8 +545,9 @@ function_name <- function(a, b){
 
 -  The order of arguments is important
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
+::: {.callout-exercise}
 Predict the result of R1, R2 and R3.
+:::
 
 ```R
 minus <- function(a, b) {
@@ -560,7 +566,6 @@ a <- 2
 b <- 10
 R3 <- minus(b, a)
 ```
-</div>
 
 <details><summary>Solution 1</summary>
 <p>
@@ -596,8 +601,10 @@ minus(b, a)
 
 - Naming variables is more explicit and bypasses the order.
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
+::: {.callout-exercise}
 Predict the result of R1, R2, R3 and R4.
+:::
+
 ```R
 a <- 10
 b <- 2
@@ -619,7 +626,6 @@ R3 <- a
 ## R4
 R4 <- minus(b = b, a = a)
 ```
-</div>
 
 <details><summary>Solution 1</summary>
 <p>
@@ -686,10 +692,9 @@ print_hw <- function() {
 }
 ```
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
+::: {.callout-exercise}
 What is the difference between `print_hw` and `print_hw()` ?
-
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -708,9 +713,8 @@ print_hw()
 </details>
 
 
-### Some exercices
+### Challenges
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
 1. Try a function (`rect_area`) to calculate the area of a rectangle of length "L" and width "W"
 
 2. (more difficult) Try a function  (`even_test`) to test if a number is even?
@@ -722,8 +726,6 @@ of the modulo is equal to `0`.
 ```
 
 3. Using your `even_test` function, write a new function `even_print` which will print the string "This number is even" or "This number is odd". You will need the `if`, `else` statements and the function `print`. Find help on how to use them.
-
-</div>
 
 <details><summary>Solution 1 </summary>
 <p>
@@ -819,9 +821,9 @@ Check the documentation of this command.
 ls()
 ```
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
+::: {.callout-exercise}
 Combine `rm` and `ls` to cleanup your *Environment*
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -835,7 +837,7 @@ rm(list = ls())
 ls()
 ```
 
-<div class='pencadre'> <!-- TODO: replace with quarto callout -->
+::: {.callout-note}
   **Summary so far:**
 
   - Assigning a variable is done with `<-`.
@@ -844,7 +846,7 @@ ls()
   - Functions are also variables and can write in several forms.
   - An editing box is available on RStudio.
 
-</div>
+:::
 
 ## Complex variable type
 
@@ -955,14 +957,14 @@ x[x > 5] <- 13
 x
 ```
 
-<div class="pencadre"> <!-- TODO: replace with quarto callout -->
+::: {.callout-note}
   **Summary so far**
 
   - A variable can be of different types : `numeric`, `character`, `vector`, `function`, etc.
   - Calculations and comparisons apply to vectors.
   - Do not hesitate to use the help box to understand functions!
 
-</div>
+:::
 
 We will see other complex variable types during this formation.
 
@@ -993,16 +995,16 @@ or you can click on `Tools` and `Install Packages...`
 
 ![](./img/formationR_installTidyverse.png)
 
-<!-- Install also the `ggplot2` package. -->
+Install also the `ggplot2` package.
 
 
-<!-- <details><summary>Solution</summary> -->
-<!-- <p> -->
-<!-- ```R -->
-<!-- install.packages("ggplot2") -->
-<!-- ``` -->
-<!-- </p> -->
-<!-- </details> -->
+<details><summary>Solution</summary>
+<p>
+```R
+install.packages("ggplot2")
+```
+</p>
+</details>
 
 #### From Bioconducor
 
@@ -1057,9 +1059,9 @@ The command `sessionInfo` displays your session information.
 sessionInfo()
 ```
 
-<div class='pencadre'> <!-- TODO: replace with quarto callout -->
+::: {.callout-exercise}
 Use the command `library` to load the `ggplot2` package and check your session
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>

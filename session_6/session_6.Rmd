@@ -1,7 +1,11 @@
 ---
 title: "R.6: tidydata"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr);\nCarine Rey [carine.rey@ens-lyon.fr](mailto:carine.rey@ens-lyon.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+  - "Carine Rey [carine.rey@ens-lyon.fr](mailto:carine.rey@ens-lyon.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
@@ -32,9 +36,9 @@ Doing this kind and transformation is often called **data wrangling**, due to th
 
 But once this step is finish most of the subsequent analysis will be really fast to do !
 
-<div class="pencadre">
+::: {.callout-exercise}
 As usual we will need the `tidyverse` library.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -46,9 +50,9 @@ library(tidyverse)
 
 For this session, we are going to use the `table*` set of datasets which demonstrate multiple ways to layout the same tabular data.
 
-<div class="pencadre">
-Use the help to know more about `table1` dataset
-</div>
+::: {.callout-exercise}
+Use the help to know more about `table1` dataset.
+:::
 
 <details><summary>Solution</summary>
 
@@ -105,15 +109,15 @@ long_example <- wide_example %>%
 
 #### Exercice
 
-<div class="pencadre">
 Visualize the `table4a` dataset (you can use the `View()` function).
 
 ```{r table4a, eval=F, message=T}
 View(table4a)
 ```
 
+::: {.callout-exercise}
 Is the data **tidy** ? How would you transform this dataset to make it **tidy** ?
-</div>
+:::
 
 
 <details><summary>Solution</summary>
@@ -161,10 +165,12 @@ long_example %>% pivot_wider(
 
 #### Exercice
 
-<div class="pencadre">
-Visualize the `table2` dataset
+
+Visualize the `table2` dataset.
+
+::: {.callout-exercise}
 Is the data **tidy** ? How would you transform this dataset to make it **tidy** ? (you can now make also make a guess from the name of the subsection)
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>

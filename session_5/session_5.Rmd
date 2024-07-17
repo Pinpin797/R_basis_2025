@@ -1,7 +1,10 @@
 ---
 title: "R.5: Pipping and grouping"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
@@ -26,11 +29,12 @@ The objectives will be to:
 - Combining multiple operations with the pipe `%>%`
 - Work on subgroup of the data with `group_by`
 
-<div class="pencadre">
+
 For this session, we are going to work with a new dataset included in the `nycflights13` package.
-Install this package and load it.
-As usual you will also need the `tidyverse` library.
-</div>
+
+::: {.callout-exercise}
+Install this package and load it. As usual you will also need the `tidyverse` library.
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -43,9 +47,9 @@ library("nycflights13")
 
 ## Combining multiple operations with the pipe
 
-<div id="pencadre">
+::: {.callout-exercise}
 Find the 10 most delayed flights using the ranking function `min_rank()`.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -65,9 +69,9 @@ We don't want to create useless intermediate variables so we can use the pipe op
 
 Behind the scenes, `x %>% f(y)` turns into `f(x, y)`, and `x %>% f(y) %>% g(z)` turns into `g(f(x, y), z)` and so on. You can use the pipe to rewrite multiple operations in a way that you can read left-to-right, top-to-bottom. 
 
-<div id="pencadre">
+::: {.callout-exercise}
 Try to pipe operators to rewrite your precedent code with only **one** variable assignment.
-</div>
+:::
  
 <details><summary>Solution</summary>
 <p>
@@ -128,15 +132,15 @@ ggplot(data = flights_delay, mapping = aes(x = month, y = delay)) +
   theme(axis.text.x = element_blank())
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 Why did we `group_by` `year` and `month` and not only `year` ?
-</div>
+:::
 
 ### Missing values
 
-<div class="pencadre">
+::: {.callout-exercise}
 You may have wondered about the `na.rm` argument we used above. What happens if we don't set it?
-</div>
+:::
 
 ```{r summarise_group_by_NA, include=TRUE}
 flights %>%
@@ -170,9 +174,11 @@ ggplot(summ_delay_filghts, mapping = aes(x = avg_distance, y = avg_delay, size =
   theme(legend.position = "none")
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 Imagine that we want to explore the relationship between the average distance (`distance`) and average delay (`arr_delay`) for each location (`dest`) and recreate the above figure. 
-Here are three steps to prepare those data:
+:::
+
+**Hints** Here are the steps to prepare those data:
 
 1. Group flights by destination.
 2. Summarize to compute average distance (`avg_distance`), average delay (`avg_delay`), and number of flights using `n()` (`n_flights`).
@@ -181,7 +187,7 @@ Here are three steps to prepare those data:
 5. Create a `mapping` on `avg_distance`, `avg_delay` and `n_flights` as `size`.
 6. Use the layer `geom_point()` and `geom_smooth()` (use method = lm)
 7. We can hide the legend with the layer `theme(legend.position='none')`
-</div>
+
 
 <details><summary>Solution</summary>
 <p>
@@ -208,9 +214,9 @@ flights %>%
 
 If you need to remove grouping, and return to operations on ungrouped data, use `ungroup()`.
 
-<div class="pencadre">
-Try the following example
-</div>
+::: {.callout-exercise}
+Try the following example.
+:::
 
 ```{r ungroup, eval=T, message=FALSE, cache=T}
 flights %>%
@@ -222,9 +228,6 @@ flights %>%
 ## Grouping challenges
 
 ### First challenge
-
-<div class="pencadre">
-
 
 Look at the number of canceled flights per day. Is there a pattern?
 
@@ -239,7 +242,6 @@ Look at the number of canceled flights per day. Is there a pattern?
 - We can use `geom_col` to have a barplot of the number of `cancel_day` for each. `wday`
 - You can use the function `fct_reorder()` to reorder the `wday` by number of `cancel_day` and make the plot easier to read.
 
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -262,9 +264,7 @@ flights %>%
 
 ### Second challenge
 
-<div class="pencadre">
 Is the proportion of canceled flights by day of the week related to the average departure delay?
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -288,10 +288,8 @@ Which day would you prefer to book a flight ?
 </p>
 </details>
 
-<div class="pencadre">
 We can add error bars to this plot to justify our decision.
 Brainstorm a way to have access to the mean and standard deviation or the `prop_cancel_day` and `av_delay`.
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -331,9 +329,8 @@ flights %>%
 </p>
 </details>
 
-<div class="pencadre">
+
 Now that you are aware of the interest of using `geom_errorbar`, what `hour` of the day should you fly if you want to avoid delays as much as possible?
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -364,9 +361,7 @@ flights %>%
 
 ### Third challenge
 
-<div class="pencadre">
 Which carrier has the worst delays?
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -383,9 +378,7 @@ flights %>%
 </p>
 </details>
 
-<div class="pencadre">
 Can you disentangle the effects of bad airports vs. bad carriers? (Hint: think about `group_by(carrier, dest) %>% summarise(n=n())`)
-</div>
 
 <details><summary>Solution</summary>
 <p>

@@ -1,7 +1,10 @@
 ---
 title: "R.8: Factors"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
@@ -24,9 +27,9 @@ In this session, you will learn more about the factor type in R.
 Factors can be very useful, but you have to be mindful of the implicit conversions from simple vector to factor !
 They are the source of lot of pain for R programmers.
 
-<div class="pencadre">
+::: {.callout-exercise}
 As usual we will need the `tidyverse` library.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>

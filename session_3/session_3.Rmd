@@ -1,7 +1,11 @@
 ---
 title: 'R.3: Transformations with ggplot2'
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr), Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+  - "Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
@@ -45,13 +49,13 @@ For example, we may want to have coordinates on an axis proportional to the numb
 
 We are going to use the `diamonds` data set included in `tidyverse`.
 
-<div class="pencadre">
+::: {.callout-exercise}
 
 - Use the `help` and `View` commands to explore this data set.
 - How many records does this dataset contain ?
 - Try the `str` command. What information is displayed ?
 
-</div>
+:::
 
 ```{r str_diamon}
 str(diamonds)
@@ -109,9 +113,9 @@ demo <- tribble(
 to guess their meaning from the context, and you will learn exactly what
 they do soon!)
 
-<div class="pencadre">
+::: {.callout-exercise}
 So instead of using the default `geom_bar` parameter `stat = "count"` try to use `"identity"`
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -129,9 +133,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = after_stat(prop), group = 1))
   geom_bar()
 ```
   
-<div class="pencadre">
+::: {.callout-exercise}
 In our proportion bar chart, we need to set `group = 1`. Why?
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -146,24 +150,18 @@ If `group` is not used, the proportion is calculated with respect to the data th
 
 ### More details with `stat_summary`
 
-<div class="pencadre">
 You might want to draw greater attention to the statistical transformation in your code. 
 You might use `stat_summary()`, which summarize the **y** values for each unique **x**
 value, to draw attention to the summary that you are computing.
-</div>
 
-<details><summary>Solution</summary>
-<p>
 ```{r 3_c, include=TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
   stat_summary()
 ```
-</p>
-</details>
 
-<div class="pencadre">
+::: {.callout-exercise}
 Set the `fun.min`, `fun.max` and `fun` to the `min`, `max` and `median` function respectively.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -182,9 +180,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth)) +
 
 You can color a bar chart using either the `color` aesthetic, or, more usefully `fill`.
 
-<div class="pencadre">
+::: {.callout-exercise}
 Try both approaches on a `cut`, histogram.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -202,9 +200,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
 
 You can also use `fill` with another variable.
 
-<div class="pencadre">
+::: {.callout-exercise}
 Try to color by `clarity`. Is `clarity` a continuous or categorical variable ?
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -219,9 +217,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
 
 The stacking of the `fill` parameter is performed by the position adjustment `position`.
 
-<div class="pencadre">
+::: {.callout-exercise}
 Try the following `position` parameter for `geom_bar`: `"fill"`, `"dodge"` and `"jitter"`
-</div>
+:::
 
 
 <details><summary>Solution</summary>
@@ -245,9 +243,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
 
 `jitter` is often used for plotting points when they are stacked on top of each other.
 
-<div class="pencadre">
+::: {.callout-exercise}
 Compare `geom_point` to `geom_jitter`  plot `cut` versus `depth` and color by `clarity`
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -263,9 +261,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 </p>
 </details>
 
-<div class="pencadre">
+::: {.callout-exercise}
 What parameters of `geom_jitter` control the amount of jittering ?
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -276,7 +274,12 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 </p>
 </details>
 
-In the `geom_jitter` plot that we made, we cannot really see the limits of the different clarity groups. Instead we can use the `geom_violin` to see their density.
+In the `geom_jitter` plot that we made, we cannot really see the limits of the different clarity groups.
+A `violin` plot can be used often to display their density.
+
+::: {.callout-exercise}
+Use `geom_violin` instead of `geom_jitter`.
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -296,9 +299,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
   geom_boxplot()
 ```
 
-<div class="pencardre">
+::: {.callout-exercise}
 Add the `coord_flip()` layer to the previous plot.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -310,8 +313,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = depth, color = clarity)) +
 </p>
 </details>
 
-<div class="pencardre">
-Add the `coord_polar()` layer to this  plot:
+::: {.callout-exercise}
+Add the `coord_polar()` layer to the following plot.
+:::
 
 ```{r diamonds_bar, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE, eval=FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
@@ -319,7 +323,6 @@ ggplot(data = diamonds, mapping = aes(x = cut, fill = cut)) +
   theme(aspect.ratio = 1) +
   labs(x = NULL, y = NULL)
 ```
-</div>
 
 <details><summary>Solution</summary>
 <p>
@@ -350,9 +353,9 @@ library(gganimate)
 library(gifski)
 ```
 
-<div class="pencardre">
+::: {.callout-exercise}
 Use the `openxlsx` package to save the [gapminder.xlsx](https://can.gitbiopages.ens-lyon.fr/R_basis/session_3/gapminder.xlsx) file into the `gapminder` variable.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -378,9 +381,9 @@ This dataset contains 4 variables of interest for us to display per country:
 - `pop` the population size
 - `contient` a factor with 5 levels
 
-<div class="pencardre">
+::: {.callout-exercise}
 Using `ggplot2`, build a scatterplot of the `gdpPercap` vs `lifeExp`. Add the `pop` and `continent` information to this plot.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -391,10 +394,10 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
 </p>
 </details>
 
-<div class="pencardre">
+::: {.callout-exercise}
 What's wrong ?
 You can use the `scale_x_log10()` to display the `gdpPercap` on the `log10` scale.
-</div>
+:::
 
 
 <details><summary>Solution</summary>
@@ -407,11 +410,12 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
 </p>
 </details>
 
-<div class="pencardre">
+
 We would like to add the `year` information to the plots. We could use a `facet_wrap`, but instead we are going to use the `gganimate` package.
 
-For this we need to add a `transition_time` layer that will take as an argument `year` to our plot.
-</div>
+::: {.callout-exercise}
+Add a `transition_time` layer that will take as an argument `year` to our plot.
+:::
 
 <details><summary>Solution</summary>
 <p>
