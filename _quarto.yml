@@ -40,10 +40,8 @@ book:
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
+      light: [flatly, _sass/main-light.scss]
+      dark: [darkly, _sass/main-dark.scss]
 
-execute: 
+execute:
   cache: true
-
-  

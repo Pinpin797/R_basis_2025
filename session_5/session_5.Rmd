@@ -1,35 +1,40 @@
 ---
 title: "R.5: Pipping and grouping"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
 library(fontawesome)
 
-if("conflicted" %in% .packages())
-    conflicted::conflicts_prefer(dplyr::filter)
+if ("conflicted" %in% .packages()) {
+  conflicted::conflicts_prefer(dplyr::filter)
+}
 ```
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
 
 ## Introduction
 
-The goal of this practical is to practice combining data transformation with `tidyverse`.
-The objectives of this session will be to:
+The goal of this session is to practice combining data transformation with `tidyverse`.
+The objectives will be to:
 
 - Combining multiple operations with the pipe `%>%`
 - Work on subgroup of the data with `group_by`
 
-<div class="pencadre">
-For this session we are going to work with a new dataset included in the `nycflights13` package.
-Install this package and load it.
-As usual you will also need the `tidyverse` library.
-</div>
+
+For this session, we are going to work with a new dataset included in the `nycflights13` package.
+
+::: {.callout-exercise}
+Install this package and load it. As usual you will also need the `tidyverse` library.
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -42,50 +47,56 @@ library("nycflights13")
 
 ## Combining multiple operations with the pipe
 
-<div id="pencadre">
-Find the 10 most delayed flights using a ranking function. `min_rank()`
-</div>
+::: {.callout-exercise}
+Find the 10 most delayed flights using the ranking function `min_rank()`.
+:::
 
 <details><summary>Solution</summary>
 <p>
 ```{r pipe_example_a, include=TRUE}
-flights_md <- mutate(flights,
-                     most_delay = min_rank(desc(dep_delay)))
+flights_md <- mutate(
+  flights,
+  most_delay = min_rank(desc(dep_delay))
+)
 flights_md <- filter(flights_md, most_delay < 10)
 flights_md <- arrange(flights_md, most_delay)
 ```
 </p>
 </details>
 
-
 We don't want to create useless intermediate variables so we can use the pipe operator: `%>%`
 (or `ctrl + shift + M`). 
 
 Behind the scenes, `x %>% f(y)` turns into `f(x, y)`, and `x %>% f(y) %>% g(z)` turns into `g(f(x, y), z)` and so on. You can use the pipe to rewrite multiple operations in a way that you can read left-to-right, top-to-bottom. 
 
-<div id="pencadre">
+::: {.callout-exercise}
 Try to pipe operators to rewrite your precedent code with only **one** variable assignment.
-</div>
+:::
  
 <details><summary>Solution</summary>
 <p>
 ```{r pipe_example_b, include=TRUE}
 flights_md2 <- flights %>%
-    mutate(most_delay = min_rank(desc(dep_delay))) %>%
-    filter(most_delay < 10) %>%
-    arrange(most_delay)
+  mutate(most_delay = min_rank(desc(dep_delay))) %>%
+  filter(most_delay < 10) %>%
+  arrange(most_delay)
 ```
 </p>
 </details>
 
-Working with the pipe is one of the key criteria for belonging to the `tidyverse`. The only exception is `ggplot2`: it was written before the pipe was discovered and use `+` instead of `%>%`. Unfortunately, the next iteration of `ggplot2`, `ggvis`, which does use the pipe, isn’t quite ready for prime time yet.
+Working with the pipe is one of the key criteria for belonging to the `tidyverse`. The only exception is `ggplot2`: it was written before the pipe was discovered and use `+` instead of `%>%`.  
+<!-- ggvis project is dormant
+Unfortunately, the next iteration of `ggplot2`, `ggvis`, which does use the pipe, isn't quite ready for prime time yet.
+-->
 
-The pipe is a powerful tool, but it’s not the only tool at your disposal, and it doesn’t solve every problem! Pipes are most useful for rewriting a fairly short linear sequence of operations. I think you should reach for another tool when:
+The pipe is a powerful tool, but it's not the only tool at your disposal, and it doesn't solve every problem! Pipes are most useful for rewriting a fairly short linear sequence of operations.
 
 ### When not to use the pipe
 
+You should reach for another tool when:
+
 - Your pipes are longer than (say) ten steps. In that case, create intermediate functions with meaningful names. That will make debugging easier, because you can more easily check the intermediate results, and it makes it easier to understand your code, because the variable names can help communicate intent.
-- You have multiple inputs or outputs. If there isn’t one primary object being transformed, but two or more objects being combined together, don’t use the pipe. You can create a function that combines or split the results.
+- You have multiple inputs or outputs. If there isn't one primary object being transformed, but two or more objects being combined together, don't use the pipe. You can create a function that combines or split the results.
 
 ## Grouping variable
 
@@ -93,105 +104,107 @@ The `summarise()` function collapses a data frame to a single row.
 Check the difference between `summarise()` and `mutate()` with the following commands:
 
 ```{r load_data, eval=FALSE}
-flights %>% 
+flights %>%
   mutate(delay = mean(dep_delay, na.rm = TRUE))
-flights %>% 
+flights %>%
   summarise(delay = mean(dep_delay, na.rm = TRUE))
 ```
 
-Where mutate compute the `mean` of `dep_delay` row by row (which is not useful), `summarise` compute the `mean` of the whole `dep_delay` column.
+Whereas mutate compute the `mean` of `dep_delay` row by row (which is not useful), `summarise` compute the `mean` of the whole `dep_delay` column.
 
 ### The power of `summarise()` with `group_by()`
 
 The `group_by()` function changes the unit of analysis from the complete dataset to individual groups.
-Individual groups are defined by categorial variable or **factors**.
-Then, when you use the function you already know on grouped data frame and they’ll be automatically applied *by groups*.
+Individual groups are defined by categorical variable or **factors**.
+Then, when you use aggregation functions on the grouped data frame, they'll be automatically applied *by groups*.
 
 You can use the following code to compute the average delay per months across years.
 
 ```{r summarise_group_by, include=TRUE, fig.width=8, fig.height=3.5}
-flights_delay <- flights %>% 
-  group_by(year, month) %>% 
-  summarise(delay = mean(dep_delay, na.rm = TRUE), sd = sd(dep_delay, na.rm = TRUE)) %>% 
+flights_delay <- flights %>%
+  group_by(year, month) %>%
+  summarise(delay = mean(dep_delay, na.rm = TRUE), sd = sd(dep_delay, na.rm = TRUE)) %>%
   arrange(month)
 
 ggplot(data = flights_delay, mapping = aes(x = month, y = delay)) +
-  geom_bar(stat="identity", color="black", fill = "#619CFF") +
-  geom_errorbar(mapping = aes( ymin=0, ymax=delay+sd)) + 
+  geom_bar(stat = "identity", color = "black", fill = "#619CFF") +
+  geom_errorbar(mapping = aes(ymin = 0, ymax = delay + sd)) +
   theme(axis.text.x = element_blank())
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 Why did we `group_by` `year` and `month` and not only `year` ?
-</div>
+:::
 
 ### Missing values
 
-<div class="pencadre">
-You may have wondered about the `na.rm` argument we used above. What happens if we don’t set it?
-</div>
+::: {.callout-exercise}
+You may have wondered about the `na.rm` argument we used above. What happens if we don't set it?
+:::
 
 ```{r summarise_group_by_NA, include=TRUE}
-flights %>% 
-  group_by(dest) %>% 
+flights %>%
+  group_by(dest) %>%
   summarise(
     dist = mean(distance),
     delay = mean(arr_delay)
   )
 ```
 
-Aggregation functions obey the usual rule of missing values: **if there’s any missing value in the input, the output will be a missing value**.
+Aggregation functions obey the usual rule of missing values: **if there's any missing value in the input, the output will be a missing value**.
 
 ### Counts
 
-Whenever you do any aggregation, it’s always a good idea to include either a count (`n()`). That way you can check that you’re not drawing conclusions based on very small amounts of data.
+Whenever you do any aggregation, it's always a good idea to include a count (`n()`). This way, you can check that you're not drawing conclusions based on very small amounts of data.
 
 ```{r summarise_group_by_count, include = T, echo=F, warning=F, message=F, fig.width=8, fig.height=3.5}
-summ_delay_filghts <- flights %>% 
-  group_by(dest) %>% 
+summ_delay_filghts <- flights %>%
+  group_by(dest) %>%
   summarise(
     n_flights = n(),
     avg_distance = mean(distance, na.rm = TRUE),
     avg_delay = mean(arr_delay, na.rm = TRUE)
-  ) %>% 
-  filter(dest != "HNL") %>% 
+  ) %>%
+  filter(dest != "HNL") %>%
   filter(avg_delay < 40 & avg_delay > -20)
 
 ggplot(summ_delay_filghts, mapping = aes(x = avg_distance, y = avg_delay, size = n_flights)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE) +
-  theme(legend.position='none')
+  theme(legend.position = "none")
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 Imagine that we want to explore the relationship between the average distance (`distance`) and average delay (`arr_delay`) for each location (`dest`) and recreate the above figure. 
-here are three steps to prepare this data: 
+:::
+
+**Hints** Here are the steps to prepare those data:
 
 1. Group flights by destination.
 2. Summarize to compute average distance (`avg_distance`), average delay (`avg_delay`), and number of flights using `n()` (`n_flights`).
-3. Filter to remove Honolulu airport, which is almost twice as far away as the next closest airport.
+3. Filter to remove Honolulu airport ("HNL"), which is almost twice as far away as the next closest airport.
 4. Filter to remove noisy points with delay superior to 40 or inferior to -20
 5. Create a `mapping` on `avg_distance`, `avg_delay` and `n_flights` as `size`.
 6. Use the layer `geom_point()` and `geom_smooth()` (use method = lm)
 7. We can hide the legend with the layer `theme(legend.position='none')`
-</div>
+
 
 <details><summary>Solution</summary>
 <p>
 ```{r summarise_group_by_count_b, include = T, eval=F, warning=F, message=F, fig.width=8, fig.height=3.5}
-flights %>% 
-  group_by(dest) %>% 
+flights %>%
+  group_by(dest) %>%
   summarise(
     n_flights = n(),
     avg_distance = mean(distance, na.rm = TRUE),
     avg_delay = mean(arr_delay, na.rm = TRUE)
-  ) %>% 
-  filter(dest != "HNL") %>% 
-  filter(avg_delay < 40 & avg_delay > -20) %>% 
+  ) %>%
+  filter(dest != "HNL") %>%
+  filter(avg_delay < 40 & avg_delay > -20) %>%
   ggplot(mapping = aes(x = avg_distance, y = avg_delay, size = n_flights)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE) +
-  theme(legend.position='none')
+  theme(legend.position = "none")
 ```
 </p>
 </details>
@@ -201,13 +214,13 @@ flights %>%
 
 If you need to remove grouping, and return to operations on ungrouped data, use `ungroup()`.
 
-<div class="pencadre">
-Try the following example
-</div>
+::: {.callout-exercise}
+Try the following example.
+:::
 
 ```{r ungroup, eval=T, message=FALSE, cache=T}
-flights %>% 
-  group_by(year, month, day) %>% 
+flights %>%
+  group_by(year, month, day) %>%
   ungroup() %>%
   summarise(delay = mean(dep_delay, na.rm = TRUE))
 ```
@@ -216,12 +229,9 @@ flights %>%
 
 ### First challenge
 
-<div class="pencadre">
-
-
 Look at the number of canceled flights per day. Is there a pattern?
 
-(A canceled flight is a flight where the `dep_time` or the `arr_time` is `NA`)
+(A canceled flight is a flight where either the `dep_time` or the `arr_time` is `NA`)
 
 **Remember to always try to decompose complex questions into smaller and simple problems**
 
@@ -232,18 +242,17 @@ Look at the number of canceled flights per day. Is there a pattern?
 - We can use `geom_col` to have a barplot of the number of `cancel_day` for each. `wday`
 - You can use the function `fct_reorder()` to reorder the `wday` by number of `cancel_day` and make the plot easier to read.
 
-</div>
 
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_a, eval=T, message=FALSE, cache=T}
-flights %>% 
+flights %>%
   mutate(
     canceled = is.na(dep_time) | is.na(arr_time)
-  ) %>% 
-  filter(canceled) %>% 
-  mutate(wday = strftime(time_hour,'%A')) %>% 
-  group_by(wday) %>% 
+  ) %>%
+  filter(canceled) %>%
+  mutate(wday = strftime(time_hour, "%A")) %>%
+  group_by(wday) %>%
   summarise(
     cancel_day = n()
   ) %>%
@@ -255,24 +264,22 @@ flights %>%
 
 ### Second challenge
 
-<div class="pencadre">
 Is the proportion of canceled flights by day of the week related to the average departure delay?
-</div>
 
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_b1, eval=T, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
-flights %>% 
+flights %>%
   mutate(
     canceled = is.na(dep_time) | is.na(arr_time)
-  ) %>% 
-  mutate(wday = strftime(time_hour,'%A')) %>% 
-  group_by(wday) %>% 
+  ) %>%
+  mutate(wday = strftime(time_hour, "%A")) %>%
+  group_by(wday) %>%
   summarise(
-    prop_cancel_day = sum(canceled)/n(),
+    prop_cancel_day = sum(canceled) / n(),
     av_delay = mean(dep_delay, na.rm = TRUE)
   ) %>%
-  ungroup() %>% 
+  ungroup() %>%
   ggplot(mapping = aes(x = av_delay, y = prop_cancel_day, color = wday)) +
   geom_point()
 ```
@@ -281,82 +288,86 @@ Which day would you prefer to book a flight ?
 </p>
 </details>
 
-<div class="pencadre">
 We can add error bars to this plot to justify our decision.
 Brainstorm a way to have access to the mean and standard deviation or the `prop_cancel_day` and `av_delay`.
-</div>
 
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_b2, eval=T, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
-flights %>% 
+flights %>%
   mutate(
     canceled = is.na(dep_time) | is.na(arr_time)
-  ) %>% 
-  mutate(wday = strftime(time_hour,'%A')) %>% 
-  group_by(day) %>% 
+  ) %>%
+  mutate(wday = strftime(time_hour, "%A")) %>%
+  group_by(day) %>%
   mutate(
-    prop_cancel_day = sum(canceled)/sum(!canceled),
+    prop_cancel_day = sum(canceled) / sum(!canceled),
     av_delay = mean(dep_delay, na.rm = TRUE)
   ) %>%
-  group_by(wday) %>% 
+  group_by(wday) %>%
   summarize(
     mean_cancel_day = mean(prop_cancel_day, na.rm = TRUE),
     sd_cancel_day = sd(prop_cancel_day, na.rm = TRUE),
     mean_av_delay = mean(av_delay, na.rm = TRUE),
     sd_av_delay = sd(av_delay, na.rm = TRUE)
-  ) %>% 
+  ) %>%
   ggplot(mapping = aes(x = mean_av_delay, y = mean_cancel_day, color = wday)) +
   geom_point() +
-  geom_errorbarh(mapping = aes(
-    xmin = -sd_av_delay + mean_av_delay,
-    xmax = sd_av_delay + mean_av_delay
-  )) +
-  geom_errorbar(mapping = aes(
-    ymin = -sd_cancel_day + mean_cancel_day,
-    ymax = sd_cancel_day + mean_cancel_day
-  ))
+  geom_errorbarh(
+    mapping = aes(
+      xmin = -sd_av_delay + mean_av_delay,
+      xmax = sd_av_delay + mean_av_delay
+    )
+  ) +
+  geom_errorbar(
+    mapping = aes(
+      ymin = -sd_cancel_day + mean_cancel_day,
+      ymax = sd_cancel_day + mean_cancel_day
+    )
+  )
 ```
 </p>
 </details>
 
-<div class="pencadre">
+
 Now that you are aware of the interest of using `geom_errorbar`, what `hour` of the day should you fly if you want to avoid delays as much as possible?
-</div>
 
 <details><summary>Solution</summary>
 <p>
 ```{r group_filter_b3, eval=T, warning=F, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
-flights %>% 
-  group_by(hour) %>% 
+flights %>%
+  group_by(hour) %>%
   summarise(
     mean_delay = mean(arr_delay, na.rm = T),
     sd_delay = sd(arr_delay, na.rm = T),
-  ) %>% 
+  ) %>%
   ggplot() +
-  geom_errorbar(mapping = aes(
-    x = hour,
-    ymax = mean_delay + sd_delay,
-    ymin = mean_delay - sd_delay)) +
-  geom_point(mapping = aes(
-    x = hour,
-    y = mean_delay,
-  ))
+  geom_errorbar(
+    mapping = aes(
+      x = hour,
+      ymax = mean_delay + sd_delay,
+      ymin = mean_delay - sd_delay
+    )
+  ) +
+  geom_point(
+    mapping = aes(
+      x = hour,
+      y = mean_delay,
+    )
+  )
 ```
 </p>
 </details>
 
 ### Third challenge
 
-<div class="pencadre">
 Which carrier has the worst delays?
-</div>
 
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_c2, eval=F, echo = T, message=FALSE, cache=T}
-flights %>% 
-  group_by(carrier) %>% 
+flights %>%
+  group_by(carrier) %>%
   summarise(
     carrier_delay = mean(arr_delay, na.rm = T)
   ) %>%
@@ -367,15 +378,13 @@ flights %>%
 </p>
 </details>
 
-<div class="pencadre">
 Can you disentangle the effects of bad airports vs. bad carriers? (Hint: think about `group_by(carrier, dest) %>% summarise(n=n())`)
-</div>
 
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_c1, eval=F, echo = T, message=FALSE, cache=T}
-flights %>% 
-  group_by(carrier, dest) %>% 
+flights %>%
+  group_by(carrier, dest) %>%
   summarise(
     carrier_delay = mean(arr_delay, na.rm = T),
     number_of_flight = n()

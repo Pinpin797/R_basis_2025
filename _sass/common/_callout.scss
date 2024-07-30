@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Callout
+   ========================================================================== */
+
+div.callout:not(.no-icon), div.callout {
+   margin-left: 0px !important;
+   
+}
+
+.callout.callout-style-simple .callout-body,.callout.callout-style-default .callout-body,
+.callout.callout-style-minimal .callout-body{ 
+   font-size: 1rem !important;
+}
+
+.callout.callout-style-default > div.callout-header,
+.callout.callout-style-simple > div.callout-header,
+.callout.callout-style-minimal > div.callout-header { 
+   font-size: 1.1rem !important;
+}

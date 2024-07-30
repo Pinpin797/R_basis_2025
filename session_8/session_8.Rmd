@@ -1,18 +1,22 @@
 ---
 title: "R.8: Factors"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
 library(fontawesome)
 
-if("conflicted" %in% .packages())
-    conflicted::conflicts_prefer(dplyr::filter)
+if ("conflicted" %in% .packages()) {
+  conflicted::conflicts_prefer(dplyr::filter)
+}
 ```
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -21,11 +25,11 @@ knitr::opts_chunk$set(comment = NA)
 
 In this session, you will learn more about the factor type in R.
 Factors can be very useful, but you have to be mindful of the implicit conversions from simple vector to factor !
-They are the source of loot of pain for R programmers.
+They are the source of lot of pain for R programmers.
 
-<div class="pencadre">
+::: {.callout-exercise}
 As usual we will need the `tidyverse` library.
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -45,13 +49,13 @@ x1 <- c("Dec", "Apr", "Jan", "Mar")
 
 Using a string to record this variable has two problems:
 
-1. There are only twelve possible months, and there’s nothing saving you from typos:
+1. There are only twelve possible months, and there's nothing saving you from typos:
 
 ```{r declare_month2, eval=T, cache=T}
 x2 <- c("Dec", "Apr", "Jam", "Mar")
 ```
 
-2. It doesn’t sort in a useful way:
+2. It doesn't sort in a useful way:
 
 ```{r sort_month, eval=T, cache=T}
 sort(x1)
@@ -61,7 +65,7 @@ You can fix both of these problems with a factor.
 
 ```{r sort_month_factor, eval=T, cache=T}
 month_levels <- c(
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 )
 y1 <- factor(x1, levels = month_levels)
@@ -76,10 +80,12 @@ y2 <- parse_factor(x2, levels = month_levels)
 y2
 ```
 
-Sometimes you’d prefer that the order of the levels match the order of the first appearance in the data.
+Sometimes you'd prefer that the order of the levels match the order of the first appearance in the data.
 
 ```{r inorder_month_factor, eval=T, cache=T}
-f2 <- x1 %>% factor() %>% fct_inorder()
+f2 <- x1 %>%
+  factor() %>%
+  fct_inorder()
 f2
 levels(f2)
 ```
@@ -91,7 +97,7 @@ gss_cat %>%
   count(race)
 ```
 
-By default, `ggplot2` will drop levels that don’t have any values. You can force them to display with:
+By default, `ggplot2` will drop levels that don't have any values. You can force them to display with:
 
 ```{r race_plot, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(gss_cat, aes(x = race)) +
@@ -101,7 +107,7 @@ ggplot(gss_cat, aes(x = race)) +
 
 ## Modifying factor order
 
-It’s often useful to change the order of the factor levels in a visualisation.
+It's often useful to change the order of the factor levels in a visualisation.
 
 ```{r tv_hour, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 relig_summary <- gss_cat %>%
@@ -111,32 +117,33 @@ relig_summary <- gss_cat %>%
     tvhours = mean(tvhours, na.rm = TRUE),
     n = n()
   )
-ggplot(relig_summary, aes(x = tvhours, y = relig)) + geom_point()
+ggplot(relig_summary, aes(x = tvhours, y = relig)) +
+  geom_point()
 ```
 
-It is difficult to interpret this plot because there’s no overall pattern. We can improve it by reordering the levels of relig using `fct_reorder()`. `fct_reorder()` takes three arguments:
+It is difficult to interpret this plot because there's no overall pattern. We can improve it by reordering the levels of the factor relig using `fct_reorder()`. `fct_reorder()` takes three arguments:
 
 - `f`, the factor whose levels you want to modify.
 - `x`, a numeric vector that you want to use to reorder the levels.
-- Optionally, `fun`, a function that’s used if there are multiple values of `x` for each value of `f`. The default value is `median`.
+- Optionally, `fun`, a function that's used if there are multiple values of `x` for each value of `f`. The default value is `median`.
 
 ```{r tv_hour_order, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(relig_summary, aes(x = tvhours, y = fct_reorder(relig, tvhours))) +
   geom_point()
 ```
 
-As you start making more complicated transformations, I’d recommend moving them out of `aes()` and into a separate `mutate()` step. For example, you could rewrite the plot above as:
+As you start making more complicated transformations, I would recommend moving them out of `aes()` and into a separate `mutate()` step. For example, you could rewrite the plot above as:
 
 ```{r tv_hour_order_mutate, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 relig_summary %>%
   mutate(relig = fct_reorder(relig, tvhours)) %>%
   ggplot(aes(x = tvhours, y = relig)) +
-    geom_point()
+  geom_point()
 ```
 
 ## `fct_reorder2()`
 
-Another type of reordering is useful when you are colouring the lines on a plot. `fct_reorder2()` reorders the factor by the `y` values associated with the largest `x` values. This makes the plot easier to read because the line colours line up with the legend.
+Another useful type of reordering is when you are colouring the lines on a plot. `fct_reorder2()` reorders the factor by the `y` values associated with the largest `x` values. This makes the plot easier to read because the line colours line up with the legend.
 
 ```{r fct_reorder2, eval=T, plot=T}
 by_age <- gss_cat %>%
@@ -159,21 +166,21 @@ ggplot(by_age, aes(x = age, y = prop, colour = fct_reorder2(marital, age, prop))
 
 ## Materials
 
-There are lots of material online for R and more particularly on `tidyverse` and `Rstudio`
+There are lots of material online for R and more particularly on `tidyverse` and `RStudio`
 
 You can find cheat sheet for all the packages of the `tidyverse` on this page:
-[https://www.rstudio.com/resources/cheatsheets/](https://www.rstudio.com/resources/cheatsheets/)
+[https://posit.co/resources/cheatsheets/](https://posit.co/resources/cheatsheets/)
 
-The `Rstudio` websites are also a good place to learn more about R and the meta-package maintenained by the `Rstudio` community:
+The `RStudio` websites are also a good place to learn more about R and the meta-package maintained by the `RStudio` community:
 
-- [https://www.rstudio.com/resources/webinars/](https://www.rstudio.com/resources/webinars/)
-- [https://www.rstudio.com/products/rpackages/](https://www.rstudio.com/products/rpackages/)
+- [webinars](https://posit.co/resources/videos/)
+- [R packages](https://posit.co/products/open-source/rpackages/)
 
 For example [rmarkdown](https://rmarkdown.rstudio.com/) is a great way to turn your analyses into high quality documents, reports, presentations and dashboards:
 
- - A comprehensive guide: [https://bookdown.org/yihui/rmarkdown/](https://bookdown.org/yihui/rmarkdown/)
- - The cheatsheet [https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf)
+ - [a comprehensive guide](https://bookdown.org/yihui/rmarkdown/)
+ - [the cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf)
 
-In addition most packages will provide **vignette**s on how to perform an analysis from scratch. On the [bioconductor.org](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html) website (specialised on R packages for biologists), you will have direct links to the packages vignette.
+In addition most packages will provide **vignette**s on how to perform an analysis from scratch. On the [cran.r-project.org](https://cran.r-project.org/web/packages/ggplot2/index.html) or [bioconductor.org](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html) (specialised on R packages for biologists) websites, you will have direct links to a package vignettes.
 
-Finally, don't forget to search the web for your problems or error in R websites like [stackoverflow](https://stackoverflow.com/) contains high quality and well-curated answers.
+Finally, don't forget to search the web for your problems or error in R, for instance [stackoverflow](https://stackoverflow.com/) contains high quality and well-curated answers.

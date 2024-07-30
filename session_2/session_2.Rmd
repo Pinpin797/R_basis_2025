@@ -1,18 +1,23 @@
 ---
 title: "R.2: introduction to Tidyverse"
-author: "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr);\nHélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
+author:
+  - "Laurent Modolo [laurent.modolo@ens-lyon.fr](mailto:laurent.modolo@ens-lyon.fr)"
+  - "Hélène Polvèche [hpolveche@istem.fr](mailto:hpolveche@istem.fr)"
 date: "2022"
+filters:
+  - callout-exercise
 ---
 
 ```{r include=FALSE}
 library(fontawesome)
 
-if("conflicted" %in% .packages())
-    conflicted::conflicts_prefer(dplyr::filter)
+if ("conflicted" %in% .packages()) {
+  conflicted::conflicts_prefer(dplyr::filter)
+}
 ``` 
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = NA)
 ```
@@ -21,8 +26,9 @@ knitr::opts_chunk$set(comment = NA)
 library("tidyverse")
 tmp <- tempfile(fileext = ".zip")
 download.file("http://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip",
-              tmp,
-              quiet = TRUE)
+  tmp,
+  quiet = TRUE
+)
 unzip(tmp, exdir = "data-raw")
 new_class_level <- c(
   "Compact Cars",
@@ -110,7 +116,7 @@ read_csv("data-raw/vehicles.csv") %>%
 
 ## Introduction
 
-In the last session, we have gone through the basis of R.
+In the last session, we have gone through the basics of R.
 Instead of continuing to learn more about R programming, in this session we are going to jump directly to rendering plots.
 
 We make this choice for three reasons:
@@ -142,7 +148,7 @@ All packages share an underlying design philosophy, grammar, and data structures
 install.packages("tidyverse")
 ```
 
-Luckily for you, `tidyverse` is preinstalled on your Rstudio server. So you just have to load the ` library`
+Luckily for you, `tidyverse` is pre-installed on your RStudio server. So you just have to load the ` library`:
 
 ```{R load_tidyverse}
 library("tidyverse")
@@ -150,7 +156,7 @@ library("tidyverse")
  
 ### Toy data set `mpg`
 
-This dataset contains a subset of the fuel economy data that the EPA makes available on [fueleconomy.gov](http://fueleconomy.gov).
+This dataset contains a subset of the fuel economy data that the EPA made available on [fueleconomy.gov](http://fueleconomy.gov).
 It contains only models which had a new release every year between 1999 and 2008.
 
 You can use the `?` command to know more about this dataset.
@@ -159,10 +165,10 @@ You can use the `?` command to know more about this dataset.
 ?mpg
 ```
 
-But instead of using a dataset included in a R package, you may want to be able to use any dataset with the same format.
-For that we are going to use the command `read_csv` which is able to read a [csv](https://en.wikipedia.org/wiki/Comma-separated_values) file.
+But instead of using a dataset included in a R package, you may want to use any dataset with the same format.
+For that, we are going to use the command `read_csv` which is able to read a [csv](https://en.wikipedia.org/wiki/Comma-separated_values) file.
 
-This command also works for file URL
+This command also works for file URL:
 
 ```{r mpg_download_local, cache=TRUE, message=FALSE, echo = F, include=F}
 new_mpg <- read_csv("./mpg.csv")
@@ -180,87 +186,89 @@ You can check the number of lines and columns of the data with `dim`:
 dim(new_mpg)
 ```
 
-To visualize the data in Rstudio you can use the command. `View`
+To visualize the data in RStudio you can use the command `View`,
 
 ```R
 View(new_mpg)
 ```
 
-Or by simply calling the variable.
-Like for simple data type calling a variable print it.
+Or simply calling the variable.
+As with a simple data type, calling a variable prints it.
 But complex data type like `new_mpg` can use complex print function.
 
 ```{r mpg_inspect3, include=TRUE}
 new_mpg
 ```
 
-Here we can see that `new_mpg` is a `tibble` we will come back to `tibble` later.
+Here we can see that `new_mpg` is a `tibble`. We will come back to `tibble` later.
 
 
 ### New script
 
-Like in the last session, instead of typing your commands directly in the console, you are going to write them in an R script.
+As in the last session, instead of typing your commands directly in the console, you will write them in an R script.
 
 ![](./img/formationR_session2_scriptR.png)
 
 ## First plot with `ggplot2`
 
-We are going to make the simplest plot possible to study the relationship between two variables: the scatterplot.
+We are going to make the simplest plot possible to study the relationship between two variables: a scatterplot.
 
-The following command generates a plot between engine size `displ` and fuel efficiency `hwy` present the `new_mpg` `tibble`.
+The following command generates a plot between engine size `displ` and fuel efficiency `hwy` from the `new_mpg` `tibble`.
 
 ```{r new_mpg_plot_a, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg) + 
+ggplot(data = new_mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 Are cars with bigger engines less fuel efficient ? 
-</div>
+:::
 
 `ggplot2` is a system for declaratively creating graphics, based on [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl). You provide the data, tell `ggplot2` how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+
+All ggplot2 plots begin with the same call:
 
 ```
 ggplot(data = <DATA>) + 
   <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
 ```
 
-- you begin a plot with the function `ggplot()`
-- you complete your graph by adding one or more layers
-- `geom_point()` adds a layer with a scatterplot
-- each **geom **function in `ggplot2` takes a `mapping` argument
-- the `mapping` argument is always paired with `aes()`
+- you instantiate a plot with the function `ggplot()`
+- you complete your graph by adding, with `+`, one or more layers  
+  ( for instance, `geom_point()` adds a layer with a scatterplot )
+- each **geom** function in ggplot2 takes a `mapping` argument
+- the `mapping` argument is always paired with aesthetics `aes()`
 
-<div class="pencadre">
-What happend when you use only the command `ggplot(data = mpg)` ?
-</div>
+::: {.callout-exercise}
+What happened when you only use the command `ggplot(data = mpg)` ?
+:::
 
 <details><summary>Solution</summary>
 <p>
 ```{r only_ggplot, cache = TRUE, fig.width=4.5, fig.height=2}
-ggplot(data = new_mpg) 
+ggplot(data = new_mpg)
 ```
 </p>
 </details>
  
  
-<div class="pencadre">
+::: {.callout-exercise}
 Make a scatterplot of `hwy` ( fuel efficiency ) vs. `cyl` ( number of cylinders ).
-</div>
+:::
  
 
 <details><summary>Solution</summary>
 <p>
 ```{r new_mpg_plot_b, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = hwy, y = cyl)) + 
+ggplot(data = new_mpg, mapping = aes(x = hwy, y = cyl)) +
   geom_point()
 ```
 
 </p>
 
-<div class="pencadre">
+::: {.callout-exercise}
 What seems to be the problem ?
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
@@ -276,16 +284,16 @@ Dots with the same coordinates are superposed.
 
 `ggplot2` will automatically assign a unique level of the aesthetic (here a unique color) to each unique value of the variable, a process known as scaling. `ggplot2` will also add a legend that explains which levels correspond to which values.
 
-Try the following aesthetic:
+Try the following aesthetics:
 
 - `size`
 - `alpha`
 - `shape`
 
-### `color` mapping
+### `color` mapping {#sec-color-mapping}
 
 ```{r new_mpg_plot_e, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +
   geom_point()
 ```
 
@@ -293,29 +301,29 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +
 ### `size` mapping
 
 ```{r new_mpg_plot_f, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, size = class)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, size = class)) +
   geom_point()
 ```
 
 ### `alpha` mapping
 
 ```{r new_mpg_plot_g, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, alpha = class)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, alpha = class)) +
   geom_point()
 ```
 
 ### `shape` mapping
 
 ```{r new_mpg_plot_h, cache = TRUE, fig.width=8, fig.height=4.5, warning=FALSE}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, shape = class)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, shape = class)) +
   geom_point()
 ```
 
 You can also set the aesthetic properties of your **geom** manually. For example, we can make all of the points in our plot blue and squares:
 
 ```{r new_mpg_plot_i, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(color = "blue", shape=0)
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(color = "blue", shape = 0)
 ```
 
 Here is a list of different shapes available in R:
@@ -323,41 +331,41 @@ Here is a list of different shapes available in R:
 ![](./img/shapes.png){width=300px}
 </center>
  
-<div class="pencadre">
-What’s gone wrong with this code? Why are the points not blue?
-</div>
+::: {.callout-exercise}
+What's gone wrong with this code? Why are the points not blue?
+:::
 
 ```{r new_mpg_plot_not_blue, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = "blue")) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = "blue")) +
   geom_point()
 ```
 
 <details><summary>Solution</summary>
 <p>
 ```{r new_mpg_plot_blue, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(color = "blue")
 ```
 </p>
 </details>
  
-### Mapping a **continuous** variable to a color.
+### Mapping a **continuous** variable to a color
 
 You can also map continuous variable to a color
 
 ```{r continu, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = cyl)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = cyl)) +
   geom_point()
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 What happens if you map an aesthetic to something other than a variable name, like `color = displ < 5`?
-</div>
+:::
 
 <details><summary>Solution</summary>
 <p>
 ```{r condiColor, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = displ < 5)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = displ < 5)) +
   geom_point()
 ```
 </p>
@@ -367,19 +375,19 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = displ < 5)) +
 
 You can create multiple plots at once by faceting. For this you can use the command `facet_wrap`.
 This command takes a formula as input.
-We will come back to formulas in R later, for now, you have to know that formulas start with a `~` symbol.
+We will come back to formulas in R later, for now, you just have to know that formulas start with a `~` symbol.
 
 To make a scatterplot of `displ` versus `hwy` per car `class` you can use the following code:
 
 ```{r new_mpg_plot_k, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point() + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
   facet_wrap(~class, nrow = 2)
 ```
 
-<div class="pencadre">
+::: {.callout-exercise}
 Now try to facet your plot by `fuel + class`
-</div>
+:::
 
 
 <details><summary>Solution</summary>
@@ -396,33 +404,33 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 
 ## Composition
 
-There are different ways to represent the information :
+There are different ways to represent the information:
 
 ```{r new_mpg_plot_o, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point()
 ```
 
  \ 
 
 ```{r new_mpg_plot_p, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth()
 ```
 
  \ 
 
-We can add as many layers as we want
+We can add as many layers as we want:
 
 ```{r new_mpg_plot_q, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth()
 ```
 
  \
 
-We can make `mapping` layer specific
+We can make `mapping` layer specific:
 
 ```{r new_mpg_plot_s, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
@@ -435,34 +443,30 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 We can use different `data` (here new_mpg and mpg tables) for different layers (you will lean more on `filter()` later)
 
 ```{r new_mpg_plot_t, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth(data = filter(mpg, class == "subcompact"))
 ```
 
-## Challenge  !
+## Challenges
 
 ### First challenge
-<div class="pencadre">
+
 Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
-</div>
 ```R
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) + 
-  geom_point(show.legend = FALSE) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) +
+  geom_point(show.legend = FALSE) +
   geom_smooth(se = FALSE)
 ```
 
-<div class="pencadre">
 - What does `show.legend = FALSE` do?
 - What does the `se` argument to `geom_smooth()` do?
-</div>
-
 
 <details><summary>Solution</summary>
 <p>
 ```{r soluce_challenge_1, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) + 
-  geom_point(show.legend = FALSE) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) +
+  geom_point(show.legend = FALSE) +
   geom_smooth(se = FALSE)
 ```
 </p>
@@ -472,20 +476,17 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = drive)) +
 
 ### Second challenge
 
-<div class="pencadre">
 How being a `Two Seaters` car (*class column*) impact the engine size (*displ column*) versus fuel efficiency relationship (*hwy column*) ?
 
 1. Make a plot of `hwy` in function of `displ ` 
 1. *Colorize* this plot in another color for `Two Seaters` class
 2. *Split* this plot for each *class*
 
-</div>
-
 <details><summary>Solution 1</summary>
 <p>
 
 ```{r new_mpg_plot_color_2seater1, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point()
 ```
 
@@ -495,7 +496,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 <details><summary>Solution 2</summary>
 <p>
 ```{r new_mpg_plot_color_2seater2, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point() +
   geom_point(data = filter(new_mpg, class == "Two Seaters"), color = "red")
 ```
@@ -507,7 +508,7 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 <p>
 
 ```{r new_mpg_plot_color_2seater_facet, cache = TRUE, fig.width=8, fig.height=4.5}
-ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point() +
   geom_point(data = filter(new_mpg, class == "Two Seaters"), color = "red") +
   facet_wrap(~class)
@@ -517,15 +518,13 @@ ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
 </details>
 
 
-<div class="pencadre">
-Write a `function` called `plot_color_a_class` that can take as argument the class and plot the same graph for this class
-</div>
+Write a `function` called `plot_color_a_class` that can take as argument the class and plot the same graph for this class.
 
 <details><summary>Solution</summary>
 <p>
 ```{r new_mpg_plot_color_2seater_fx, cache = TRUE, fig.width=8, fig.height=4.5}
 plot_color_a_class <- function(my_class) {
-  ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) + 
+  ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy)) +
     geom_point() +
     geom_point(data = filter(new_mpg, class == my_class), color = "red") +
     facet_wrap(~class)
@@ -540,9 +539,7 @@ plot_color_a_class("Compact Cars")
 
 ### Third challenge
 
-<div class="pencadre">
-Recreate the R code necessary to generate the following graph (see "linetype" option of "geom_smooth")
-</div>
+Recreate the R code necessary to generate the following graph (see "linetype" option of `geom_smooth`)
 
 ```{r new_mpg_plot_u, echo = FALSE, cache = TRUE, fig.width=8, fig.height=4.5, message=FALSE}
 ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = fuel)) +
@@ -572,11 +569,11 @@ You can do it with the `ggsave` function.
 First save your plot in a variable :
 
 ```{r}
-p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
-      geom_point()
+p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +
+  geom_point()
 ```
 
-Then save it in the wanted format:
+Then save it in the format of your choice:
 
 ```{r, eval=F}
 ggsave("test_plot_1.png", p1, width = 12, height = 8, units = "cm")
@@ -605,7 +602,7 @@ install.packages("cowplot")
 ```
 
 ```{r, include=F, echo =F}
-if (! require("cowplot")) {
+if (!require("cowplot")) {
   install.packages("cowplot")
 }
 ```
@@ -617,62 +614,66 @@ library(cowplot)
 ```
 
 ```{r,fig.width=8, fig.height=4.5, message=FALSE}
-p1 <- ggplot(data = new_mpg) + 
+p1 <- ggplot(data = new_mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 p1
 ```
 
 
 ```{r,fig.width=8, fig.height=4.5, message=FALSE}
-p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy)) + 
+p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point()
 p2
 ```
 
 
 ```{r,fig.width=8, fig.height=4.5, message=FALSE}
-plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)
+plot_grid(p1, p2, labels = c("A", "B"), label_size = 12)
 ```
 
 You can also save it in a file.
 
 ```{r, eval=F}
-p_final = plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)
+p_final <- plot_grid(p1, p2, labels = c("A", "B"), label_size = 12)
 ggsave("test_plot_1_and_2.png", p_final, width = 20, height = 8, units = "cm")
 ```
 
 You can learn more features about `cowplot` on [https://wilkelab.org/cowplot/articles/introduction.html](its website). 
 
-<div class="pencadre">
+::: {.callout-exercise}
 Use the `cowplot` documentation to reproduce this plot and save it.
-</div>
+:::
 
 ```{r, echo=F}
-p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
-  geom_point() + theme_bw()
+p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
+  theme_bw()
 
-p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy, color = class)) + 
-  geom_point() + theme_bw()
+p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy, color = class)) +
+  geom_point() +
+  theme_bw()
 
-p_row <- plot_grid(p1 + theme(legend.position = "none"), p2 + theme(legend.position = "none"), labels = c('A', 'B'), label_size = 12)
-p_legend <- get_legend(p1 + theme(legend.position = "top"))
+p_row <- plot_grid(p1 + theme(legend.position = "none"), p2 + theme(legend.position = "none"), labels = c("A", "B"), label_size = 12)
+p_legend <- get_plot_component(p1, "guide-box-top", return_all = TRUE)
 
-plot_grid(p_row, p_legend, nrow = 2, rel_heights = c(1,0.2))
+plot_grid(p_row, p_legend, nrow = 2, rel_heights = c(1, 0.2))
 ```
 
 <details><summary>Solution</summary>
 <p>
 ```{r , echo = TRUE, eval = F}
-p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
-  geom_point() + theme_bw()
+p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
+  theme_bw()
 
-p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy, color = class)) + 
-  geom_point() + theme_bw()
+p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy, color = class)) +
+  geom_point() +
+  theme_bw()
 
-p_row <- plot_grid(p1 + theme(legend.position = "none"), p2 + theme(legend.position = "none"), labels = c('A', 'B'), label_size = 12)
-p_legend <- get_legend(p1 + theme(legend.position = "top"))
+p_row <- plot_grid(p1 + theme(legend.position = "none"), p2 + theme(legend.position = "none"), labels = c("A", "B"), label_size = 12)
+p_legend <- get_plot_component(p1, "guide-box-top", return_all = TRUE)
 
-p_final <- plot_grid(p_row, p_legend, nrow = 2, rel_heights = c(1,0.2))
+p_final <- plot_grid(p_row, p_legend, nrow = 2, rel_heights = c(1, 0.2))
 p_final
 ```
 
