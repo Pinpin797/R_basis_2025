@@ -1,5 +1,5 @@
 $webform = array (
-  'nid' => '778888',
+  'nid' => '987110',
   'next_serial' => '1',
   'confirmation' => '',
   'confirmation_format' => 'wysiwyg_user',
@@ -46,45 +46,11 @@ $webform = array (
   array (
     15 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '15',
       'pid' => '0',
       'form_key' => 'new_1663580649768',
       'name' => 'Prénom / Name',
-      'type' => 'textfield',
-      'value' => '',
-      'extra' => 
-      array (
-        'width' => '',
-        'maxlength' => '',
-        'minlength' => '',
-        'field_prefix' => '',
-        'field_suffix' => '',
-        'disabled' => 0,
-        'unique' => 0,
-        'title_display' => 'before',
-        'description' => '',
-        'description_above' => false,
-        'placeholder' => 'Dupont',
-        'attributes' => 
-        array (
-        ),
-        'private' => 0,
-        'analysis' => false,
-        'css_classes' => '',
-        'wrapper_classes' => '',
-      ),
-      'required' => '1',
-      'weight' => '1',
-      'page_num' => 1,
-    ),
-    14 => 
-    array (
-      'nid' => 778888,
-      'cid' => '14',
-      'pid' => '0',
-      'form_key' => 'new_1663580608320',
-      'name' => 'Nom / Surname',
       'type' => 'textfield',
       'value' => '',
       'extra' => 
@@ -109,12 +75,46 @@ $webform = array (
         'wrapper_classes' => '',
       ),
       'required' => '1',
+      'weight' => '1',
+      'page_num' => 1,
+    ),
+    14 => 
+    array (
+      'nid' => 987110,
+      'cid' => '14',
+      'pid' => '0',
+      'form_key' => 'new_1663580608320',
+      'name' => 'Nom / Surname',
+      'type' => 'textfield',
+      'value' => '',
+      'extra' => 
+      array (
+        'width' => '',
+        'maxlength' => '',
+        'minlength' => '',
+        'field_prefix' => '',
+        'field_suffix' => '',
+        'disabled' => 0,
+        'unique' => 0,
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'placeholder' => 'Dupont',
+        'attributes' => 
+        array (
+        ),
+        'private' => 0,
+        'analysis' => false,
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '1',
       'weight' => '2',
       'page_num' => 1,
     ),
     1 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '1',
       'pid' => '0',
       'form_key' => 'new_1661852344800',
@@ -126,7 +126,7 @@ $webform = array (
         'multiple' => 0,
         'format' => 'short',
         'width' => '',
-        'unique' => 1,
+        'unique' => 0,
         'disabled' => 0,
         'title_display' => 'before',
         'description' => '',
@@ -146,7 +146,7 @@ $webform = array (
     ),
     3 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '3',
       'pid' => '0',
       'form_key' => 'new_1661852536156',
@@ -187,7 +187,7 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
     ),
     30 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '30',
       'pid' => '0',
       'form_key' => 'new_1693394806558',
@@ -222,7 +222,7 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
     ),
     31 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '31',
       'pid' => '0',
       'form_key' => 'new_1693394865971',
@@ -257,7 +257,7 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
     ),
     32 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '32',
       'pid' => '0',
       'form_key' => 'new_1693394929998',
@@ -278,7 +278,7 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
     ),
     12 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '12',
       'pid' => '0',
       'form_key' => 'new_1663579980628',
@@ -315,7 +315,7 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
     ),
     23 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '23',
       'pid' => '0',
       'form_key' => 'new_1693320671454',
@@ -342,9 +342,65 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
       'weight' => '9',
       'page_num' => 1,
     ),
+    34 => 
+    array (
+      'nid' => 987110,
+      'cid' => '34',
+      'pid' => '0',
+      'form_key' => 'new_1720528501359',
+      'name' => 'Participation à l\'extension Python / Participation in Python extension',
+      'type' => 'select',
+      'value' => '',
+      'extra' => 
+      array (
+        'items' => '1|oui
+2|non
+',
+        'multiple' => false,
+        'aslist' => false,
+        'empty_option' => '',
+        'optrand' => 0,
+        'other_option' => NULL,
+        'other_text' => 'Autre...',
+        'title_display' => 'before',
+        'description' => '',
+        'description_above' => false,
+        'custom_keys' => 0,
+        'options_source' => '',
+        'private' => 0,
+        'analysis' => true,
+        'value' => '1',
+        'css_classes' => '',
+        'wrapper_classes' => '',
+      ),
+      'required' => '0',
+      'weight' => '10',
+      'page_num' => 1,
+    ),
+    35 => 
+    array (
+      'nid' => 987110,
+      'cid' => '35',
+      'pid' => '0',
+      'form_key' => 'new_1720528538174',
+      'name' => 'Extension Python / Python extension',
+      'type' => 'markup',
+      'value' => '<p>En option, une extension à Python d\'une partie du contenu de la formation "R pour les débutant(e)s" est proposée sur deux séances supplémentaires.</p>
+
+<p><i>As an option, an extension to Python of the "R for beginners" course will be proposed over two additional sessions.</i></p>',
+      'extra' => 
+      array (
+        'format' => 'wysiwyg_user',
+        'private' => false,
+        'display_on' => 'form',
+      ),
+      'required' => '0',
+      'weight' => '11',
+      'page_num' => 1,
+    ),
     26 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '26',
       'pid' => '0',
       'form_key' => 'new_1693321164081',
@@ -375,12 +431,12 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
         'wrapper_classes' => '',
       ),
       'required' => '1',
-      'weight' => '10',
+      'weight' => '12',
       'page_num' => 1,
     ),
     21 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '21',
       'pid' => '0',
       'form_key' => 'new_1693319362737',
@@ -409,12 +465,12 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
         'wrapper_classes' => '',
       ),
       'required' => '1',
-      'weight' => '12',
+      'weight' => '13',
       'page_num' => 1,
     ),
     24 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '24',
       'pid' => '0',
       'form_key' => 'new_1693320727085',
@@ -430,12 +486,12 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
         'display_on' => 'form',
       ),
       'required' => '0',
-      'weight' => '13',
+      'weight' => '14',
       'page_num' => 1,
     ),
     28 => 
     array (
-      'nid' => 778888,
+      'nid' => 987110,
       'cid' => '28',
       'pid' => '0',
       'form_key' => 'new_1693321289280',
@@ -461,7 +517,7 @@ IBCP - Institut de Biologie et Chimie des Proteines     Unité mixte de service 
         'wrapper_classes' => '',
       ),
       'required' => '0',
-      'weight' => '14',
+      'weight' => '16',
       'page_num' => 1,
     ),
   ),
