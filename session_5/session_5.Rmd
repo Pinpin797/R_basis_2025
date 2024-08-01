@@ -288,43 +288,51 @@ Which day would you prefer to book a flight ?
 </p>
 </details>
 
-We can add error bars to this plot to justify our decision.
-Brainstorm a way to have access to the mean and standard deviation or the `prop_cancel_day` and `av_delay`.
+We can add error bars to this plot to justify our decision. Brainstorm a way to construct the error bars.
+
+**Hints**:
+
+1. We can define the error bars with confidence intervals.
+2. `cancel_day` can be modeled as a Bernoulli random variable: $X \sim \mathcal{B}(p)$.\
+    The corresponding $\alpha=5\%$ two-sided confidence interval is defined by:
+    $$ \left[ \ \hat{p} \pm q_{1-\frac{\alpha}{2}} \sqrt{\dfrac{\hat{p}(1-\hat{p})}{n}} \ \right] $$
+3. `dep_delay` can be modeled as a Gaussian random variable: $X \sim \mathcal{N}(\mu, \sigma^2)$.\
+    The corresponding $\alpha=5\%$ two-sided confidence interval is defined by:
+    $$ \left[ \ \hat{\mu} \pm t_{1-\frac{\alpha}{2}, n-1} \frac{\hat{\sigma}}{\sqrt{n}} \ \right] $$
+4. We can draw error bars with the functions `geom_errorbar` and `geom_errorbarh`.
 
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_b2, eval=T, message=FALSE, cache=T, fig.width=8, fig.height=3.5}
+alpha <- 0.05
 flights %>%
   mutate(
-    canceled = is.na(dep_time) | is.na(arr_time)
-  ) %>%
-  mutate(wday = strftime(time_hour, "%A")) %>%
-  group_by(day) %>%
-  mutate(
-    prop_cancel_day = sum(canceled) / sum(!canceled),
-    av_delay = mean(dep_delay, na.rm = TRUE)
+    canceled = is.na(dep_time) | is.na(arr_time),
+    wday = strftime(time_hour, "%A")
   ) %>%
   group_by(wday) %>%
   summarize(
-    mean_cancel_day = mean(prop_cancel_day, na.rm = TRUE),
-    sd_cancel_day = sd(prop_cancel_day, na.rm = TRUE),
-    mean_av_delay = mean(av_delay, na.rm = TRUE),
-    sd_av_delay = sd(av_delay, na.rm = TRUE)
+    n_obs = n(),
+    prop_cancel_day = sum(canceled) / n_obs,
+    sd_cancel_day = sqrt(prop_cancel_day * (1 - prop_cancel_day)),
+    av_delay = mean(dep_delay, na.rm = T),
+    sd_delay = sd(dep_delay, na.rm = T)
   ) %>%
-  ggplot(mapping = aes(x = mean_av_delay, y = mean_cancel_day, color = wday)) +
+  ggplot(mapping = aes(x = av_delay, y = prop_cancel_day, color = wday)) +
   geom_point() +
   geom_errorbarh(
     mapping = aes(
-      xmin = -sd_av_delay + mean_av_delay,
-      xmax = sd_av_delay + mean_av_delay
+      xmin = av_delay - qt(1 - alpha / 2, n_obs - 1) * sd_delay / sqrt(n_obs),
+      xmax = av_delay + qt(1 - alpha / 2, n_obs - 1) * sd_delay / sqrt(n_obs)
     )
   ) +
   geom_errorbar(
     mapping = aes(
-      ymin = -sd_cancel_day + mean_cancel_day,
-      ymax = sd_cancel_day + mean_cancel_day
+      ymin = prop_cancel_day - qnorm(1 - alpha / 2) * sd_cancel_day / sqrt(n_obs),
+      ymax = prop_cancel_day + qnorm(1 - alpha / 2) * sd_cancel_day / sqrt(n_obs)
     )
-  )
+  ) +
+  theme_linedraw()
 ```
 </p>
 </details>
@@ -371,28 +379,57 @@ flights %>%
   summarise(
     carrier_delay = mean(arr_delay, na.rm = T)
   ) %>%
-  mutate(carrier = fct_reorder(carrier, carrier_delay)) %>%
+  mutate(carrier = fct_reorder(carrier, carrier_delay, .na_rm = T)) %>%
   ggplot(mapping = aes(x = carrier, y = carrier_delay)) +
   geom_col(alpha = 0.5)
 ```
 </p>
 </details>
 
-Can you disentangle the effects of bad airports vs. bad carriers? (Hint: think about `group_by(carrier, dest) %>% summarise(n=n())`)
+Can you disentangle the effects of bad airports vs. bad carriers?
+
+**Hints**:
+
+1. Think about `group_by(carrier, dest)`.
+2. We can color points per airport destination with the function `geom_jitter`.
+3. We can label points per airport destination with the function `geom_text_repel` from package `ggrepel`.
+4. We can control the jitter randomness with the function `position_jitter`.
 
 <details><summary>Solution</summary>
 <p>
 ```{r grouping_challenges_c1, eval=F, echo = T, message=FALSE, cache=T}
+require(ggrepel)
+
 flights %>%
   group_by(carrier, dest) %>%
   summarise(
     carrier_delay = mean(arr_delay, na.rm = T),
-    number_of_flight = n()
+    nflight = n()
   ) %>%
-  mutate(carrier = fct_reorder(carrier, carrier_delay)) %>%
+  ungroup() %>%
+  mutate(carrier = fct_reorder(carrier, carrier_delay, .na_rm = T)) %>%
   ggplot(mapping = aes(x = carrier, y = carrier_delay)) +
-  geom_boxplot() +
-  geom_jitter(height = 0)
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(
+    aes(color = dest), # color points per destination
+    position = position_jitter(
+      width = 0.2, # small horizontal jitter
+      height = 0, # no vertical jitter
+      seed = 1 # to be reproducible
+    ),
+    show.legend = FALSE # remove legend
+  ) +
+  geom_text_repel(
+    aes(label = dest, color = dest), # color label per destination
+    max.overlaps = 10, # allow more labels to be drawn
+    position = position_jitter(
+      width = 0.2,
+      height = 0,
+      seed = 1
+    ),
+    show.legend = FALSE
+  ) +
+  theme_linedraw()
 ```
 </p>
 </details>
