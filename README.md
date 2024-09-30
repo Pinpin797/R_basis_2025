@@ -1,68 +1,20 @@
 # R formation
 
-## 2022
+## 2024
 
-Course link : https://can.gitbiopages.ens-lyon.fr/R_basis/
+Course link: https://can.gitbiopages.ens-lyon.fr/R_basis/
+Course start: 07/10/2024
 
 ### Trainers
 
- - **Monday**
+ - **Wednesday** (11:00 a.m - 12:30 p.m)
 
-   - Nicolas Fontrodona (IFB)
-   - Laurent Gilquin
-   - Audrey Lapendry
+   - Omran Allatif (CIRI)
+   - David Armisen (CIRI)
+   - Christophe Arpin (CIRI)
 
- - **Tuesday **
+ - **Friday** (11:00 a.m - 12:30 p.m)
 
-   - Christophe Arpin (IFB)
-   - Ghislain Durif (IFB)
-
- - **Wednesday**
-
-   - Antoine Corbin (IFB)
-   - Anissa Guillemin
-   - Noemi Rousseaux
-
- - **Friday**
-
-   - Omran Allatif (IFB)
-   - Carine Rey (IFB)
-
-## 2021
-
-The sessions will be starting the 14/09:
-
-- **Monday 11h - 12h30**
-  - salle de TP du CBP: 20/09, 27/09, 04/10, 11/10, 18/10, 25/10, 08/11, 15/11
-- **Tuesday 11h - 12h30**
-  - salle de TP du CBP: 14/09, 21/09
-  - salle de TP de l’IBCP: 12/10, 19/10, 26/10, 02/11, 09/11, 23/11
-- **Friday 11h - 12h30** 
-  - salle de TP du CBP: 17/09, 24/09, 01/10, 08/10, 15/10, 22/10, 29/10, 05/11, 12/11, 19/11
-
-Groups:
-## Monday
-- Jacques Brocard (abs after 18/10)
-- Laurent Modolo (IFB)
-- Christophe Arpin
-- Carine Rey (IFB)
-- Helene Polveche
-
-## Tuesday
-- Jeremy Barbier (abs the 14/09)
-- David Armisen
-- Marie Cariou (IFB)
-- Nicolas Fontrodona
-
-## Friday
-- Antoine Corbin (abs the 01/10)
-- Emmanuel Labaronne (IFB)
-- Stephane Janczarski
-- Catherine Cerutti (abs the 01/10)
-- Anissa Guillemin
-
-# program
-
-- Session 1: first step with R and RStudio
-- Session 2: my first plot with `ggplot2`
-- Session 3: more fun with `ggplot2`
+   - Baptiste Alberti (IGFL)
+   - Antoine Corbin (CIRI)
+   - Laurent Gilquin (IGFL)

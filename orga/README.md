@@ -7,13 +7,13 @@
 
 ## Liens utiles
 
-- Calendrier partagé indiquant les horaires et salles (au format iCal) à importer dans votre application agenda préférée : https://webmail.ens-lyon.fr//public/calendar/?_cal=bGdpbHF1aW46NTM5ZDY4YTg0ZWM5NWU4ZWQ2YmVmYTU3OWNlZjljMzY%3D.ics
+- Calendrier partagé indiquant les horaires et salles (au format iCal) à importer dans votre application agenda préférée : https://webmail.ens-lyon.fr//public/feed/?_cal=bGdpbHF1aW46MmRmYWIwNTA4NzY5NTkzMDAzMDg2ODM0YzZlNzdiZWU%3D.ics&_key=MmRmYWIwNTA4NzY5NTkzMDAzMDg2ODM0YzZlNzdiZWVfY2FsaGFzaGtleV82NmQzMjliMGE5ZTA5
 
 ⚠ Les horaires du lundi et la salle du jeudi peuvent être amené à changer.
 
 ## Supports
 
-Les supports de formation sont disponibles ici : https://can.gitbiopages.ens-lyon.fr/R_basis/ (sources : https://gitbio.ens-lyon.fr/can/R_basis)
+Les supports de formation sont disponibles ici : https://can.gitbiopages.ens-lyon.fr/R_basis/
 
 ## Ressources
 
