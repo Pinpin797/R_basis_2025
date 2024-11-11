@@ -644,7 +644,7 @@ You can learn more features about `cowplot` on [https://wilkelab.org/cowplot/art
 Use the `cowplot` documentation to reproduce this plot and save it.
 :::
 
-```{r, echo=F}
+```{r, echo=F, warning=FALSE}
 p1 <- ggplot(data = new_mpg, mapping = aes(x = displ, y = hwy, color = class)) +
   geom_point() +
   theme_bw()
@@ -654,7 +654,7 @@ p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   theme_bw()
 
 p_row <- plot_grid(p1 + theme(legend.position = "none"), p2 + theme(legend.position = "none"), labels = c("A", "B"), label_size = 12)
-p_legend <- get_plot_component(p1, "guide-box-top", return_all = TRUE)
+p_legend <- get_legend(p1 + guides(color = guide_legend(nrow = 2)))
 
 plot_grid(p_row, p_legend, nrow = 2, rel_heights = c(1, 0.2))
 ```
@@ -671,7 +671,7 @@ p2 <- ggplot(data = new_mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   theme_bw()
 
 p_row <- plot_grid(p1 + theme(legend.position = "none"), p2 + theme(legend.position = "none"), labels = c("A", "B"), label_size = 12)
-p_legend <- get_plot_component(p1, "guide-box-top", return_all = TRUE)
+p_legend <- get_legend(p1 + guides(color = guide_legend(nrow = 2)))
 
 p_final <- plot_grid(p_row, p_legend, nrow = 2, rel_heights = c(1, 0.2))
 p_final
