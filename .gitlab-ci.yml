@@ -10,7 +10,7 @@ pages:
       Rscript -e "install.packages('rvest')"
       #session 3
       Rscript -e "install.packages('gganimate')"
-      Rscript -e "install.packages('gifski')"
+      Rscript -e "remotes::install_version('gifski', '1.12.0')"
       Rscript -e "install.packages('openxlsx')"
       #session 4
       Rscript -e "install.packages(c('ghibli', 'nycflights13','viridis','ggrepel'))"
