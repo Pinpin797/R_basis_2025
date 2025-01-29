@@ -254,6 +254,12 @@ str_view(x, "^apple$")
     d. Have seven letters or more.
 
     Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
+    
+3. What is the difference between these two commands:
+   ```{r, str_viewanchorsdiff, eval=F, cache=T}
+   str_view(stringr::words, "(or|ing$)")
+   str_view(stringr::words, "(or|ing)$")
+   ```
 :::
 
 <details><summary>Solution</summary>
@@ -261,13 +267,17 @@ str_view(x, "^apple$")
 
 1. We would need the pattern `"\\$\\^\\$"`
 
-<p></p>
+</p><p>
 2.
 
     a. start with "y": `"^y"`
     b. end with "x": `"x$"`
     c. three letters long: `"^...$"`
     d. seven letters or more: `"......."`
+
+</p><p>
+
+3. `"(or|ing$)"` matches words that either contain "or" or end with "ing", while `"(or|ing)$"` matches words that end either with "or" or "ing".
 
 </p>
 </details>
@@ -301,9 +311,8 @@ str_view(c("grey", "gray"), "gr(e|a)y")
 Create regular expressions to find all words that:
 
 1. Start with a vowel.
-2. That only contains consonants (Hint: thinking about matching "not"-vowels).
-3. End with "ed", but not with "eed".
-4. End with "ing" or "ise".
+2. End with "ed", but not with "eed".
+3. End with "ing" or "ise".
 
 :::
 
@@ -311,17 +320,10 @@ Create regular expressions to find all words that:
 <p>
 
 1. start with a vowel: `"^[aeiouy]"`
-
-2. decomposition:
-    - start with a consonant: `"^[^aeiouy]"`
-    - contains one or more consonant: `"[^aeiouy]+"`
-    - end with a consonant: `"[^aeiouy]$"`
-    
-    result is: `"^[^aeiouy][^aeiouy]+[^aeiouy]$"`.
    
-3. `"[^e]ed$"`
+2. `"[^e]ed$"`
 
-4. `"(ing|ise)$"`
+3. `"(ing|ise)$"`
 
 </p>
 </details>
@@ -369,6 +371,7 @@ str_view(x, "C{2,3}")
     a. Start with three consonants.
     b. Have three or more vowels in a row.
     c. Have two or more vowel-consonant pairs in a row.
+    d. Contain only consonants (Hint: thinking about matching "not"-vowels).
 
 :::
 
@@ -385,15 +388,16 @@ str_view(x, "C{2,3}")
 <p></p>
 2.
 
-    a. `"^[^aeoiouy]{3}"`
-    b. `"[aeiou]{3,}"`
-    c. `"([aeiou][^aeiou]){2,}"`
+    a. `"^[^aeiouy]{3}"`
+    b. `"[aeiouy]{3,}"`
+    c. `"([aeiouy][^aeiouy]){2,}"`
+    d. `"^[^aeiouy]+$"`
 
 </p>
 </details>
 
 
-### Grouping
+### Capture group
 
 You learned about parentheses as a way to disambiguate complex expressions. Parentheses also create a numbered capturing group (number 1, 2 etc.). A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses. You can refer to the same text as previously matched by a capturing group with back references, like `\1`, `\2` etc. 
 
@@ -459,7 +463,7 @@ sum(str_detect(words, "^t"))
 What proportion of common words ends with a vowel?
 
 ```{r str_view_match_c, eval=T, cache=T}
-mean(str_detect(words, "[aeiou]$"))
+mean(str_detect(words, "[aeiouy]$"))
 ```
 
 ### Combining detection
@@ -467,25 +471,21 @@ mean(str_detect(words, "[aeiou]$"))
 Find all words containing at least one vowel, and negate
 
 ```{r str_view_detection, eval=T, cache=T}
-no_vowels_1 <- !str_detect(words, "[aeiou]")
+no_vowels_1 <- !str_detect(words, "[aeiouy]")
 ```
 
 Find all words consisting only of consonants (non-vowels)
 
 ```{r str_view_detection_b, eval=T, cache=T}
-no_vowels_2 <- str_detect(words, "^[^aeiou]+$")
+no_vowels_2 <- str_detect(words, "^[^aeiouy]+$")
 identical(no_vowels_1, no_vowels_2)
 ```
 
 ### With tibble
 
 ```{r str_detecttibble, eval=T, cache=T}
-df <- tibble(
-  word = words,
-  i = seq_along(word)
-)
-df %>%
-  filter(str_detect(word, "x$"))
+df <- tibble(word = words) %>% mutate(i = rank(word))
+df %>% filter(str_detect(word, "x$"))
 ```
 
 ### Extract matches
@@ -502,14 +502,15 @@ colour_match <- str_c(colours, collapse = "|")
 colour_match
 ```
 
-### Extract matches
-
-We can select the sentences that contain a colour, and then extract the colour to figure out which one it is:
+We can select the sentences that contain a colour, and then extract the first colour from each sentence:
 
 ```{r color_regex_extract, eval=T, cache=T}
-has_colour <- str_subset(sentences, colour_match)
-matches <- str_extract(has_colour, colour_match)
-head(matches)
+sentences %>% str_subset(colour_match) %>% str_extract(colour_match)
+```
+
+We can also extract all colours from each selected sentence, as a list of vectors:
+```{r color_regex_extract_all, eval=F, cache=T}
+sentences %>% str_subset(colour_match) %>% str_extract_all(colour_match)
 ```
 
 ### Grouped matches
