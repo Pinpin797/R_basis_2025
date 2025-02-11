@@ -16,6 +16,7 @@
 \usepackage{color}
 \usepackage[hidelinks]{hyperref}
 \usepackage{url}
+\usepackage{svg}
 \usepackage{multicol}
 
 \setlength{\topskip}{0pt}
@@ -35,19 +36,19 @@
 
 %%%%%% info (to be filled)
 \ifdefined\validator \else
-  \def\validator{Mr X}
+  \def\validator{Mr Laurent Gilquin}
 \fi
 \ifdefined\validatorFunction \else
-  \def\validatorFunction{ingénieur de recherche au LBMC}
+  \def\validatorFunction{ingénieur de recherche CNRS}
 \fi
 \ifdefined\organizer \else
   \def\organizer{le Conseil d'Analyse Numérique (CAN) de la SFR BioSciences (UAR3444/US8)}
 \fi
 \ifdefined\startDate \else
-  \def\startDate{01/10/2023}
+  \def\startDate{07/10/2024}
 \fi
 \ifdefined\endDate \else
-  \def\endDate{31/01/2024}
+  \def\endDate{31/01/2025}
 \fi
 \ifdefined\sessionDuration \else
   \def\sessionDuration{1h30}
@@ -84,8 +85,8 @@
 \pagestyle{fancy}
 \fancyhf{} % sets both header and footer to nothing
 \renewcommand{\headrulewidth}{0pt}
-\fancyhead[l]{\includegraphics[height=2.9cm]{logo/lbmc}}
-\fancyhead[r]{\sffamily Laboratoire de Biologie et Modélisation de la Cellule\\ ENS de Lyon\\ 46, allée d’Italie\\ 69364 LYON CEDEX 07, FRANCE\\ Tél : (+33) 4 72 72 81 71\\ \url{https://www.ens-lyon.fr/LBMC/}}
+\fancyhead[l]{\includegraphics[height=2.9cm]{logo/sfr.pdf}}
+\fancyhead[r]{\sffamily SFR BioSciences\\ UCBL Gerland\\ 50 Av. Tony Garnier\\ 69366 LYON CEDEX 07, FRANCE\\ Tél : (+33) 4 37 28 74 70\\ \url{https://www.sfr-biosciences.fr/}}
 \fancyfoot[c]{\makebox[\textwidth]{\includegraphics[height=2cm]{logo/ensl.pdf} \hfill \includegraphics[height=2cm]{logo/cnrs.pdf} \hfill \includegraphics[height=2cm]{logo/inserm.pdf} \hfill \includegraphics[height=2cm]{logo/ucbl.pdf}}}
 
 \DTLloaddb{list}{participants.csv}
